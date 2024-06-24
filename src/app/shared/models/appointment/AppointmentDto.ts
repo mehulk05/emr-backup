@@ -1,0 +1,29 @@
+export interface AppointmentDto {
+  serviceNames: any;
+  patientId: Number;
+  providerId: Number;
+  id: Number;
+  clinicId: Number;
+  appointmentConfirmationStatus: string;
+  appointmentUpdatedDate: string;
+  appointmentCreatedDate: string;
+  appointmentEndDate: string;
+  appointmentStartDate: string;
+  appointmentStatus: string;
+  appointmentType: string;
+  clinicName: string;
+  defaultClinic: boolean;
+  notes: string;
+  patientEmail: string;
+  patientFirstName: string;
+  patientLastName: string;
+  patientNotes: string;
+  patientPhone: string;
+  paymentStatus: string;
+  providerName: string;
+  serviceList: any;
+  timeZone: string;
+  source: string;
+  notesLabel: string;
+  notesRequiredOptional: boolean;
+}

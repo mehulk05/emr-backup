@@ -1,0 +1,141 @@
+<div class="appointment-view">
+  <div class="panel-blue">
+    <!-- <div class="panel-header">
+      <h3>Appointment</h3>
+    </div> -->
+
+    <div class="panel-body">
+      <div class="panel-card-content">
+        <!-- --------------------------------- ID ---------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            ID
+          </label>
+
+          <p>
+            {{appointment?.id}}
+          </p>
+        </div>
+
+        <!-- ------------------------------- Doctor -------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            Doctor
+          </label>
+
+          <p>
+            {{appointment?.provider && (appointment?.provider?.firstName + ' ' + appointment?.provider?.lastName)}}
+          </p>
+        </div>
+
+        <!-- ------------------------------- Clinic -------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            Clinic
+          </label>
+
+          <p>
+            {{appointment?.clinic.name}}
+          </p>
+        </div>
+
+        <!-- -------------------------------- Date --------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            Appointment Date
+          </label>
+
+          <p>
+            {{ formatTimeService.formatBookingHistoryTime(appointment?.appointmentDate)}}
+          </p>
+        </div>
+
+        <!-- ------------------------------- Service ------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            Service
+          </label>
+
+          <p>
+            {{ appointment?.services | commaSeparator}}
+            <!-- <ng-container *ngFor="let bookedService of appointment?.services">
+              {{bookedService?.service.name}}
+            </ng-container> -->
+
+          </p>
+        </div>
+
+           <!-- -------------------------------- Appointment Status --------------------------------- -->
+           <div class="item-wrapper">
+            <label>
+              Appointment Status
+            </label>
+
+            <p>
+              {{appointment?.appointmentConfirmationStatus}}
+            </p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="consent">
+  <div class="appointment-view">
+    <div class="panel-blue">
+      <div class="panel-header">
+        <h3>Consent</h3>
+      </div>
+
+      <div class="panel-body">
+        <div class="panel-card-content">
+          <!-- --------------------------------- Consent ---------------------------------- -->
+          <ng-container *ngFor="let consent of consents">
+
+
+            <div class="item-wrapper">
+              <label>
+                Consent
+              </label>
+
+              <p>
+                {{consent?.consent?.name}}
+              </p>
+            </div>
+
+            <!-- ------------------------------- Service -------------------------------- -->
+            <div class="item-wrapper">
+              <label>
+                Service
+              </label>
+
+              <p>
+                {{consent?.appointmentBookedService?.service?.name}}
+              </p>
+            </div>
+
+            <!-- ------------------------------- Status -------------------------------- -->
+            <div class="item-wrapper">
+              <label>
+                Status
+              </label>
+
+              <p>
+                {{consent?.appointmentConsentStatus}}
+              </p>
+            </div>
+
+
+          </ng-container>
+
+
+          <div *ngIf="consents.length === 0">
+            No consents found.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,110 @@
+.menu-page {
+  padding: 1em;
+}
+
+
+.menu-page label {
+  font-size: 14px;
+  font-weight: 500
+}
+
+.config-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.panel-card {
+  margin-top: 1em;
+  padding: 10px;
+  box-shadow: 0 0 2rem 0 rgb(41 48 66 / 10%);
+  background: #fff;
+
+}
+
+.panel-card-content {
+  padding: 10px;
+  margin: 0 0 10px 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.menu-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.menu-name {
+  font-weight: 500;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.btn-extra-small:disabled {
+  color: #fff !important;
+}
+
+.flex-sb {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 1em;
+  padding: 1em;
+}
+
+
+.menu-container {
+  border: 1px solid rgba(163, 172, 185, 0.2);
+  border-radius: 8px;
+  padding: 1em 1em;
+  margin-bottom: 3em;
+  background: #F5F7FB;
+}
+
+
+/* --------------------------- role-container css --------------------------- */
+
+
+.role-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.chip {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.custom-role-button {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.custom-role-button input {
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+
+
+
+.role-container {
+  margin-bottom: 1em !important;
+}

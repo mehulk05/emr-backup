@@ -1,0 +1,641 @@
+<div class="question form-part form-type2 1" [ngClass]=" mode === 'Editing' ? 'question-editiig' : 'disable-mode'">
+  <ng-container *ngIf="mode === 'Display'">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="input-feild-wrapper">
+            <label class="label"
+              *ngIf="(isLeadCaptureForm || isLeadForm)  && isLeadCaptureFormPredefinedQuestions;else note">
+              <input type="text" [disabled]="true" [readonly]="true" class="form-control readonly" name="name"
+                [(ngModel)]="question.name">
+              <span *ngIf="question.required" class="required">*</span>
+            </label>
+            <div class="float-right d-flex btn-mobile">
+              <button *ngIf="isEditable" class="edit-btn action-btn" (click)="changeMode('Editing')"><i
+                  class="fas fa-pencil-alt ms-text-primary"></i></button>
+
+              <button *ngIf="!((isLeadCaptureForm || isLeadForm) && isLeadCaptureFormPredefinedQuestions) && isEditable"
+                class="deletebtn action-btn" (click)="deleteQuestion(question)"> <i
+                  class="fas fa-trash-alt"></i></button>
+            </div>
+            <ng-template #note>
+              <div class="label-wrapper">
+                <label class="label">
+                  <input type="text" [disabled]="isEditable" class="form-control fddf" name="name"
+                    [(ngModel)]="question.name">
+                  <!-- <input type="text" class="form-control" name="name" [(ngModel)]="question.name"
+                            (blur)="saveChange(question)">     -->
+                  <span *ngIf="question.required" class="required">*</span>
+                </label>
+                <label *ngIf="enabledModernUi && question.subHeading" class="label">
+                  <input type="text" class="form-control" name="subHeading" [(ngModel)]="question.subHeading">
+                </label>
+                <label *ngIf="enabledModernUi && question.description" class="label">
+                  <input type="text" class="form-control" name="description" [(ngModel)]="question.description">
+                </label>
+                <label *ngIf="enabledModernUi && question.externalReferenceLink" class="label">
+                  <input type="text" class="form-control" name="externalReferenceLink"
+                    [(ngModel)]="question.externalReferenceLink">
+                </label>
+              </div>
+
+            </ng-template>
+          </div>
+
+
+          <div class="btns-action">
+            <div class="float-left checkbox-validation">
+              <div class="checkbox-wrapper"
+                *ngIf="question.type === 'Text' || question.type === 'Input' || question.type ==='Date'">
+                <input type="checkbox" [disabled]="!isEditable" (change)="saveChange(question)" name="validate"
+                  [id]="'Validate_'+index" [(ngModel)]="question.validate" class="" />
+                <label *ngIf="question.type === 'Text' || question.type === 'Input' || question.type==='Date'"
+                  class="btn-action" [for]="'Validate_'+ index">Validate
+                </label>
+              </div>
+
+              <div class="checkbox-wrapper">
+                <input type="checkbox" [disabled]="!isEditable" (change)="saveChange(question)" name="required"
+                  [(ngModel)]="question.required" class="" [id]="'Required'+index" />
+                <label class="btn-action" [for]="'Required'+ index">Required
+                </label>
+
+              </div>
+
+              <div class="checkbox-wrapper">
+                <input type="checkbox" [disabled]="!isEditable" (change)="saveChange(question)" name="hidden"
+                  [(ngModel)]="question.hidden" class="" [id]="'Hidden'+index" />
+                <label class="btn-action" [for]="'Hidden'+index"> Hidden
+                </label>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="hidden" style="clear: both;">
+            <ng-container *ngIf="question.type === 'Yes_No'">
+              <div class="radio-wrapper" class="mt-2">
+                <input type="radio"> Yes
+                <input type="radio"> No
+              </div>
+            </ng-container>
+
+
+            <ng-container *ngIf="question.type === 'Multiple_Selection_Text'">
+              <div class="multi-select-chexkbox hidden" class="mt-2">
+                <ng-container *ngFor="let questionChoice of question.questionChoices">
+                  <ng-container *ngIf="question.allowMultipleSelection">
+
+                    <input [id]="'checkbox' + questionChoice.id" type="checkbox">
+                    <label [for]="'checkbox' + questionChoice.id">{{questionChoice.name}} </label>
+                    <br />
+                  </ng-container>
+                  <ng-container *ngIf="!question.allowMultipleSelection">
+                    <input type="radio" [id]="'Radio-' + questionChoice.id">
+                    <label [for]="'Radio-' + questionChoice.id">{{questionChoice.name}}</label>
+                    <br />
+                  </ng-container>
+
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+
+          <ng-container *ngIf="question.type === 'Text' || question.type === 'Input' || question.type ==='Date'">
+            <div class="row mt-2" *ngIf="question.validate">
+              <div class="col-md-12 px-0">
+                <div class="form-group">
+                  <label for="">Regex Input For Validation</label>
+                  <select class="form-control" [disabled]="!isEditable" [(ngModel)]="question.regex"
+                    (change)="saveChange(question)">
+                    <option value="" disabled selected>Select regex from here</option>
+                    <option *ngFor="let validation of filteredValidationList; let i = index"
+                      value="{{validation.regex}}">
+                      {{validation.name}}</option>
+                    <!-- <option>Other</option> -->
+                  </select>
+                  <input type="text" *ngIf="false" (blur)="userDefineRegexSave()" class="form-control"
+                    placeholder="Add regex here">
+                </div>
+
+              </div>
+            </div>
+            <div class="row mt-2" *ngIf="question.validate">
+              <div class="col-md-12 px-0">
+                <div class="form-group">
+                  <label for="">Message On Invalid Data Entered.</label>
+                  <input type="text" [disabled]="!isEditable" [(ngModel)]="question.validationMessage"
+                    class="form-control" value="" placeholder="Add message on invalid data entered">
+                </div>
+
+              </div>
+            </div>
+          </ng-container>
+
+
+
+          <ng-container>
+            <div class="row mt-2 as" style="clear: both;">
+              <div class="col-md-12 px-0">
+                <label for="">Select Question Type<span class="required">*</span></label>
+                <div>
+                  <div class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_input" class=""
+                      *ngIf="!chatQuestionnaire" value="Input" [(ngModel)]="question.type"
+                      (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_input"><span>&nbsp;Input Box</span></label>
+                  </div>
+                  <div class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_text" class="" value="Text"
+                      [(ngModel)]="question.type" (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_text"><span>&nbsp;Text</span></label>
+                  </div>
+                  <div class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_yes_no" *ngIf="!chatQuestionnaire"
+                      class="" value="Yes_No" [(ngModel)]="question.type" (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_yes_no"><span>&nbsp;Yes/No</span></label>
+                  </div>
+                  <div class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_date" *ngIf="!chatQuestionnaire"
+                      class="" value="Date" [(ngModel)]="question.type" (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_date"><span>&nbsp;Date</span></label>
+                  </div>
+                  <div class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_multiple_selection_text"
+                      *ngIf="!chatQuestionnaire" class="" value="Multiple_Selection_Text" [(ngModel)]="question.type"
+                      (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_multiple_selection_text"><span>&nbsp;Multiple Selection -
+                        Text</span></label>
+                  </div>
+                  <div class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_file" *ngIf="!chatQuestionnaire"
+                      class="" value="File" [(ngModel)]="question.type" (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_file"><span>&nbsp;File</span></label>
+                  </div>
+                  <div *ngIf="enabledModernUi" class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_business_hours"
+                      *ngIf="!chatQuestionnaire" class="" value="Business_Hours" [(ngModel)]="question.type"
+                      (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_business_hours"><span>&nbsp;Business Hours</span></label>
+                  </div>
+                  <div *ngIf="enabledModernUi" class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_address" *ngIf="!chatQuestionnaire"
+                      class="" value="Address" [(ngModel)]="question.type" (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_address"><span>&nbsp;Address</span></label>
+                  </div>
+                  <div *ngIf="enabledModernUi" class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_terms_and_conditions"
+                      *ngIf="!chatQuestionnaire" class="" value="Terms_And_Conditions" [(ngModel)]="question.type"
+                      (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_terms_and_conditions"><span>&nbsp;Terms And Conditions</span></label>
+                  </div>
+                  <div class="input-radio">
+                    <input type="radio" name="{{question.id}}" id="{{question.id}}_phone_number"
+                      *ngIf="!chatQuestionnaire" class="" value="Phone_Number" [(ngModel)]="question.type"
+                      (change)="onQuestionTypeChange($event)">
+                    <label for="{{question.id}}_phone_number"><span>&nbsp;Phone Number</span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mt-4 tnc-box-wrapper" *ngIf="enabledModernUi && question.type === 'Terms_And_Conditions'">
+              <div class="col-md-8 py-2 shadow">
+                <div *ngIf="question.tncText" class="row label-wrapper">
+                  <div class="col-md-12 pb-2">
+                    <label for="">Terms And Conditions Label</label>
+                    <input type="text" disabled="disabled" [(ngModel)]="question.tncText" name="tncText"
+                      class="form-control tnc-input">
+                  </div>
+                </div>
+                <div class="row">
+                  <label for="">Attachment</label>
+                </div>
+                <div class="row tnc-wrapper">
+                  <div *ngIf="question.tncFilelink" class="tnc py-2">
+                    <div class="view-file d-flex">
+                      <div class="file-icon">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 58 58"
+                          style="enable-background: new 0 0 58 58" xml:space="preserve">
+                          <polygon style="fill: #edeada" points="51.5,14 37.5,0 6.5,0 6.5,58 51.5,58 " />
+                          <g>
+                            <path style="fill: #cec9ae"
+                              d="M16.5,23h25c0.552,0,1-0.447,1-1s-0.448-1-1-1h-25c-0.552,0-1,0.447-1,1S15.948,23,16.5,23z" />
+                            <path style="fill: #cec9ae"
+                              d="M16.5,15h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S15.948,15,16.5,15z" />
+                            <path style="fill: #cec9ae"
+                              d="M41.5,29h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,29,41.5,29z" />
+                            <path style="fill: #cec9ae"
+                              d="M41.5,37h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,37,41.5,37z" />
+                            <path style="fill: #cec9ae"
+                              d="M41.5,45h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,45,41.5,45z" />
+                          </g>
+                          <polygon style="fill: #cec9ae" points="37.5,0 37.5,14 51.5,14 " />
+                        </svg>
+                      </div>
+                      <span *ngIf="!tncFile && question.tncFilelink" class="view-file-text">
+                        <a href="{{question.tncFilelink}}" target="_blank" rel="noopener noreferrer" class="link">
+                          View File
+                          <span><i class="fas fa-external-link-alt" aria-hidden="true"></i></span>
+                        </a>
+                      </span>
+                      <span *ngIf="tncFile" class="view-file-text">
+                        <span>
+                          {{ tncFile.name }}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="mode === 'Editing'">
+    <form [formGroup]="questionForm" (ngSubmit)="submitForm()">
+      <div class="row">
+        <div *ngIf="(isLeadCaptureForm || isLeadForm) && isLeadCaptureFormPredefinedQuestions;else note"
+          class="col-md-12 px-0">
+          <label for="">Question<span class="required">*</span></label>
+          <input type="text" [readonly]="true" formControlName="name" class="form-control" value="name">
+          <input type="hidden" formControlName="id" class="form-control">
+        </div>
+        <ng-template #note>
+          <div class="label-wrapper">
+            <div class="col-md-12 px-0 pb-2">
+              <label for="">Question<span class="required">*</span></label>
+              <input type="text" formControlName="name" class="form-control" value="name" placeholder="New Question">
+              <input type="hidden" formControlName="id" class="form-control">
+            </div>
+            <div *ngIf="enabledModernUi" class="col-md-12 px-0 pb-2">
+              <input type="text" formControlName="subHeading" class="form-control" value="subHeading"
+                placeholder="Sub Heading">
+            </div>
+            <div *ngIf="enabledModernUi" class="col-md-12 px-0 pb-2">
+              <input type="text" formControlName="description" class="form-control" value="description"
+                placeholder="Description">
+            </div>
+            <div *ngIf="enabledModernUi" class="col-md-12 px-0 pb-2">
+              <input type="url" formControlName="externalReferenceLink" class="form-control"
+                placeholder="External Reference Link">
+              <div *ngIf="f.externalReferenceLink?.errors" class="error error-msg">
+                <div *ngIf="f.externalReferenceLink.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> URL is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </ng-template>
+      </div>
+      <div class="row mt-2 checkbox-group">
+        <div class="col-md-12">
+          <div class="checkbox-wrapper">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" formControlName="required" [id]="'Required'+index" class="" value="name">
+              <!-- <input [id]="'Hidden'+ index" type="checkbox" formControlName="hidden" class="" value="name"> -->
+              <label [for]="'Required'+index">Required</label> <br />
+            </div>
+
+          </div>
+
+
+        </div>
+        <div class="col-md-12">
+          <div class="checkbox-wrapper">
+            <input [id]="'Hidden'+ index" type="checkbox" formControlName="hidden" class="" value="name">
+            <label [for]="'Hidden'+ index">Hidden</label> <br />
+          </div>
+
+
+
+        </div>
+        <div class="col-md-12" *ngIf="f.type?.value === 'Text' || f.type?.value === 'Input' || f.type?.value ==='Date'">
+          <div class="checkbox-wrapper">
+            <input [id]="'Validate'+ index" type="checkbox" formControlName="validate" class="" value="name">
+            <label [for]="'Validate'+ index">Validate</label> <br />
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2" *ngIf="questionForm.value.validate">
+        <div class="col-md-12">
+          <div class="form-group">
+            <select class="form-control" formControlName="regex" (change)="onRegexTypeChange($event);">
+              <option value="undefined" disabled selected="selected">Select regex from here</option>
+              <option *ngFor="let validation of filteredValidationList; let i = index" [value]="validation.regex">
+                {{validation.name}}</option>
+              <!-- <option>Other</option> -->
+            </select>
+            <input type="text" *ngIf="otherRegexSelection" formControlName="regex" class="form-control" value=""
+              placeholder="Add regex here">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row mt-2" *ngIf="questionForm.value.validate">
+        <div class="col-md-12">
+          <label for="">Message On Invalid Data Entered.</label>
+          <input type="text" formControlName="validationMessage" class="form-control" value=""
+            placeholder="Add message on invalid data entered">
+        </div>
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <label for="">Select Question Type<span class="required">*</span></label>
+          <div>
+            <div class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" value="Input" formControlName="type"
+                (change)="onQuestionTypeChange($event)" [id]="'InputBox-' + index">
+              <label [for]="'InputBox-' + index">
+                <span>&nbsp;Input Box</span>
+              </label>
+            </div>
+            <div class="input-radio">
+              <input type="radio" class="" value="Text" formControlName="type" (change)="onQuestionTypeChange($event)"
+                [id]="'Text-' + index">
+              <label [for]="'Text-' + index">
+                <span>&nbsp;Text</span>
+              </label>
+            </div>
+            <div class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="Yes_No" formControlName="type"
+                (change)="onQuestionTypeChange($event)" [id]="'Yes_No-' + index">
+              <label [for]="'Yes_No-' + index">
+                <span>&nbsp;Yes/No</span>
+              </label>
+            </div>
+            <div class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="Date" formControlName="type"
+                (change)="onQuestionTypeChange($event)" [id]="'Date-' + index">
+              <label [for]="'Date-' + index">
+                <span>&nbsp;Date</span>
+              </label>
+            </div>
+            <div class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="Multiple_Selection_Text"
+                formControlName="type" (change)="onQuestionTypeChange($event)" [id]="'MultipleSelectionText-' + index">
+              <label [for]="'MultipleSelectionText-' + index">
+                <span>&nbsp;Multiple Selection - Text</span>
+              </label>
+            </div>
+            <div class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="File" formControlName="type"
+                (change)="onQuestionTypeChange($event)" [id]="'File-' + index">
+              <label [for]="'File-' + index">
+                <span>&nbsp;File</span>
+              </label>
+            </div>
+            <div *ngIf="enabledModernUi" class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="Business_Hours"
+                formControlName="type" (change)="onQuestionTypeChange($event)" [id]="'BusinessHours-' + index">
+              <label [for]="'BusinessHours-' + index">
+                <span>&nbsp;Business Hours</span>
+              </label>
+            </div>
+            <div *ngIf="enabledModernUi" class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="Address" formControlName="type"
+                (change)="onQuestionTypeChange($event)" [id]="'Address-' + index">
+              <label [for]="'Address-' + index">
+                <span>&nbsp;Address</span>
+              </label>
+            </div>
+            <div *ngIf="enabledModernUi" class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="Terms_And_Conditions"
+                formControlName="type" (change)="onQuestionTypeChange($event)" [id]="'TermsAndConditions-' + index">
+              <label [for]="'TermsAndConditions-' + index">
+                <span>&nbsp;Terms And Conditions</span>
+              </label>
+            </div>
+            <div class="input-radio">
+              <input type="radio" *ngIf="chatQuestionnaire === false" class="" value="Phone_Number"
+                formControlName="type" (change)="onQuestionTypeChange($event)" [id]="'Phone_Number-' + index">
+              <label [for]="'Phone_Number-' + index">
+                <span>&nbsp;Phone Number</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row pt-3" *ngIf="showTextSelection">
+        <div class="col-md-9">
+          <label for="allowMultipleSelection">Select “Yes” if you want to allow multiple choices selection
+            by customer</label>
+        </div>
+        <div class="col-md-3">
+          <div class="form-check-inline">
+            <label class="form-check-label multiSelect" [for]="'allowMultipleSelection-true-' + index">
+              <input [id]="'allowMultipleSelection-true-' + index" type="radio" class="form-check-input" [value]="true"
+                name="allowMultipleSelection" formControlName="allowMultipleSelection"
+                (click)="onMultipleSelectionChange('yes')">Yes
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label multiSelect" [for]="'allowMultipleSelection-false-' + index">
+              <input [id]="'allowMultipleSelection-false-' + index" type="radio" class="form-check-input"
+                [value]="false" name="allowMultipleSelection" formControlName="allowMultipleSelection"
+                (click)="onMultipleSelectionChange('no')">No
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ------------------- Mutlieselct feild for dropdown -------------------- -->
+      <div class="row pt-3" *ngIf="showTextSelection  && showDropDown">
+        <div class="col-md-9">
+          <label for="showDropDown">Select “Yes” if you want to show drop down</label>
+        </div>
+        <div class="col-md-3">
+          <div class="form-check-inline">
+            <label class="form-check-label multiSelect" [for]="'showDropDown-true-' + index">
+              <input [id]="'showDropDown-true-' + index" type="radio" class="form-check-input" [value]="true"
+                name="showDropDown" formControlName="showDropDown" (click)="onDropDownSelectionChange('yes')">Yes
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label multiSelect" [for]="'showDropDown-false-' + index">
+              <input [id]="'showDropDown-false-' + index" type="radio" class="form-check-input" [value]="false"
+                name="showDropDown" formControlName="showDropDown" (click)="onDropDownSelectionChange('no')">No
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row pt-3" *ngIf="showTextSelection  && preSelectCheckbox">
+        <div class="col-md-9">
+          <label for="preSelectCheckbox">Select “Yes” if you want to pre select checkbox</label>
+        </div>
+        <div class="col-md-3">
+          <div class="form-check-inline">
+            <label class="form-check-label multiSelect" [for]="'preSelectCheckbox-true-' + index">
+              <input [id]="'preSelectCheckbox-true-' + index" type="radio" class="form-check-input" [value]="true"
+                name="preSelectCheckbox" formControlName="preSelectCheckbox">Yes
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label multiSelect" [for]="'preSelectCheckbox-false-' + index">
+              <input [id]="'preSelectCheckbox-false-' + index" type="radio" class="form-check-input" [value]="false"
+                name="preSelectCheckbox" formControlName="preSelectCheckbox">No
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mt-4" *ngIf="showAnswer && chatQuestionnaire === true">
+        <div class="col-md-12">
+          <label for="">Answer<span class="required">*</span></label>
+          <textarea formControlName="answer" class="form-control" type="text"></textarea>
+        </div>
+      </div>
+
+      <div *ngIf="showTextSelection">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Question Choices</label>
+            <span (click)="addQuestion()" class="btn-xs-new btn-save-new ml-5 cursor-pointer"
+              style="margin-top: 0px;">+Add</span>
+            <div formArrayName="questionChoices">
+              <div *ngFor="let item of questionChoices.controls; let i=index">
+                <div [formGroupName]="i">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <input type="text" class="form-control" formControlName="name" placeholder="New Question"
+                          required>
+                      </div>
+                      <div class="col-md-2">
+                        <a (click)="removeQuestion(i)" style="cursor: pointer;">
+                          <i class="far fa-trash-alt ms-text-danger"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4 tnc-box-wrapper" *ngIf="enabledModernUi && f.type.value === 'Terms_And_Conditions'">
+        <div class="col-md-8 py-2 shadow">
+          <div class="row label-wrapper">
+            <div class="col-md-12 pb-2">
+              <label for="">Terms And Conditions Label</label>
+              <input type="text" formControlName="tncText" class="form-control tnc-input"
+                placeholder="Terms And Conditions Label">
+            </div>
+          </div>
+          <div class="row">
+            <label for="">Please select a file to upload<span class="required">*</span></label>
+          </div>
+          <div class="row tnc-wrapper">
+            <div *ngIf="tncFilelink || tncFile; else filePicker" class="tnc py-2">
+              <input type="file" #myFileInput class="form-control d-none" id="tnc-file-input"
+                (change)="fileChangeEvent($event)"
+                accept="application/pdf,image/*,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+              <div class="view-file d-flex">
+                <div class="file-icon">
+                  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 58 58"
+                    style="enable-background: new 0 0 58 58" xml:space="preserve">
+                    <polygon style="fill: #edeada" points="51.5,14 37.5,0 6.5,0 6.5,58 51.5,58 " />
+                    <g>
+                      <path style="fill: #cec9ae"
+                        d="M16.5,23h25c0.552,0,1-0.447,1-1s-0.448-1-1-1h-25c-0.552,0-1,0.447-1,1S15.948,23,16.5,23z" />
+                      <path style="fill: #cec9ae"
+                        d="M16.5,15h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S15.948,15,16.5,15z" />
+                      <path style="fill: #cec9ae"
+                        d="M41.5,29h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,29,41.5,29z" />
+                      <path style="fill: #cec9ae"
+                        d="M41.5,37h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,37,41.5,37z" />
+                      <path style="fill: #cec9ae"
+                        d="M41.5,45h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,45,41.5,45z" />
+                    </g>
+                    <polygon style="fill: #cec9ae" points="37.5,0 37.5,14 51.5,14 " />
+                  </svg>
+                </div>
+                <span *ngIf="!tncFile && tncFilelink" class="view-file-text">
+                  <a href="{{tncFilelink}}" target="_blank" rel="noopener noreferrer" class="link">
+                    View File
+                    <span><i class="fas fa-external-link-alt" aria-hidden="true"></i></span>
+                  </a>
+                </span>
+                <span *ngIf="tncFile" class="view-file-text">
+                  <span>
+                    {{ tncFile.name }}
+                  </span>
+                </span>
+              </div>
+              <div class="tnc-btns">
+                <div>
+                  <label for="tnc-file-input" class="p-0">
+                    <span class="edit-icon">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </span>
+                  </label>
+                  <label class="p-0" for="" (click)="deleteTncFile()">
+                    <span class="delete-icon">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #filePicker>
+              <div class="file-picker pt-2">
+                <input type="file" #myFileInput class="form-control d-none" id="tnc-file-input"
+                  (change)="fileChangeEvent($event)"
+                  accept="application/pdf,image/*,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+
+                <label class="add-image" for="tnc-file-input">
+                  <button class="btn-save-new btn-small-new" type="button" (click)="myFileInput.click()">
+                    <span>
+                      <i class="fa fa-plus"></i>
+                    </span>
+                    &nbsp;Add Attachment
+                  </button>
+                </label>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-top-group">
+        <button type="submit" class="action-btn savebtn"><i class="fas fa-save"></i></button>
+        <button type="button" class="deletebtn action-btn" (click)="discardQuestion(question.id)" *ngIf="!question.id"> 
+          <i class="fas fa-trash-alt"></i></button>
+        <button class="action-btn deletebtn" (click)="changeMode('Display')"
+          *ngIf="question.id && question.id !== null"><i class="fas fa-times"></i></button>
+        <button type="button"
+          *ngIf="!((isLeadCaptureForm|| isLeadForm) && isLeadCaptureFormPredefinedQuestions) && question.id !== null"
+          class="action-btn deletebtn" (click)="deleteQuestion(question)"> <i class="fas fa-trash-alt"></i></button>
+      </div>
+
+    </form>
+  </ng-container>
+</div>
+
+<!-- <ng-container *ngIf="showModal">
+  <app-warning-message [modalData]="modalData" [showModal]="showModal" [modalMessage]=null
+      (modalClosed)="onCloseModal($event)"></app-warning-message>
+</ng-container> -->
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]=null
+    (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>

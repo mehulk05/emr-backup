@@ -1,0 +1,120 @@
+<section>
+
+  <div class="container">
+    <div class="header-bg-blue">
+      <!-- FOR DEMO PURPOSE -->
+      <header class="text-center mb-5 text-white quota-plan">
+        <div class="row">
+          <div class="col-lg-7 mx-auto">
+            <h1>Email-SMS Quota Pricing Plan</h1>
+            <p>Check our packages below and contact <a href="mailto:sales@growth99.com">sales&#64;growth99.com</a> to acquire your package.
+              &nbsp;</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="img">
+        <img src="./assets/sms-email-banner.png" class="img-fluid">
+      </div>
+      <!-- END -->
+    </div>
+
+
+    <div class="pricing-plan">
+      <div class="row text-center align-items-end">
+        <!-- Pricing Table-->
+
+        <div class="col-lg-4 mb-5 mb-lg-0" *ngFor="let package of rowData">
+          <div class="bg-white p-5 rounded-lg shadow">
+            <h1 class="h6 text-uppercase font-weight-bold mb-4">{{package.name}}</h1>
+            <h2 class="h1 font-weight-bold">${{package.cost}}<span class="text-small font-weight-normal ml-2">/
+                month</span></h2>
+
+            <div class="custom-separator my-4 mx-auto bg-primary"></div>
+
+            <ul class="list-unstyled my-5 text-small text-left">
+
+              <li class="mb-3">
+                <i class="fa fa-check mr-2 text-primary"></i> No of SMS Available {{package.smsCount}}
+              </li>
+              <li class="mb-3">
+                <i class="fa fa-check mr-2 text-primary"></i> No of Emails Available {{package.emailCount}}
+              </li>
+
+            </ul>
+            <button class="save-color-btn" (click)="gotoStripe(package)">Subscribe</button>
+          </div>
+        </div>
+        <!-- END -->
+
+
+        <!-- Pricing Table-->
+        <!-- <div class="col-lg-4 mb-5 mb-lg-0">
+      <div class="bg-white p-5 rounded-lg shadow">
+        <h1 class="h6 text-uppercase font-weight-bold mb-4">Pro</h1>
+        <h2 class="h1 font-weight-bold">$249<span class="text-small font-weight-normal ml-2">/ month</span></h2>
+
+        <div class="custom-separator my-4 mx-auto bg-primary"></div>
+
+        <ul class="list-unstyled my-5 text-small text-left font-weight-normal">
+          <li class="mb-3">
+            <i class="fa fa-check mr-2 text-primary"></i> No of SMS Available 4000</li>
+          <li class="mb-3">
+            <i class="fa fa-check mr-2 text-primary"></i> No of Emails Available 4000 </li>
+        </ul>
+        <button class="save-color-btn">Subscribe</button>
+      </div>
+    </div> -->
+        <!-- END -->
+
+
+        <!-- Pricing Table-->
+        <!-- <div class="col-lg-4 mb-5 mb-lg-0">
+      <div class="bg-white p-5 rounded-lg shadow">
+        <h1 class="h6 text-uppercase font-weight-bold mb-4">Enterprise</h1>
+        <h2 class="h1 font-weight-bold">$299<span class="text-small font-weight-normal ml-2">/ month</span></h2>
+
+        <div class="custom-separator my-4 mx-auto bg-primary"></div>
+
+        <ul class="list-unstyled my-5 text-small text-left font-weight-normal">
+          <li class="mb-3">
+            <i class="fa fa-check mr-2 text-primary"></i> No of SMS Available 5000</li>
+          <li class="mb-3">
+            <i class="fa fa-check mr-2 text-primary"></i> No of Emails Available 5000 </li>
+        </ul>
+        <button class="save-color-btn">Subscribe</button>
+      </div>
+    </div> -->
+        <!-- END -->
+
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Image upload modal                            -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    header="Package Payment" [(visible)]="showStripeComponent" (onHide)="cancelStripeModal()">
+
+    <!-- ---------------------------- image cropper ---------------------------- -->
+    <div class="modal-body">
+     <h1></h1>
+     <app-pachage-payment [package]="selectedPack"  (afteronPaymentSuccess)="onPaymentSuccess()"
+     (afteronPaymentCancel)="onPaymentCancel()"></app-pachage-payment>
+    </div>
+
+
+    <!-- ------------------------- Image cropper ends -------------------------- -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancelStripeModal()">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

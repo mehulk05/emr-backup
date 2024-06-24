@@ -1,0 +1,85 @@
+<div class="dialog-new-v1 dialog-with-close-icon">
+
+<p-dialog (onHide)="onhide($event)" [(visible)]="showServiceModal" [modal]="true" [baseZIndex]="10000" [resizable]="false" [draggable]="false"
+  [resizable]="false" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}">
+  <ng-template pTemplate="header">
+    <div class="composer-modal-header">
+      <p class="modal-title">
+        All Services
+    </p>
+    </div>
+
+  </ng-template>
+
+  <div class="modal-body">
+    <ng-container *ngIf="allVCSData && allVCSData.length>0">
+      <form [formGroup]="allSymptomsForm" >
+        <div class="" formArrayName="allData">
+          <div *ngFor="let vc of allSymptomsForm.get('allData')['controls']; let i=index">
+            <div formGroupName="{{i}}">
+                    <p class="modal-sub-title">{{vc.value.gender}}</p>
+                <div formArrayName="consultationsArray">
+                    <div *ngIf="vc.get('consultationsArray').length > 0;else note">
+                        <div *ngFor="let consultation of vc.get('consultationsArray')['controls']; let j=index">
+                            <div formGroupName="{{j}}" class="body-part-service">
+                                <div class="service-sub-title">
+                                  <label>Bodypart:</label>&nbsp;&nbsp;<span>{{consultation.value.bodyPart}}</span>
+                                </div>
+                                <div class="symptomsName" style="min-width: 300px;" formArrayName="symptomsArray">
+                                    <ul class="symptomitem" *ngFor="let symptom of consultation.get('symptomsArray')['controls']; let k=index">
+                                        <li formGroupName="{{k}}">
+                                          <div class="row mx-0">
+                                            <div class="col-lg-5 col-md-5">
+                                              <input type="text" value="{{symptom.value.name}}" (input)="symptomNameChange($event,symptom)" class="form-control" placeholder="Symptom Name" [disabled]="symptom.value.disabled"/>
+                                              </div>
+
+                                              <div class="col-lg-5 col-md-5">
+                                                 <!-- <input *ngIf="symptom.value.disabled" type="text" class="form-control" value="{{symptom.value.service}}" placeholder="Services" [disabled]="true" /> -->
+                                                <p-multiSelect [resetFilterOnHide]="true"  [virtualScroll]="true"  [disabled]="symptom.value.disabled" [options]="services" formControlName="serviceIds"
+                                                (onChange)="serviceLinkChange($event,k, symptom)" optionLabel="name" optionValue="value" display="chip">
+                                              </p-multiSelect>
+                                              </div>
+
+                                              <div class="col-lg-2 col-md-2">
+                                                <div class="btn-wrapper">
+                                                  <button *ngIf="symptom.value.disabled" class="btn"   style="margin-right: 5px" (click)="editSymptom(symptom)"><i
+                                                    class="fas fa-pencil-alt ms-text-primary"></i></button>
+                                                <button *ngIf="!symptom.value.disabled" class="btn"   style="margin-right: 5px" (click)="updateSymptom(i, j, k)" ><i
+                                                    class="fas fa-save"></i></button>
+                                                <button *ngIf="!symptom.value.disabled" class="btn"   style="margin-right: 5px" (click)="cancelEdit(symptom)"><i
+                                                    class="fas fa-times"></i></button>
+                                                <button *ngIf="symptom.value.disabled" class="btn" (click)="removeSymptom(i, j, k)" > <i
+                                                    class="fas fa-trash-alt"></i></button>
+                                                </div>
+                                              </div>
+                                              </div>
+
+
+
+
+                                            <!-- <ejs-multiselect type="text" style="min-width: 200px;" *ngIf="!symptom.value.disabled" class="form-control" id="sample-list1" [dataSource]='services' [mode]="'CheckBox'" [fields]="fields" [selectAllText]='selectAllText' showSelectAll=true (change)="serviceLinkChange($event, symptom)"
+                                                #inputBox [value]="symptom.value.serviceIds" [placeholder]="'Services'">
+                                            </ejs-multiselect> -->
+
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- if ends here -->
+                    <ng-template #note>
+                        <h6 #note>No service present for {{vc.value.gender}}.</h6>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+
+</p-dialog>
+
+</div>

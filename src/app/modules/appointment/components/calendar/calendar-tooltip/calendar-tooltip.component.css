@@ -1,0 +1,161 @@
+.appointment-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #000;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+
+}
+
+.patient {
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding-bottom: 5px;
+
+}
+
+.footer{
+  border-top: 1px solid #ccc;
+}
+
+.service,
+.time,
+.provider,
+.status,
+.payment {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #000;
+}
+
+.value {
+  flex: 1;
+  color: #000;
+}
+
+.payment {
+  position: relative;
+}
+
+.document{
+  position: relative;
+}
+
+.document .icon{
+  top: -100px;
+}
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  right: 5px;
+}
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.time {
+  font-weight: 600;
+  color: #000;
+  font-size: 12px;
+}
+
+.payment-status {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.icon img,
+::ng-deep .icon img{
+  width: 40px;
+}
+
+.document .icon img,
+.document ::ng-deep .icon img{
+  width: 30px;
+}
+
+::ng-deep .e-tooltip-wrap.e-popup{
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 0px;
+  border: transparent !important;
+}
+
+::ng-deep .e-tip-content{
+  padding: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .appointment-card {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .patient {
+    font-size: 20px;
+  }
+
+  .label {
+    margin-right: 5px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .appointment-card {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .patient {
+    font-size: 16px;
+  }
+
+  .label {
+    margin-right: 3px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+}

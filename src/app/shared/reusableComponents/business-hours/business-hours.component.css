@@ -1,0 +1,73 @@
+.business-hours {
+  align-items: center;
+  margin: 0 !important;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.checkbox-wrapper input[type='checkbox'] {
+  display: none;
+}
+
+.checkbox-wrapper label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Style the label to create a custom checkbox */
+.checkbox-wrapper input[type='checkbox'] + label {
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  line-height: 15px;
+}
+
+/* Style the custom checkbox */
+.checkbox-wrapper input[type='checkbox'] + label:before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  border: 1px solid #333;
+  border-radius: 6px;
+}
+
+/* Change the background color of the checkbox when checked */
+.checkbox-wrapper input[type='checkbox']:checked + label:before {
+  background-color: #d8e2f6;
+  border: 1px solid #d8e2f6;
+}
+
+/* Style the checkmark inside the checkbox */
+.checkbox-wrapper label:after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0px;
+  width: 6px;
+  height: 12px;
+  border: 2px solid #2656c9;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  display: none;
+}
+
+/* Show the checkmark when the checkbox is checked */
+.checkbox-wrapper input[type='checkbox']:checked + label:after {
+  display: block;
+}
+
+@media screen and (max-width: 767px) {
+  .business-hours {
+    margin-bottom: 1em !important;
+  }
+  .business-hours .col-md-4 {
+    padding: 00;
+    margin-top: 5px;
+  }
+}

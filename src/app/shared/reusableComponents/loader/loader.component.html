@@ -1,0 +1,4 @@
+<div class="loader-container" [ngClass]="alignment">
+    <div class="spinner-border" [ngStyle]="getLoaderStyles()" role="status"></div>
+    <div *ngIf="text" [style.font-size.px]="textSize">{{ text }}</div>
+</div>

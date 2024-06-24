@@ -1,0 +1,50 @@
+<div class="conatainer">
+    <form #myform [formGroup]="configureFg">
+        <!-- ----------------------------- Date field ------------------------------ -->
+        <div class="row mb-3">
+            <label>Select Start Date<span class="error-red">*</span></label>
+            <div class="form-group">
+                <p-calendar formControlName="startDate" [minDate]="calendarMinDate"
+                    [showIcon]="true" [showButtonBar]="true" inputId="min-max"></p-calendar>
+            </div>
+        </div>
+        <div class="row">
+            <label>Frequency<span class="error-red">*</span></label>
+            <div class="form-group col-md-6 col-sm-12">
+                <input class="form-control" formControlName="duration" name="duration" type="text"
+                    placeholder="Enter time duration" pattern="^\d+">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <select class="form-control mb-0" formControlName="frequency" name="trigger-event"
+                    aria-placeholder="Trigger Event">
+                    <option *ngFor="let triggerTime of frequency" [ngValue]="triggerTime.name">
+                        {{ triggerTime.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 save">
+            <div class="form-group">
+                <div class="button-flex">
+                    <button class="btn-save-new btn-small-new ng-star-inserted" [disabled]="!configureFg.valid"
+                        (click)="submitForm()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row switch-wrapper form-group show-as-radio">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+        <label class="mr-5">
+         Empower Automated AI-Mediated Content Generation for Social Media Posts
+        </label>
+        <p-inputSwitch
+          [(ngModel)]="enabledTrigger"
+          [disabled]="hideTrigger"
+          (onChange)="checked($event)"
+        ></p-inputSwitch>
+        </div>
+      </div>
+</div>

@@ -1,0 +1,48 @@
+.menu-page{
+  padding: 1em;
+}
+
+
+.menu-page label{
+  font-size: 14px;
+  font-weight:500
+}
+
+.config-dropdown{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.panel-card{
+  margin-top: 1em;
+    padding: 10px;
+    box-shadow: 0 0 2rem 0 rgb(41 48 66 / 10%);
+    background: #fff;
+}
+.panel-card-content{
+  padding: 10px;
+}
+.menu-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.menu-name{
+  font-weight: 500;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.btn-extra-small:disabled{
+  color: #fff !important;
+}
+.flex-sb{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 1em;
+  padding: 1em;
+}

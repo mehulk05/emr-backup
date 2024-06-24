@@ -1,0 +1,26 @@
+<main class="login-page">
+  <div class="top-section">
+    <div class="center-content">
+      <div *ngIf="!isLoggedIn">
+        <!-- <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/g99%20full%20logo.svg" class="logo"> -->
+      </div>
+      <div class="main-box">
+        <!-- Email Verification Success  -->
+        <div *ngIf="emailVerified" class="title">
+          <h3>Email Verified Successfully</h3>
+          <a href="javascript:void(0)" routerLink="/" class="link">Click here to Login</a>
+        </div>
+        <!-- Email Verification Failed -->
+        <div *ngIf="emailInvalid" class="title">
+          <h3>Email Verification Failed</h3>
+          <a href="javascript:void(0)" routerLink="/" class="link">Click here to Login</a>
+        </div>
+        <!-- Email Verification Failed : User Logged In -->
+        <!-- <div *ngIf="isLoggedIn" class="title">
+          <h3>Email Verification Failed</h3>
+          <p class="error-bg">You cannot verify email address when you are logged in with an different email address. Try verifying after logging out from current session. Or paste the verification link in incognito browser</p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</main>

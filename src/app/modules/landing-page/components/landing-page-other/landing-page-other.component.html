@@ -1,0 +1,81 @@
+<div class="new-ui">
+<div class="row">
+  <div class="col-6">
+   <h3>{{serviceName}}</h3>
+   </div>
+   <div class="search-box col-6" >
+     <div class="search">
+       <i class="fa fa-search"></i>
+       <input type="text" class="form-control" [(ngModel)]="landingPageFilter" (keyup.enter)="searchPage()"  placeholder="Search here">
+     </div>
+     <div class="back-button">
+       <button type="button" class="btn-save-new btn-small-new" (click)="onBackPressed()">
+           Back
+         </button>
+     </div>
+   </div>
+ </div>
+
+
+<div class="row mx-0 landingPage new-ui">
+  <div class="col-lg-6 col-md-6 col-sm-12" *ngFor="let landingPage of defaultTemplates">
+    <div class="wrapper">
+      <div class="overlay-wrapper">
+        <div class="bg-img">
+          <iframe [src]="previwThumbnailLink +'bid='+bid+'&lpid='+landingPage.landingPage?.id | safeUrl"></iframe>
+        </div>
+        <div class="overlay">
+          <div class="button-flex">
+            <button class="btn-save-new btn-xs-new" *ngIf="!editDisabled"  (click)="editPage(landingPage.landingPage.id)">Edit</button>
+            <button class="btn-save-new btn-xs-new" (click)="previewPage(landingPage.landingPage)">Preview</button>
+            <button class="btn-save-new btn-xs-new"  (click)="useTemplate(landingPage.landingPage)">Use Template</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="img bg-img" [style.background]="'url(' +landingPage?.landingPageImage+ ')' "></div> -->
+
+
+
+      <div class="page-body">
+        <div class="heading-title">
+          <div class="flex-layout" >
+            <p (click)="editPage(landingPage.landingPage.id)"> {{ landingPage.landingPage.name}}</p>
+          </div>
+
+          <p class="light" *ngIf="landingPage?.landingPage?.createdBy">By {{landingPage.landingPage.createdBy.firstName || '-'}}</p>
+          <div class="buttons-icons">
+
+            <p class="link-new" (click)="previewPage(landingPage.landingPage)" target="_blank">
+              Preview</p>&nbsp;
+            <a  class="link-new" href="javascript:void(0)" *ngIf="!editDisabled" (click)="editPage(landingPage.landingPage.id)" >Edit</a> &nbsp;
+            <!-- <a href="{{oldDomain}}/assets/static/landingpage.html?bid={{ bid }}&lpid={{landingPage.id}}"
+              target="_blank"> Preview</a> &nbsp; -->
+
+            <a href="javascript:void(0)" *ngIf="!deleteDisabled" (click)="deleteTrash(landingPage.landingPage)" style="float: right;" >
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+
+
+          <p class="light"> On {{ landingPage.landingPage.updatedAt ?
+            (landingPage.landingPage.updatedAt | date:'medium') :  (landingPage.landingPage?.createdAt | date:'medium')}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]=null
+      (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>
+
+
+<!-- <p-paginator [rows]="myPaginatorConfig.noOfRecord" [totalRecords]="totalDataCount" [showCurrentPageReport]="true"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[rowsPerPageOptions]="myPaginatorConfig.recordArray"></p-paginator> -->

@@ -1,0 +1,81 @@
+<p-accordion>
+  <ng-container *ngFor="let categoryKey of getServiceCategoryKeys()">
+    <p-accordionTab [header]="categoryKey">
+
+      <div class="service-details services-listing" *ngFor="let service of servicesByCategory[categoryKey]; let i = index">
+        <div class="img">
+          <div id="circle">
+            <div class="segment"></div>
+            <div [ngStyle]="{ 'border-color':activeLinkStyle.color}" class="segment"></div>
+          </div>
+
+          <div class="arrows">
+            <span [ngStyle]="activeLinkStyle" class="font-arrow">&#187;</span>
+          </div>
+        </div>
+        <div class="text">
+          <p [ngStyle]="{ 'color':titleColor}" class="bold">{{service.name | uppercase}} </p>
+          <div class="description1" *ngIf="service.description">
+
+            <p class="no-sow" *ngIf="!showMore">
+              {{ service.description | slice :0:100}} <span *ngIf=" !showMore && (service.description.length)> 70">...
+                <a [ngStyle]="activeLinkStyle" href="javascript:;" *ngIf="!showMore" (click)="setShowMore(true,i)">[Show
+                  More]</a> </span>
+            </p>
+
+            <p class="no-sow1" *ngIf="showMore && i!== selectedIndex">
+              {{ service.description | slice :0:100}} <span *ngIf=" showMore && (service.description.length) > 70">...
+                <a [ngStyle]="activeLinkStyle" href="javascript:;" *ngIf="showMore" (click)="setShowMore(true,i)">[Show
+                  More]</a> </span> </p>
+
+            <p class="sow" *ngIf="showMore && selectedIndex ===i">{{ service.description }}
+              <a [ngStyle]="activeLinkStyle" href="javascript:;" *ngIf="showMore" (click)="setShowMore(false,i)">[Show
+                Less]</a>
+            </p>
+          </div>
+          <div *ngIf="service.showDepositCost" class="pricing">
+            <p>
+              <b>{{currency?.currencySymbol}} {{service.depositCost | number:'1.2-2'}} &nbsp; •
+                <span>{{service.durationInMinutes ? service.durationInMinutes : '30'}} mins </span>
+              </b>
+            </p>
+            <p>
+              <b>Deposit Cost</b>
+            </p>
+          </div>
+          <div *ngIf="service.priceVaries && !service.showDepositCost" class="pricing">
+            <p>
+              <b>Price Varies &nbsp; •
+                <span>{{service.durationInMinutes ? service.durationInMinutes : '30'}} mins </span>
+              </b>
+            </p>
+          </div>
+          <div *ngIf="!service.priceVaries && !service.showDepositCost" class="pricing">
+            <p>
+              <b>{{currency?.currencySymbol}} {{service.serviceCost | number:'1.2-2'}} &nbsp; •
+                <span>{{service.durationInMinutes ? service.durationInMinutes : '30'}} mins </span>
+              </b>
+            </p>
+          </div>
+        </div>
+
+        <div class="radio-btn" style="float:right;" *ngIf="showRadio">
+          <ejs-checkbox [style.color]="buttonForegroundColor" (change)="onServiceClick($event, service)"
+            [style.backgroundColor]="isChecked(service.id) ? buttonBackgroundColor : activeLinkStyle?.color" 
+            value={{service.id}}
+            [checked]="isChecked(service.id)"></ejs-checkbox>
+        </div>
+
+        
+        <div class="book-btn-right" *ngIf="!showRadio">
+          <button class="btn" (click)="onSelectedService(service?.id)" [style.background-color]="buttonBackgroundColor" [style.color]="buttonForegroundColor" [style.border]="buttonBackgroundColor">
+            <span>
+                <a href="javascript:void(0)" [style.color]="buttonForegroundColor">Book</a>
+            </span>
+        </button>
+        
+        </div>
+      </div>
+    </p-accordionTab>
+  </ng-container>
+</p-accordion>

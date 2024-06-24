@@ -1,0 +1,50 @@
+.buyBtn {
+    height: 15px !important;
+    width: 20 !important;
+    border-radius: 10px;
+    border-color: #2656c9;
+    margin: 0px;
+    padding: 0px;
+    background-color: #2656c9;
+}
+
+.btnTxt {
+    font-size: 8px;
+    color: #fdfdfd;
+    padding: 0px 5px !important;
+}
+
+.rowTxt {
+    font-size: 10px;
+    color: #48555e;
+    font-weight: 400;
+}
+
+.rowTxtBold {
+    font-size: 10px;
+    color: #3d4347;
+    font-weight: 600;
+}
+
+.rowCostTxt {
+    font-size: 10px;
+    color: #48555e;
+    font-weight: 400;
+    /* padding-bottom: 2px; */
+    text-align: end;
+}
+
+.rowCostTxtBold {
+    font-size: 10px;
+    color: #232b30;
+    font-weight: 600;
+    /* padding-bottom: 2px; */
+    text-align: end;
+
+}
+
+.rightTxt {
+    color: #2656c9;
+    font-size: 12px;
+    text-align: end;
+}

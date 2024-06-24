@@ -1,0 +1,28 @@
+<p-dialog [header]="'Delete '+modalData?.titleName" [(visible)]="showModal" [modal]="true"
+[breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}"
+[baseZIndex]="10000"
+    [draggable]="false" [resizable]="false" (onHide)="hideModal()">
+
+    <!-- Modal body -->
+    <div class="body-section">
+     <span *ngIf="!modalData?.count"> {{ 'You’re trying to delete the '+ modalData?.titleName+' '}} <b>{{modalData?.feildName}}</b></span>
+     <span *ngIf="modalData?.count"> {{ 'You’re trying to delete'}} <b>{{modalData?.count}} {{modalData?.moduleName}}</b></span>
+    <ng-container *ngIf="modalMessage">
+      <br/>
+      <br/> {{modalMessage}}
+    </ng-container>
+     
+
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+        <button type="button" class="btn-default-del" data-dismiss="modal" (click)="delete()">Delete</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+
+

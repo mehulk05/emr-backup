@@ -1,0 +1,11 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="My Website">
+      <app-default-website [defaultTemplates]="defaultTemplates" (deleteEvent)="deleteLanding($event.id)" [websiteLink]="ssrDomain" [link]="previwThumbnailLink" (selectThemeEvent)="selectTheme($event)"></app-default-website>
+    </p-tabPanel>
+    <p-tabPanel header="Other Website">
+      <app-other-website *ngIf="source==='OtherWebsite'" [defaultTemplates]="modifiedTemplates"  [websiteLink]="ssrDomain" [link]="previwThumbnailLink" (selectThemeEvent)="selectTheme($event)"></app-other-website>
+    </p-tabPanel>
+
+</p-tabView>
+</div>

@@ -1,0 +1,14 @@
+ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+li {
+  cursor: pointer; /* Add pointer cursor for clickable items */
+  margin-bottom: 5px; /* Add some spacing between list items */
+}
+
+  li:hover {
+    background-color: #f0f0f0; /* Optional: Add a background color on hover for visual feedback */
+  }

@@ -1,0 +1,45 @@
+<div class="blue-card bg-white new-ui tab-view">
+  <div class="tabs-container" *ngIf="clinicId">
+    <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+      <p-tabPanel header="Configuration">
+        <app-g99-clinic-review-config *ngIf="selectedSource==='Configuration'" [clinicData]="clinicData"
+          [clinicId]="clinicId" [clinicReviewData]="clinicReviewData"></app-g99-clinic-review-config>
+      </p-tabPanel>
+      <p-tabPanel header="Reports/Schedule Report" *ngIf="enableReportTabs">
+        <app-g99-clinic-review-report *ngIf="selectedSource==='Reports'" [clinicData]="clinicData"
+          [clinicId]="clinicId"></app-g99-clinic-review-report>
+      </p-tabPanel>
+      <p-tabPanel header="Edit Reviews" *ngIf="enableReportTabs">
+        <app-g99-clinic-reviews-edit *ngIf="selectedSource==='Edit_Reviews'" [clinicData]="clinicData"
+          [clinicId]="clinicId"></app-g99-clinic-reviews-edit>
+      </p-tabPanel>
+      <p-tabPanel header="QR Code Generator">
+        <app-g99-review-qrcode *ngIf="selectedSource==='g99reviewQrcode'" [clinicData]="clinicData"
+          [clinicId]="clinicId"></app-g99-review-qrcode>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+  <div class="clinic-selection">
+
+    <div class="search-box">
+      <p-dropdown [options]="clinicList" optionLabel="name" (onChange)='onOptionsSelected($event)' optionValue="id"
+        [(ngModel)]="clinicId" placeholder="Select Review per page">
+      </p-dropdown>
+    </div>
+    <div class="button">
+      <ng-container *ngIf="selectedIndex===0">
+        <ng-container *ngIf="clinicReviewData?.enableReviewManager; else refreshButton">
+          <button class="btn-save-new btn-small-new" (click)="scrapReviews()">
+            <i class="fa fa-refresh"></i> Refresh Reviews
+          </button>
+        </ng-container>
+      </ng-container>
+      <ng-template #refreshButton>
+        <button class="btn-save-new btn-small-new" (click)="fetchReview()">
+          <i class="fa fa-refresh"></i> Refresh
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>

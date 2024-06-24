@@ -1,0 +1,139 @@
+<div class="row mx-0" style="padding-left: 13px;">
+    <div class="col-sm-12 col-md-12 col-sm-12" style="padding-top: 15px;">
+        <div class="panel-blue">
+            <div class="row panel-header">
+                <div class="col-8">
+                    <h3>
+                        API details
+                    </h3>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="">
+                    <form [formGroup]="businessForm">
+                        <div class="form-group">
+                            <label class="login-label" for="signup-business-name" style="padding-bottom: 10px;">API
+                                URI</label>
+                            <input type="text" class="basic-input input-type1 form-control" formControlName="url"
+                                id="url" required />
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label style="padding-top: 10px;padding-bottom: 10px;">
+                                Select Business form</label><span style="color: red;">*</span>
+                            <div> <p-dropdown [options]="businessFormList" [(ngModel)]="businessSelected"
+                                    [filter]="true" filterBy="name" formControlName="businessFormType" appendTo="body"
+                                    (onChange)="onBusinessSelect($event)" placeholder="Select form" optionLabel="name"
+                                    optionValue="id">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn-save-new btn-small-new" [disabled]="!businessForm.valid"
+                                (click)="submitForm()" style="margin-top: 10px;">Save</button>
+
+                            <div class="col-4 dev-enable" style="float: right;">
+                                <button class="btn-save-new btn-small-new"
+                                    [disabled]="isDisable(businessRecords.disable)" style="margin-left: 10px"
+                                    (click)="disableIntegration(businessRecords.id, businessRecords.disable)">{{disable(businessRecords.disable)}}</button>
+                                <button class="btn-save-new btn-small-new" [disabled]="enabled(businessRecords.disable)"
+                                    style="margin-left: 10px;"
+                                    (click)="disableIntegration(businessRecords.id, businessRecords.disable)">{{enable(businessRecords.disable)}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            
+
+    <div class="bg-white datatable-table mt-3">
+        <div class="title px-0">
+          <h3>History </h3>
+        </div>
+        <div class="table-list">
+            <div class="chartItem">
+                <div class="item">
+                    <table id="datatable" datatable class="table thead-light table-borderless table-hover">
+                        <div class="loader"></div>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Request
+                                </th>
+
+                                <th>
+                                    Response
+                                </th>
+                                <th>
+                                    Created Date
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <ng-container
+                            *ngIf="businessHistories && businessHistories.length>0 && businessConfig.totalItems>0">
+                            <tbody >
+                                <tr *ngFor="let businessRecords of businessHistories  | paginate: businessConfig">
+                                    <td>{{getStatus(businessRecords?.status)}} </td>
+                                    <td>{{businessRecords?.request?.substring(0, 10)}} <a data-bs-toggle="tooltip"
+                                            data-bs-placement="top" [title]="businessRecords?.request"
+                                            (click)="showMoreIntegrationDetails(businessRecords?.request, 'Request')">
+                                            <i class="fa fa-info-circle"></i></a>
+                                    </td>
+                                    <td>{{businessRecords?.response?.substring(0, 10)}} <a data-bs-toggle="tooltip"
+                                            data-bs-placement="top" [title]="businessRecords?.response"
+                                            (click)="showMoreIntegrationDetails(businessRecords?.response, 'Response')">
+                                            <i class="fa fa-info-circle"></i></a></td>
+                                    <td>{{businessRecords?.createdAt | date : 'medium'}}</td>
+                                    <td style="cursor: pointer" *ngIf="businessRecords?.status === 1"
+                                        (click)="getintegrationDetails(businessRecords?.request, businessRecords?.id)">
+                                        <button type="submit" class="btn-save-new btn-small-new">Retry</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-container>
+
+                    </table>
+                    <ng-container
+                        *ngIf="businessHistories && businessHistories.length>0 && businessConfig.totalItems>0">
+                        <div class="table-pagination">
+                            <pagination-controls (pageChange)="pageChangedForAppointment($event)"
+                                id="8"></pagination-controls>
+                        </div>
+
+                    </ng-container>
+
+                </div>
+            </div>
+            </div>
+        
+</div>
+
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+        [style]="{width: '50vw'}" [header]="headerName" [(visible)]="showModal" (onHide)="cancelDetailPopUp()">
+
+        <!-- ---------------------------- image cropper ---------------------------- -->
+        <div class="modal-body">
+            <div class="image-cropper-wrapper row mx-0">
+                <div class="col-lg-12 col-md-12">
+                    {{detailsMessage}}
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>

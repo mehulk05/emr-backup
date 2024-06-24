@@ -1,0 +1,146 @@
+<div class="blue-card">
+    <div class="right-card-wrapper p-15">
+
+        <div class="panel-blue">
+            <div class="panel-header code-header">
+                <p>Instructions</p>
+
+                <span class="icon" (click)="showEditDesriptionModal=true">
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </div>
+
+            <div class="panel-body pl-2 pr-2">
+                <div class="editable-content">
+                    <div [innerHTML]="dentalVcInstructions"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="main-section">
+        <div class="row mx-0">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="panel-blue">
+                    <div class="panel-header dark-blue code-header">
+                        <p>Services</p>
+
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="service-btn-wrapper">
+                            <button class="btn-small-new btn-save-new" (click)="onShowDentalService()">
+                                View all Symptoms
+                            </button>
+                        </div>
+                        
+                        <div class="left-wrapper">
+                            <div class="selected-img-wrapper pb-3" (click)="onSelectedSymtpomClick()">
+                                <div class="img-wrapper">
+                                    <img [src]="selectedItem?.img" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-card-wrapper mt-3">
+
+                    <app-url-preview-new [title]="'Website Configuration Code'" [iframeUrl]="symptomSelectorIframe"
+                        [previewUrl]="symptomSelectorLink">
+
+                        <app-url-preview [iframeUrl]="symptomSelectorIframe" [previewUrl]="symptomSelectorLink"
+                            [hideButton]="true"></app-url-preview>
+
+                    </app-url-preview-new>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="right-section mb-3">
+                    <!-- <app-custom-panel title="List of Symptoms" [titleStyleProps]="{padding: 0}"
+                        [fontProps]="{'font-size': '14px', 'font-weight': '600'}" [bodyStyleProps]="{padding: '5px'}"> -->
+                        <div class="modal-section">
+
+                            <div class="modal-wrapper" *ngFor="let item of modalItems" (click)="onItemSelect(item)">
+                                <div class="modal-card" [ngClass]="{'selected': item.title === selectedItem.title}">
+                                    <img [src]="item.img" />
+                                </div>
+                                <div class="modal-title">
+                                    <p>{{item.title}}</p>
+                                </div>
+                            </div>
+
+                            <!-- <div class="modal-wrapper" (click)="addNewService()">
+                                <div class="modal-card">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div> -->
+                        </div>
+
+                    <!-- </app-custom-panel> -->
+
+                </div>
+
+           
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon" *ngIf="showDentalService">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [resizable]="false" [draggable]="false"
+        [style]="{width: '50vw'}" header="Dental Service" [(visible)]="showDentalService" [style]="{width: '50vw'}">
+        <app-dental-service [services]="symptomsAndServices" [serviceList]="servicesList"></app-dental-service>
+    </p-dialog>
+</div>
+
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon" *ngIf="showSingleSymptomModal">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [resizable]="false" [draggable]="false"
+        [style]="{width: '50vw'}" header="Dental Service" [(visible)]="showSingleSymptomModal"
+        [style]="{width: '50vw'}">
+        <app-single-symptom-modal [selectedSymptom]="selectedItem"
+            [serviceList]="servicesList"></app-single-symptom-modal>
+    </p-dialog>
+</div>
+
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon" *ngIf="showEditDesriptionModal">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [resizable]="false" [draggable]="false"
+        [style]="{width: '50vw'}" header="Edit Instructions" [(visible)]="showEditDesriptionModal"
+        [style]="{width: '50vw'}">
+        <div class="body">
+            <div class="form-group">
+                <label class="fw-500 mb-2">
+                    Enter your instructions
+                </label>
+                <textarea rows="5" [(ngModel)]="dentalVcInstructions" class="form-control">
+                 </textarea>
+
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="modal-footer-section">
+                <button type="button" class="btn btn-primary" [disabled]="false" data-dismiss="modal"
+                    (click)="updateDentalInstructions()">
+                    <i [ngClass]="isLoading? 'pi-spin pi-spinner' : 'pi-check'" class="pi"></i> Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                    (click)="this.showEditDesriptionModal=false">
+                    <i class="pi pi-times-circle"></i> Cancel</button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</div>
+
+
+<ng-container *ngIf="showAddServiceModal">
+    <app-add-dental-symptom-modal (onModalClose)="showAddServiceModal=false;"></app-add-dental-symptom-modal>
+</ng-container>

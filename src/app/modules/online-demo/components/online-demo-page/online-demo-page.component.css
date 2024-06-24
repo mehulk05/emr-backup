@@ -1,0 +1,38 @@
+.online-demo {
+  margin: 0 1em 4em;
+  font-family: sans-serif;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.online-demo h1 {
+  text-transform: uppercase;
+  color: #315fcb;
+  font-weight: 600;
+  font-size: 123px;
+  line-height: 107px;
+}
+
+.online-demo p {
+  text-transform: uppercase;
+  color: #767b85;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 40px;
+}
+
+.online-demo .right-online-demo {
+  position: relative;
+}
+
+.left-online-demo {
+  position: relative;
+
+}
+
+.column2 {
+  position: absolute;
+  top: 100%;
+  right: 80%;
+  transform: translateX(25px);
+}

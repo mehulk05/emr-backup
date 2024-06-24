@@ -1,0 +1,193 @@
+<ng-container *ngIf="!isLeadDeleted; else deletedLead">
+  <div class="lead-info-container">
+    <div class="lead-info-card lead-details">
+      <div class="lead-info-header">
+        <div class="lead-status">
+          <span class="lead-status-name" [ngClass]="leadStatus">
+            {{ leadStatus }}
+          </span>
+        </div>
+        <button type="button" class="btn-small-new btn-save-new" (click)="editLead()">
+          Lead Details
+        </button>
+      </div>
+      <div class="lead-info-content" *ngIf="questionnaireSubmission">
+        <ng-container *ngFor="
+            let qa of questionnaireSubmission.questionAnswers;
+            let i = index
+          ">
+          <div class="info-wrapper mb-2">
+            <div class="info-key f-16 fw-500">
+              <label>{{ qa.questionName }}</label>
+            </div>
+            <div class="info-value f-12">
+              <ng-container *ngIf="qa.questionName !== 'Symptoms'">
+                <span *ngIf="
+                    qa.questionType !== 'Yes_No' &&
+                    qa.questionType !== 'File' &&
+                    qa.questionType !== 'Business_Hours' &&
+                    qa.questionType !== 'Text'
+                  ">
+                  {{ qa.answerText === '' ? '-' : qa.answerText }}
+                </span>
+                <ng-container *ngIf="qa.questionType === 'Yes_No'">
+                  <span *ngIf="qa.answerText === 'true'"> Yes </span>
+                  <span *ngIf="qa.answerText === 'false'"> No </span>
+                </ng-container>
+                <span *ngIf="qa.questionType === 'File'">
+                  <a *ngIf="qa.answerText" class="link" href="{{ qa.answerText }}" target="_blank"
+                    rel="noopener noreferrer">
+                    {{ qa.answerText }}
+                  </a>
+                </span>
+                <div *ngIf="qa.questionType === 'Business_Hours'">
+                  <table class="table thead-light table-borderless">
+                    <tbody>
+                      <ng-container *ngFor="let hour of getBusinessHours(qa?.answerText)">
+                        <tr>
+                          <td>
+                            <span>
+                              {{ hour[0] | titlecase }}
+                            </span>
+                          </td>
+                          <td>
+                            <span> : {{ hour[1] }} - {{ hour[2] }} </span>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+                <ng-container *ngIf="qa?.questionType === 'Text'">
+                  <span [innerHtml]="getTextAnswerValue(qa?.answerText)"></span>
+                </ng-container>
+              </ng-container>
+              <span *ngIf="qa.questionName === 'Symptoms'">
+                {{ symptomsValue(qa.answerText) }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="info-wrapper mb-2">
+          <div class="info-key f-16 fw-500">
+            <span>Source</span>
+          </div>
+          <div class="info-value f-12">
+            <span>{{ source ? source : '-' }}</span>
+          </div>
+        </div>
+        <div class="info-wrapper mb-2">
+          <div class="info-key f-16 fw-500">
+            <span>Source URL</span>
+          </div>
+          <div class="info-value f-12">
+            <a *ngIf="questionnaireSubmission.sourceUrl" [href]="questionnaireSubmission.sourceUrl" class="source-url"
+              target="_blank" rel="noopener noreferrer">{{ questionnaireSubmission?.sourceUrl }}</a>
+            <span *ngIf="!questionnaireSubmission.sourceUrl">-</span>
+          </div>
+        </div>
+        <div class="info-wrapper mb-2">
+          <div class="info-key f-16 fw-500">
+            <span>Landing Page</span>
+          </div>
+          <div class="info-value f-12">
+            <span>{{ landingPageName ? landingPageName : '-' }}</span>
+          </div>
+        </div>
+        <div class="info-wrapper mb-2">
+          <div class="info-key f-16 fw-500">
+            <span>Created Date</span>
+          </div>
+          <div class="info-value f-12">
+            <span>{{ formatTimeService.formatTime(createdDate) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="leadComments">
+      <div class="lead-info-card notes-card">
+        <div class="lead-info-header">
+          <span class="f-16 fw-500">Notes</span>
+        </div>
+        <div class="notes-wrapper bg-white m-2 mb-0 px-2">
+          <ng-container *ngIf="leadComments && leadComments.length > 0; else noComments">
+            <ng-container *ngFor="let item of leadComments">
+              <ng-container *ngIf="item.type === 'date'; else note">
+                <div class="notes-date-wrapper">
+                  <span class="notes-date">
+                    {{ item.value }}
+                  </span>
+                </div>
+              </ng-container>
+              <ng-template #note>
+                <div class="notes-item mb-2">
+                  <div class="notes-header">
+                    <div class="notes-header-item">
+                      <div class="author-img">
+                        <div>
+                          <img [attr.src]="
+                              item.value.profileImageUrl
+                                ? item.value.profileImageUrl
+                                : 'https://g99plus.b-cdn.net/AEMR/assets/images/avtar.jpeg'
+                            " width="100%" height="auto" />
+                        </div>
+                      </div>
+
+                      <div class="author-name">
+                        {{ item.value.createdBy }}
+                      </div>
+                    </div>
+                    <div class="notes-time">
+                      {{
+                      formatTimeService.formatTime(item.value.createdAt)
+                      | date: 'shortTime'
+                      }}
+                    </div>
+                  </div>
+
+                  <div class="notes-body-item">
+                    <div class="notes-description" [innerHtml]="getTextAnswerValue(item.value.comment)"></div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-container>
+          </ng-container>
+          <ng-template #noComments>
+            <div class="flex align-items-center justify-content-center h-100 text-center f-12">
+              No Comments to display here.
+            </div>
+          </ng-template>
+        </div>
+        <div class="lead-info-footer">
+          <div [formGroup]="leadCommentForm" class="info-wrapper px-2 py-3 lead-comment-form">
+            <div class="notes-textbox-wrapper">
+              <textarea formControlName="comment" class="form-control overflow-hidden" rows="1"
+                (input)="commentChange($event)" (keydown.enter)="onKeydown($event)"></textarea>
+              <span (click)="saveComment()" class="send-icon">
+                <i class="far fa-paper-plane fa"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #deletedLead>
+  <div class="lead-info-card lead-details">
+    <div class="lead-info-header">
+      <div class="lead-status">
+        <span class="lead-status-name DELETED"> DELETED </span>
+      </div>
+    </div>
+    <div class="lead-info-content border-0">
+      <div class="warning-banner new-warning-panel">
+        Selected Lead is already deleted. However you can still communicate with
+        them with an exception that SMS Templates won't be available.
+      </div>
+    </div>
+  </div>
+</ng-template>

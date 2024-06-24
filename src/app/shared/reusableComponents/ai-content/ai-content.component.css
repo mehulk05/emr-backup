@@ -1,0 +1,93 @@
+.note-item{
+    display: flex;
+      align-items: center;
+      column-gap: 2em;
+      margin-bottom: 2em;
+      padding: 1em;
+      border: 1px dotted #c1bbbb;
+  }
+  
+  .note-item * {
+    font-weight: 500;
+  }
+  
+  
+  .note-item a{
+    color: #009EDE;
+  }
+  
+  .note-item .text{
+    font-size: 14px;
+  }
+  .note-item .date{
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  
+  @media screen and (max-width:767px) {
+    .note-item{
+      flex-direction: column;
+    }
+  
+    .panel-card-content{
+      max-width: 100%;
+    }
+    .avatar img{
+      height: auto !important;
+      border-radius: 50%;
+      /* border: 2px solid gainsboro; */
+      margin-bottom: 2em;
+    }
+  }
+
+  .st-font-title {
+    font-size: 20px;
+    line-height: 30px;
+}
+  
+.Badge_purple {
+  color: #8416de;
+}
+  
+.panel-card-content {
+  margin: 0 !important;
+  max-width: 100%;
+}
+
+.sender{
+  border: 1px solid rgba(0,27,72,.32)
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.background-color {
+  background-color: #F8FAFE;
+}
+
+::ng-deep .p-dialog .p-dialog-content .modal-body .tab-view .panel-body .panel-card-content {
+  background: #F8FAFE !important;
+}
+
+::ng-deep .panel-card-content{
+  background: #F8FAFE !important;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  background: #F8FAFE !important;
+}
+
+.heading{
+  font-size: 28px;
+}
+
+::ng-deep .p-dialog .p-dialog-footer  {
+  background: #F8FAFE !important;
+}
+
+::ng-deep .panel-body{
+  background: #F8FAFE !important;
+}

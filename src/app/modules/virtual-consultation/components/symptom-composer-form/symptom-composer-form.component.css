@@ -1,0 +1,61 @@
+ul.symptomitem {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.symptomitem li {
+  margin: 15px 0;
+}
+ul.symptomitem li input {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+}
+button.btn {
+  color: #fff;
+  padding: 5px 9px;
+  font-size: 14px;
+  color: #0d6efd;
+  padding: 5px 9px;
+  font-size: 14px;
+  /* border-radius: 50%; */
+  border: 1px solid #0d6efd;
+}
+.btn-wrapper {
+  display: flex;
+}
+::ng-deep .p-multiselect {
+  width: 100%;
+}
+
+/* ::ng-deep .p-multiselect.p-multiselect-chip .p-multiselect-token {
+  background-color: #3b3f48;
+  color: #fff;
+} */
+
+.add-symptoms-section {
+  margin-top: 2em;
+  border-top: 1px solid gainsboro;
+  padding-top: 2em;
+}
+.add-symptoms-title {
+  padding-left: 10px;
+  color: #000;
+}
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  li .col-lg-2 {
+    padding: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .col-lg-5.col-md-5 {
+    margin-bottom: 1em;
+  }
+
+  ul.symptomitem li {
+    box-shadow: 0 0 2rem 0 rgb(41 48 66 / 20%);
+    padding: 15px 0px;
+    border-radius: 5px;
+  }
+}

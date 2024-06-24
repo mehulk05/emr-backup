@@ -1,0 +1,97 @@
+.datatable-table .title h3{
+  margin-bottom: 0 ;
+}
+
+
+.datatable-table .title{
+  padding: 10px 15px 10px 25px;
+}
+
+.tab-view .border-table .title,
+.new-ui .border-table .title{
+  border-bottom: 1px solid gainsboro;
+  padding: 10px 15px 10px 25px;
+}
+
+.p-datatable .p-datatable-header{
+  padding: 15px 15px 15px 25px;
+  background-color: #fff;
+  border: none;
+}
+
+.p-datatable-wrapper{
+  padding-left: 25px;
+  padding-right: 15px;
+}
+
+.p-datatable .p-paginator-bottom{
+  padding: 15px 15px 15px 22px;
+  border: none;
+}
+
+.p-datatable .p-datatable-header .flex{
+  align-items: center;
+}
+
+.new-ui .table-list .search-table{
+  font-size: 14px !important;
+}
+/* .under-tab  .p-datatable-wrapper,
+.under-tab .p-datatable-header,
+.under-tab .title{
+  padding-left: 0 !important;
+  margin-left: 6px;
+} */
+
+
+/* ------------------------------ Add edit form ----------------------------- */
+.p-tabview-nav-content{
+  padding-left: 0px;
+}
+.p-tabview .p-tabview-nav{
+  padding-left: 20px;
+}
+
+.new-ui .add-edit-form{
+  padding-top: 15px !important;
+}
+
+.p-tabview .p-tabview-panels{
+  padding-top: 0 !important;
+  padding-left: 0;
+}
+
+.pl-16{
+  padding-left: 16px !important;
+}
+
+
+.align-to-breadcrumb{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.panel-small-font .panel-card-content-new input,
+.panel-small-font .panel-card-content-new label{
+  font-size: 14px;
+  margin-top: 0 !important;
+}
+.panel-small-font  .btn-save-new{
+  font-size: 14px;
+}
+.mb-20{
+  margin-bottom: 20px;
+}
+.panel-small-font th{
+  font-weight: 600;
+}
+.panel-small-font  td,
+.panel-small-font tr{
+  font-size: 14px;
+}
+
+
+.p-overlaypanel-content  span{
+  font-size: 13px;
+  font-weight: 500;
+}

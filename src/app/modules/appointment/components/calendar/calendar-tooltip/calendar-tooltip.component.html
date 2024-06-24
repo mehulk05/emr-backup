@@ -1,0 +1,62 @@
+<div class="tooltip-wrap">
+  <div class="appointment-card" *ngIf="data.Type === 'appointment'">
+    <div class="header">
+      <span class="patient">{{getFieldsByName("Patient Name",data.Id)}}</span>
+    </div>
+    <div class="body">
+      <div class="service">
+        <span class="label">Service Name:</span>
+        <span class="value">{{getFieldsByName("Services Name",data.Id)}}</span>
+      </div>
+      <div class="time">
+        <span class="label">From:</span>
+        <span class="value">{{data.StartTime.toLocaleString()}}</span>
+      </div>
+      <div class="time">
+        <span class="label">To:</span>
+        <span class="value">{{data.EndTime.toLocaleString()}}</span>
+      </div>
+      <div class="provider">
+        <span class="label">Provider Name:</span>
+        <span class="value">{{getFieldsByName("Provider Name",data.Id)}}</span>
+      </div>
+      <div class="status">
+        <span class="label">Appointment Status:</span>
+        <span class="value">{{getFieldsByName("Appointment Status",data.Id)}}</span>
+      </div>
+      <div class="payment">
+        <span class="label">Payment Status:</span>
+        <span class="value">{{getFieldsByName("Payment Status",data.Id)}}</span>
+        <div class="icon" [innerHTML]="getFieldsByName('Payment Icon', data.Id)"></div>
+      </div>
+
+      <div class="document">
+        <div class="icon" [innerHTML]="getFieldsByName('Document Icon', data.Id)"></div>
+      </div>
+    </div>
+    <div class="footer" style="min-width: 260px;">
+      <span class="time"></span>
+    </div>
+  </div>
+  <div class="appointment-card" *ngIf="data.Type === 'holiday'">
+    <div class="header">
+      <span class="patient">Event Type: Holiday</span>
+    </div>
+    <div class="body">
+      <div class="service">
+        <span class="label">Clinic:</span>
+        <span class="value">{{data.Subject}}</span>
+      </div>
+
+      <div class="service">
+        <span class="label">From:</span>
+        <span class="value">{{data.StartTime.toLocaleString()}}</span>
+      </div>
+
+      <div class="service">
+        <span class="label">To:</span>
+        <span class="value">{{data.EndTime.toLocaleString()}}</span>
+      </div>
+    </div>
+  </div>
+</div>

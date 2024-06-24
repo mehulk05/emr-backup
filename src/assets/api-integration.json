@@ -1,0 +1,568 @@
+[
+    {
+        "type": "ACTIVECAMPAIGN",
+        "name": "ActiveCampaign",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-activecampaign-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Key (Please contact ActiveCampaign to get API Key for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    },
+    {
+        "type": "MINDBODYONLINE",
+        "name": "Mindbody",
+        "helpCenterUlr": "https://support.growth99.com/portal/en/kb/articles/mindbody-integration-18-10-2023",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://api.mindbodyonline.com/public/v6",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API key (Please contact Mindbodyonline to get API key for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "siteId",
+                "label": "Site Id",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "userAgent",
+                "label": "User agent",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    },
+    {
+        "type": "AESTHETIC",
+        "name": "Aesthetic Record",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-aesthetic-record-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://api.aestheticrecord.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Token (Please contact AR to get API token for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    },
+    {
+        "type": "CLOSE",
+        "name": "Close CRM",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-close-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://api.close.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Token (Please contact Close CRM to get API token for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "sourceName",
+                "label": "Name",
+                "value": "Growth99",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    },
+    {
+        "type": "MAILCHIMP",
+        "name": "Mailchimp",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-mailchimp-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://us9.api.mailchimp.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Token (Please contact Mailchimp to get API token for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "sourceName",
+                "label": "Name",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": false
+                }
+            }
+        ]
+    },
+    {
+        "type": "GOHIGHLEVEL",
+        "name": "GoHighLevel",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-gohighlevel-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://rest.gohighlevel.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Token (Please contact Gohighlevel to get API token for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "sourceName",
+                "label": "Name",
+                "value": "Growth99",
+                "type": "text",
+                "validators": {}
+            }
+        ]
+    },
+    {
+        "type": "HUBSPOT",
+        "name": "HubSpot",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-hubspot-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://api.hubapi.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Token (Please contact HubSpot to get API token for your business",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    },
+    {
+        "type": "ZOHO",
+        "name": "Zoho CRM",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-zoho-crm-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://www.zohoapis.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "authUrl",
+                "label": "Auth Url",
+                "value": "https://accounts.zoho.com/oauth/v2/token",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "clientId",
+                "label": "Client Id",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "clientSecret",
+                "label": "Client Secret",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "code",
+                "label": "Code",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "sourceName",
+                "label": "Source",
+                "value": "Growth99.com",
+                "type": "text",
+                "validators": {
+                    "required": false
+                }
+            }
+        ]
+    },
+    {
+        "type": "NEXTECH",
+        "name": "Nextech",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-nextech-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://select.nextech-api.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "authUrl",
+                "label": "Auth Url",
+                "value": "https://login.microsoftonline.com/nextech-api.com/oauth2/token",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "clientId",
+                "label": "Client Id",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "userName",
+                "label": "User Name",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "password",
+                "label": "Password",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "practiceId",
+                "label": "PracticeId",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "resource",
+                "label": "Resource",
+                "value": "https://select.nextech-api.com/api",
+                "type": "text",
+                "validators": {
+                    "required": false
+                }
+            }
+        ]
+    },
+    {
+        "type": "MEEVO",
+        "name": "Meevo",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-meevo-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://d18devpub.meevodev.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "authUrl",
+                "label": "Auth Url",
+                "value": "https://d18devmarketplace.meevodev.com/oauth2/token",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "clientId",
+                "label": "Client Id",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "clientSecret",
+                "label": "Client Secret",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "businessId",
+                "label": "TenantId",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "locationId",
+                "label": "Location Id",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    },
+    {
+        "type": "PODIUM",
+        "name": "Podium",
+        "redirect": true,
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/integrate-podium-in-growth99",
+        "controls": [
+            {
+                "name": "apiUrl",
+                "label": "API URI",
+                "value": "https://api.podium.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                },
+                "enable": true
+            },
+            {
+                "name": "authUrl",
+                "label": "Auth Url",
+                "value": "https://api.podium.com/oauth/token",
+                "type": "text",
+                "validators": {
+                    "required": true
+                },
+                "enable": true
+            },
+            {
+                "name": "reDirectAuthUrl",
+                "label": "Redirect Url",
+                "value": "https://auth.podium.com/oauth/authorize",
+                "type": "text",
+                "validators": {
+                    "required": true
+                },
+                "enable": true
+            },
+            {
+                "name": "reDirectUrl",
+                "label": "Redirect Url",
+                "value": "/business/api-integration/api/details?source=PODIUM",
+                "type": "text",
+                "validators": {
+                    "required": true
+                },
+                "enable": true
+            },
+            {
+                "name": "clientId",
+                "label": "Client Id",
+                "value": "d1443489-0115-444e-b10d-4d5cabbd0422",
+                "type": "text",
+                "validators": {
+                    "required": true
+                },
+                "enable": true
+            },
+            {
+                "name": "clientSecret",
+                "label": "Client Secret",
+                "value": "01406d1096897da35c604ccc50c2b18f6aabf1320f79fc2aaa0e179e8a414dc2",
+                "type": "text",
+                "validators": {
+                    "required": true
+                },
+                "enable": true
+            },
+            {
+                "name": "resource",
+                "label": "Scope",
+                "value": "read_messages,write_messages,read_locations",
+                "type": "text",
+                "validators": {
+                    "required": true
+                },
+                "enable": true
+            },
+            {
+                "name": "locationId",
+                "label": "LocationUID",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": false
+                },
+                "enable": true
+            }
+        ]
+    },
+    {
+        "type": "ZENOTI",
+        "name": "Zenoti",
+        "helpCenterUlr":"https://docs.google.com/document/d/1Ly-eiPd110FQ7FDPSXIBgd1SFcvglAZwZPwR5fOXTis/edit",
+        "controls": [
+            {
+                "name": "apiUrl",   
+                "label": "API URI",
+                "value": "https://api.zenoti.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Token (Please contact Zenoti to get API token for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "centerId",
+                "label": "Center Id",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "createdById",
+                "label": "EmployeeId",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    },
+    {
+        "type": "TOUCH_MD",
+        "name": "TouchMD",
+        "helpCenterUlr":"https://support.growth99.com/portal/en/kb/articles/touch-md-integration-with-g99",
+        "controls": [
+            {
+                "name": "apiUrl",   
+                "label": "API URI",
+                "value": "https://connect.touchmd.com",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            },
+            {
+                "name": "token",
+                "label": "API Token (Please contact TouchMD to get API token for your business)",
+                "value": "",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }
+        ]
+    }
+]

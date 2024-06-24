@@ -1,0 +1,202 @@
+.new-ui.datatable-table {
+  margin: 10px 20px;
+  padding: 0px;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody>tr>td,
+::ng-deep .p-datatable .p-datatable-thead>tr>th {
+  font-size: 13.5px;
+}
+
+.appointment-filter-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+  padding-left: 2px;
+}
+
+.search-icon {
+  left: 1rem !important;
+}
+
+.cross-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 6px;
+  right: 25px;
+  z-index: 555555;
+}
+
+.cross-icon i {
+  font-size: 13px;
+}
+
+input.search-table {
+  border-radius: 1em;
+  min-width: 15em;
+  padding-left: 3em !important;
+  margin-right: 0px !important;
+}
+
+.btn-invisible {
+  border: 0;
+  background-color: #fff;
+  padding-left: 15px !important;
+}
+
+.row-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.row-selection .rows-selected-text {
+  color: #333;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.row-selection .unselect-all-btn {
+  cursor: pointer;
+  color: #8a0101;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.selection-btn-wrapper {
+  display: flex;
+}
+
+.selection-btn-wrapper .button {
+  cursor: pointer;
+  display: flex;
+  padding: 4px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: #333;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+::ng-deep .p-datatable-wrapper {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+::ng-deep .p-datatable-header {
+  padding: 0px !important;
+}
+
+.payment-status {
+  border-radius: 1.5rem;
+  padding: 2px 8px;
+  border: 1px solid gainsboro;
+}
+
+.payment-status.Paid {
+  border-color: #01b700;
+  color: #01b700;
+}
+
+.payment-status.Unpaid {
+  border-color: #c51900;
+  color: #c51900;
+}
+
+.payment-status.DepositPaid {
+  border-color: #fb6900;
+  color: #fb6900;
+}
+
+.payment-status.PartiallyDeposit {
+  border-color: #9f9f9f;
+  color: #9f9f9f;
+}
+
+.payment-status.PartiallyPaid {
+  border-color: #ffb800;
+  color: #ffb800;
+}
+
+.payment-status.PartiallyRefunded {
+  border-color: #109bc7;
+  color: #109bc7;
+}
+
+.payment-status.Refunded {
+  border-color: #aa4ee7;
+  color: #aa4ee7;
+}
+
+.source-name {
+  padding: 2px 8px;
+  border-radius: 1.5rem;
+  border: 1px solid #767b85;
+  background: #f3f5fa;
+  color: #767b85;
+}
+
+.caption-header{
+  flex-wrap: wrap;
+  gap:10px;
+  margin-bottom: 10px;
+}
+/* ---------------------- mobile view table header css ---------------------- */
+
+@media screen and (max-width: 767px) {
+  .bh-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .bh-header>div {
+    flex: 1;
+    text-align: center;
+  }
+
+  .bh-header .completed {
+    background-color: #00c981;
+  }
+
+  .bh-header .incompleted {
+    background-color: #f69606;
+  }
+
+  .bh-header .paid {
+    background-color: #009ede;
+  }
+
+  .bh-header .unpaid {
+    background-color: #ff4040;
+  }
+
+  .bh-header div>p {
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 5px 0;
+  }
+}

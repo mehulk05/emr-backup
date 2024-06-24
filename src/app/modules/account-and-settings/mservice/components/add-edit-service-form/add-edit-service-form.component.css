@@ -1,0 +1,104 @@
+label.btn.btn-common.btn-primary input{
+  display: none;
+}
+
+label.btn.btn-common.btn-primary{
+  color: #fff;
+  line-height: normal;
+}
+
+/* add */
+.ai-row{
+  display: flex;
+  justify-content: flex-end;
+}
+.modal-body{
+  border: none;
+}
+
+.image-cropper-wrapper{
+  display: flex;
+}
+
+.image-cropper-wrapper image-cropper,
+.image-cropper-wrapper img{
+  flex-basis: 100%;
+  text-align: center;
+  border: 1px solid black;
+}
+::ng-deep .p-dialog .p-dialog-footer{
+  padding-top: 2em;
+}
+.description-field{
+  margin-top: 1.5em !important;
+}
+
+.inline-checkbox {
+  display: flex;
+  column-gap: 0.5em;
+  align-items: center;
+}
+
+.inline-checkbox label {
+  padding-bottom: 0;
+  padding-left: 5px;
+}
+@media screen and (max-width:991px) {
+  .left-card{
+    max-width: 100%;
+    margin-top: 1em;
+  }
+  .description-field{
+    margin-top: 0 !important;
+  }
+
+  .left-card,
+  .right-card{
+    padding: 1em !important;
+    margin: 0 auto;
+  }
+  .add-edit-form{
+    max-width: 100%;
+  }
+}
+
+
+.image-circle .img{
+  max-width: 170px;
+  margin: 0 auto;
+  position: relative;
+  border: 6px solid #fff;
+  background: #fff;
+}
+
+img{
+  max-width: 100%;
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+}
+
+
+.card-content .panel-header{
+  height: 120px;
+}
+
+.card-content .panel-blue{
+  margin-top: -5em;
+}
+
+.save-color-btn {
+  width: 128px;
+  cursor: pointer;
+}
+
+.save-color-btn-wrapper input{
+  display: none;
+}
+
+.error-duplicate {
+  color: red;
+  font-size: 13px;
+  padding-top: 5px;
+  font-weight: 500;
+}

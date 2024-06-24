@@ -1,0 +1,44 @@
+<div class="header">
+  <!-- <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/g99%20full%20logo.svg" alt="g99 logo" class="logo"> -->
+  <img src={{agencyLogoUrl}} alt="g99 logo" class="logo">
+
+  <div class="breadcrumb-wrapper">
+    <div class="breadcrumbs">
+      <app-breadcrumb></app-breadcrumb>
+    </div>
+
+    <div class="button-wrapper" *ngIf="currentUser">
+      <div class="quick-icons">
+        <!-- <app-quick-link-icons></app-quick-link-icons> -->
+        <app-quick-link-icon-v1></app-quick-link-icon-v1>
+      </div>
+      <!-- <button (click)="gotoOldUI()" class="save-color-btn">Switch to Old UI</button> -->
+      <div class="profile">
+        <div class="profile-card " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          aria-expanded="false">
+
+          <ng-container *ngIf="userProfile?.profileImageUrl">
+            <img [src]="userProfile?.profileImageUrl ?? 'https://g99plus.b-cdn.net/AEMR/assets/img/profileDefault.png'"
+              alt="profile img" class="profile-img">
+          </ng-container>
+
+          <ng-container *ngIf="!userProfile?.profileImageUrl">
+            <img [src]="'https://g99plus.b-cdn.net/AEMR/assets/img/profileDefault.png'" alt="profile img"
+              class="profile-img">
+          </ng-container>
+
+          <div class="profile-details">
+            <p class="name normal">
+              {{userProfile?.firstName}} {{userProfile?.lastName}}
+            </p>
+
+            <p class="id">
+              Business ID: {{businessId}}
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

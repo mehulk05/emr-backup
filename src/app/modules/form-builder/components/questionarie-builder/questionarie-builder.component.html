@@ -1,0 +1,27 @@
+<div class="">
+    <div class="form-part">
+        <div class="text-right mb-3">
+            <!-- <button type="button" class="btn btn-primary btn-common profile-button" (click)="preview()">Preview</button> -->
+            <button type="button" class="btn-save-new btn-small-new" (click)="addNewQuestion()">
+                <i class="fa fa-plus"></i> Add Question</button>
+        </div>
+
+        <div #scrollframe cdkDropList class="example-list" [cdkDropListData]="questions"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let question of questions; index as i" cdkDrag>
+                <app-question-builder [question]="question" [index]="i" [questionnaireId]="questionnaireId"
+                    [enabledModernUi]="enabledModernUi" [isEditable]="checkIsEditable(i)"
+                    [isLeadCaptureForm]="isLeadCaptureForm" [isLeadForm]="isLeadForm"
+                    (afteronDeleteQuestion)="deleteQuestion($event)"
+                    (afteronSaveQuestion)="saveQuestion()"></app-question-builder>
+            </div>
+        </div>
+
+        <ng-container *ngIf="questions?.length > 0">
+            <div class="text-right">
+                <button type="button" class="btn-save-new btn-small-new" (click)="addNewQuestion()">
+                    <i class="fa fa-plus"></i> Add Question</button>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,477 @@
+<div class="audit-wrapper pb-4">
+    <ng-container *ngIf="auditNotFound === false; else noAudit">
+        <ng-container *ngFor="let audit of auditData">
+            <div class="audit-container">
+                <div class="audit-header">
+                    <div class="audit-date">
+                        <span>
+                            {{ formatTimeService.formatTime(audit.updatedAt) }}
+                        </span>
+                    </div>
+                </div>
+                <div class="audit-body">
+                    <div class="audit-name">
+                        {{audit.updatedBy}}
+                    </div>
+                    <div class="audit-description">
+                        <ng-container *ngIf="audit.name">
+                            <div>
+                                <span>Updated Name: from {{ audit.name.from }}</span>
+                                <br>
+                                <span>to - </span>
+                                <span>{{ audit.name.to }}</span>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="audit.status">
+                            <div>
+                                <span>Changed Trigger Status: from {{ audit.status.from }}</span>
+                                <br>
+                                <span>to - </span>
+                                <span>{{ audit.status.to }}</span>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="audit.triggerConditions">
+                            <div>
+                                <span>Changed Module: For {{ source | titlecase }} Where</span>
+                                <br>
+                                <span>Updated Source is from - <span class="line-through">{{
+                                        audit.triggerConditions.from
+                                        }}</span></span>
+                                <br>
+                                <span>to - </span>
+                                <span>{{ audit.triggerConditions.to }}</span>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="audit.converTo">
+                            <div>
+                                <span>Changed Module: For {{ source | titlecase }} Where</span>
+                                <br>
+                                <span>Updated Convert To from - <span class="line-through">{{ audit.converTo.from
+                                        }}</span></span>
+                                <br>
+                                <span>to - </span>
+                                <span>{{ audit.converTo.to }}</span>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="audit.forms">
+                            <div>
+                                <span>Changed Module: For {{ source | titlecase }} Where</span>
+                                <br>
+                                <div>
+                                    <ng-container *ngIf="audit.forms.from">
+                                        <span>Updated Form Name is from - <span class="line-through">{{ audit.forms.from
+                                                }}</span></span>
+                                        <br>
+                                        <span>to - </span>
+                                        <span>{{ audit.forms.to }}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="audit.forms.removed">
+                                        <span>Removed Form Name is - <span class="line-through">{{ audit.forms.removed
+                                                }}</span></span>
+                                    </ng-container>
+                                    <ng-container *ngIf="audit.forms.added">
+                                        <span>Added Form Name is - <span>{{ audit.forms.added }}</span></span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="audit.landingPages">
+                            <div>
+                                <span>Changed Module: For {{ source | titlecase }} Where</span>
+                                <br>
+                                <div>
+                                    <ng-container *ngIf="audit.landingPages.from">
+                                        <span>Updated Landing Page Name is from - <span class="line-through">{{
+                                                audit.landingPages.from
+                                                }}</span></span>
+                                        <br>
+                                        <span>to - </span>
+                                        <span>{{ audit.landingPages.to }}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="audit.landingPages.removed">
+                                        <span>Removed Landing Page Name is - <span class="line-through">{{
+                                                audit.landingPages.removed
+                                                }}</span></span>
+                                    </ng-container>
+                                    <ng-container *ngIf="audit.landingPages.added">
+                                        <span>Added Landing Page Name is - <span>{{ audit.landingPages.added
+                                                }}</span></span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="audit.sourceUrl">
+                            <div>
+                                <span>Changed Module: For {{ source | titlecase }} Where</span>
+                                <br>
+                                <div>
+                                    <ng-container *ngIf="audit.sourceUrl.from">
+                                        <span>Updated Source Url is from - <span class="line-through">{{
+                                                audit.sourceUrl.from
+                                                }}</span></span>
+                                        <br>
+                                        <span>to - </span>
+                                        <span>{{ audit.sourceUrl.to }}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="audit.sourceUrl.removed">
+                                        <span>Removed Source Url is - <span class="line-through">{{
+                                                audit.sourceUrl.removed
+                                                }}</span></span>
+                                    </ng-container>
+                                    <ng-container *ngIf="audit.sourceUrl.added">
+                                        <span>Added Source Url is - <span>{{ audit.sourceUrl.added }}</span></span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="audit.isTriggerForLeadStatus">
+                            <div>
+                                <span>Changed Module: When</span>
+                                <br>
+                                <div>
+                                    <ng-container *ngIf="audit.isTriggerForLeadStatus.to">
+                                        <span>Changed Option to: Lead Status Changes</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="!audit.isTriggerForLeadStatus.to">
+                                        <span>Changed Option to: Lead is Generated/Exists</span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="audit.leadStatus">
+                            <div>
+                                <span>Changed Module: When</span>
+                                <div>
+                                    <ng-container *ngIf="audit.leadStatus.fromLeadStatus">
+                                        <span>Updated From List from - <span class="line-through">{{
+                                                audit.leadStatus.fromLeadStatus.from
+                                                }}</span></span>
+                                        <br>
+                                        <span>to - </span>
+                                        <span>{{ audit.leadStatus.fromLeadStatus.to }}</span>
+                                    </ng-container>
+                                </div>
+                                <div>
+                                    <ng-container *ngIf="audit.leadStatus.toLeadStatus">
+                                        <span>Changed To option from - <span class="line-through">{{
+                                                audit.leadStatus.toLeadStatus.from
+                                                }}</span></span>
+                                        <br>
+                                        <span>to - </span>
+                                        <span>{{ audit.leadStatus.toLeadStatus.to }}</span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngFor="let condition of audit.conditionResponseList">
+                            <div>
+                                <span [class.line-through]="condition.condition?.removed">{{ condition.condition?.added
+                                    ? 'Added' : ( condition.condition?.removed ? 'Removed' : 'Updated')}} Action Number:
+                                    {{
+                                    condition.conditionNumber }}</span>
+                            </div>
+                            <div>
+                                <ng-container *ngIf="condition.triggerType">
+                                    <div>
+                                        <ng-container *ngIf="condition.triggerType.from">
+                                            <span>Changed Action: from {{ condition.triggerType.from }}</span>
+                                            <br>
+                                            <span>to - </span>
+                                            <span>{{ condition.triggerType.to }}</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="condition.triggerType.added">
+                                            <span>Added Action - <span>{{ condition.triggerType.added
+                                                    }}</span></span>
+                                        </ng-container>
+                                        <ng-container *ngIf="condition.triggerType.removed">
+                                            <span>Removed Action - <span class="line-through">{{
+                                                    condition.triggerType.removed
+                                                    }}</span></span>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="condition.template">
+                                    <ng-container *ngIf="condition.template.target">
+                                        <div>
+                                            <ng-container *ngIf="condition.template.target.from">
+                                                <span>Updated Action Target from - <span class="line-through">{{
+                                                        templateTargets[condition.template.target.from]
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ templateTargets[condition.template.target.to] }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.template.target.added">
+                                                <span>Added Action Target - <span>{{
+                                                        templateTargets[condition.template.target.added]
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.template.target.removed">
+                                                <span>Removed Action Target - <span class="line-through">{{
+                                                        templateTargets[condition.template.target.removed]
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="condition.template.template">
+                                        <div>
+                                            <ng-container *ngIf="condition.template.template.from">
+                                                <span>Updated Action Template from - <span class="line-through">{{
+                                                        condition.template.template.from
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ condition.template.template.to }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.template.template.added">
+                                                <span>Added Action Template - <span>{{ condition.template.template.added
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.template.template.removed">
+                                                <span>Removed Action Template - <span class="line-through">{{
+                                                        condition.template.template.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+
+                                <ng-container *ngIf="condition.task">
+                                    <ng-container *ngIf="condition.task.target">
+                                        <div>
+                                            <ng-container *ngIf="condition.task.target.from">
+                                                <span>Updated Task User from - <span class="line-through">{{
+                                                        condition.task.target.from
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ condition.task.target.to }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.target.added">
+                                                <span>Added Task for User - <span>{{ condition.task.target.added
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.target.removed">
+                                                <span>Removed Task for User - <span class="line-through">{{
+                                                        condition.task.target.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="condition.task.name">
+                                        <div>
+                                            <ng-container *ngIf="condition.task.name.from">
+                                                <span>Updated Task Name from - <span class="line-through">{{
+                                                        condition.task.name.from
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ condition.task.name.to }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.name.added">
+                                                <span>Added Task - <span>{{ condition.task.name.added }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.name.removed">
+                                                <span>Removed Task - <span class="line-through">{{
+                                                        condition.task.name.removed }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="condition.task.description">
+                                        <div>
+                                            <ng-container *ngIf="condition.task.description.from !== undefined">
+                                                <span>Updated Task Description from - <span class="line-through">{{
+                                                        condition.task.description.from
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ condition.task.description.to }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.description.added">
+                                                <span>Added Task Description - <span>{{ condition.task.description.added
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.description.removed">
+                                                <span>Removed Task Description - <span class="line-through">{{
+                                                        condition.task.description.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="condition.task.priority">
+                                        <div>
+                                            <ng-container *ngIf="condition.task.priority.from">
+                                                <span>Updated Task Priority from - <span class="line-through">{{
+                                                        condition.task.priority.from
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ condition.task.priority.to }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.priority.added">
+                                                <span>Added Task Priority - <span>{{ condition.task.priority.added
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.task.priority.removed">
+                                                <span>Removed Task Priority - <span class="line-through">{{
+                                                        condition.task.priority.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+
+                            <div>
+                                <ng-container *ngIf="condition.dateType">
+                                    <div>
+                                        <ng-container *ngIf="condition.dateType.from">
+                                            <span>Updated Schedule based on: from {{
+                                                scheduleList[condition.dateType.from]
+                                                }}</span>
+                                            <br>
+                                            <span>to - </span>
+                                            <span>{{ scheduleList[condition.dateType.to] }}</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="condition.dateType.added">
+                                            <span>Added Schedule based on - <span>{{
+                                                    scheduleList[condition.dateType.added]
+                                                    }}</span></span>
+                                        </ng-container>
+                                        <ng-container *ngIf="condition.dateType.removed">
+                                            <span>Removed Schedule based on - <span class="line-through">{{
+                                                    scheduleList[condition.dateType.removed]
+                                                    }}</span></span>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="condition.timerType">
+                                    <div>
+                                        <ng-container *ngIf="condition.timerType.from">
+                                            <span>Changed Time Particulars To Schedule: from {{ condition.timerType.from
+                                                }}</span>
+                                            <br>
+                                            <span>to - </span>
+                                            <span>{{ condition.timerType.to }}</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="condition.timerType.added">
+                                            <span>Added Time Particulars To Schedule: {{ condition.timerType.added
+                                                }}</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="condition.timerType.removed">
+                                            <span>Removed Time Particulars To Schedule: <span class="line-through">{{
+                                                    condition.timerType.removed
+                                                    }}</span></span>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="condition.frequency">
+                                    <ng-container *ngIf="condition.frequency.time">
+                                        <div>
+                                            <ng-container *ngIf="condition.frequency.time.from !== undefined">
+                                                <div>
+                                                    <span>Updated Delay count from - <span class="line-through">{{
+                                                            condition.frequency.time.from
+                                                            }}</span></span>
+                                                    <br>
+                                                    <span>to - </span>
+                                                    <span>{{ condition.frequency.time.to }}</span>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.frequency.time.added !== undefined">
+                                                <span>Added Delay count - <span>{{ condition.frequency.time.added
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.frequency.time.removed !== undefined">
+                                                <span>Removed Delay count - <span class="line-through">{{
+                                                        condition.frequency.time.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="condition.frequency.frequency">
+                                        <div>
+                                            <ng-container *ngIf="condition.frequency.frequency.from">
+                                                <div>
+                                                    <span>Updated Time frequency from - <span class="line-through">{{
+                                                            timeFrequency[condition.frequency.frequency.from]
+                                                            }}</span></span>
+                                                    <br>
+                                                    <span>to - </span>
+                                                    <span>{{ timeFrequency[condition.frequency.frequency.to] }}</span>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.frequency.frequency.added">
+                                                <span>Added Time frequency - <span>{{
+                                                        condition.frequency.frequency.added
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.frequency.frequency.removed">
+                                                <span>Removed Time frequency - <span class="line-through">{{
+                                                        condition.frequency.frequency.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-container *ngIf="condition.timeRange">
+                                    <ng-container *ngIf="condition.timeRange.startTime">
+                                        <div>
+                                            <ng-container *ngIf="condition.timeRange.startTime.from">
+                                                <span>Updated Start Time from - <span class="line-through">{{
+                                                        condition.timeRange.startTime.from
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ condition.timeRange.startTime.to }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.timeRange.startTime.added">
+                                                <span>Added Start Time - <span>{{ condition.timeRange.startTime.added
+                                                        }}</span></span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.timeRange.startTime.removed">
+                                                <span>Removed Start Time - <span class="line-through">{{
+                                                        condition.timeRange.startTime.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="condition.timeRange.endTime">
+                                        <div>
+                                            <ng-container *ngIf="condition.timeRange.endTime.from">
+                                                <span>Updated End Time from - <span class="line-through">{{
+                                                        condition.timeRange.endTime.from
+                                                        }}</span></span>
+                                                <br>
+                                                <span>to - </span>
+                                                <span>{{ condition.timeRange.endTime.to }}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.timeRange.endTime.removed">
+                                                <span>Removed End Time - <span class="line-through">{{
+                                                        condition.timeRange.endTime.removed
+                                                        }}</span></span>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-template #noAudit>
+        <div class="no-audit">
+            No Data Found.
+        </div>
+    </ng-template>
+</div>

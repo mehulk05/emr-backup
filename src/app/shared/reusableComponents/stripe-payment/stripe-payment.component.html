@@ -1,0 +1,36 @@
+<div class="payment-wrap">
+    <div class="col-12">
+
+
+        <div class="sub-wrap">
+            <label class="label-text" for="name">Cardholder's Name</label>
+            <input [(ngModel)]="cardholdername" id="name" name="name" type="text"
+                placeholder="ENTER NAME AS PER YOUR CARD" class="input-type3" />
+        </div>
+        <div class="sub-wrap">
+            <label class="label-text">Card Details</label><small class="error-text">{{displayError}}</small>
+            <div class="example example1 p-0">
+                <div *ngIf="stripeLoaded" style="padding:1rem 1rem 0 1rem;">
+                    <ngx-stripe-card (change)="onChange($event)" [options]="cardOptions"
+                        [elementsOptions]="elementsOptions" class="stripePay">
+                    </ngx-stripe-card>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-3">
+            <p style="color:red;font-size:12px">Please note that making this payment would deduct a charge of $99
+                upfront and also create a monthly subscription of $24.99 on your card.</p>
+        </div>
+
+        <div class="btn-wrap">
+            <button type="button" [disabled]="isPaymentInProgress" (click)="submit()" class="btn">
+                <span class="btn-text">Pay $123.99</span>
+            </button>
+            <button type="button" (click)="cancel()" class="btn-can">
+                <span class="btn-text">Cancel</span>
+            </button>
+        </div>
+    </div>
+
+</div>

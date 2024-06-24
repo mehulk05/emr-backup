@@ -1,0 +1,70 @@
+<h5 style="padding: 25px;">Two-way Text Subscriptions</h5>
+<div style="padding: 25px;" *ngIf="payments.length===0">
+  <p style="font-size: 12px;color: gray;">No records to display.</p>
+</div>
+<ng-container *ngIf="payments.length>0">
+
+  <div class="table-container new-ui">
+    <p-table [value]="payments" responsiveLayout="stack" [tableStyle]="{ 'min-width': '100%' }">
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th>ID</th>
+          <th>Status</th>
+          <th>Amount</th>
+          <th>Currency</th>
+          <th>Type</th>
+          <th>Created</th>
+          <th>Transaction ID</th>
+          <th>Reason</th>
+          <th>See Invoice</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-payment>
+        <tr class="mobile-special">
+          <td>{{ payment.id }}</td>
+          <td>{{ payment.paymentStatus }}</td>
+          <td>${{payment.amount}}</td>
+          <td>{{ payment.currency }}</td>
+          <td>{{ payment.type | titlecase}}</td>
+          <td>{{ payment.createdAt| date:'fullDate'}}</td>
+          <td>{{ (payment.invoiceHosted && !payment.invoiceHosted.includes('http')) ? payment.invoiceHosted :
+            payment.transactionId ? payment.transactionId : '-' }}</td>
+          <td>
+            <span *ngIf="payment.errorMessage">
+              <a class="link" href="javascript:void(0)" (click)="showErrorReason(payment.errorMessage)"><u>View
+                  Reason</u></a>
+            </span>
+            <span *ngIf="!payment.errorMessage">-</span>
+          </td>
+          <td><button class="btn-icon" (click)="showInvoice(payment?.invoiceHosted)">
+              <i class="fa"
+                [title]="payment.invoiceHosted && payment.invoiceHosted.includes('http')?'Click to see Invoice':'Invoice not available for One Time Payment'"
+                [ngClass]="payment.invoiceHosted && payment.invoiceHosted.includes('http')?'fa-eye':'fa-eye-slash'"></i>
+            </button></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="showModal">
+  <p-dialog [header]="'Reason'" (onHide)="hideModal()" [(visible)]="showModal" [modal]="true"
+    [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    <!-- Modal body -->
+    <div class="body-section">
+      <p>{{paymentErrorMessage}}</p>
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn-default-new btn-small-new mt-2" data-dismiss="modal"
+          (click)="hideModal()">Close</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</ng-container>

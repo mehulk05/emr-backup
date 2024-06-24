@@ -1,0 +1,1031 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>Growth99+</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="Y45XADXl0rKLMhCw7mJchWEyrW7o2AOD8dXlW_Qua8U" />
+  <link rel="icon" type="image/x-icon" href="https://g99plus.b-cdn.net/AEMR/assets/img/growth99_icon.png" />
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+  <!-- Bootstrap library -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    #formWrapper {
+      padding: 20px;
+    }
+
+    #formWrapper h3 {
+      font-size: 32px !important;
+      line-height: 1.4;
+    }
+
+    .hidden {
+      display: none
+    }
+
+    .overlay {
+      display: none;
+    }
+
+    .overlay.loading {
+      display: block;
+    }
+
+    .app-row {
+      margin: 15px 0 0 0;
+      z-index: 1;
+    }
+
+    .app-row .error-msg {
+      color: red;
+    }
+
+    #thankyou {
+      display: none;
+      background-color: #fff;
+      padding: 100px 0;
+    }
+
+    #thankyou.show {
+      display: block;
+    }
+
+    .app-row .label {
+      display: block;
+      margin: 0 0 5px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    input,
+    textarea,
+    select {
+      display: block;
+      width: calc(100% - 1.8rem);
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: .25rem;
+      transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+      outline: 0;
+    }
+
+    button,
+    input:focus,
+    textarea:focus,
+    select:focus {
+      text-decoration: none;
+      outline: 0;
+      /*border: 0px;*/
+    }
+
+    .btn-submit {
+      background-color: rgb(0, 59, 111);
+      border: rgb(0, 59, 111);
+      color: rgb(255, 255, 255);
+      border-radius: 30px;
+      height: 45px;
+      padding: 0 30px;
+      cursor: pointer;
+      outline: 0;
+    }
+
+    .required {
+      color: red;
+    }
+
+    /* Turn off scrollbar when body element has the loading class */
+
+    input.radio {
+      display: inline-block;
+      max-width: 15px;
+    }
+
+    .head {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3em;
+      z-index: 2;
+      position: relative;
+    }
+
+    .logo {
+      font-family: 'Raleway', sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 21px;
+      color: #000;
+    }
+
+    .address {
+      font-family: 'Raleway', sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 21px;
+      color: #4E4244;
+    }
+
+    .logo img {
+      max-height: 80px;
+    }
+
+    .address {
+      font-family: Raleway, sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 21px;
+      color: rgb(78, 66, 68);
+    }
+
+    .address p.businessname {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 21px;
+      color: rgb(78, 66, 68);
+      margin-bottom: 0px;
+    }
+
+    .address p.businessAddress {
+      font-size: 14px;
+      line-height: 20px;
+      padding-top: 10px;
+      margin-bottom: 0;
+    }
+
+    iframe[name="Contact Form"] {
+      position: relative;
+      z-index: 3;
+    }
+
+    @media screen and (max-width:767px) {
+      .head {
+        padding: 2em 1em;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .head .logo {
+        padding-bottom: 10px;
+        padding-right: 10px;
+      }
+
+      .address {
+        font-size: 14px;
+      }
+
+      .head {
+        height: auto;
+        max-height: 100px;
+      }
+
+      .logo img {
+        max-width: 130px;
+        max-height: 80px;
+      }
+    }
+
+    .footer {
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #F3EFEF;
+    }
+
+    .footer p {
+      margin: 0;
+    }
+
+    body.loading {
+      overflow: hidden;
+    }
+
+    /* Make spinner image visible when body element has the loading class */
+
+    body.loading .overlay {
+      display: block;
+    }
+
+    /*Hidden class for adding and removing*/
+    /* .lds-dual-ring.hidden {
+        display: none;
+    } */
+    /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+    /* .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,.8);
+        z-index: 999;
+        opacity: 1;
+        transition: all 0.5s;
+    } */
+    /*Spinner Styles*/
+    /* .lds-dual-ring {
+        display: inline-block;
+        /* width: 100%;
+        height: 100%; */
+    /* } */
+
+    */
+    /* .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 5% auto;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    } */
+    /* @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    } */
+    /* .overlay {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+        } */
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(245, 241, 241, 0.8) url("https://g99plus.b-cdn.net/AEMR/assets/img/loading.svg") center no-repeat;
+    }
+
+    .cv-spinner {
+      height: 100%;
+      display: inline-block;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px #ddd solid;
+      border-top: 4px #2e93e6 solid;
+      border-radius: 50%;
+      animation: sp-anime 0.8s infinite linear;
+    }
+
+    @keyframes sp-anime {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .is-hide {
+      display: none;
+    }
+
+    .grecaptcha-badge {
+      visibility: hidden;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="landingPage"></div>
+  <div id="loader" class="cv-spinner is-hide overlay"></div>
+  <script>
+    $('#landingPage').on('click', 'button', function () {
+
+      if ($("#contact").length > 0) {
+        $('html,body').animate({
+          scrollTop: $("#contact").offset().top - 50
+        },
+          'slow');
+      }
+
+    });
+  </script>
+  <script>
+    var formurl, trackingCode, lpname1, divlist = [];
+    var landingPageId;
+    var buttoncss;
+    var gcaptchaKey = null,
+      questions;
+    var thankyouPageredirect = false
+    var trackkingUrlonFormSubmit = window.location.href
+    redirectUrl=""
+    redirect=false;
+    // Below code is for trackking the url of form from where it is being submitted
+    // =============================================================================
+    console.log(window.addEventListener, trackkingUrlonFormSubmit)
+    if (window.addEventListener) {
+      window.addEventListener("message", handleMessage);
+    } else {
+      window.attachEvent("onmessage", handleMessage);
+    }
+
+    function handleMessage(e) {
+      if (e && e.data.startsWith("http")) {
+        console.log(e.data)
+        trackkingUrlonFormSubmit = e.data
+      }
+    }
+    // ==============================================================================
+    $(function () {
+      var variables = getUrlVars();
+      var formVariables;
+
+      loadLandingPage(variables['bid'], variables['lpid']);
+
+      window.addEventListener('gplus_custom_event', function (e) {
+        var url = e.detail.url
+        window.top.location = url;
+      }, false);
+
+    });
+
+    function validateForm() {
+      for (var i = 0; i < divlist.length; i++) {
+        //console.log(divlist[i]);
+        document.getElementById(divlist[i]).style.display = "none";
+      }
+
+      divlist = [];
+      for (var i = 0; i < questions.length; i++) {
+        if (questions[i].questionType != "Yes_No" &&
+          questions[i].questionType != "Multiple_Selection_Text" &&
+          questions[i].validationMessage != null &&
+          questions[i].validate) {
+          //console.log(questions[i]);
+          divlist.push("v_" + questions[i].questionId);
+          //console.log(document.getElementById("q_" + questions[i].questionId).value);
+          var x = document.getElementById("q_" + questions[i].questionId).value;
+          var regex = questions[i].regex;
+          //console.log(regex);
+          if (regex != null && !x.match(regex) && regex != 'Other' && x != '') {
+            //console.log(document.getElementById("q_" + questions[i].questionId).value); // alert(questions[i].questionName + " is not valid");
+            // alert(questions[i].validationMessage );
+            if (questions[i].validationMessage != null)
+              document.getElementById("v_" + questions[i].questionId).style.display = "block";
+          }
+        }
+      }
+    }
+
+    function myFunction(targetId) {
+      scrollTop = 0
+      event.preventDefault();
+      targetId = "#" + targetId
+      $('html, body').animate({
+        scrollTop: $(targetId).offset().top - 50
+      }, 'slow');
+    }
+
+
+    function getUrlVars() {
+      var vars = [],
+        hash;
+      var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+      for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+      }
+      return vars;
+    }
+
+    function getFormUrlVars(url) {
+      var vars = [],
+        hash;
+      var hashes = url.slice(url.indexOf('?') + 1).split('&');
+      for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+      }
+      return vars;
+    }
+
+
+    function loadLandingPage(bid, lpid) {
+      if (lpid) {
+        $.ajax({
+          url: getApiUrl() + "/api/public/landingpage/" + lpid,
+          method: 'GET',
+          headers: {
+            'X-TenantID': '' + bid
+          },
+          success: function (data, textStatus) {
+            buttoncss = data.buttonCSS;
+            lpname1 = data.name;
+            landingPageId = data.id;
+
+            if (buttoncss != null) {
+              $('<style>').text(buttoncss).appendTo(document.head);
+            }
+            $("#landingPage").html(data.landingPageTemplate);
+            document.title = data.name;
+            setTimeout(() => {
+              buttonBackgroundColor = $(".btn").css("background-color");
+              buttonForegroundColor = $(".btn").css("color");
+              sessionStorage.setItem("lpfgColor", buttonForegroundColor)
+              sessionStorage.setItem("lpbgColor", buttonBackgroundColor)
+            }, 100)
+            //added by mehul to show script in body
+            if (data.googleAnalyticsGlobalCodeUrl != null && data.googleAnalyticsGlobalCodeUrl != '') {
+              //var s = document.createElement('script');
+              var s = data.googleAnalyticsGlobalCodeUrl;
+              // $("body").append(s);
+              const body = document.getElementsByTagName('body')[0];
+              const firstChild = body.firstChild;
+               body.insertBefore(s, firstChild);
+            }
+
+            if (data.googleAnalyticsGlobalCode != null && data.googleAnalyticsGlobalCode != '') {
+              var str = data.googleAnalyticsGlobalCode;
+              str = str.replace(/<script>/g, '');
+              str = str.replace(/<\/script>/g, '');
+              var s1 = document.createElement('script');
+              s1.textContent = str;
+              document.head.appendChild(s1);
+            }
+
+            if (data.landingPageTrackCode != null && data.landingPageTrackCode != '') {
+              var str1 = data.landingPageTrackCode;
+              str1 = str1.replace(/<script>/g, '');
+              str1 = str1.replace(/<\/script>/g, '');
+              trackingCode = str1;
+            }
+            if (document.getElementsByName('Contact Form').length > 0) {
+              document.getElementsByName('Contact Form')[0].src = data.formUrl;
+            }
+
+            //MEHUL:   replacing custom forms in landing page to show source as landing page
+            setTimeout(() => {
+              if (document.getElementsByTagName("iframe").length > 0) {
+                let iframes = $("#landingPage iframe")
+                for (let i = 0; i < iframes.length; i++) {
+                  let iframeString = iframes[i].getAttribute('src')
+                  if (iframeString && iframeString.indexOf("/form.html") >= 0) {
+                    iframeString = iframeString + "&lpid=" + lpid
+                    iframeString = iframeString.replace("/form.html", "/landing_page_form.html")
+                    console.log(iframeString, trackkingUrlonFormSubmit)
+                    document.getElementsByTagName("iframe")[i].src = iframeString
+                  }
+
+                  iframes[i].contentWindow.postMessage(trackkingUrlonFormSubmit, iframeString);
+                }
+              }
+            }, 5000)
+
+            // MEHUL: when used custom forms, on popup we need to load same form instead of $CONTSCT FORM
+            var formId, formBid
+            setTimeout(() => {
+              console.log("sdfdasd", $("#landingPage iframe").length)
+              if ($("#landingPage iframe").length > 0) {
+                let url = $("#landingPage iframe")[0].src
+                console.log(url.split("bid="), url.split("bid=").length);
+                // url = "https://devemr.growthemr.com/assets/static/landing_page_form.html?bid=723&fid=1452&lpid=2265"
+                if (url.split("bid=").length >= 2) {
+                  let formBIdArray = url.split("bid=")[1].split("&fid=")
+                  formBid = formBIdArray[0]
+                  if (url.includes("lpid") && formBIdArray.length >= 1) {
+                    formId = formBIdArray[1].split("&lpid=")[0]
+                  } else {
+                    formId = formBIdArray[1]
+                  }
+                }
+              }
+            }, 2000)
+
+
+            if (formBid && formId) {
+              loadForm(formBid, formId);
+            } else {
+              if (data.formUrl != null) {
+                formurl = data.formUrl;
+                //formurl = formurl.replace("https://devemr.growthemr.com", );
+                formVariables = getFormUrlVars(formurl);
+                fid = formVariables['fid'];
+                bid = formVariables['bid'];
+                loadForm(bid, fid);
+              }
+            }
+
+            if (data.showPopupOnPageLoad != null &&
+              data.showPopupOnPageLoad) {
+              $("#myModal").modal('show');
+            }
+          }
+        });
+      }
+    }
+
+    function getApiUrl() {
+      var hostname = window.location.hostname;
+      //const reCaptchaKey = "6Le4KZgcAAAAACzeRnurL7ZsHiI6lypvvfZL_Hu4";
+      const reCaptchaKey = "6LfWEkwhAAAAAN6xg27w8u0MZZg0QCR_P_9LWj-_";
+      if (hostname.includes("prod-app.growth99.com")) {
+        gcaptchaKey = reCaptchaKey;
+        return "https://api.growth99.com";
+      } else if (hostname.includes("devemr.growthemr.com")) {
+        gcaptchaKey = reCaptchaKey;
+        return "https://api.growthemr.com";
+      } else if (hostname.includes("localhost")) {
+        gcaptchaKey = reCaptchaKey;
+        return "https://api.growthemr.com";
+      } else {
+        gcaptchaKey = reCaptchaKey;
+        return "https://api.growth99.com";
+        // return "http://localhost:8080";
+      }
+    }
+
+    function loadForm(bid, fid) {
+      $.ajax({
+        url: getApiUrl() + "/api/public/questionnaire/" + fid,
+        method: 'GET',
+        headers: {
+          'X-TenantID': '' + bid
+        },
+        success: function (data, textStatus) {
+          createForm(data, bid, fid);
+        }
+      });
+    }
+
+    function createForm(data, bid, fid) {
+      var captcha = document.createElement('script');
+      captcha.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=' + gcaptchaKey);
+      document.head.appendChild(captcha);
+      if (data.thankYouPageUrl) {
+        thankyouPageredirect = true;
+        redirect = true;
+        redirectUrl = data.thankYouPageUrl;
+      }
+      var titleColor = "inherit";
+      if (data.titleColor != null) {
+        titleColor = data.titleColor;
+      }
+      var showTitle = true;
+      if (data.showTitle != null) {
+        showTitle = data.showTitle;
+      }
+
+      var hideFieldTitle = false;
+      if (data.hideFieldTitle && data.hideFieldTitle != null) {
+        hideFieldTitle = data.hideFieldTitle;
+      }
+      var disp = (showTitle) ? 'block' : 'none';
+      var style = " style='margin: 0 0 15px;font-weight:normal;color:" + titleColor + ";display:" + disp + "' ";
+
+      $("#formWrapper")
+        .append('<h3' + style + '>' + data.questionnaireName + '<h3>')
+        .append('<form action="#" method="POST" id="formId" class="frm">');
+      questions = data.patientQuestionAnswers;
+
+      var patientQuestionAnswers = data.patientQuestionAnswers;
+      for (var i = 0; i < patientQuestionAnswers.length; i++) {
+        var question = patientQuestionAnswers[i];
+        createInputElement(question, data, hideFieldTitle);
+      }
+      createButton(data);
+      // $("#formId").append("<div class='app-row'><div class='g-recaptcha' data-sitekey='"+ gcaptchaKey+"'></div></div>");
+
+
+      var inputBoxShadowColor = "#003B6F";
+      if (data.inputBoxShadowColor != null) {
+        inputBoxShadowColor = data.inputBoxShadowColor;
+      }
+      $("#formId input, #formId textarea").focusin(function () {
+        $(this).css('box-shadow', " 0 0 0 0.05rem " + inputBoxShadowColor);
+      }).focusout(function () {
+        $(this).css('box-shadow', " 0 0 0 0rem " + inputBoxShadowColor);
+      });
+
+      // $("body").removeClass("loading");
+      $("#formId").submit(function (event) {
+        //$("body").addClass("loading");
+        event.preventDefault();
+        $('.app-row.abc button').addClass("disabled");
+        $('.app-row.abc button').attr("disabled", true);
+
+        setTimeout(() => {
+          $('.app-row.abc button').removeClass("disabled");
+          $('.app-row.abc button').attr("disabled", false);
+        }, 2000)
+        for (var i = 0; i < divlist.length; i++) {
+          document.getElementById(divlist[i]).style.display = "none";
+        }
+
+        grecaptcha.ready(function () {
+          grecaptcha.execute(gcaptchaKey, {
+            action: 'submit'
+          }).then(function (token) {
+            captcharesponse = token;
+          });
+        });
+
+        var flag = false;
+        for (var i = 0; i < questions.length; i++) {
+          if (questions[i].questionType != "Yes_No" &&
+            questions[i].questionType != "Multiple_Selection_Text" &&
+            questions[i].validationMessage != null &&
+            questions[i].validate &&
+            (questions[i].hidden === null || questions[i].hidden === false)) {
+
+            divlist.push("v_" + questions[i].questionId);
+            console.log(document.getElementById("q_" + questions[i].questionId).value);
+            var x = document.getElementById("q_" + questions[i].questionId).value;
+            var regex = questions[i].regex;
+            if (regex != null && !x.match(regex) && regex != 'Other') {
+              console.log(document.getElementById("q_" + questions[i].questionId).value); // alert(questions[i].questionName + " is not valid");
+              if (questions[i].validationMessage != null)
+                document.getElementById("v_" + questions[i].questionId).style.display = "block";
+              // event.preventDefault();
+              flag = true;
+            }
+          }
+
+        }
+
+        if (flag) {
+          return false;
+        }
+
+        var formData = $("#formId").serializeArray();
+        var keys = Object.keys(formData);
+        var patientQuestionAnswers = [];
+        var captcharesponse = "";
+        keys.forEach(key => {
+
+          patientQuestionAnswers.push({
+            'questionId': formData[key].name,
+            'answerText': formData[key].value,
+            'questionType': $("#q_" + formData[key].name).attr("data-type")
+          });
+
+        });
+
+        setTimeout(
+          function () {
+            var formReq = {
+              sourceUrl: trackkingUrlonFormSubmit,
+              source: "Landing Page",
+              landingPageName: lpname1,
+              landingPageId: landingPageId,
+              questionnaireId: fid,
+              gcaptcharesponse: captcharesponse,
+              patientQuestionAnswers: patientQuestionAnswers
+            }
+            //$("#myModal").modal('hide');
+            // $(document).ajaxStart(function(){
+            //     // Show image container
+            //     $("body").addClass("loading");
+            // });
+            $.ajax({
+              url: getApiUrl() + '/api/public/popup/questionnaire/' + fid,
+              method: 'POST',
+              data: JSON.stringify(formReq),
+              beforeSend: function () {
+                // Show image container
+                $('#formWrapper').addClass('hidden')
+                $(".overlay").addClass("loading");
+                $('#loader').removeClass('is-hide')
+              },
+
+              contentType: 'application/json',
+              headers: {
+                'X-TenantID': '' + bid
+              },
+              success: function (response, statusText) {
+                $(".overlay").removeClass("loading");
+                $("formId").removeClass("loading");
+                // alert("Form submitted successfully.");
+                $("#btnSubmit").attr("disabled", false);
+                $('.app-row.abc button').removeClass("disabled");
+                $('.app-row.abc button').attr("disabled", false);
+                $("#btnSubmit").removeClass("disabled")
+                $("#formId")[0].reset();
+                // document.getElementById("formId").reset();
+                var s2 = document.createElement('script');
+                s2.textContent = trackingCode;
+                document.head.appendChild(s2);
+                handleRedirectForThankYouPage()
+
+                // var s3 = document.createElement('script');
+                // s3.textContent = facebookPixelCode;
+                // document.head.appendChild(s3);
+              },
+              complete: function (data) {
+                // Hide image container
+                //$('#loader').addClass('hidden')
+                //$("body").removeClass("loading");
+                $("overlay").removeClass("loading");
+                $('#loader').addClass('is-hide')
+                $('.app-row.abc button').removeClass("disabled");
+                $('.app-row.abc button').attr("disabled", false);
+              },
+
+              error: function (error) {
+                // $("formId").removeClass("loading");
+                $("#formId")[0].reset();
+                $("overlay").removeClass("loading");
+                $("#btnSubmit").attr("disabled", false);
+                // alert("Unable to submit form. Please try again later.");
+                // $('#thankyou').addClass('show')
+              }
+            })
+          }, 2000);
+      });
+    }
+
+    function handleRedirectForThankYouPage() {
+      if (thankyouPageredirect) {
+        try {
+          if (document.referrer.includes("landingpage.html") || document.referrer.includes("landingpage.html")) {
+            //If form is submited from Symptom composer it should not reload page
+            // it should show thank you page inside iframe without refresh
+            console.log("========================composer")
+            window.location = redirectUrl
+
+            //   ================  End of if condition ============================ //
+          } else {
+            if (form_iniFrame()) {
+              console.log("In if of form_iniFrame");
+              window.top.location.href = redirectUrl;
+            } else {
+              console.log("In else of form_iniFrame");
+              window.top.location.href = redirectUrl;
+            }
+          }
+
+        } catch (e) {
+          console.log("In redirect exception")
+          window.top.location.href = redirectUrl;
+        }
+      }
+      else {
+        document.getElementById("formId").style.display = "none";
+        document.getElementById("thankyou").style.display = "block";
+        $('#thankyou').addClass('show')
+      }
+    }
+
+
+    function form_iniFrame() {
+      if (window.self !== window.top) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function createButton(data) {
+      var buttonBackgroundColor = "#003B6F";
+      var buttonForegroundColor = "#FFF";
+      if (data.buttonBackgroundColor != null) {
+        buttonBackgroundColor = data.buttonBackgroundColor;
+      }
+
+      if (data.buttonForegroundColor != null) {
+        buttonForegroundColor = data.buttonForegroundColor;
+      }
+
+      buttonBackgroundColor = $(".btn").css("background-color");
+      buttonForegroundColor = $(".btn").css("color");
+
+      console.log("buttonBackgroundColor", buttonBackgroundColor)
+      $("#formId").append("<div class='app-row abc'>" +
+        "<button type='submit' class='button' >Submit</button>" +
+        "</div>");
+      if (buttonBackgroundColor) {
+        console.log(buttonBackgroundColor === "rgb(255, 255, 255)")
+        console.log(buttonBackgroundColor.toLowerCase().startsWith("#fff"))
+        if (buttonBackgroundColor === "rgb(255, 255, 255)" || buttonBackgroundColor.toLowerCase().startsWith("#fff")) {
+          let temp = buttonBackgroundColor
+          buttonBackgroundColor = buttonForegroundColor
+          buttonForegroundColor = temp
+          console.log('heihewrfkjdslsjfljdsfnkna')
+        }
+        setTimeout(() => {
+          $(".app-row.abc button").css("background-color", buttonBackgroundColor)
+          $(".app-row.abc button").css("color", buttonForegroundColor)
+        }, 1000)
+      }
+    }
+
+    function createInputElement(question, data, hideFieldTitle) {
+
+      // required
+      var req = "";
+      var reqLabel = "";
+      if (question.required) {
+        req = "required='true'";
+        reqLabel = "<span class='required'>*</span>";
+      }
+
+      var hiddenFieldTitleText = "";
+      if (!hideFieldTitle) {
+        hiddenFieldTitleText = " style='display:none' ";
+      }
+      // hidden
+      var hidden = "";
+      if (question.hidden != null && question.hidden === true) {
+        hidden = " style='display:none' "
+      }
+
+      var inputBoxShadowColor = "#003B6F";
+      if (data.inputBoxShadowColor != null) {
+        inputBoxShadowColor = data.inputBoxShadowColor;
+      }
+      var inputStyle = ""; // " style='box-shadow: 0 0 0 0.05rem " + inputBoxShadowColor + "' ";
+
+      if (question.questionType === "Input") {
+
+        var h =
+          "<div class='app-row' " + hidden + ">" +
+          "<label class='label' " + hiddenFieldTitleText + ">" + question.questionName + reqLabel + "</label>" +
+          "<div>" +
+          "<input " + inputStyle + " type='text' class='input input-border' oninput='validateForm()' data-type='" + question.questionType + "' id='q_" + question.questionId + "' name='" + question.questionId + "' placeholder='" + question.questionName + "' " + req + " />" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;' id='v_" + question.questionId + "' >" +
+          "<span class='error-msg'>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+
+      } else if (question.questionType === "Text") {
+
+        var h =
+          "<div class='app-row' " + hidden + ">" +
+          "<label class='label'" + hiddenFieldTitleText + ">" + question.questionName + reqLabel + "</label>" +
+          "<div>" +
+          "<textarea " + inputStyle + " data-type='" + question.questionType + "' id='q_" + question.questionId + "' name='" + question.questionId + "' placeholder='" + question.questionName + "' " + req + "></textarea>" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;' id='v_" + question.questionId + "' >" +
+          "<span class='error-msg'>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+
+      } else if (question.questionType === "Yes_No") {
+        var bgColor = $(".head button.btn.price-btn").css("background-color");
+        if (!bgColor) {
+          bgColor = localStorage.getItem("formbuttonColor")
+        }
+
+        var h =
+          "<div class='app-row' " + hidden + ">" +
+          "<label class='label' >" + question.questionName + reqLabel + "</label>" +
+          "<div class='textraido' style='color:'" + bgColor + ">" +
+          "<input type='radio' value='Yes' class='radio' " + inputStyle + " data-type='" + question.questionType + "' id='q_" + question.questionId + "' name='" + question.questionId + "' " + req + "> Yes" +
+          "&nbsp;&nbsp;<input type='radio' value='No' class='radio' " + inputStyle + " data-type='" + question.questionType + "' id='q_" + question.questionId + "' name='" + question.questionId + "'> No" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;' id='v_" + question.questionId + "' >" +
+          "<span class='error-msg'>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+
+      } else if (question.questionType === "Multiple_Selection_Text") {
+        console.log("question.allowMultipleSelection" + question.allowMultipleSelection)
+        var qt = (question.allowMultipleSelection) ? "checkbox" : "radio";
+        if (!question.allowMultipleSelection && question.showDropDown) {
+          qt = "dropdown"
+        }
+        console.log("qt=" + qt)
+        var h =
+          "<div class='app-row' " + hidden + ">" +
+          "<label class='label' >" + question.questionName + reqLabel + "</label>";
+        if (qt === "radio") {
+          for (var i = 0; i < question.patientQuestionChoices.length; i++) {
+            question.patientQuestionChoices[i].choiceName = question.patientQuestionChoices[i].choiceName.replace("'", "&#39;");
+            let qid = question.questionId + "_" + i;
+            h += "<div>" +
+              "<input " + inputStyle + " type='" + qt + "' class='' " +
+              " data-type='" + question.questionType + "' id='q_" + qid + "' name='" + question.questionId + "'" +
+              " value='" + question.patientQuestionChoices[i].choiceName + "'" +
+              "' placeholder='" + question.questionName + "' " + req +
+              " style='display:inline-block; max-width: 20px;' />" +
+              question.patientQuestionChoices[i].choiceName +
+              "</div>";
+
+          }
+        } else if (qt === "checkbox") {
+          h += "<div " + req + ">";
+          for (var i = 0; i < question.patientQuestionChoices.length; i++) {
+            question.patientQuestionChoices[i].choiceName = question.patientQuestionChoices[i].choiceName.replace("'", "&#39;");
+            let qid = question.questionId + "_" + i;
+            h += "<div>" +
+              "<input " + inputStyle + " type='" + qt + "' class='' " +
+              " data-type='" + question.questionType + "' id='q_" + qid + "' name='" + question.questionId + "'" +
+              " value='" + question.patientQuestionChoices[i].choiceName + "'" +
+              "' placeholder='" + question.questionName + "' " +
+              " style='display:inline-block; max-width: 20px;' />" +
+              question.patientQuestionChoices[i].choiceName +
+              "</div>";
+
+          }
+          h += "</div>";
+        } else if (qt === "dropdown") {
+
+          h += "<div " + req + ">";
+          h += "<div class='dropdown'><select  id='q_" + question.questionId + "' name='" + question.questionId + "' required=" + question.required + ">"
+          for (var i = 0; i < question.patientQuestionChoices.length; i++) {
+            question.patientQuestionChoices[i].choiceName = question.patientQuestionChoices[i].choiceName.replace("'", "&#39;");
+            let qid = question.questionId + "_" + i;
+            h += "<option value='" + question.patientQuestionChoices[i].choiceName + "'>" +
+              question.patientQuestionChoices[i].choiceName + "</option>"
+
+          }
+          h += "</select></div>";
+        }
+
+        h += "</div>";
+
+        $("#formId").append(h);
+      }
+    }
+
+    $(document).ready(function () {
+      $("#myModal").on('hide.bs.modal', function () {
+        setTimeout(() => {
+          $('#formWrapper').removeClass('hidden')
+          $(".overlay").removeClass("loading");
+          $('#thankyou').removeClass('show')
+        }, 500)
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div id="formWrapper"></div>
+        <div class="overlay">
+          <p style="text-align: center;
+                    margin: 28% 0;">Processing...</p>
+        </div>
+        <div id="thankyou">
+          <div class="thanks">
+
+            <div class="thanks-content">
+              <div style="text-align:center;">
+                <h1 style="text-align: center;">Thank You!</h1>
+                <p style="text-align: center;">Your form has been submitted successfully.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="blue-card bg-white new-ui pl-1">
+  <!-- <div class="bg-white datatable-table">
+    <div class="title">
+      <h3>{{title}}</h3>
+    </div>
+  </div> -->
+
+  <div class="add-edit-form">
+    <div class="form form-type2">
+      <form [formGroup]="serviceCategoryForm" (ngSubmit)="submitForm()">
+        <div class="row mx-0">
+
+          <!-- ------------------------- Service Feild Start ------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.clinicIds.invalid && ((f.clinicIds.dirty || f.clinicIds.touched))?'has-error':''">
+              <label>Select your Clinics<span class="error-red">*</span></label>
+              <p-multiSelect [resetFilterOnHide]="true" [options]="clinicList" formControlName="clinicIds"
+                optionLabel="name" optionValue="id" display="chip">
+              </p-multiSelect>
+              <!-- <input type="text" class="form-control input-type2" formControlName="serviceIds" appErrorStylingDirective> -->
+              <div class="error error-msg">
+                <div *ngIf="f.clinicIds.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinics are required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- -------------------------- First Name feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+              <label>Category Name<span class="error-red">*</span></label>
+              <input type="text" (input)="onLabelAdd($event)" class="form-control input-type2" formControlName="name"
+                appErrorStylingDirective>
+              <div *ngIf="duplicateLabel" class="error-duplicate">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                Category with this name already present.
+              </div>
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Category Name is required.
+                </div>
+                <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Category Name can only contain alphabets
+                  and space.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn-save-new btn-small-new" [disabled]="!serviceCategoryForm.valid || duplicateLabel">
+                  Save
+                </button>
+
+                <button type="button" (click)="goBack()" class="btn-small-new btn-default-new">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</div>

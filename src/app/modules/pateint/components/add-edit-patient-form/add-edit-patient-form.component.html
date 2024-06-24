@@ -1,0 +1,235 @@
+<div class="blue-card bg-white box-shadow-light">
+  <div class="add-edit-form">
+    <div class="form form-type2">
+      <form [formGroup]="patientForm" (ngSubmit)="submitForm()">
+        <div class="row mx-0">
+          <!-- -------------------------- First Name feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+            <div class="form-group"
+              [ngClass]="f.firstName.invalid && ((f.firstName.dirty || f.firstName.touched))?'has-error':''">
+              <label>First Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="firstName" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.firstName.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is required.
+                </div>
+                <div *ngIf="f.firstName.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- Last Name feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+            <div class="form-group"
+              [ngClass]="f.lastName.invalid && ((f.lastName.dirty || f.lastName.touched))?'has-error':''">
+              <label>Last Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="lastName" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.lastName.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is required.
+                </div>
+                <div *ngIf="f.lastName.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Email Feild ----------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.email.invalid && ((f.email.dirty || f.email.touched))?'has-error':''">
+              <label>Email Address<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="email" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.email.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is required.
+                </div>
+                <div *ngIf="f.email.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- Phone number field -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group pb-2 mb-0"
+              [ngClass]="f.phone.invalid && ((f.phone.dirty || f.phone.touched))?'has-error':''">
+              <label>Phone Number<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="phone" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.phone.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is required.
+                </div>
+                <div *ngIf="f.phone.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is invalid.
+                </div>
+              </div>
+            </div>
+            <div class="form-group pt-0 pb-2">
+              <div class="inline-checkbox">
+                <app-custom-checkbox1 label="I consent to receive alerts via text message" for="isSmsOptedIn"
+                  [control]="$any(patientForm.get('isSmsOptedIn'))"></app-custom-checkbox1>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- ---------------------------- Gender field ----------------------------- -->
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.gender.invalid && ((f.gender.dirty || f.gender.touched))?'has-error':''">
+              <label>Gender<span class="error-red">*</span></label>
+              <p-dropdown [options]="genderValues" formControlName="gender" placeholder="Select a gender">
+                <ng-template let-item pTemplate="genderValues">
+                  {{item}}
+                </ng-template>
+              </p-dropdown>
+              <div class="error error-msg">
+                <div *ngIf="f.gender.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Gender is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- ----------------------------- Birth Date field ------------------------------ -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.dateOfBirth.invalid && ((f.dateOfBirth.dirty || f.dateOfBirth.touched))?'has-error':''">
+              <label>Date of Birth<!-- <span class="error-red">*</span> --></label>
+              <p-calendar formControlName="dateOfBirth" [showIcon]="true" [showButtonBar]="true"
+                inputId="min-max"></p-calendar>
+              <!-- <input type="text" class="form-control input-type2" formControlName="date" appErrorStylingDirective> -->
+              <!-- <div class="error error-msg">
+                  <div *ngIf="f.dateOfBirth.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Birth Date is required.
+                  </div>
+                </div> -->
+            </div>
+          </div>
+
+
+          <!-- --------------------------Address line1 feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.addressLine1.invalid && ((f.addressLine1.dirty || f.addressLine1.touched))?'has-error':''">
+              <label>Address Line1</label>
+              <input type="text" class="form-control input-type2" formControlName="addressLine1"
+                appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.addressLine1.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------Address line2 feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.addressLine2.invalid && ((f.addressLine2.dirty || f.addressLine2.touched))?'has-error':''">
+              <label>Address Line2</label>
+              <input type="text" class="form-control input-type2" formControlName="addressLine2"
+                appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.addressLine2.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------City  feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.city.invalid && ((f.city.dirty || f.city.touched))?'has-error':''">
+              <label>City</label>
+              <input type="text" class="form-control input-type2" formControlName="city" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.city.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> City Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- --------------------------State  feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.state.invalid && ((f.state.dirty || f.state.touched))?'has-error':''">
+              <label>State</label>
+              <input type="text" class="form-control input-type2" formControlName="state" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.state.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> State Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- --------------------------country  feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.country.invalid && ((f.country.dirty || f.country.touched))?'has-error':''">
+              <label>Country</label>
+              <input type="text" class="form-control input-type2" formControlName="country" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.country.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Country Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- --------------------------Zipcode  feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.zipcode.invalid && ((f.zipcode.dirty || f.zipcode.touched))?'has-error':''">
+              <label>Zipcode</label>
+              <input type="text" class="form-control input-type2" formControlName="zipcode" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.zipcode.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Zip code is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------- notes section ---------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.notes.invalid && ((f.notes.dirty || f.notes.touched))?'has-error':''">
+              <label>Notes</label>
+              <textarea rows="3" cols="80" class="form-control textarea" formControlName="notes"
+                appErrorStylingDirective></textarea>
+            </div>
+          </div>
+
+          <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn-save-new btn-small-new" [disabled]="!patientForm.valid">
+                  <span class="btn-text">Save</span>
+                </button>
+
+                <button type="button" (click)="goBack()" class="btn-default-new btn-small-new">
+                  <span class="btn-text"> Cancel</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</div>

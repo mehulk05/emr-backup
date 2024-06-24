@@ -1,0 +1,97 @@
+
+<div class="bg-white datatable-table">
+  <!-- <div class="title">
+    <h3> Appointment</h3>
+  </div> -->
+  <div class="table-list">
+    <p-table #dt1 responsiveLayout="stack" [reorderableColumns]=true sortField="createdAt" [sortOrder]="-1" [value]="rowData" [columns]="selectedColumns" [paginator]="true" [rows]="10"
+      [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="globalFilterColumn">
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <!-- ---------------------- Column visibility starts ----------------------- -->
+          <p-multiSelect [resetFilterOnHide]="true"  [options]="columns" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}" placeholder="Choose Columns">
+          </p-multiSelect>
+
+          <!-- ------------------------- Table Search starts ------------------------- -->
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <div class="table-button">
+              <input pInputText class="search-table" type="text"
+                (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+            </div>
+          </span>
+        </div>
+      </ng-template>
+
+      <!-- ---------------------------- Table starts ----------------------------- -->
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <th [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </ng-container>
+        </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="body" let-data> -->
+        <!-- -------------------------- Table body starts -------------------------- -->
+      <ng-template pTemplate="body" let-data let-columns="columns">
+        <tr class="mobile-special">
+          <div class="bh-header">
+            <div class="completed" [ngClass]="data.appointmentStatus==='Pending'?'incompleted':'completed'">
+              <p class="small-size">{{data.appointmentStatus}}</p>
+            </div>
+            <div class="paid" [ngClass]="data.paymentStatus==='Unpaid'?'unpaid':'paid'">
+              <p class="small-size">{{data.paymentStatus}}</p>
+            </div>
+          </div>
+          <ng-container *ngFor="let col of columns">
+            <td>
+              <ng-container [ngSwitch]="col.field">
+
+                <ng-container *ngSwitchCase="'appointmentDate'">
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatBookingHistoryTime(
+                    data[col.field])}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'paymentStatus'">
+                  <span class="p-column-title">{{col.header}}</span> {{ formatWord(data[col.field])}}
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'createdAt'">
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatTime( data[col.field])}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'actions'">
+                  <span class="p-column-title">{{col.header}}</span>
+                  <a href="javascript:void(0)" (click)="editAppointment(data.id)"><i
+                      class="fas fa-edit ms-text-primary"></i></a>
+                  <a [routerLink]="['/appointment/', data.id, 'meeting']" *ngIf="data?.appointmentType === 'Virtual' && data?.providerName?.length > 0"><i
+                      class="fas fa-video ms-text-secondary"></i></a>
+                  <a *ngIf="data?.paymentStatus === 'Unpaid'" [routerLink]="['/patient-portal/patient/appointment', data.id, 'payment']"
+                    routerLinkActive="router-link-active"><i class="fas fa-dollar-sign ms-text-secondary"></i></a>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{data[col.field]}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-container>
+
+        </tr>
+
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+

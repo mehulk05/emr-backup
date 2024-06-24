@@ -1,0 +1,382 @@
+<div class="blue-card bg-white">
+  <!-- <div class="profile-header">
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="content-wrapper">
+      <div class="header-content">
+
+      </div>
+      <div class="header-img-wrapper">
+        <img
+          src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/Profile%20Interface-bro%201@2x.png"
+          alt="illustration"
+          class="header-img"
+        />
+      </div>
+    </div>
+  </div> -->
+
+  <div class="add-edit-form">
+    <div class="form form-type2">
+      <form [formGroup]="emailForm">
+        <div class="row mx-0">
+          <!-- -------------------------- Module feild --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>Module<span class="error-red">*</span></label>
+              <p-dropdown
+                placeholder="Select Template For"
+                optionValue="id" optionLabel="name" [options]="templateValues"
+                [options]="templateValues"
+                formControlName="templateFor"
+              >
+                <!-- <ng-template let-item pTemplate="templateValues">
+                  {{ item }}
+                </ng-template> -->
+              </p-dropdown>
+            </div>
+          </div>
+
+          <!-- --------------------------- Target feild --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" *ngIf="f.templateFor.value === 'Lead'">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown
+                placeholder="Select Target"
+                [options]="leadTerget"
+                formControlName="emailTarget"
+              >
+                <ng-template let-item pTemplate="leadTerget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+            </div>
+
+            <div class="form-group" *ngIf="f.templateFor.value === 'MassEmail'">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown
+                placeholder="Select Target"
+                [options]="massEmailTarget"
+                formControlName="emailTarget"
+              >
+                <ng-template let-item pTemplate="leadTerget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+            </div>
+
+            <div
+              class="form-group"
+              *ngIf="f.templateFor.value === 'Appointment'"
+            >
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown
+                placeholder="Select Target"
+                [options]="appointmentTarget"
+                formControlName="emailTarget"
+              >
+                <ng-template let-item pTemplate="appointmentTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Event Name Feild ----------------------------- -->
+          <div *ngIf="f.templateFor.value !== 'MassEmail'" class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>Events Name<span class="error-red">*</span></label>
+              <p-dropdown
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Select Events"
+                [options]="emailTemplateNames"
+                (onChange)="filterEmailTemplateByEventId($event.value)"
+                formControlName="emailTemplateName"
+              >
+              </p-dropdown>
+              <div
+                class="error error-msg"
+                *ngIf="
+                  f.emailTemplateName.invalid &&
+                  (submitted ||
+                    f.emailTemplateName.dirty ||
+                    f.emailTemplateName.touched)
+                "
+              >
+                <div *ngIf="f.emailTemplateName.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Event Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Name Feild ----------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div
+              class="form-group"
+              [ngClass]="
+                f.name.invalid && (f.name.dirty || f.name.touched)
+                  ? 'has-error'
+                  : ''
+              "
+            >
+              <label>Name<span class="error-red">*</span></label>
+              <input
+                type="text"
+                class="form-control input-type2"
+                formControlName="name"
+                appErrorStylingDirective
+              />
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i
+                  >Name is required.
+                </div>
+                <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i
+                  >Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Subject Line Feild ----------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>Subject</label>
+              <input
+                type="text"
+                formControlName="subject"
+                placeholder="Subject line"
+                class="form-control input-type2"
+                appErrorStylingDirective
+              />
+            </div>
+          </div>
+
+          <!-- -------------------------- Is Custom --------------------------- -->
+          <div class="col-lg-6">
+            <div class="form-group">
+              <div class="flex-sb">
+                <label>Is Custom?</label>
+                <p-inputSwitch formControlName="isCustom"></p-inputSwitch>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Lead Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'Lead'">
+            <button
+              class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let emailVariables of leadEmailVariables; let i = index"
+              (click)="addVariables($event, emailVariables)"
+            >
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+           <!-- -------------------------- Mass email Variable --------------------------- -->
+           <div *ngIf="f.templateFor.value === 'MassEmail'">
+            <button
+              class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let emailVariables of massEmailVariables; let i = index"
+              (click)="addVariables($event, emailVariables)"
+            >
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Event Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'Event'">
+            <button
+              class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let emailVariables of filterEmailVariables; let i = index"
+              (click)="addVariables($event, emailVariables)"
+            >
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Form Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'Form'">
+            <button
+              class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let question of questions; let i = index"
+              (click)="addFormVariable($event, question)"
+            >
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ question.name }}
+            </button>
+          </div>
+
+          <div class="old-editor">
+            <p>
+              If you want to try new Editor please click on
+              <a [routerLink]="['../']">Try new Editor</a>
+            </p>
+          </div>
+
+          <!-- -------------------------- Body--------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <label class="mt-2" for="body"> Body </label>
+            <div class="row">
+              <div class="col-md-8 mb-3">
+                <a style="color: #009EDE" (click)="openLibrary()"
+                  >Choose from Library</a
+                >
+              </div>
+            </div>
+            <a
+              *ngIf="f?.templateFor?.value === 'Lead' && emailTemplateId"
+              style="float: right; margin-right: 19px; color: #009EDE"
+              (click)="openLibrary1()"
+            >
+              Test Email Template</a
+            >
+
+            <div class="form-group">
+              <div id="gjs"></div>
+            </div>
+          </div>
+
+          <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button
+                  [disabled]="!emailForm.valid"
+                  (click)="OnSubmitForm()"
+                  class="btn btn-save btn-regular"
+                >
+                  <span class="btn-text">Save</span>
+                </button>
+
+                <button
+                  type="button"
+                  (click)="returntoEmailList()"
+                  class="btn btn-cancel btn-regular"
+                >
+                  <span class="btn-text"> Cancel</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------- Test Email Model -------------------------- -->
+<p-dialog
+  [modal]="true"
+  [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  header="Choose Template"
+  [(visible)]="isModalVisibile"
+>
+  <form class="form-part" [formGroup]="searchForm" style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search"
+            formControlName="search"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <button
+          (click)="onSearchSubmit()"
+          type="button"
+          class="btn btn-primary btn-common"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let newsLetter of newsLetters">
+            <td>
+              {{ newsLetter.name }}
+            </td>
+            <td>
+              <a class="selector" (click)="useTemplate(newsLetter)">Use</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [modal]="true"
+  [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }"
+  [header]="'Send Test Email'"
+  [style]="{ width: '50vw' }"
+  [visible]="false"
+>
+  <form [formGroup]="testEmailTemplateForm" class="form" style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="name">Choose Lead<span class="error-red">*</span></label>
+          <p-dropdown
+            placeholder="Select Lead"
+            formControlName="leadId"
+            optionLabel="firstName"
+            [options]="rowData"
+            optionValue="id"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="name"> Email<span class="error-red">*</span></label>
+          <input
+            type="text"
+            class="form-control popupinput"
+            formControlName="email"
+            placeholder="Enter Email to Receive Email"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <button
+          (click)="SubmitTestTemplate()"
+          type="button"
+          class="btn btn-primary btn-common"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

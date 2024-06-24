@@ -1,0 +1,26 @@
+<div class="row clinic-hours">
+  <div class="col-md-3 px-0">
+      <input id={{day}} type="checkbox" [checked]="checked" (click)="check($event)" (input)="onChange()">&nbsp;
+      <label for={{day}}>  {{day | titlecase}}</label> <br>
+  </div>
+  <div class="col-md-3">
+    <!-- <label>Close</label> -->
+    <!-- <input type="checkbox" [checked]="appointmentOnly" (click)="appointmentOnlyCheck($event)" (input)="onChange()" style="display: block !important;"> -->
+
+    <p-dropdown [options]="appointmentOption" [(ngModel)]="appointmentOnly"
+     [filter]="true" filterBy="name" placeholder="Select Options"
+    optionLabel="name" optionValue="value" (onChange)="appointmentOnlyCheck($event)" >
+    <ng-template let-item pTemplate="appointmentOnly">
+        {{item.name}}
+    </ng-template>
+    </p-dropdown>
+</div>
+  <div class="col-md-3">
+    <!-- <label>Open</label> -->
+    <p-calendar  [(ngModel)]="openHour" [disabled]="appointmentOnly" (onClose)="onChange()" [hideOnDateTimeSelect]="true" [timeOnly]="true" [hourFormat]="'12'" inputId="opentimeonly"></p-calendar>
+</div>
+<div class="col-md-3">
+    <!-- <label>Close</label> -->
+    <p-calendar [(ngModel)]="closeHour" [disabled]="appointmentOnly" (onClose)="onChange()" [timeOnly]="true" [hourFormat]="'12'" inputId="closetimeonly"></p-calendar>
+</div>
+</div>

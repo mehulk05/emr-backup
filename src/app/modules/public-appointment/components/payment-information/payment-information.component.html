@@ -1,0 +1,5 @@
+<div class="row" [ngClass]="{ 'hidden': !payNowOption }">
+  <app-payment style="width: 100%;" [booking]="booking" (afteronPaymentSuccess)="paymentOnPaymentSuccess($event)"
+    (afteronPaymentCancel)="paymentOnPaymentCancel()">
+  </app-payment>
+</div>

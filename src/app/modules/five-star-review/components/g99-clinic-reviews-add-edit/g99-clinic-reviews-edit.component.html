@@ -1,0 +1,82 @@
+
+  <div class="review-wrapper">
+    <div class="search-container">
+      <form class="d-flex justify-content-space-between" [formGroup]="searchReviewsForm" (ngSubmit)="submitForm()">
+        <div class="flex-box">
+          <input type="text" placeholder="Search" formControlName="searchText" class="form-control" />
+          <button class="btn-small-new btn-save-new" type="submit">Search</button>
+        </div>
+      </form>
+
+      <button class="btn-small-new btn-save-new  mr-2" (click)="addReview()">
+        <i class="fa fa-plus mr-1" aria-hidden="true"></i> Add Review
+      </button>
+    </div>
+
+    <ng-container *ngIf="reviewList?.length !== 0 && !showNoReviews">
+      <div class="reviews" >
+        <div *ngFor="let review of reviewList">
+          <app-g99-review-item [review]="review" [clinicId]="clinicId"
+            (refetchEvent)="refetch($event)"></app-g99-review-item>
+        </div>
+        </div>
+
+        <div *ngIf="showPagination">
+          <div className="pagination-box">
+            <ul>
+              <a *ngIf="currentPage !== 1" (click)="searchReviews(' ', 1)" style="padding: 2px">
+                «First
+              </a>
+              <a *ngIf="currentPage !== 1" (click)="searchReviews(' ', currentPage - 1)" style="padding: 2px">
+                ‹Prev
+              </a>
+              <span style="
+                  color: black;
+                  font-weight: 600;
+                  font-size: 18px;
+                  padding: 2px;
+                ">
+                {{ currentPage }}
+              </span>
+              <a *ngIf="currentPage < lastPage" (click)="searchReviews(' ', currentPage + 1)" style="padding: 2px">
+                Next›
+              </a>
+              <a *ngIf="currentPage < lastPage" (click)="searchReviews(' ', lastPage)" style="padding: 2px">
+                Last»
+              </a>
+            </ul>
+            <p>
+              Displaying reviews{{ ' ' }} {{ rangeStart }}-{{ rangeEnd
+              }}{{ ' ' }} of {{ totalReviews }} in total
+            </p>
+          </div>
+        </div>
+    </ng-container>
+
+    <div class="my-3" *ngIf="showNoReviews">
+      <div className="d-flex justify-content-center container">
+        <div>
+          <div>
+            <div class="mb-2">
+              <p className="our-rating">No reviews found</p>
+            </div>
+          </div>
+          <div>
+            <span style="padding-right: 10px">
+              <span class="fa fa-star fa-3x" style="padding-right: 10px"></span>
+              <span class="fa fa-star fa-3x" style="padding-right: 10px"></span>
+              <span class="fa fa-star fa-3x" style="padding-right: 10px"></span>
+              <span class="fa fa-star fa-3x" style="padding-right: 10px"></span>
+              <span class="fa fa-star fa-3x" style="padding-right: 10px"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<ng-container *ngIf="showAddReviewModal">
+  <app-g99-clinic-reviews-add [clinicId]="clinicId" [showModal]="showAddReviewModal"
+    (modalClosed)="onCloseModal($event)"></app-g99-clinic-reviews-add>
+</ng-container>

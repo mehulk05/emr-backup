@@ -1,0 +1,84 @@
+<div class="blue-card new-ui">
+    <div class="row mx-0">
+        <div class="col-lg-9 col-md-12 col-sm-12">
+            <div class="panel-blue">
+                <div class="panel-inner-wrapper">
+                    <div class="panel-new panel-border no-overflow mt-2 pb-4">
+                        <div class="panel-header">
+                            <div class="header flex justify-content-between">
+                                <div class="panel-devices"></div>
+                                <div class="panel-actions"></div>
+                            </div>
+                        </div>
+                        <div class="panel-content">
+                            <div id="editor" [class.d-none]="!isEditorVisible"></div>
+                            <app-layout-selector (layoutSelected)="layoutSelected($event)"></app-layout-selector>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="panel-blue">
+                <div class="panel-inner-wrapper">
+                    <div class="panel-new panel-border no-overflow mt-2 pb-4">
+                        <div class="panel-header">
+                            <div class="header flex justify-content-between align-items-center nav" role="tablist">
+                                <div class="">
+                                    <span class="ml-3 header-icon" id="layer-tab" data-bs-toggle="tab"
+                                        data-bs-target="#layer" role="tab" aria-controls="layer"><i
+                                            class="fas fa-layer-group" title="Layers" aria-hidden="true"></i></span>
+                                    <span #stylesTab class="ml-3 header-icon" id="style-tab" data-bs-toggle="tab"
+                                        data-bs-target="#style" title="Settings" role="tab" aria-controls="style"><i
+                                            class="fas fa-cog" aria-hidden="true"></i></span>
+                                </div>
+                                <div>
+                                    <span #blocksTab class="header-icon" id="block-tab" data-bs-toggle="tab"
+                                        data-bs-target="#block" title="Blocks" role="tab" aria-controls="block"
+                                        aria-selected="true"><i class="fas fa-th-large" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade" id="block" role="tabpanel" aria-labelledby="block-tab">
+                                    <div id="blocks"></div>
+                                </div>
+                                <div class="tab-pane fade" id="layer" role="tabpanel" aria-labelledby="layer-tab">
+                                    <div id="layers-container"></div>
+                                </div>
+                                <div class="tab-pane fade" id="style" role="tabpanel" aria-labelledby="style-tab">
+                                    <div id="styles-container" class="flex flex-column">
+                                        <div class="gjs-sm-sector no-select">
+                                            <div class="gjs-sm-sector-title">
+                                                <span class="icon-settings fa fa-cog"></span>
+                                                <span class="gjs-sm-sector-label ml-2">Settings</span>
+                                            </div>
+                                            <div class="gjs-sm-properties">
+                                                <div id="traits-container" class="flex-grow-1"></div>
+                                            </div>
+                                        </div>
+                                        <div id="styles-manager-container"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="showSaveCancelButton">
+                    <div class="btn-container">
+                        <button type="button" class="btn-save-new btn-long-new full-btn" [disabled]="false"
+                            (click)="performSave()">Save</button>
+
+                        <button type="button" class="btn-default-new btn-small-new full-btn" [disabled]="false"
+                            (click)="performCancel()">Cancel</button>
+
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-select-review-popup [showModal]="showSelectReviewsPopup" [reviewsData]="reviewsData"
+    (searchReview)="searchReview($event)" (modalClosed)="closeSelectReviewsPopup($event)"></app-select-review-popup>

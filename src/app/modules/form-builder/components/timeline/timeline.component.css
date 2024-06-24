@@ -1,0 +1,134 @@
+ul,
+li {
+  list-style: none;
+  padding: 0;
+}
+
+/* .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  padding: 3rem 0;
+} */
+
+.wrapper {
+  background: #eaf6ff;
+  /* padding: 0rem 5rem; */
+  border-radius: 15px;
+  min-width: 800px;
+}
+
+h1 {
+  font-size: 1.1rem;
+  font-family: sans-serif;
+}
+
+.sessions {
+  padding: 2rem;
+  border-radius: 12px;
+  position: relative;
+  word-spacing: 2px;
+}
+
+li {
+  padding-bottom: 1.5rem;
+  border-left: 1px solid #abaaed;
+  position: relative;
+  padding-left: 20px;
+  margin-left: 10px;
+
+  &:last-child {
+    border: 0px;
+    padding-bottom: 0;
+  }
+
+  &:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: white;
+    border: 1px solid #4e5ed3;
+    box-shadow: 3px 3px 0px #bab5f8;
+    box-shadow: 3px 3px 0px #bab5f8;
+    border-radius: 50%;
+    position: absolute;
+    left: -10px;
+    top: 0px;
+  }
+}
+
+.time {
+  color: #2a2839;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.boldTxt {
+  color: #2a2839;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.contentWrapper,
+.by {
+  color: #2a2839b2;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+p {
+  color: #4f4f4f;
+  font-family: sans-serif;
+  line-height: 1.5;
+  margin-top: 0.4rem;
+}
+
+:host .empty-state {
+  width: auto;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 4px;
+
+}
+
+:host .empty-state__content {
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+:host .empty-state__icon {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  border-radius: 200px;
+  justify-content: center;
+  background-color: #f7fafc;
+  box-shadow: 0px 2px 1px #e1e3ec;
+}
+
+:host .empty-state__message {
+  color: #38a169;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 0.85rem;
+}
+
+:host .empty-state__help {
+  color: #a2a5b9;
+  font-size: 0.875rem;
+}
+
+:host .imgNoData {
+  width: 170px;
+}
+
+:host a {
+  color: #444;
+}

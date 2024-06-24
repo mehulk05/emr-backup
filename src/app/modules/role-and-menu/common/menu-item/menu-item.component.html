@@ -1,0 +1,18 @@
+<div class="menu-box">
+    <div class="menu-text-icon">
+      <span class="menu-icon" *ngIf="menu.icon"><i [class]="menu.icon"></i></span>
+  
+      <span class="menu-name">
+        {{menu.name}}
+      </span>
+  
+      <span class="badge badge-primary">{{menu.menuType}}</span>
+    </div>
+  
+    <div class="btn-flex">
+      <button class="btn btn-regular btn-extra-small" (click)="handleAddToMenu(menu)"
+        [disabled]="isMenuDisabled(menu)" title="Add to Menu"> Add to Menu
+      </button>
+    </div>
+  </div>
+  

@@ -1,0 +1,85 @@
+.lead-color-btn {
+  border-radius: 100%;
+  min-width: 18px;
+  height: 18px;
+  max-width: 20px;
+  max-height: 20px;
+  padding: 0;
+  background-color: inherit !important;
+}
+
+.green {
+  background-color: #01b700 !important;
+  border-color: #01b700 !important;
+}
+
+.yellow {
+  background-color: #ffb800 !important;
+  border-color: #ffb800 !important;
+}
+
+.orange {
+  background-color: #fb6900 !important;
+  border-color: #fb6900 !important;
+}
+
+.red {
+  background-color: #c51900 !important;
+  border-color: #c51900 !important;
+}
+
+.black {
+  background-color: #333333 !important;
+  border-color: #333333 !important;
+}
+
+.blue {
+  background-color: #109bc7 !important;
+  border-color: #109bc7 !important;
+}
+
+.purple{
+  background-color: #aa4ee7 !important;
+  border-color: #aa4ee7 !important;
+}
+
+.grey{
+  background-color: #9F9F9F !important;
+  border-color: #9F9F9F !important;
+}
+
+span.leadStatus {
+  display: flex !important;
+  align-items: center;
+}
+
+.leadStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  border-radius: 25px;
+}
+
+span.lead-status-text {
+  color: #fff;
+  font-weight: 500;
+}
+
+.pink {
+  border-color: #FF008A !important;
+}
+
+.dark-blue {
+  border-color: #001AFF !important;
+}
+
+.leadSource button {
+  background-color: #fff;
+  border-style: solid;
+  border-radius: 15px;
+  height: 30px;
+  width: auto;
+  border: 2px solid grey;
+}

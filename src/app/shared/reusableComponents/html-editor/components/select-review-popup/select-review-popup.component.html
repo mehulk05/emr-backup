@@ -1,0 +1,187 @@
+<div class="custom-modal-1">
+    <p-dialog [header]="'Select Review'" [(visible)]="showModal" [modal]="true"
+        [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }"
+        [style]="{ width: '60vw', overflow: 'hidden' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
+        (onHide)="hideModal()">
+        <ng-template pTemplate="header">
+            <div class="custom-modal-header mx-2">
+                <div class="module-name-text">
+                    Select Review
+                </div>
+                <div class="search-container">
+                    <i class="pi pi-search" aria-hidden="true"></i>
+                    <input type="text" name="searchText" [ngModel]="searchText" class="form-control input-type2"
+                        placeholder="Search Review" (keyup.enter)="searchReviews($any($event.target).value, 1)" />
+                </div>
+            </div>
+        </ng-template>
+        <!-- ----------------------------- Modal Body ------------------------------ -->
+        <div class="modal-body">
+            <ng-container *ngIf="reviewList?.length !== 0 && !showNoReviews; else noReviews">
+                <div class="reviews-wrapper">
+                    <div class="reviews">
+                        <div class="review" *ngFor="let review of reviewList">
+                            <div class="card bg-light" (click)="changeSelected(review)"
+                                [class.border-primary]="review === selectedReview">
+                                <div class="card-header">
+                                    <div class="flex justify-content-between align-items-center">
+                                        <h5 class="card-title">{{review.name}}</h5>
+                                        <div class="card-icon">
+                                            <svg *ngIf="review.handleName === 'google'"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                                <path fill="#fbc02d"
+                                                    d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+                                                <path fill="#e53935"
+                                                    d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+                                                <path fill="#4caf50"
+                                                    d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+                                                <path fill="#1565c0"
+                                                    d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+                                            </svg>
+                                            <i *ngIf="review.handleName === 'facebook'"
+                                                class="fa fa-facebook-square fa-2x" aria-hidden="true"
+                                                style="color: blue"></i>
+                                            <i *ngIf="review.handleName === 'yelp'" class="fa fa-yelp fa-2x"
+                                                aria-hidden="true" style="color: #c41200"></i>
+                                            <i *ngIf="review.handleName === 'other'" class="fa fa-user-circle fa-2x"
+                                                aria-hidden="true"></i>
+                                            <svg *ngIf="review.handleName === 'demandforce'"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                                <g transform="matrix(0.21 0 0 0.21 26.25 26.25)">
+                                                    <g>
+                                                        <g transform="matrix(1 0 0 1 -0.5 -0.5)">
+                                                            <path
+                                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(110,131,182); fill-rule: evenodd; opacity: 1;"
+                                                                transform=" translate(-119.5, -119.5)"
+                                                                d="M -0.5 -0.5 C 79.5 -0.5 159.5 -0.5 239.5 -0.5 C 239.5 79.5 239.5 159.5 239.5 239.5 C 159.5 239.5 79.5 239.5 -0.5 239.5 C -0.5 159.5 -0.5 79.5 -0.5 -0.5 Z"
+                                                                stroke-linecap="round" />
+                                                        </g>
+                                                        <g transform="matrix(1 0 0 1 -0.5 -0.5)">
+                                                            <path
+                                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(60,86,149); fill-rule: evenodd; opacity: 1;"
+                                                                transform=" translate(-119.5, -119.5)"
+                                                                d="M 0.5 0.5 C 79.8333 0.5 159.167 0.5 238.5 0.5 C 238.5 79.8333 238.5 159.167 238.5 238.5 C 159.167 238.5 79.8333 238.5 0.5 238.5 C 0.5 159.167 0.5 79.8333 0.5 0.5 Z"
+                                                                stroke-linecap="round" />
+                                                        </g>
+                                                        <g transform="matrix(1 0 0 1 -0.51 -1.01)">
+                                                            <path
+                                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(252,253,252); fill-rule: evenodd; opacity: 1;"
+                                                                transform=" translate(-119.49, -118.99)"
+                                                                d="M 185.5 98.5 C 186.809 113.165 186.809 127.832 185.5 142.5 C 178.041 176.079 157.041 192.746 122.5 192.5 C 99.1667 192.5 75.8333 192.5 52.5 192.5 C 52.5 143.833 52.5 95.1667 52.5 46.5 C 77.33 45.3367 102.33 45.17 127.5 46 C 160.293 48.6261 179.626 66.1261 185.5 98.5 Z"
+                                                                stroke-linecap="round" />
+                                                        </g>
+                                                        <g transform="matrix(1 0 0 1 -33.06 0.06)">
+                                                            <path
+                                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(156,165,193); fill-rule: evenodd; opacity: 1;"
+                                                                transform=" translate(-86.94, -120.06)"
+                                                                d="M 52.5 46.5 C 52.5 95.1667 52.5 143.833 52.5 192.5 C 75.8333 192.5 99.1667 192.5 122.5 192.5 C 99.0059 193.498 75.3392 193.831 51.5 193.5 C 51.1678 144.33 51.5012 95.3305 52.5 46.5 Z"
+                                                                stroke-linecap="round" />
+                                                        </g>
+                                                        <g transform="matrix(1 0 0 1 -10.06 -0.5)">
+                                                            <path
+                                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(33,70,143); fill-rule: evenodd; opacity: 1;"
+                                                                transform=" translate(-109.94, -119.5)"
+                                                                d="M 99.5 79.5 C 99.5 105.5 99.5 131.5 99.5 157.5 C 107.019 157.175 114.352 157.508 121.5 158.5 C 113.85 159.143 106.183 159.477 98.5 159.5 C 98.1688 132.661 98.5021 105.995 99.5 79.5 Z"
+                                                                stroke-linecap="round" />
+                                                        </g>
+                                                        <g transform="matrix(1 0 0 1 0.65 -1.22)">
+                                                            <path
+                                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(61,87,150); fill-rule: evenodd; opacity: 1;"
+                                                                transform=" translate(-120.65, -118.78)"
+                                                                d="M 99.5 79.5 C 130.033 76.3669 144.033 90.0336 141.5 120.5 C 141.782 128.299 140.948 135.966 139 143.5 C 136.386 152.283 130.552 157.283 121.5 158.5 C 114.352 157.508 107.019 157.175 99.5 157.5 C 99.5 131.5 99.5 105.5 99.5 79.5 Z"
+                                                                stroke-linecap="round" />
+                                                        </g>
+                                                        <g transform="matrix(1 0 0 1 66.52 0.5)">
+                                                            <path
+                                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(180,187,208); fill-rule: evenodd; opacity: 1;"
+                                                                transform=" translate(-186.52, -120.5)"
+                                                                d="M 185.5 98.5 C 187.039 105.432 187.706 112.598 187.5 120 C 187.684 127.728 187.017 135.228 185.5 142.5 C 186.809 127.832 186.809 113.165 185.5 98.5 Z"
+                                                                stroke-linecap="round" />
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <span *ngFor="let star of review.ratings | numberToArray">
+                                            <i class="fa fa-star checked" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="description-wrapper">
+                                        <div class="card-text">{{review.description}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="showPagination">
+                        <div class="pagination-box">
+                            <div>
+                                <a class="navigation-btn" *ngIf="currentPage !== 1"
+                                    (click)="searchReviews(searchText, 1)">
+                                    «&nbsp;First
+                                </a>
+                                <a class="navigation-btn" *ngIf="currentPage !== 1"
+                                    (click)="searchReviews(searchText, currentPage - 1)">
+                                    ‹&nbsp;Prev
+                                </a>
+                                <span class="
+                                current-page 
+                              ">
+                                    {{ currentPage }}
+                                </span>
+                                <a class="navigation-btn" *ngIf="currentPage < lastPage"
+                                    (click)="searchReviews(searchText, currentPage + 1)">
+                                    Next&nbsp;›
+                                </a>
+                                <a class="navigation-btn" *ngIf="currentPage < lastPage"
+                                    (click)="searchReviews(searchText, lastPage)">
+                                    Last&nbsp;»
+                                </a>
+                            </div>
+                            <p>
+                                Displaying reviews{{ ' ' }} {{ rangeStart }}-{{ rangeEnd
+                                }}{{ ' ' }} of {{ totalReviews }}
+                            </p>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+            <ng-template #noReviews>
+                <div class="my-3">
+                    <div class="flex flex-column align-items-center container">
+                        <div>
+                            <div class="mb-2">
+                                <p className="our-rating">No reviews found</p>
+                            </div>
+                        </div>
+                        <div>
+                            <span>
+                                <i *ngFor="let star of '5' | numberToArray" class="fa fa-star fa-2x"
+                                    style="padding-right: 10px" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+        <!-- ---------------------------- Modal Footer ----------------------------- -->
+        <ng-template pTemplate="footer">
+            <div class="modal-footer-section d-flex">
+                <button type="button" class="btn-small-new btn-save-new" data-dismiss="modal"
+                    [disabled]="!selectedReview" (click)="selectReview()">
+                    Select
+                </button>
+                <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal" (click)="hideModal()">
+                    Cancel
+                </button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</div>

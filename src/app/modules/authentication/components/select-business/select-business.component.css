@@ -1,0 +1,38 @@
+.card-wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+  box-shadow: 0px 15px 35px 0px #3c425714, 0px 5px 15px 0px #0000001f;
+  padding: 2em 1em;
+  width: 100%;
+
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.panel-card {
+  padding: 2em 1em;
+}
+
+
+.business-info-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+img.profile-img {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  box-shadow: 0 15px 35px #3c425714, 0 5px 15px #0000001f;
+}
+
+.business-img {
+  height: 100px;
+  width: 100px;
+}

@@ -1,0 +1,19 @@
+<div class="appointment-view">
+  <div class="panel-blue">
+    <div class="panel-header">
+      <h3>Online Meeting
+      </h3>
+    </div>
+
+    <div class="panel-body">
+      <div class="panel-card-content">
+      <div *ngIf="isConfigGenerated">
+          <app-aws-chime-online-meeting [config]="config" (onEndMeeting)="onEndMeeting()"
+              (onLeaveMeeting)="onLeaveMeeting()"></app-aws-chime-online-meeting>
+      </div>
+      <div *ngIf="!isConfigGenerated" style="text-align: center;">
+          <p>Wait while doctor start the meeting .... </p>
+      </div>
+  </div>
+</div>
+

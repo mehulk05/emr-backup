@@ -1,0 +1,175 @@
+<div class="white">
+  <div class="leads-graphs">
+      <div class="leads-stats">
+          <div class="title">
+              <h3>Patients Overview</h3>
+          </div>
+
+          <div class="lead-stat-cards">
+              <div class="row mx-0">
+                  <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="card lead-card">
+                          <div class="card-body">
+                              <div class="flex-wrapper">
+                                  <div class="left-wrap">
+                                      <p class="muted-text">
+                                          Total Patients
+                                          <!-- <span class="info-icon">
+                                              <i class="fa fa-info"></i>
+                                          </span> -->
+                                      </p>
+                                      <p class="count">{{ leadsData?.totalLeadCount }}</p>
+                                  </div>
+                                  <div class="right-wrap stat">
+                                      <span class="icon">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                              stroke-linecap="round" stroke-linejoin="round"
+                                              class="feather feather-users align-middle">
+                                              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                              <circle cx="9" cy="7" r="4"></circle>
+                                              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                          </svg>
+                                      </span>
+                                  </div>
+                              </div>
+
+                              <div class="percentage">
+                                  <span
+                                      [ngClass]="leadsData?.lastYearLeadCount > leadsData?.currentYearLeadCount ? 'bg-decrease' : 'bg-increase'">
+                                      {{
+                                      getStatsForPercentageChange(leadsData?.lastYearLeadCount,leadsData?.currentYearLeadCount)}}%
+                                  </span> Since Last Year
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="card lead-card">
+                          <div class="card-body">
+                              <div class="flex-wrapper">
+                                  <div class="left-wrap">
+                                      <p class="muted-text">
+                                        Patients this month
+                                          <!-- <span class="info-icon">
+                                              <i class="fa fa-info"></i>
+                                          </span> -->
+                                      </p>
+                                      <p class="count">{{ leadsData?.currentMonthLeadCount }}</p>
+                                  </div>
+                                  <div class="right-wrap stat">
+                                      <span class="icon">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                              stroke-linecap="round" stroke-linejoin="round"
+                                              class="feather feather-users align-middle">
+                                              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                              <circle cx="9" cy="7" r="4"></circle>
+                                              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                          </svg>
+                                      </span>
+                                  </div>
+                              </div>
+
+                              <div class="percentage">
+                                  <span
+                                      [ngClass]="leadsData?.lastMonthLeadCount > leadsData?.currentMonthLeadCount ? 'bg-decrease' : 'bg-increase'">
+                                      {{getStatsForPercentageChange(leadsData?.lastMonthLeadCount,leadsData?.currentMonthLeadCount)}}%
+                                  </span> Since last month
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="card lead-card">
+                          <div class="card-body">
+                              <div class="flex-wrapper">
+                                  <div class="left-wrap">
+                                      <p class="muted-text">
+                                        Patients this week
+                                      </p>
+                                      <p class="count">{{ leadsData?.currentWeekLeadCount }}</p>
+                                  </div>
+                                  <div class="right-wrap stat">
+                                      <span class="icon">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                              stroke-linecap="round" stroke-linejoin="round"
+                                              class="feather feather-users align-middle">
+                                              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                              <circle cx="9" cy="7" r="4"></circle>
+                                              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                          </svg>
+                                      </span>
+                                  </div>
+                              </div>
+
+                              <div class="percentage">
+                                  <span
+                                      [ngClass]="leadsData?.lastWeekLeadCount > leadsData?.currentWeekLeadCount ? 'bg-decrease' : 'bg-increase'">
+                                      {{getStatsForPercentageChange(leadsData?.lastWeekLeadCount,leadsData?.currentWeekLeadCount)}}%
+                                  </span> Since last week
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="card lead-card">
+                          <div class="card-body">
+                              <div class="flex-wrapper">
+                                  <div class="left-wrap">
+                                      <p class="muted-text">
+                                        Patients Today
+                                      </p>
+                                      <p class="count">{{ leadsData?.todayLeadCount }}</p>
+                                  </div>
+                                  <div class="right-wrap stat">
+                                      <span class="icon">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                              stroke-linecap="round" stroke-linejoin="round"
+                                              class="feather feather-users align-middle">
+                                              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                              <circle cx="9" cy="7" r="4"></circle>
+                                              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                          </svg>
+                                      </span>
+                                  </div>
+                              </div>
+
+                              <div class="percentage"
+                                  [ngClass]="leadsData?.todayLeadCount === 0 || leadsData?.yesterdayLeadCount===0? 'hidden' :''">
+                                  <span
+                                      [ngClass]="leadsData?.yesterdayLeadCount > leadsData?.todayLeadCount ? 'bg-decrease' : 'bg-increase'">
+                                      {{getStatsForPercentageChange(leadsData?.yesterdayLeadCount,leadsData?.todayLeadCount)}}%
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="btn-wrapper">
+      <button class="save-border-btn" (click)="showHideModal()">{{btnName}}</button>
+      <!-- <button class="save-color-btn" (click)="addLeadTemplateModal()">Add Leads</button> -->
+  </div>
+
+  <!-- <div class="leads-graph" *ngIf="!showHide">
+      <app-leads-graph [leadsData]="leadsData"></app-leads-graph>
+  </div>
+
+
+  <div class="lead-table">
+      <app-leads-table [isRefreshApiCall] = "isRefreshApiCall" (onAddLead)="onAddLead()"></app-leads-table>
+  </div> -->
+</div>

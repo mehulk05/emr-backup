@@ -1,0 +1,24 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                      BELOW DIV IF FOR LEAD STATUS                       -->
+<!-- ----------------------------------------------------------------------- -->
+<ng-container *ngIf="field === 'status'">
+  <span class="leadStatus" [ngClass]="leadStatusClass[leadStatus]">
+    <span class="lead-status-text">
+      {{leadStatus|titlecase}}
+    </span>
+  </span>
+</ng-container>
+
+
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      BELOW DIV IS FOR LEAD Source                       -->
+<!-- ----------------------------------------------------------------------- -->
+<ng-container *ngIf="field === 'source'">
+  <span class="leadStatus leadSource">
+    <span class="lead-status-text">
+      {{leadStatus|titlecase}}
+    </span>
+  </span>
+</ng-container>

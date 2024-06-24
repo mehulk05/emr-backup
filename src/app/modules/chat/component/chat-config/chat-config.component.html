@@ -1,0 +1,480 @@
+<div class="form form-type2" *ngIf="chatConfigForm">
+  <form [formGroup]="chatConfigForm" (ngSubmit)="submitChatConfig()">
+    <div class="row mx-0">
+      <!-- -------------------------- rightcard starts --------------------------- -->
+      <div class="col-lg-4 col-md-12 col-sm-12 right-card order-lg-1" style="padding-top: 15px;">
+        <div class="panel-blue">
+          <div class="panel-header">
+            <h3>Chatbot Icon</h3>
+          </div>
+
+          <div class="panel-body">
+            <div class="image-circle">
+              <div class="img">
+                <img [src]="defaultChatbotLogo">
+                <input type="file" #myFileInput class="form-control d-none" id="file-input"
+                  (change)="fileChangeEvent($event)" accept="image/*" />
+                <label for="file-input">
+                  <div class="edit-icon">
+                    <span>
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="img-options">
+              <p> Pick an icon for your bot from below or add it of your choice. </p>
+              <div class="img-icons">
+                <ng-container *ngFor="let icon of icons">
+                  <div class="imgs">
+                    <img [src]="icon" (click)="selectImg(icon)">
+                  </div>
+
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- --------------------------- Left card start --------------------------- -->
+      <div class="col-lg-8 col-md-12 col-sm-12 left-card order-lg-0">
+        <div class="panel-blue">
+          <div class="row mx-0">
+            <!-- ------------------------------- BotName ------------------------------- -->
+            <div class="col-lg-6 col-md-12">
+              <div class="form-group"
+                [ngClass]="f?.botName.invalid && ((f?.botName.dirty || f?.botName.touched))?'has-error':''">
+                <label>Bot Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="botName" appErrorStylingDirective >
+                <div class="error error-msg">
+                  <div *ngIf="f.botName.errors?.required  ">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is required.
+                  </div>
+                  <div *ngIf="f.botName.errors?.pattern  ">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is invalid.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <!-- -------------------------- Bot Privacy Link --------------------------- -->
+            <div class="col-lg-6 col-md-12">
+              <div class="form-group">
+                <label>Bot Privacy Link</label>
+                <input type="text" class="form-control input-type2" formControlName="privacyLink"
+                  appErrorStylingDirective>
+              </div>
+            </div>
+
+
+            <!-- --------------------------- Welcome message Before form submit --------------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group"
+                [ngClass]="f?.defaultWelcomeMessage.invalid && ((f?.defaultWelcomeMessage.dirty || f?.defaultWelcomeMessage.touched))?'has-error':''">
+                <label>Welcome Message (This message will appear before user submit the form)<span
+                    class="error-red">*</span></label>
+                <textarea rows="4" class="form-control input-type2" formControlName="defaultWelcomeMessage"
+                  appErrorStylingDirective></textarea>
+                <div class="error error-msg">
+                  <div *ngIf="f?.defaultWelcomeMessage.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Default Welcome Message is required.
+                  </div>
+                  <div *ngIf="f.defaultWelcomeMessage.errors?.pattern  ">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Invalid Welcome Message.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+             <!-- --------------------------- Welcome message Form form Title --------------------------- -->
+             <div class="col-lg-12 col-md-12">
+              <div class="form-group"
+                [ngClass]="f?.formMessage.invalid && ((f?.formMessage.dirty || f?.formMessage.touched))?'has-error':''">
+                <label>Form Title Message (This message will appear on the form title)<span
+                    class="error-red">*</span></label>
+                <textarea rows="4" class="form-control input-type2" formControlName="formMessage"
+                  appErrorStylingDirective></textarea>
+                <div class="error error-msg">
+                  <div *ngIf="f?.formMessage.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Form Message is required.
+                  </div>
+                  <div *ngIf="f.formMessage.errors?.pattern  ">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Invalid Form name.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- --------------------------- Welcome message after form submit--------------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group"
+                [ngClass]="f?.welcomeMessage.invalid && ((f?.welcomeMessage.dirty || f?.welcomeMessage.touched))?'has-error':''">
+                <label>Welcome Message (This message will appear after user submit the form)<span
+                    class="error-red">*</span></label>
+                <textarea rows="4" class="form-control input-type2" formControlName="welcomeMessage"
+                  appErrorStylingDirective></textarea>
+                <div class="error error-msg">
+                  <div *ngIf="f?.welcomeMessage.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Welcome Message is required.
+                  </div>
+                  <div *ngIf="f.welcomeMessage.errors?.pattern  ">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Invalid Welcome Message.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ----------------------------- Faq Message ----------------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group"
+                [ngClass]="f?.faqNotFoundMessage.invalid && ((f?.faqNotFoundMessage.dirty || f?.faqNotFoundMessage.touched))?'has-error':''">
+                <label>FAQ not found Message<span class="error-red">*</span></label>
+                <textarea rows="4" class="form-control input-type2" formControlName="faqNotFoundMessage"
+                  appErrorStylingDirective></textarea>
+                <div class="error error-msg">
+                  <div *ngIf="f?.faqNotFoundMessage.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> FAQ Message is required.
+                  </div>
+                  <div *ngIf="f.faqNotFoundMessage.errors?.pattern  ">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Invalid FAQ Message
+                  </div>
+                  
+
+                </div>
+              </div>
+            </div>
+
+            <!-- ------------------- Default appointment booking url ------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group"
+                [ngClass]="f?.appointmentBookingUrl.invalid && ((f?.appointmentBookingUrl.dirty || f?.appointmentBookingUrl.touched))?'has-error':''">
+                <label>Default Clinic Appointment Booking URL</label>
+                <input type="text" class="form-control input-type2" formControlName="appointmentBookingUrl"
+                  appErrorStylingDirective>
+                <div class="error error-msg">
+                  <div *ngIf="f?.appointmentBookingUrl.errors?.pattern">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Booking URL is invalid (should start
+                    with http)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------------------- Enable Appointment in Bot ---------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group">
+                <div class="flex-sb">
+
+                  <label>
+                    <input type="checkbox" formControlName="enableAppointment">
+                    Enable Appointment in Bot?
+                    <span *ngIf="f?.enableAppointment.value && (!f?.enableVirtualAppointment.value && !f?.enableInPersonAppointment.value)" style="color:red">(Choose Appointment Type*)</span>
+                  </label>
+
+                </div>
+              </div>
+            </div>
+
+
+            <!-- ------------------------ Inpperson appointment ------------------------ -->
+            <ng-container *ngIf="f?.enableAppointment.value">
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <div class="flex-sb">
+                    <label>
+                      <input type="checkbox" formControlName="enableInPersonAppointment">
+                      Enable In Person Appointment Type in Bot?</label>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- ------------------------- Virtual Appointment ------------------------- -->
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <div class="flex-sb">
+                    <label>
+                      <input type="checkbox" formControlName="enableVirtualAppointment">
+                      Enable Virtual Appointment Type in Bot?</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timing-class">
+                <div class="col-lg-12 col-md-12">
+                  <div class="form-group">
+                    <div class="flex-sb row">
+                      <label>
+                        Morning (Start - End) *
+                      </label>
+                      <!-- ------------------------- Morning start time -------------------------- -->
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" class="form-control input-type2" formControlName="morningStartTime"
+                          appErrorStylingDirective>
+                        <div class="error error-msg">
+                          <div *ngIf="f?.morningStartTime.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is required.
+                          </div>
+
+                          <div *ngIf="f?.morningStartTime.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is required.
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- -------------------------- morning ENd Time --------------------------- -->
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" class="form-control input-type2" formControlName="morningEndTime"
+                          appErrorStylingDirective>
+                        <div class="error error-msg">
+                          <div *ngIf="f?.morningEndTime.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>End Time is required
+                          </div>
+
+                          <div *ngIf="f?.morningStartTime.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>End time is incorrect
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <div class="form-group">
+                    <div class="flex-sb row">
+                      <label>
+                        Afternoon (Start - End) *
+                      </label>
+                      <!-- ------------------------- noonStartTime start time -------------------------- -->
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" class="form-control input-type2" formControlName="noonStartTime"
+                          appErrorStylingDirective>
+                        <div class="error error-msg">
+                          <div *ngIf="f?.noonStartTime.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is required.
+                          </div>
+
+                          <div *ngIf="f?.noonStartTime.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is required.
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- -------------------------- noonEndTime ENd Time --------------------------- -->
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" class="form-control input-type2" formControlName="noonEndTime"
+                          appErrorStylingDirective>
+                        <div class="error error-msg">
+                          <div *ngIf="f?.noonEndTime.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>End Time is required
+                          </div>
+
+                          <div *ngIf="f?.noonEndTime.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>End time is incorrect
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <div class="form-group">
+                    <div class="flex-sb row">
+                      <label>
+                        Evening (Start - End) *
+                      </label>
+                      <!-- ------------------------- eveningStartTime start time -------------------------- -->
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" class="form-control input-type2" formControlName="eveningStartTime"
+                          appErrorStylingDirective>
+                        <div class="error error-msg">
+                          <div *ngIf="f?.eveningStartTime.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is required.
+                          </div>
+
+                          <div *ngIf="f?.eveningStartTime.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Bot Name is required.
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- -------------------------- morning ENd Time --------------------------- -->
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" class="form-control input-type2" formControlName="eveningEndTime"
+                          appErrorStylingDirective>
+                        <div class="error error-msg">
+                          <div *ngIf="f?.eveningEndTime.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>End Time is required
+                          </div>
+
+                          <div *ngIf="f?.eveningEndTime.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>End time is incorrect
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </ng-container>
+
+            <!-- ---------------------------- Week to show ----------------------------- -->
+            <div class="col-lg-6 col-md-12">
+              <div class="form-group"
+                [ngClass]="f?.weeksToShow.invalid && ((f?.weeksToShow.dirty || f?.weeksToShow.touched))?'has-error':''">
+                <label>Weeks To Show <span class="error-red">*</span></label>
+                <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                  class="form-control input-type2" formControlName="weeksToShow" appErrorStylingDirective>
+                <div class="error error-msg">
+                  <div *ngIf="f?.weeksToShow.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Weeks to show is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- -------------------------- Phone Number --------------------------- -->
+            <div class="col-lg-6 col-md-12">
+              <div class="form-group">
+                <label>Long Code Phone Number</label>
+                <input type="text" class="form-control input-type2" formControlName="longCodePhoneNumber"
+                  appErrorStylingDirective>
+              </div>
+            </div>
+
+                <!-- ------------------- Enable static or moving chatbot ------------------- -->
+                <div class="col-lg-12 col-md-12">
+                  <div class="form-group">
+                    <div class="flex-sb">
+
+                      <label>
+                        <input type="checkbox" formControlName="isChatbotStatic">
+                         Show moving animation on chatbot icon ?
+                        <span *ngIf="f?.enableAppointment.value && (!f?.isChatbotStatic.value && !f?.isChatbotStatic.value)" style="color:red">(Choose Chatbot Icon style type*)</span>
+                      </label>
+
+                    </div>
+                  </div>
+                </div>
+
+            <!-- ------------------------- Powered by checkbox ------------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group">
+                <div class="flex-sb">
+                  <label>
+                    <input type="checkbox" formControlName="showPoweredBy">
+                    Show Powered By On Chatbot Footer</label>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- ----------------------- Poweredby url in footer ----------------------- -->
+            <ng-container *ngIf="f?.showPoweredBy.value">
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group"
+                  [ngClass]="f?.poweredByText.invalid && ((f?.poweredByText.dirty || f?.poweredByText.touched))?'has-error':''">
+                  <label>Add your URL for powered by <span class="error-red">*</span></label>
+                  <input type="text" class="form-control input-type2" formControlName="poweredByText"
+                    appErrorStylingDirective>
+                  <div class="error error-msg">
+                    <div *ngIf="f?.poweredByText.errors?.pattern">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Powered by URL is invalid (should
+                      start with http)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group">
+                <input type="checkbox" (change)="onChangeconfigureConsent($event)"
+                formControlName="consentFormRequired" id="consentFormRequired"
+                appErrorStylingDirective>&nbsp;
+              <label for="consentFormRequired">Add consent to the form?</label>
+              <div class="form-group">
+                <input type="text" class="form-control input-type2" formControlName="consentTextForm"
+                appErrorStylingDirective />
+              </div>
+              </div>
+            </div>
+
+            <!-- <div class="col-lg-12 col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control input-type2" formControlName="consentTextForm"
+                appErrorStylingDirective />
+              </div>
+            </div> -->
+
+
+            <!-- ------------------------------- buttons ------------------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group">
+                <div class="button-flex">
+                  <button class="btn btn-save btn-regular"
+                    [disabled]="(f?.enableAppointment.value && !f?.enableVirtualAppointment.value && !f?.enableInPersonAppointment.value)
+                    || !chatConfigForm.valid ">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </form>
+
+</div>
+
+
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Image upload modal                            -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    header="Edit Chatbot Icon" [(visible)]="showModalForImage" (onHide)="cancelImageUpload()">
+
+    <!-- ---------------------------- image cropper ---------------------------- -->
+    <div class="modal-body">
+      <div class="image-cropper-wrapper row mx-0">
+        <div class="col-lg-6 col-md-6">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <img [src]="croppedImage" class="img-responsive" />
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ------------------------- Image cropper ends -------------------------- -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveImage()">
+          <i [ngClass]="isImageUploading? 'pi-spin pi-spinner' : 'pi-check'" class="pi"></i>Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancelImageUpload()">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

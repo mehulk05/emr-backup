@@ -1,0 +1,70 @@
+<p-dialog [header]="'Edit Task '" [(visible)]="showEditTaskModal" [modal]="true" #pcalendar
+  [breakpoints]="{'1024px': '50vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '40vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+  <div class="custom-blue">
+
+    <div class="form form-type2">
+      <form [formGroup]="taskForm" class="login-box" (ngSubmit)="submitTaskForm()">
+        <div class="row mx-0">
+          <!-- ------------------------- STatus feild starts ------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+
+            <div class="form-group pt-3">
+              <label>Status</label>
+              <p-dropdown placeholder="Select status" [options]="taskStatus" formControlName="workflowTaskStatus"
+                optionLabel="name" optionValue="code" [style]="{'width':'100%'}">
+              </p-dropdown>
+
+              <ng-template let-item pTemplate="taskStatus">
+                {{ item }}
+              </ng-template>
+            </div>
+
+          </div>
+
+          <!-- ------------------------- Priority feild starts ------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+
+            <div class="form-group pt-3">
+              <label>Priority</label>
+              <p-dropdown placeholder="Select Priority" [options]="taskPriority" formControlName="priority"
+                optionLabel="name" optionValue="code" [style]="{'width':'100%'}">
+              </p-dropdown>
+
+              <ng-template let-item pTemplate="taskStatus">
+                {{ item }}
+              </ng-template>
+            </div>
+
+          </div>
+
+          <!-- -------------------------- Date field start --------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+
+            <div class="form-group">
+              <label for="">Deadline</label>
+              <p-calendar [appendTo]="pcalendar" (onSelect)="onDateSelect($event)" formControlName="deadline"
+                [minDate]="currentTime" [showIcon]="true" (renderDayCell)="onLoad($event)" inputId="min-max"
+                [style]="{'width':'100%'}">
+              </p-calendar>
+            </div>
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="modal-footer-section d-flex">
+
+      <button type="submit" class="btn-save-new d-inline w-20" [disabled]="!taskForm.valid"
+        (click)="submitTaskForm()">Save</button>
+
+      <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal" (click)="hideModal(false)">
+        Cancel
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

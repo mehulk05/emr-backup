@@ -1,0 +1,12 @@
+i.far.fa-eye.ms-text-primary {
+  border-radius: 50%;
+  background: rgb(5 183 255 / 16%);
+  height: 26px;
+  width: 26px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

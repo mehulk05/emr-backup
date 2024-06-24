@@ -1,0 +1,1589 @@
+<!-- <h3 class="main-title pl-4 ml-1 mb-0 pt-4" *ngIf="triggerId">Update Trigger</h3> -->
+<!-- <h3 class="main-title pl-4 ml-1 mb-0 pt-4" *ngIf="!triggerId">Create Trigger</h3> -->
+<div class="bg-white new-ui">
+  <div class="add-edit-form">
+    <div class="form form-type2">
+
+      <div class="trgger">
+        <div class="error-bg" *ngIf="warningMessage">
+          "This trigger is deprecated hence you will not be able to make any changes.
+          The trigger is currently working but you can not modify it,
+          If you have a need to modify his trigger then please create a new trigger instead and
+          disable his trigger."
+        </div>
+        <form [formGroup]="triggerForm">
+          <div id="tigger1">
+            <div class="wrapper">
+              <div class="actions desktop-only">
+                <div class="row flex-column align-items-center content-wrapper">
+                  <!-- -------------------------------- Card1 -------------------------------- -->
+                  <div class="col-xl-7 col-lg-10 col-md-12 box-connector" id="name">
+                    <div class="wrapper1 mx-4 my-3">
+                      <div class="rightpart">
+                        <div class="panel-blue mb-0">
+                          <div class="panel-header">
+                            <div class="panel-header-left">
+                              <div class="header-icon">
+                                <span><i class="fas fa-code-branch fa-lg" aria-hidden="true"></i></span>
+                              </div>
+                              <div class="header-content">
+                                <div *ngIf="preselectedModuleName" class="header-title">
+                                  Create {{ SOURCES[preselectedModuleName] }} Trigger
+                                </div>
+                                <div *ngIf="!preselectedModuleName" class="header-title">
+                                  Create Trigger
+                                </div>
+                                <div class="header-subtitle">
+                                  Give name to your Trigger Workflow
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel-header-right">
+                              <button type="button" data-dismiss="modal" aria-label="Close" (click)="cancelTrigger()"
+                                class="close removebtn">
+                                <i class="fa fa-close" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="input-feild">
+                            <label for="trigger-name" class="label">Name</label>
+                            <input class="pr-2 mt-3" type="text" class="form-control" formControlName="name" name="name"
+                              id="trigger-name" type="text" required />
+
+                              <div *ngIf="triggerForm.controls.name.invalid && (triggerForm.controls.name.dirty || triggerForm.controls.name.touched)" class="error">
+                                <div *ngIf="triggerForm.controls.name.errors?.required">
+                                  Name is required.
+                                </div>
+                                <div *ngIf="triggerForm.controls.name.errors?.whitespace">
+                                  Name cannot be blank.
+                                </div>
+                          </div>
+                          
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="actionIndex < 0">
+                      <div class="next-button-container">
+                        <div>
+                          <button [disabled]="!triggerForm.controls.name.value.trim()" class="next-button"
+                            (click)="goTo(!preselectedModuleName ? 0 : 1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                              fill="none">
+                              <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                              <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                                  Card2 module name                                  -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <ng-container *ngIf="!preselectedModuleName">
+                    <div class="col-xl-7 col-lg-10 col-md-12 box-connector" *ngIf="actionIndex >= 0" id="moduleName">
+                      <div class="wrapper1 mx-4 my-3">
+                        <div class="rightpart">
+                          <div class="panel-blue mb-0">
+                            <div class="panel-header">
+                              <div class="panel-header-left">
+                                <div class="header-icon">
+                                  <span><i class="fas fa-code-branch fa-lg" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="header-content">
+                                  <div class="header-title">
+                                    Module Selection
+                                  </div>
+                                  <div class="header-subtitle">
+                                    Select module for your Trigger Workflow
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="panel-header-right">
+                                <button type="button" data-dismiss="modal" aria-label="Close" (click)="goTo(-1)"
+                                  class="close removebtn">
+                                  <i class="fa fa-close" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="input-feild">
+                              <label class="label">Select Module</label>
+                              <div class="radio-buttons">
+                                <label for={{LEAD_MODULE}}>
+                                  <input class=" pr-2" formControlName="moduleName" name="moduleName"
+                                    (change)="setModuleName()" type="radio" value={{LEAD_MODULE}}>Lead
+                                </label>
+
+                                <label for="{{APPOINTMENT_MODULE}}">
+                                  <input class=" pr-2" type="radio" formControlName="moduleName"
+                                    (change)="setModuleName()" name="moduleName"
+                                    value={{APPOINTMENT_MODULE}}>Appointment
+                                </label>
+
+                                <label for="{{FORM_MODULE}}">
+                                  <input class=" pr-2" type="radio" formControlName="moduleName"
+                                    (change)="setModuleName()" name="moduleName" value={{FORM_MODULE}}>Form
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ng-container *ngIf="actionIndex === 0">
+                        <div class="next-button-container">
+                          <div>
+                            <button [disabled]="triggerForm.controls.moduleName.value ===''" class="next-button"
+                              (click)="goTo(1)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                              Card3 action                               -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <div class="rel col-xl-7 col-lg-10 col-md-12 box-connector" *ngIf="actionIndex>0" id="triggerAction">
+                    <svg class="abs" fill="#D8E2F6" width="64px" height="64px" viewBox="0 0 64 64" version="1.1"
+                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                      xmlns:serif="http://www.serif.com/"
+                      style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;"></rect>
+                        <g id="Icons1" serif:id="Icons">
+                          <g id="Strike"> </g>
+                          <g id="H1"> </g>
+                          <g id="H2"> </g>
+                          <g id="H3"> </g>
+                          <g id="list-ul"> </g>
+                          <g id="hamburger-1"> </g>
+                          <g id="hamburger-2"> </g>
+                          <g id="list-ol"> </g>
+                          <g id="list-task"> </g>
+                          <g id="trash"> </g>
+                          <g id="vertical-menu"> </g>
+                          <g id="horizontal-menu"> </g>
+                          <g id="sidebar-2"> </g>
+                          <g id="Pen"> </g>
+                          <g id="Pen1" serif:id="Pen"> </g>
+                          <g id="clock"> </g>
+                          <g id="external-link"> </g>
+                          <g id="hr"> </g>
+                          <g id="info"> </g>
+                          <g id="warning"> </g>
+                          <g id="plus-circle"> </g>
+                          <g id="minus-circle"> </g>
+                          <g id="vue"> </g>
+                          <g id="cog"> </g>
+                          <g id="logo"> </g>
+                          <path id="arrow-down"
+                            d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z">
+                          </path>
+                          <g id="radio-check"> </g>
+                          <g id="eye-slash"> </g>
+                          <g id="eye"> </g>
+                          <g id="toggle-off"> </g>
+                          <g id="shredder"> </g>
+                          <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g>
+                          <g id="react"> </g>
+                          <g id="check-selected"> </g>
+                          <g id="turn-off"> </g>
+                          <g id="code-block"> </g>
+                          <g id="user"> </g>
+                          <g id="coffee-bean"> </g>
+                          <g id="coffee-beans">
+                            <g id="coffee-bean1" serif:id="coffee-bean"> </g>
+                          </g>
+                          <g id="coffee-bean-filled"> </g>
+                          <g id="coffee-beans-filled">
+                            <g id="coffee-bean2" serif:id="coffee-bean"> </g>
+                          </g>
+                          <g id="clipboard"> </g>
+                          <g id="clipboard-paste"> </g>
+                          <g id="clipboard-copy"> </g>
+                          <g id="Layer1"> </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <div class="wrapper1 mx-4 my-3">
+                      <div class="rightpart">
+                        <div class="panel-blue mb-0" style="overflow: unset;">
+                          <div class="panel-header">
+                            <div class="panel-header-left">
+                              <div class="header-icon">
+                                <span class="vertical-align-top">
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path
+                                      d="M48 48h88c13.3 0 24-10.7 24-24s-10.7-24-24-24H32C14.3 0 0 14.3 0 32V136c0 13.3 10.7 24 24 24s24-10.7 24-24V48zM175.8 224a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm-26.5 32C119.9 256 96 279.9 96 309.3c0 14.7 11.9 26.7 26.7 26.7h56.1c8-34.1 32.8-61.7 65.2-73.6c-7.5-4.1-16.2-6.4-25.3-6.4H149.3zm368 80c14.7 0 26.7-11.9 26.7-26.7c0-29.5-23.9-53.3-53.3-53.3H421.3c-9.2 0-17.8 2.3-25.3 6.4c32.4 11.9 57.2 39.5 65.2 73.6h56.1zm-89.4 0c-8.6-24.3-29.9-42.6-55.9-47c-3.9-.7-7.9-1-12-1H280c-4.1 0-8.1 .3-12 1c-26 4.4-47.3 22.7-55.9 47c-2.7 7.5-4.1 15.6-4.1 24c0 13.3 10.7 24 24 24H408c13.3 0 24-10.7 24-24c0-8.4-1.4-16.5-4.1-24zM464 224a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm-80-32a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zM504 48h88v88c0 13.3 10.7 24 24 24s24-10.7 24-24V32c0-17.7-14.3-32-32-32H504c-13.3 0-24 10.7-24 24s10.7 24 24 24zM48 464V376c0-13.3-10.7-24-24-24s-24 10.7-24 24V480c0 17.7 14.3 32 32 32H136c13.3 0 24-10.7 24-24s-10.7-24-24-24H48zm456 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H608c17.7 0 32-14.3 32-32V376c0-13.3-10.7-24-24-24s-24 10.7-24 24v88H504z" />
+                                  </svg>
+                                </span>
+                              </div>
+                              <div class="header-content">
+                                <div class="header-title">
+                                  For {{ triggerForm.controls.moduleName.value | titlecase }} Where
+                                </div>
+                                <div class="header-subtitle">
+                                  Select the Filters that are applicable to this Trigger
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel-header-right">
+                              <button type="button" data-dismiss="modal" aria-label="Close"
+                                (click)="CancelLeadsFrom(-1)" class="close removebtn">
+                                <i class="fa fa-close" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <div class="input-feild">
+                            <ng-container *ngIf="triggerForm.controls.moduleName.value === LEAD_MODULE">
+                              <label class="label">Source is</label>
+                              <select *ngIf="triggerForm.controls.triggeractionName.value !== 'Pending'"
+                                class="form-control" formControlName="triggeractionName" name="triggeractionName"
+                                aria-placeholder="Trigger Event">
+                                <!-- <option value="-1" disabled>--Please select Leads--</option> -->
+                                <option value="ChatBot">ChatBot</option>
+                                <option value="Landing Page">Landing Page </option>
+                                <option value="Self Assessment">Self Assessment</option>
+                                <option value="Form">Contact Form</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Integrately">Integrately</option>
+                                <option value="ThirdParty">ThirdParty</option>
+                              </select>
+
+                              <ng-container *ngIf="triggerForm.controls.triggeractionName.value === 'Pending'">
+                                <div class="form-group">
+                                  <p-multiSelect [resetFilterOnHide]="true" [options]="leadSourceList"
+                                    optionLabel="label" optionValue="value" formControlName="triggerConditions"
+                                    display="chip" [placeholder]="'Select source'"
+                                    (onChange)="onChangeLeadTriggerConditions($event)">
+                                  </p-multiSelect>
+                                </div>
+
+                                <div class="form-group mb-0"
+                                  *ngIf="triggerForm.controls.triggerConditions.value.includes('Landing Page')">
+                                  <label class="label">Landing Page Name is*</label>
+                                  <p-multiSelect [resetFilterOnHide]="true" [options]="landingPageNamesList"
+                                    [placeholder]="'Please select landing page'" formControlName="landingPageNames"
+                                    optionValue="id" optionLabel="name" display="chip">
+                                  </p-multiSelect>
+                                </div>
+                              </ng-container>
+
+                              <div class="form-group mb-0"
+                                *ngIf="triggerForm.controls.triggeractionName.value==='Landing Page' && !triggerForm.controls.triggerConditions.value">
+                                <label class="label">Landing Page Name is*</label>
+                                <p-multiSelect [resetFilterOnHide]="true" [options]="landingPageNamesList"
+                                  [placeholder]="'Please select landing page'" formControlName="landingPageNames"
+                                  optionValue="id" optionLabel="name" display="chip">
+                                </p-multiSelect>
+                              </div>
+
+                              <ng-container *ngIf="triggerForm.controls.triggeractionName.value === 'Pending'">
+                                <div class="form-group mb-0"
+                                  *ngIf="(triggerForm.controls.triggerConditions.value.includes('Form') || triggerForm.controls.triggerConditions.value.includes('Review Form'))">
+                                  <label class="label">Form Name is*</label>
+                                  <p-multiSelect [resetFilterOnHide]="true" [options]="formList"
+                                    [placeholder]="'Please select Form'" formControlName="forms" optionLabel="name"
+                                    optionValue="id" display="chip">
+                                  </p-multiSelect>
+
+                                </div>
+                              </ng-container>
+                              <div class="form-group mb-0"
+                                *ngIf="triggerForm.controls.triggeractionName.value === 'Form' && !triggerForm.controls.triggerConditions.value">
+                                <label class="label">Form Name is*</label>
+                                <p-multiSelect [resetFilterOnHide]="true" [options]="formList"
+                                  [placeholder]="'Please select Form'" formControlName="forms" optionLabel="name"
+                                  optionValue="id" display="chip">
+                                </p-multiSelect>
+                              </div>
+
+                              <div class="form-group mb-0"
+                                *ngIf="triggerForm.controls.triggeractionName.value === 'Pending' && triggerForm.controls.triggerConditions.value.includes('Facebook')">
+                                <div class="lead-source">
+                                  <label class="label">Source Url is</label>
+                                  <p-multiSelect [resetFilterOnHide]="true" [options]="sourceUrlList"
+                                    [placeholder]="'Please select Source Url'" formControlName="sourceUrls"
+                                    optionLabel="sourceUrl" display="chip">
+                                  </p-multiSelect>
+                                </div>
+
+                              </div>
+                              <div class="form-group mb-0"
+                                *ngIf="triggerForm.controls.triggeractionName.value === 'Facebook' && !triggerForm.controls.triggerConditions.value">
+                                <label class="label">Source Url is</label>
+                                <p-multiSelect [resetFilterOnHide]="true" [options]="sourceUrlList"
+                                  [placeholder]="'Please select Source url'" formControlName="sourceUrls"
+                                  optionLabel="sourceUrl" display="chip">
+                                </p-multiSelect>
+                              </div>
+
+                              <!-- <div class="form-group confirm-box mb-0 pb-0">
+                                <label>And Tags are <i>(Optional)</i></label>
+                                <p class="info pb-1">All Lead tags selected by default</p>
+
+                                <div *ngIf="leadTagList">
+                                  <p-multiSelect [resetFilterOnHide]="true"  [options]="leadTagList" formControlName="leadTags" display="chip"
+                                    [placeholder]="'Select lead tag'" optionLabel="name">
+                                  </p-multiSelect>
+                                </div>
+                              </div> -->
+                            </ng-container>
+
+                            <ng-container *ngIf="triggerForm.controls.moduleName.value === PATIENT_MODULE">
+                              <label class="label">Source is</label>
+
+                              <ng-container *ngIf="triggerForm.controls.triggeractionName.value === 'Pending'">
+                                <div class="form-group">
+                                  <p-multiSelect [resetFilterOnHide]="true" [options]="patientSourceList"
+                                    optionLabel="label" optionValue="value" formControlName="triggerConditions"
+                                    display="chip" [placeholder]="'Select source'"
+                                    (onChange)="onChangeLeadTriggerConditions($event)">
+                                  </p-multiSelect>
+                                </div>
+
+                              </ng-container>
+
+
+
+                              <ng-container *ngIf="triggerForm.controls.triggeractionName.value === 'Pending'">
+                                <div class="form-group mb-0"
+                                  *ngIf="(triggerForm.controls.triggerConditions.value.includes('Form') || triggerForm.controls.triggerConditions.value.includes('Review Form'))">
+                                  <label class="label">Form Name is*</label>
+                                  <p-multiSelect [resetFilterOnHide]="true" [options]="formList"
+                                    [placeholder]="'Please select Form'" formControlName="forms" optionLabel="name"
+                                    optionValue="id" display="chip">
+                                  </p-multiSelect>
+
+                                </div>
+                              </ng-container>
+                              <div class="form-group mb-0"
+                                *ngIf="triggerForm.controls.triggeractionName.value === 'Form' && !triggerForm.controls.triggerConditions.value">
+                                <label class="label">Form Name is*</label>
+                                <p-multiSelect [resetFilterOnHide]="true" [options]="formList"
+                                  [placeholder]="'Please select Form'" formControlName="forms" optionLabel="name"
+                                  optionValue="id" display="chip">
+                                </p-multiSelect>
+                              </div>
+
+
+
+
+                              <!-- <div class="form-group confirm-box mb-0 pb-0">
+                                <label>And Tags are <i>(Optional)</i></label>
+                                <p class="info pb-1">All Lead tags selected by default</p>
+
+                                <div *ngIf="leadTagList">
+                                  <p-multiSelect [resetFilterOnHide]="true"  [options]="leadTagList" formControlName="leadTags" display="chip"
+                                    [placeholder]="'Select lead tag'" optionLabel="name">
+                                  </p-multiSelect>
+                                </div>
+                              </div> -->
+                            </ng-container>
+
+                            <ng-container *ngIf="triggerForm.controls.moduleName.value === APPOINTMENT_MODULE">
+                              <label class="label">Appointment Status is</label>
+                              <select class="form-control mb-0" formControlName="triggeractionName"
+                                name="triggeractionName" aria-placeholder="Trigger Event">
+                                <option value="Pending">Pending</option>
+                                <option value="Confirmed">Confirmed</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Canceled">Canceled</option>
+                                <option value="Updated">Updated</option>
+                              </select>
+                            </ng-container>
+
+                            <ng-container *ngIf="triggerForm.controls.moduleName.value === FORM_MODULE">
+                              <div class="form-group mb-0">
+                                <label class="label">Form Name is</label>
+                                <p-multiSelect [resetFilterOnHide]="true" [options]="formList"
+                                  [placeholder]="'Please select Form'" formControlName="forms" optionLabel="name"
+                                  optionValue="id" display="chip">
+                                </p-multiSelect>
+
+                              </div>
+                              <div class="form-group mb-0 pb-0">
+                                <label class="label">Convert to</label>
+                                <div class="row">
+                                  <div class="col-4 px-0 radio-button-wrapper">
+                                    <input id="radio-convert-Lead" class="pr-2" formControlName="convertTo"
+                                      name="convertTo" type="radio" value='Lead'>
+                                    <label for="radio-convert-Lead">
+                                      Leads
+                                    </label>
+                                  </div>
+
+                                  <div class="col-4 px-0 radio-button-wrapper">
+                                    <input id="radio-convert-Patient" class="pr-2" type="radio"
+                                      formControlName="convertTo" name="convertTo" value="Patient">
+                                    <label for="radio-convert-Patient">
+                                      Patient
+                                    </label>
+                                  </div>
+
+                                  <div class="col-4 px-0 radio-button-wrapper">
+                                    <input id="radio-convert-None" class="pr-2" type="radio" formControlName="convertTo"
+                                      name="convertTo" value="None">
+                                    <label for="radio-convert-None">
+                                      None
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="actionIndex <= 1 && triggerForm.controls.actionIndex.value === 0">
+                      <div class="next-button-container">
+                        <div>
+                          <ng-container *ngIf="triggerForm.controls.moduleName.value === LEAD_MODULE">
+                            <button [disabled]="triggerForm.controls.triggerConditions.value.length === 0
+                                        || (triggerForm.controls.triggerConditions.value.length > 0
+                                          && triggerForm.controls.triggerConditions.value.includes('Landing Page')
+                                          && triggerForm.controls.landingPageNames.value.length ===0)
+                                        || (triggerForm.controls.triggerConditions.value.length > 0
+                                          && triggerForm.controls.triggerConditions.value.includes('Form')
+                                          && triggerForm.controls.forms.value.length ===0)" class="next-button"
+                              (click)="goTo(1, 1)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </ng-container>
+
+                          <ng-container *ngIf="triggerForm.controls.moduleName.value === APPOINTMENT_MODULE">
+                            <button [disabled]="triggerForm.controls.triggeractionName?.value === ''"
+                              class="next-button" (click)="goTo(2)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </ng-container>
+
+                          <ng-container *ngIf="triggerForm.controls.moduleName.value === FORM_MODULE">
+                            <button
+                              [disabled]="triggerForm.controls.triggeractionName.value ==='' || (triggerForm.controls.triggerConditions.value.length > 0
+                                && triggerForm.controls.triggerConditions.value.includes('Form') && triggerForm.controls.forms.value.length ===0)"
+                              class="next-button" (click)="goTo(2)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </ng-container>
+
+                          <ng-container *ngIf="triggerForm.controls.moduleName.value === PATIENT_MODULE">
+                            <button
+                              [disabled]="(triggerForm.controls.triggeractionName.value ==='' || triggerForm.controls.triggerConditions.value.length < 1) || (triggerForm.controls.triggerConditions.value.includes('Review Form') && triggerForm.controls.forms.value.length === 0)"
+                              class="next-button" (click)="goTo(2)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <ng-container
+                    *ngIf="actionIndex > 0 &&  triggerForm.controls.moduleName.value === LEAD_MODULE && triggerForm.controls.actionIndex.value === 1">
+                    <div class="rel col-xl-7 col-lg-10 col-md-12 box-connector">
+                      <svg class="abs" fill="#D8E2F6" width="64px" height="64px" viewBox="0 0 64 64" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                          <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;"></rect>
+                          <g id="Icons1" serif:id="Icons">
+                            <g id="Strike"> </g>
+                            <g id="H1"> </g>
+                            <g id="H2"> </g>
+                            <g id="H3"> </g>
+                            <g id="list-ul"> </g>
+                            <g id="hamburger-1"> </g>
+                            <g id="hamburger-2"> </g>
+                            <g id="list-ol"> </g>
+                            <g id="list-task"> </g>
+                            <g id="trash"> </g>
+                            <g id="vertical-menu"> </g>
+                            <g id="horizontal-menu"> </g>
+                            <g id="sidebar-2"> </g>
+                            <g id="Pen"> </g>
+                            <g id="Pen1" serif:id="Pen"> </g>
+                            <g id="clock"> </g>
+                            <g id="external-link"> </g>
+                            <g id="hr"> </g>
+                            <g id="info"> </g>
+                            <g id="warning"> </g>
+                            <g id="plus-circle"> </g>
+                            <g id="minus-circle"> </g>
+                            <g id="vue"> </g>
+                            <g id="cog"> </g>
+                            <g id="logo"> </g>
+                            <path id="arrow-down"
+                              d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z">
+                            </path>
+                            <g id="radio-check"> </g>
+                            <g id="eye-slash"> </g>
+                            <g id="eye"> </g>
+                            <g id="toggle-off"> </g>
+                            <g id="shredder"> </g>
+                            <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g>
+                            <g id="react"> </g>
+                            <g id="check-selected"> </g>
+                            <g id="turn-off"> </g>
+                            <g id="code-block"> </g>
+                            <g id="user"> </g>
+                            <g id="coffee-bean"> </g>
+                            <g id="coffee-beans">
+                              <g id="coffee-bean1" serif:id="coffee-bean"> </g>
+                            </g>
+                            <g id="coffee-bean-filled"> </g>
+                            <g id="coffee-beans-filled">
+                              <g id="coffee-bean2" serif:id="coffee-bean"> </g>
+                            </g>
+                            <g id="clipboard"> </g>
+                            <g id="clipboard-paste"> </g>
+                            <g id="clipboard-copy"> </g>
+                            <g id="Layer1"> </g>
+                          </g>
+                        </g>
+                      </svg>
+                      <div class="wrapper1 mx-4 my-3">
+                        <div class="rightpart">
+                          <div class="panel-blue mb-0">
+                            <div class="panel-header">
+                              <div class="panel-header-left">
+                                <div class="header-icon">
+                                  <span><i class="far fa-question-circle fa-lg" aria-hidden="true"
+                                      style="font-size: 1.5em;"></i></span>
+                                </div>
+                                <div class="header-content">
+                                  <div class="header-title">
+                                    When
+                                  </div>
+                                  <div class="header-subtitle">
+                                    This Automation is Triggered When The Following Occurs
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="panel-header-right">
+                                <button type="button" data-dismiss="modal" aria-label="Close" (click)="goTo(1, 0)"
+                                  class="close removebtn">
+                                  <i class="fa fa-close" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="input-feild">
+                              <div class="input-field">
+                                <div class="row">
+                                  <div class="col-4 p-0 radio-button-wrapper">
+                                    <input id="isTriggerForLeadStatus-generated" class="pr-2" type="radio"
+                                      formControlName="isTriggerForLeadStatus" [value]="LeadStatus.GENERATED">
+                                    <label for="isTriggerForLeadStatus-generated">
+                                      Lead is Generated/Exists
+                                    </label>
+                                  </div>
+                              
+                                  <div class="col-4 p-0 radio-button-wrapper">
+                                    <input id="isTriggerForLeadStatus-statusChange" class="pr-2" type="radio"
+                                      formControlName="isTriggerForLeadStatus" [value]="LeadStatus.STATUS_CHANGE">
+                                    <label for="isTriggerForLeadStatus-statusChange">
+                                      Lead Status Changes
+                                    </label>
+                                  </div>
+                              
+                                  <div class="col-4 p-0 radio-button-wrapper">
+                                    <input id="isTriggerForLeadStatus-tagsChange" class="pr-2" type="radio"
+                                      formControlName="isTriggerForLeadStatus" [value]="LeadStatus.TAGS_CHANGE">
+                                    <label for="isTriggerForLeadStatus-tagsChange">
+                                      Select Lead Tags
+                                    </label>
+                                  </div>
+                                </div>
+                              
+                                <div *ngIf="triggerForm.controls.isTriggerForLeadStatus.value === LeadStatus.STATUS_CHANGE" class="form-group mb-0 pb-0 pt-2">
+                                  <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 pl-0">
+                                      <div class="form-group pb-0">
+                                        <label>From<span class="error-red">*</span></label>
+                                        <p-multiSelect [resetFilterOnHide]="true" [options]="leadStatusList" [placeholder]="'Select Initial Status'" formControlName="fromLeadStatus" display="chip">
+                                        </p-multiSelect>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 pl-0">
+                                      <div class="form-group pb-0">
+                                        <label>To<span class="error-red">*</span></label>
+                                        <p-dropdown [options]="leadStatusList" formControlName="toLeadStatus" placeholder="Select Final Status">
+                                        </p-dropdown>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div *ngIf="triggerForm.controls.isTriggerForLeadStatus.value === LeadStatus.TAGS_CHANGE" class="form-group mb-0 pb-0 pt-2">
+                                  <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 pl-0">
+                                      <div class="form-group pb-0">
+                                        <label>Select lead tags<span class="error-red">*</span></label>
+                                        <p-multiSelect [resetFilterOnHide]="true" optionLabel="name" optionValue="id" [options]="leadTagList" [placeholder]="'Select lead tags'" formControlName="selectedLeadTags" display="chip">
+                                        </p-multiSelect>
+                                      </div>
+                                    </div>
+                                
+                                  </div>
+                                </div>
+
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ng-container *ngIf="actionIndex <= 1 && triggerForm.controls.actionIndex.value === 1">
+                        <div class="next-button-container">
+                          <div>
+                            <button
+                              [disabled]="!isLeadAllowedToProceedToConditionSelection()"
+                              class="next-button" (click)="goTo(2)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+
+                  <!-- -------------------------------- Step3 -------------------------------- -->
+                  <div class="col-xl-7 col-lg-10 col-md-12 px-1" *ngIf="actionIndex > 1">
+                    <div id="condition">
+
+                      <ng-container *ngFor="let condition of triggerForm.get('triggerData')?.controls;let i = index">
+                        <div class="rel">
+                          <svg class="abs-cond" fill="#D8E2F6" width="64px" height="64px" viewBox="0 0 64 64"
+                            version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                              <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;"></rect>
+                              <g id="Icons1" serif:id="Icons">
+                                <g id="Strike"> </g>
+                                <g id="H1"> </g>
+                                <g id="H2"> </g>
+                                <g id="H3"> </g>
+                                <g id="list-ul"> </g>
+                                <g id="hamburger-1"> </g>
+                                <g id="hamburger-2"> </g>
+                                <g id="list-ol"> </g>
+                                <g id="list-task"> </g>
+                                <g id="trash"> </g>
+                                <g id="vertical-menu"> </g>
+                                <g id="horizontal-menu"> </g>
+                                <g id="sidebar-2"> </g>
+                                <g id="Pen"> </g>
+                                <g id="Pen1" serif:id="Pen"> </g>
+                                <g id="clock"> </g>
+                                <g id="external-link"> </g>
+                                <g id="hr"> </g>
+                                <g id="info"> </g>
+                                <g id="warning"> </g>
+                                <g id="plus-circle"> </g>
+                                <g id="minus-circle"> </g>
+                                <g id="vue"> </g>
+                                <g id="cog"> </g>
+                                <g id="logo"> </g>
+                                <path id="arrow-down"
+                                  d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z">
+                                </path>
+                                <g id="radio-check"> </g>
+                                <g id="eye-slash"> </g>
+                                <g id="eye"> </g>
+                                <g id="toggle-off"> </g>
+                                <g id="shredder"> </g>
+                                <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g>
+                                <g id="react"> </g>
+                                <g id="check-selected"> </g>
+                                <g id="turn-off"> </g>
+                                <g id="code-block"> </g>
+                                <g id="user"> </g>
+                                <g id="coffee-bean"> </g>
+                                <g id="coffee-beans">
+                                  <g id="coffee-bean1" serif:id="coffee-bean"> </g>
+                                </g>
+                                <g id="coffee-bean-filled"> </g>
+                                <g id="coffee-beans-filled">
+                                  <g id="coffee-bean2" serif:id="coffee-bean"> </g>
+                                </g>
+                                <g id="clipboard"> </g>
+                                <g id="clipboard-paste"> </g>
+                                <g id="clipboard-copy"> </g>
+                                <g id="Layer1"> </g>
+                              </g>
+                            </g>
+                          </svg>
+                          <div class="action2  outer-border">
+                            <div class="mx-5 mb-1 p-0 pb-3" id="action2" formArrayName="triggerData"
+                              [class.box-connector]="triggerForm.get('triggerData')?.controls && triggerForm.get('triggerData').controls.length - 1 !== i">
+                              <ng-container [formGroupName]="i">
+                                <div class="wrapper1 py-5">
+                                  <div class="rightpart">
+                                    <div class="panel-blue mb-0">
+                                      <div class="panel-header">
+                                        <div class="panel-header-left">
+                                          <div class="header-icon">
+                                            <span><i class="fas fa-paper-plane fa-lg" aria-hidden="true"></i></span>
+                                          </div>
+                                          <div class="header-content">
+                                            <div class="header-title">
+                                              To Send
+                                            </div>
+                                            <div class="header-subtitle">
+                                              Select What Action Do You Want To Do
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="panel-header-right">
+                                          <button type="button" data-dismiss="modal" aria-label="Close"
+                                            (click)="removeTriggerData(1,i)" class="close removebtn">
+                                            <i class="fa fa-close" aria-hidden="true"></i>
+                                          </button>
+                                        </div>
+                                      </div>
+
+                                      <!------------------------------------------------->
+                                      <div class="input-feild">
+                                        <div class="row pb-2">
+                                          <div class="col-4 px-0 radio-button-wrapper">
+                                            <input id="radio-SMS-{{i}}" class="pr-2" (change)="SetleadType('SMS',i)"
+                                              type="radio" formControlName="triggerType" value='SMS'>
+                                            <label for="radio-SMS-{{i}}">
+                                              SMS
+                                            </label>
+                                          </div>
+
+                                          <div class="col-4 px-0 radio-button-wrapper">
+                                            <input id="radio-EMAIL-{{i}}" class="pr-2" (change)="SetleadType('EMAIL',i)"
+                                              type="radio" formControlName="triggerType" value="EMAIL">
+                                            <label for="radio-EMAIL-{{i}}">
+                                              Email
+                                            </label>
+                                          </div>
+
+                                          <div class="col-4 px-0 radio-button-wrapper"
+                                            *ngIf="triggerForm.controls.moduleName.value === LEAD_MODULE">
+                                            <input id="radio-TASK-{{i}}" class="pr-2" (change)="SetleadType('TASK',i)"
+                                              type="radio" formControlName="triggerType" value="TASK">
+                                            <label for="radio-TASK-{{i}}">
+                                              Task
+                                            </label>
+                                          </div>
+                                        </div>
+
+                                        <ng-container
+                                          *ngIf="triggerForm.controls.moduleName.value === LEAD_MODULE || triggerForm.controls.moduleName.value === FORM_MODULE">
+                                          <!-- --------------- Sub-step For Lead If Selected Action is SMS ---------------- -->
+                                          <ng-container *ngIf="condition.controls.triggerType.value === 'SMS'">
+                                            <div class="">
+                                              <label for="trigger-target-{{i}}">To</label>
+                                              <select id="trigger-target-{{i}}" class="form-control dropdown-field"
+                                                formControlName="triggerTarget"
+                                                (change)="changeTriggerType($event, condition.controls.triggerType.value, i)"
+                                                name="trigger-event" aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>--Please select Trigger Target--</option>
+                                                <option value="lead">Leads</option>
+                                                <option value="Clinic">Clinic</option>
+                                              </select>
+                                            </div>
+                                            <div class="">
+                                              <label for="sms-template-{{i}}">Using Template</label>
+                                              <div class="templates-dropdown-wrapper">
+                                                <div class="templates-dropdown">
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'lead'">
+                                                    <select id="sms-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let sms of leadSmsTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                        [ngValue]="sms.id">{{ sms.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'Clinic'">
+                                                    <select id="sms-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let sms of clinicSmsTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                        [ngValue]="sms.id">{{ sms.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <div class="d-flex">
+                                                    <span class="edit-template mx-3"
+                                                    (click)="previewSMSTemplate(condition.controls.triggerTemplate.value)">Preview
+                                                      Template</span>
+                                                    <span class="edit-template"
+                                                    (click)="editSMSTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                    Template</span>
+                                                  </div>
+                                                  
+                                                </div>
+                                                <button type="button" class="btn-save-new btn-small-new" (click)="openTemplatesModal(
+                                                  triggerForm.controls.moduleName.value,
+                                                  condition.controls.triggerType.value,
+                                                  condition.controls.triggerTarget.value, i)">
+                                                  Choose
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </ng-container>
+
+                                          <!-- --------------- Sub-step For Lead If Selected Action is EMAIL ---------------- -->
+                                          <ng-container *ngIf="condition.controls.triggerType.value === 'EMAIL'">
+                                            <div class="">
+                                              <label for="trigger-target-{{i}}">To</label>
+                                              <select id="trigger-target-{{i}}" class="form-control dropdown-field"
+                                                formControlName="triggerTarget"
+                                                (change)="changeTriggerType($event, condition.controls.triggerType.value, i)"
+                                                name="trigger-event" aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>--Please select Trigger Target--</option>
+                                                <option value="lead">Leads</option>
+                                                <option value="Clinic">Clinic</option>
+                                                <option value="custom">Custom</option>
+                                              </select>
+                                            </div>
+                                            <div class="" *ngIf="condition.controls.triggerTarget.value === 'custom'">
+                                              
+                                              <label for="trigger-name" class="label">Custom Email</label>
+                                                <input class="pr-2 mt-3" type="text" class="form-control"
+                                                      formControlName="customEmail" name="customEmail" id="trigger-custoEmail"
+                                                      type="text"
+                                                      [ngClass]="{ 'is-invalid': multipleEmailValidator(condition.controls.customEmail.value) && condition.controls.customEmail.touched }" />
+                                                      
+                                                <div 
+                                                  *ngIf=" multipleEmailValidator(condition.controls.customEmail.value) && condition.controls.customEmail.touched" 
+                                                  class="invalid-feedback">
+                                                  Please enter a valid email address
+                                                </div>
+                                              <!-- <app-custom-tags [items]=" []" [validationExpression]="validationExpression"
+                                              (selectedItemsChange)="onCustomEmail($event,i)"
+                                              [selectedValue]="[]"></app-custom-tags> -->
+                                            </div>
+                                            <div class="">
+                                              <label for="email-template-{{i}}">Using Template</label>
+                                              <div class="templates-dropdown-wrapper">
+                                                <div class="templates-dropdown">
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'lead'">
+                                                    <select id="email-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let email of leadEmailTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                        [ngValue]="email.id">{{ email.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'Clinic' || condition.controls.triggerTarget.value === 'custom' ">
+                                                    <select id="email-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let email of clinicEmailTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                        [ngValue]="email.id">{{ email.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <div class="d-flex">
+                                                    <span class="edit-template mx-3"
+                                                    (click)="previewEmailTemplate(condition.controls.triggerTemplate.value)">Preview
+                                                      Template</span>
+                                                  <span class="edit-template"
+                                                    (click)="editEmailTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                    Template</span>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn-save-new btn-small-new" (click)="openTemplatesModal(
+                                                  triggerForm.controls.moduleName.value,
+                                                  condition.controls.triggerType.value,
+                                                  condition.controls.triggerTarget.value, i)">
+                                                  Choose
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </ng-container>
+
+                                          <div class="taskDetails task-div"
+                                            *ngIf="condition.controls.triggerType.value==='TASK'">
+                                            <div class="new-task mb-3">
+                                              <label>
+                                                Task Name<span style="color:red">*</span>
+                                              </label>
+                                              <input class="form-control" formControlName="taskName" type="text"
+                                                placeholder="Task name">
+                                              <div
+                                                *ngIf="condition.controls.taskName.invalid && ((condition.controls.taskName.dirty || condition.controls.taskName.touched))"
+                                                class="error_msg">
+                                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                Task Name is required
+                                              </div>
+                                            </div>
+
+                                            <div class="new-task mb-3">
+                                              <label>
+                                                Task Description
+                                              </label>
+                                              <input class="form-control" formControlName="taskDescription" type="text"
+                                                placeholder="Task Description">
+                                            </div>
+                                            <div
+                                              *ngIf="condition.controls.taskDescription.invalid && ((condition.controls.taskDescription.dirty || condition.controls.taskDescription.touched))"
+                                              class="error_msg">
+                                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                              Task description is required in letters
+                                            </div>
+                                            <div class="task-assign">
+                                              <label>
+                                                Task Priority <span style="color:red">*</span>
+                                              </label>
+                                              <select class="form-control dropdown-field" name="trigger-event"
+                                                aria-placeholder="Trigger Event" formControlName="triggerTaskPriority">
+                                                <option value="" disabled>--Please select Priority--</option>
+                                                <option *ngFor="let priority of taskPriority" [ngValue]="priority.code">
+                                                  {{priority.name}}</option>
+                                              </select>
+                                            </div>
+                                            <div class="task-assign">
+                                              <label>
+                                                Assign Task to <span style="color:red">*</span>
+                                              </label>
+                                              <select class="form-control dropdown-field" name="trigger-event"
+                                                aria-placeholder="Trigger Event" formControlName="triggerTemplate">
+                                                <option value="" disabled>--Please select user--</option>
+                                                <option *ngFor="let user of users" [ngValue]="user.id">
+                                                  {{user.firstName}} {{user.lastName}}</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="triggerForm.controls.moduleName.value === 'Appointment'">
+                                          <!-- --------------- Sub-step For Patient If Selected Action is SMS ---------------- -->
+                                          <ng-container *ngIf="condition.controls.triggerType.value === 'SMS'">
+                                            <div class="">
+                                              <label for="trigger-target-{{i}}">To</label>
+                                              <select id="trigger-target-{{i}}" class="form-control dropdown-field"
+                                                formControlName="triggerTarget"
+                                                (change)="changeTriggerType($event, condition.controls.triggerType.value, i)"
+                                                name="trigger-event" aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>--Please select Trigger Target--</option>
+                                                <option value="AppointmentPatient">Patient</option>
+                                                <option value="AppointmentClinic">Clinic</option>
+                                              </select>
+                                            </div>
+                                            <div class="">
+                                              <label for="sms-template-{{i}}">Using Template</label>
+                                              <div class="templates-dropdown-wrapper">
+                                                <div class="templates-dropdown">
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'AppointmentPatient'">
+                                                    <select id="sms-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let sms of appointmentPatientSMSTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                        [ngValue]="sms.id">{{ sms.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'AppointmentClinic'">
+                                                    <select id="sms-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let sms of appointmentClinicSMSTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                        [ngValue]="sms.id">{{ sms.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <span class="edit-template"
+                                                    (click)="editSMSTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                    Template</span>
+                                                </div>
+                                                <button type="button" class="btn-save-new btn-small-new" (click)="openTemplatesModal(
+                                                  triggerForm.controls.moduleName.value,
+                                                  condition.controls.triggerType.value,
+                                                  condition.controls.triggerTarget.value, i)">
+                                                  Choose
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </ng-container>
+
+                                          <!-- --------------- Sub-step For Patient If Selected Action is EMAIL ---------------- -->
+                                          <ng-container *ngIf="condition.controls.triggerType.value === 'EMAIL'">
+                                            <div class="">
+                                              <label for="trigger-target-{{i}}">To</label>
+                                              <select id="trigger-target-{{i}}" class="form-control dropdown-field"
+                                                formControlName="triggerTarget"
+                                                (change)="changeTriggerType($event, condition.controls.triggerType.value, i)"
+                                                name="trigger-event" aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>--Please select Trigger Target--</option>
+                                                <option value="AppointmentPatient">Patient</option>
+                                                <option value="AppointmentClinic">Clinic</option>
+                                                <!-- <option value="AppointmentCustom">Custom</option> -->
+
+                                              </select>
+                                            </div>
+                                            <!-- <div class=""
+                                            *ngIf="condition.controls.triggerTarget.value === 'AppointmentCustom'">
+                                            <label for="trigger-name" class="label">Custom Email</label>
+                                            <input class="pr-2 mt-3" type="text" class="form-control"
+                                              formControlName="customEmail" name="customEmail" id="trigger-custoEmail"
+                                              type="text" required />
+                                          </div> -->
+                                            <div class="">
+                                              <label for="email-template-{{i}}">Using Template</label>
+                                              <div class="templates-dropdown-wrapper">
+                                                <div class="templates-dropdown">
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'AppointmentPatient'">
+                                                    <select id="email-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let email of appointmentPatientEmailTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                        [ngValue]="email.id">{{ email.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'AppointmentClinic' || condition.controls.triggerTarget.value === 'AppointmentCustom'">
+                                                    <select id="email-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let email of appointmentClinicEmailTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                        [ngValue]="email.id">{{ email.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <span class="edit-template"
+                                                    (click)="editEmailTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                    Template</span>
+                                                </div>
+                                                <button type="button" class="btn-save-new btn-small-new" (click)="openTemplatesModal(
+                                                  triggerForm.controls.moduleName.value,
+                                                  condition.controls.triggerType.value,
+                                                  condition.controls.triggerTarget.value, i)">
+                                                  Choose
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </ng-container>
+                                        </ng-container>
+                                        <ng-container *ngIf="triggerForm.controls.moduleName.value === PATIENT_MODULE">
+                                          <!-- --------------- Sub-step For Patient If Selected Action is SMS ---------------- -->
+                                          <ng-container *ngIf="condition.controls.triggerType.value === 'SMS'">
+                                            <div class="">
+                                              <label for="trigger-target-{{i}}">To</label>
+                                              <select id="trigger-target-{{i}}" class="form-control dropdown-field"
+                                                formControlName="triggerTarget"
+                                                (change)="changeTriggerType($event, condition.controls.triggerType.value, i)"
+                                                name="trigger-event" aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>--Please select Trigger Target--</option>
+                                                <option value="patient">Patient</option>
+                                                <option value="patientClinic">Clinic</option>
+                                              </select>
+                                            </div>
+                                            <div class="">
+                                              <label for="sms-template-{{i}}">Using Template</label>
+                                              <div class="templates-dropdown-wrapper">
+                                                <div class="templates-dropdown">
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'patient'">
+                                                    <select id="sms-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let sms of patientSmsTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                        [ngValue]="sms.id">{{ sms.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'patientClinic'">
+                                                    <select id="sms-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let sms of patientClinicSmsTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                        [ngValue]="sms.id">{{ sms.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <span class="edit-template"
+                                                    (click)="editSMSTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                    Template</span>
+                                                </div>
+                                                <button type="button" class="btn-save-new btn-small-new" (click)="openTemplatesModal(
+                                                  triggerForm.controls.moduleName.value,
+                                                  condition.controls.triggerType.value,
+                                                  condition.controls.triggerTarget.value, i)">
+                                                  Choose
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </ng-container>
+
+                                          <!-- --------------- Sub-step For Patient If    Selected Action is EMAIL ---------------- -->
+                                          <ng-container *ngIf="condition.controls.triggerType.value === 'EMAIL'">
+                                            <div class="">
+                                              <label for="trigger-target-{{i}}">To</label>
+                                              <select id="trigger-target-{{i}}" class="form-control dropdown-field"
+                                                formControlName="triggerTarget"
+                                                (change)="changeTriggerType($event, condition.controls.triggerType.value, i)"
+                                                name="trigger-event" aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>--Please select Trigger Target--</option>
+                                                <option value="patient">Patient</option>
+                                                <option value="patientClinic">Clinic</option>
+                                              </select>
+                                            </div>
+                                            <div class="">
+                                              <label for="email-template-{{i}}">Using Template</label>
+                                              <div class="templates-dropdown-wrapper">
+                                                <div class="templates-dropdown">
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'patient'">
+                                                    <select id="email-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event" required>
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let email of patientEmailTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                        [ngValue]="email.id">{{ email.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <ng-container
+                                                    *ngIf="condition.controls.triggerTarget.value === 'patientClinic'">
+                                                    <select id="email-template-{{i}}" class="form-control small"
+                                                      [disabled]="true" name="trigger-event"
+                                                      aria-placeholder="Trigger Event">
+                                                      <option value="-1" disabled>
+                                                        Please select template
+                                                      </option>
+                                                      <option *ngFor="let email of patientClinicEmailTemplate"
+                                                        [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                        [ngValue]="email.id">{{ email.name }}</option>
+                                                    </select>
+                                                  </ng-container>
+                                                  <span class="edit-template"
+                                                    (click)="editEmailTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                    Template</span>
+                                                </div>
+                                                <button type="button" class="btn-save-new btn-small-new" (click)="openTemplatesModal(
+                                                  triggerForm.controls.moduleName.value,
+                                                  condition.controls.triggerType.value,
+                                                  condition.controls.triggerTarget.value, i)">
+                                                  Choose
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </ng-container>
+                                        </ng-container>
+                                      </div>
+
+                                    </div>
+                                    <!-- <div class="border-small-bottom"
+                                      [ngClass]="condition.controls.actionIndex.value>2 ? '' :'hidden'">
+                                    </div> -->
+                                  </div>
+                                </div>
+
+                                <div id='time{{i}}' class="rel mt-1 pt-5">
+                                  <div id="action3" *ngIf="condition.controls.actionIndex.value>2">
+                                    <svg class="abs-cond" fill="#D8E2F6" width="64px" height="64px" viewBox="0 0 64 64"
+                                      version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                                      xmlns:serif="http://www.serif.com/"
+                                      style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                      <g id="SVGRepo_iconCarrier">
+                                        <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;">
+                                        </rect>
+                                        <g id="Icons1" serif:id="Icons">
+                                          <g id="Strike"> </g>
+                                          <g id="H1"> </g>
+                                          <g id="H2"> </g>
+                                          <g id="H3"> </g>
+                                          <g id="list-ul"> </g>
+                                          <g id="hamburger-1"> </g>
+                                          <g id="hamburger-2"> </g>
+                                          <g id="list-ol"> </g>
+                                          <g id="list-task"> </g>
+                                          <g id="trash"> </g>
+                                          <g id="vertical-menu"> </g>
+                                          <g id="horizontal-menu"> </g>
+                                          <g id="sidebar-2"> </g>
+                                          <g id="Pen"> </g>
+                                          <g id="Pen1" serif:id="Pen"> </g>
+                                          <g id="clock"> </g>
+                                          <g id="external-link"> </g>
+                                          <g id="hr"> </g>
+                                          <g id="info"> </g>
+                                          <g id="warning"> </g>
+                                          <g id="plus-circle"> </g>
+                                          <g id="minus-circle"> </g>
+                                          <g id="vue"> </g>
+                                          <g id="cog"> </g>
+                                          <g id="logo"> </g>
+                                          <path id="arrow-down"
+                                            d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z">
+                                          </path>
+                                          <g id="radio-check"> </g>
+                                          <g id="eye-slash"> </g>
+                                          <g id="eye"> </g>
+                                          <g id="toggle-off"> </g>
+                                          <g id="shredder"> </g>
+                                          <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g>
+                                          <g id="react"> </g>
+                                          <g id="check-selected"> </g>
+                                          <g id="turn-off"> </g>
+                                          <g id="code-block"> </g>
+                                          <g id="user"> </g>
+                                          <g id="coffee-bean"> </g>
+                                          <g id="coffee-beans">
+                                            <g id="coffee-bean1" serif:id="coffee-bean"> </g>
+                                          </g>
+                                          <g id="coffee-bean-filled"> </g>
+                                          <g id="coffee-beans-filled">
+                                            <g id="coffee-bean2" serif:id="coffee-bean"> </g>
+                                          </g>
+                                          <g id="clipboard"> </g>
+                                          <g id="clipboard-paste"> </g>
+                                          <g id="clipboard-copy"> </g>
+                                          <g id="Layer1"> </g>
+                                        </g>
+                                      </g>
+                                    </svg>
+                                    <div class="wrapper1">
+                                      <div class="rightpart">
+                                        <div class="panel-blue mb-3">
+                                          <div class="panel-header">
+                                            <div class="panel-header-left">
+                                              <div class="header-icon">
+                                                <span><i class="fas fa-clock fa-lg" aria-hidden="true"></i></span>
+                                              </div>
+                                              <div class="header-content">
+                                                <div class="header-title">
+                                                  {{ condition.controls.timerType.value === 'Frequency' ? 'After' :
+                                                  'Between'}}
+                                                </div>
+                                                <div class="header-subtitle">
+                                                  Select The Time Particulars To Schedule This Trigger
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="panel-header-right">
+
+                                            </div>
+                                          </div>
+                                          <div class="input-feild"
+                                            *ngIf="triggerForm.controls.moduleName.value === LEAD_MODULE || triggerForm.controls.moduleName.value === moduleTypeForm || triggerForm.controls.moduleName.value === PATIENT_MODULE">
+                                            <div class="row pb-2">
+                                              <div class="col-6 p-0 pb-2 radio-button-wrapper">
+                                                <input id="radio-Frequency-{{i}}" class="pr-2" type="radio"
+                                                  formControlName="timerType" value='Frequency'>
+                                                <label for="radio-Frequency-{{i}}">
+                                                  Delay of
+                                                </label>
+                                              </div>
+
+                                              <div class="col-6 p-0 pb-2 radio-button-wrapper">
+                                                <input id="radio-Range-{{i}}" class="pr-2" type="radio"
+                                                  formControlName="timerType" value="Range">
+                                                <label for="radio-Range-{{i}}">
+                                                  Time Range
+                                                </label>
+                                              </div>
+                                            </div>
+                                            <ng-container *ngIf="condition.controls.timerType.value === 'Frequency'">
+                                              <div class="date-feild row">
+                                                <div class="form-group pb-0 col-md-6 col-sm-12 pl-0">
+                                                  <input class="form-control" formControlName="triggerTime"
+                                                    name="triggerTime" type="text" placeholder="Enter time duration"
+                                                    pattern="^\d+">
+                                                </div>
+                                                <div class="form-group pb-0 col-md-6 col-sm-12 pl-0">
+                                                  <select class="form-control mb-0" formControlName="triggerFrequency"
+                                                    name="trigger-event" aria-placeholder="Trigger Event">
+                                                    <option *ngFor="let triggerTime of triggerTimes"
+                                                      [ngValue]="triggerTime.value">
+                                                      {{ triggerTime.label }}
+                                                    </option>
+                                                  </select>
+                                                </div>
+                                                <ng-template [ngTemplateOutlet]="validationMessage">
+                                                </ng-template>
+                                              </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="condition.controls.timerType.value === 'Range'">
+                                              <div class="time-range-wrapper row form-group pb-0">
+                                                <div class="col-md-6 col-sm-12 pl-0">
+                                                  <p-calendar formControlName="startTime"
+                                                    (onClose)="setTime($event,'startTime',condition.controls)"
+                                                    [readonlyInput]="true" [showIcon]="true" icon="pi pi-clock"
+                                                    [showTime]="true" [timeOnly]="true" hourFormat="12">
+                                                  </p-calendar>
+                                                </div>
+                                                <div class="error_msg col-12 px-0"
+                                                  *ngIf="condition.controls.startTime.errors">
+                                                  <span *ngIf="condition.controls.startTime.errors.error">
+                                                    {{condition.controls.startTime.errors.error}}
+                                                  </span>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 pl-0">
+                                                  <p-calendar formControlName="endTime"
+                                                    (onClose)="setTime($event,'endTime',condition.controls)"
+                                                    [readonlyInput]="true" [dateFormat]="dateFormat" [showIcon]="true"
+                                                    icon="pi pi-clock" [showTime]="true" [timeOnly]="true"
+                                                    hourFormat="12">
+                                                  </p-calendar>
+                                                </div>
+                                                <div class="error_msg col-12 pl-0"
+                                                  *ngIf="condition.controls.endTime.errors">
+                                                  <span *ngIf="condition.controls.endTime.errors.error">
+                                                    {{condition.controls.endTime.errors.error}}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </ng-container>
+                                          </div>
+                                          <div class="input-feild"
+                                            *ngIf="triggerForm.controls.moduleName.value === 'Appointment'">
+                                            <div class="date-feild row">
+                                              <div class="form-group col-md-6 col-sm-12 pl-0">
+                                                <input class="form-control" formControlName="triggerTime"
+                                                  name="triggerTime" type="text" placeholder="Enter time duration"
+                                                  pattern="^\d+">
+                                              </div>
+                                              <div class="form-group col-md-6 col-sm-12 pl-0">
+                                                <select class="form-control mb-0" formControlName="triggerFrequency"
+                                                  name="trigger-event" aria-placeholder="Trigger Event">
+                                                  <option *ngFor="let triggerTime of triggerTimes"
+                                                    [ngValue]="triggerTime.value">
+                                                    {{ triggerTime.label }}
+                                                  </option>
+                                                </select>
+                                              </div>
+                                              <ng-template [ngTemplateOutlet]="validationMessage">
+                                              </ng-template>
+                                            </div>
+                                            <div class="form-group mb-0 pb-0">
+                                              <label class="label">Schedule based on</label>
+                                              <select class="form-control mb-0" formControlName="dateType"
+                                                name="date-type" aria-placeholder="Date Type">
+                                                <option *ngFor="let type of dateType" [ngValue]="type.value">
+                                                  {{ type.label }}
+                                                </option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                              <ng-template #validationMessage>
+                                <div class="col-12 pl-0"
+                                  *ngIf="condition.controls.triggerTime.value<0 || condition.controls.triggerTime.value%1!==0">
+                                  <span class="error">Please enter a valid number</span>
+                                </div>
+                                <div class="error col-12 pl-0"
+                                  *ngIf="
+                                (condition.controls.triggerTime.value===0 && condition.controls.triggerFrequency.value==='HOUR')">
+                                  <span class="error">Please enter Hours between 1 to 23</span>
+                                </div>
+                                <div class="error col-12 pl-0"
+                                  *ngIf="
+                                (condition.controls.triggerTime.value===0 && condition.controls.triggerFrequency.value==='DAY')">
+                                  <span class="error">Please enter days from 1</span>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div class="flex justify-content-end mt-2 button-save-cancel"
+                            *ngIf="condition.controls.actionIndex.value>2 && condition.controls.addNew.value">
+                            <div class="">
+                              <button type="button" class="btn-add-condition px-0" (click)="addCondition(i)"
+                                *ngIf="condition.controls.actionIndex.value>2 && condition.controls.addNew.value">
+                                Add another condition
+                              </button>
+                            </div>
+                          </div>
+                          <div class="button-flex row button-save-cancel flex-start mt-2"
+                            *ngIf="condition.controls.actionIndex.value>2 && condition.controls.addNew.value">
+                            <button type="submit" class="btn-small-new btn-save-new sb1"
+                              [disabled]="condition.controls.triggerTime.value<0
+                                                        || condition.controls.triggerTime.value%1!==0
+                                                        || condition.controls.triggerTime.value.length<=0
+                                                        || triggerForm.invalid 
+                                                        || multipleEmailValidator(condition.controls.customEmail.value)
+                                                        || (this.triggerForm.value.moduleName === 'leads' && this.triggerForm.value.triggeractionName !== 'Pending')
+                                                        || condition.controls.triggerFrequency.value===null
+                                                        || condition.controls.triggerFrequency.value===''
+                                                        || (condition.controls.triggerTime.value===0 && condition.controls.triggerFrequency.value==='HOUR')
+                                                        || (condition.controls.triggerTime.value===0 && condition.controls.triggerFrequency.value==='DAY')
+                                                        || condition.controls.startTime?.errors || condition.controls.endTime?.errors"
+                                                         (click)="submitTrigger()">
+                              Save
+                            </button>
+                            <button type="button" class="btn-small-new btn-default-new" (click)="cancelTrigger()">
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div id="action3" *ngIf="actionIndex>4">
+                      <div class="wrapper1">
+                        <div class="left-div">
+                          <div class="condition-wrapper">
+                            <div class="conition1">
+                              <span class="condition-text">
+                                Action
+                              </span>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="rightpart">
+                          <div class="panel-blue">
+                            <div class="input-feild">
+                              <label class="label">3. What should be the
+                                Frequency</label>
+                              <select class="form-control" name="trigger-event" aria-placeholder="Trigger Event">
+                                <option>Hour</option>
+                                <option>Day</option>
+                                <option>15 Days</option>
+                                <option>Monthly</option>
+                              </select>
+                            </div>
+
+                            <div class="row button-save-cancel">
+                              <div class="text-left"><button type="submit" class="btn-custom-button btn">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row flex justify-content-center button-save-cancel-lst mx-5 mt-5" *ngIf="isLastLevel">
+                  <div class="col-xl-7 col-lg-10 col-md-12">
+                    <div class="text-left button-flex">
+                      <button type="submit" class="btn-small-new btn-save-new" [disabled]="true">Save</button>
+                      <button type="button" class="btn-small-new btn-default-new"
+                        (click)="cancelTrigger()">Cancel</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="showPreviewModal">
+    <app-preview-email-sms-template [modalData]="modalData" [showModal]="showPreviewModal"
+      (modalClosed)="onCloseModal($event)"></app-preview-email-sms-template>
+  </ng-container>
+
+  <ng-container *ngIf="showSmsModal">
+    <app-trigger-edit-sms-template [modalData]="modalData" [showModal]="showSmsModal"
+      (modalClosed)="onCloseModal($event)"></app-trigger-edit-sms-template>
+  </ng-container>
+
+  <ng-container *ngIf="showPreviewSmsEmailModal">
+    <app-preview-email-sms-template [modalData]="modalData" [showModal]="showPreviewSmsEmailModal"
+      (modalClosed)="onCloseModal($event)"></app-preview-email-sms-template>
+  </ng-container>
+
+
+  <ng-container *ngIf="showEmailModal">
+    <app-trigger-edit-email-template [modalData]="modalData" [showModal]="showEmailModal"
+      (modalClosed)="onCloseModal($event)"></app-trigger-edit-email-template>
+  </ng-container>
+
+  <app-templates-modal [moduleName]="templateModalData.triggerType" [showModal]="showTemplatesModal"
+    [templates]="templateModalData.templates" (hideTemplateModal)="showHideTemplatesDialog($event)"
+    (templateSelected)="templateSelected($event)"></app-templates-modal>

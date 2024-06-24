@@ -1,0 +1,404 @@
+<div class="blue-card bg-white">
+  <div class="add-edit-form pl-3 pt-3">
+    <div class="form form-type2">
+      <form [formGroup]="emailForm">
+        <div class="row mx-0">
+          <!-- -------------------------- Module feild --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.templateFor.invalid &&
+                (f.templateFor.dirty || f.templateFor.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Module<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Template For" optionValue="id" optionLabel="name"
+                [options]="templateValues" formControlName="templateFor" (onChange)="onModuleChange($event)">
+                <!-- <ng-template let-item pTemplate="templateValues">
+                  {{ item }}
+                </ng-template> -->
+              </p-dropdown>
+
+              <div class="error error-msg" *ngIf="
+                  f.templateFor.invalid &&
+                  (submitted || f.templateFor.dirty || f.templateFor.touched)
+                ">
+                <div *ngIf="f.templateFor.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Module is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- Target feild --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.emailTarget.invalid &&
+                (f.emailTarget.dirty || f.emailTarget.touched)
+                  ? 'has-error'
+                  : ''
+              " *ngIf="f.templateFor.value === 'Lead'">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="leadTerget" formControlName="emailTarget">
+                <ng-template let-item pTemplate="leadTerget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+
+              <div class="error error-msg" *ngIf="
+                  f.emailTarget.invalid &&
+                  (submitted || f.emailTarget.dirty || f.emailTarget.touched)
+                ">
+                <div *ngIf="f.emailTarget.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Target is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" [ngClass]="
+            f.emailTarget.invalid &&
+            (f.emailTarget.dirty || f.emailTarget.touched)
+              ? 'has-error'
+              : ''
+          " *ngIf="f.templateFor.value === 'Patient'">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="patientTarget" formControlName="emailTarget">
+                <ng-template let-item pTemplate="patientTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+
+              <div class="error error-msg" *ngIf="
+              f.emailTarget.invalid &&
+              (submitted || f.emailTarget.dirty || f.emailTarget.touched)
+            ">
+                <div *ngIf="f.emailTarget.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Target is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" [ngClass]="
+            f.emailTarget.invalid &&
+            (f.emailTarget.dirty || f.emailTarget.touched)
+              ? 'has-error'
+              : ''
+          " *ngIf="f.templateFor.value === 'MassEmail'">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="massEmailTarget" formControlName="emailTarget">
+                <ng-template let-item pTemplate="massEmailTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+
+              <div class="error error-msg" *ngIf="
+              f.emailTarget.invalid &&
+              (submitted || f.emailTarget.dirty || f.emailTarget.touched)
+            ">
+                <div *ngIf="f.emailTarget.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Target is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" [ngClass]="
+                f.emailTarget.invalid &&
+                (f.emailTarget.dirty || f.emailTarget.touched)
+                  ? 'has-error'
+                  : ''
+              " *ngIf="f.templateFor.value === 'Appointment'">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="appointmentTarget" formControlName="emailTarget">
+                <ng-template let-item pTemplate="appointmentTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+              <div class="error error-msg" *ngIf="
+                  f.emailTarget.invalid &&
+                  (submitted || f.emailTarget.dirty || f.emailTarget.touched)
+                ">
+                <div *ngIf="f.emailTarget.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Target is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Event Name Feild ----------------------------- -->
+          <div *ngIf="f.templateFor.value !== 'MassEmail'" class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>Events Name</label>
+              <p-dropdown optionLabel="label" optionValue="value" placeholder="Select Events"
+                [options]="emailTemplateNames" (onChange)="filterEmailTemplateByEventId($event.value)"
+                formControlName="emailTemplateName">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Name Feild ----------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.name.invalid && (f.name.dirty || f.name.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is required.
+                </div>
+                <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Subject Line Feild ----------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.subject.invalid && (f.subject.dirty || f.subject.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <div class="form-group">
+                <label>Subject<span class="error-red">*</span></label>
+                <input type="text" formControlName="subject" placeholder="Subject line" class="form-control input-type2"
+                  appErrorStylingDirective />
+              </div>
+              <div class="error error-msg">
+                <div *ngIf="f.subject.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Subject is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Is Custom --------------------------- -->
+          <div class="col-lg-6">
+            <div class="form-group">
+              <div class="flex-sb show-as-radio">
+                <label>Is Custom?</label>
+                <p-inputSwitch formControlName="isCustom"></p-inputSwitch>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Lead Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'Lead'">
+            <button class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let emailVariables of leadEmailVariables; let i = index"
+              (click)="addVariables($event, emailVariables)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Lead Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'Patient'">
+            <button class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let emailVariables of patientEmailVariables; let i = index"
+              (click)="addVariables($event, emailVariables)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+          <!-- ----------------------------- Patient ----------------------------- -->
+          <div *ngIf="f.templateFor.value==='Appointment'">
+            <button class="btn-save-new btn-long-new mx-1 my-1 f-14"
+              *ngFor="let emailVariables of appointmentEmailVariables; let i=index"
+              (click)="addVariables($event, emailVariables)">
+              <i class="fas fa-plus ms-text-secondary "></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Event Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'Event'">
+            <button class="btn-save-new btn-long-new mx-1 my-1 f-14"
+              *ngFor="let emailVariables of filterEmailVariables; let i = index"
+              (click)="addVariables($event, emailVariables)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Form Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'Form'">
+            <button class="btn-save-new btn-long-new mx-1 my-1 f-14" *ngFor="let question of questions; let i = index"
+              (click)="addFormVariable($event, question)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ question.name }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Mass Email Variable --------------------------- -->
+          <div *ngIf="f.templateFor.value === 'MassEmail'">
+            <button class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let emailVariables of massEmailVariables; let i = index"
+              (click)="addVariables($event, emailVariables)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+          <div class="old-editor mt-4">
+            <p>
+              If you want to try Old Editor please click on
+              <a class="link" [routerLink]="['new']">Try Old Editor</a>
+            </p>
+          </div>
+
+          <!-- -------------------------- Body--------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <label class="mt-2" for="body"> Body </label>
+            <!-- <a  class="link"  *ngIf="f?.templateFor?.value === 'Lead' && emailTemplateId"
+              style="float: right; margin-right: 19px; color: #009EDE" (click)="openLibrary1()">
+              Test Email Template</a> -->
+            <div class="row">
+              <div class="col-md-8 mb-3 pl-0">
+                <a class="link" style="cursor: pointer;" (click)="openLibrary()">Choose template from library</a>
+              </div>
+            </div>
+
+            <div class="btn-flex mr">
+              <button class="btn-small-new btn-save-new mr-0 mb" (click)="openLibrary1()"
+                *ngIf="(f?.templateFor?.value === 'Lead' || f?.templateFor?.value === 'MassEmail') && emailTemplateId">
+                Test Template
+              </button>
+              <app-ai-button class="ml-0" [showModal]="showAiModal" [message]="emailForm.value.body"
+                [category]="category" [totalCharacterLength]="totalCharacterLength"
+                (modalClosed)="aiModelClose($event)"></app-ai-button>
+            </div>
+            <ckeditor [config]="config" #ckeditor (ready)="editorReady()" formControlName="body">
+            </ckeditor>
+          </div>
+
+          <!-- -------- ------------------- buttons section --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button [disabled]="!emailForm.valid" (click)="OnSubmitForm()" class="btn-small-new btn-save-new">
+                  <span class="btn-text">Save</span>
+                </button>
+
+                <button type="button" (click)="returntoEmailList()" class="btn-small-new btn-default-new">
+                  <span class="btn-text"> Cancel</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------- Test Email Model -------------------------- -->
+
+<p-dialog [modal]="true" [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '50vw' }" header="Choose Template" [(visible)]="isModalVisibile">
+  <form class="form-part" [formGroup]="searchForm" style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" formControlName="search" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <button (click)="onSearchSubmit()" type="button" class="btn-small-new btn-save-new">
+          Search
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let newsLetter of newsLetters">
+            <td>
+              {{ newsLetter.name }}
+            </td>
+            <td>
+              <a class="selector" (click)="useTemplate(newsLetter)">Use</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog [modal]="true" [breakpoints]="{'1024px': '50vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '40vw'}"
+  [baseZIndex]="10000" [header]="'Send Test Email'" [(visible)]="isShowTestModel" (onHide)="cancelTestEmail()">
+  <div class="custom-blue">
+    <div class="form form-type2">
+      <form [formGroup]="testEmailTemplateForm" class="login-box">
+        <div class="row mx-0">
+
+          <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+            <div class="form-group pt-3">
+              <label for="name" class="mr-2">Choose Lead<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Lead" formControlName="leadId" optionLabel="firstName" [options]="rowData"
+                optionValue="id" [style]="{'width':'100%'}">
+              </p-dropdown>
+
+              <div class="error error-msg">
+                <div *ngIf="testEmailForm?.leadId.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Please
+                  select lead.
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+            <div class="form-group pt-3"
+              [ngClass]="testEmailForm.email.invalid && ((testEmailForm.email.dirty || testEmailForm.email.touched))?'has-error':''">
+              <label for="name"> Email<span class="error-red">*</span></label>
+              <input type="text" class="form-control popupinput" formControlName="email"
+                placeholder="Enter Email to Receive Email" appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="testEmailForm?.email.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Email
+                  is required.
+                </div>
+                <div *ngIf="testEmailForm?.email.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Email
+                  is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="button-flex pl-0">
+            <button [disabled]="!testEmailTemplateForm.valid" (click)="SubmitTestTemplate()" type="button"
+              class="btn-save-new btn-small-new">
+              Send
+            </button>
+            <button class="btn-default-new" type="button" (click)="onCancelClick()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>

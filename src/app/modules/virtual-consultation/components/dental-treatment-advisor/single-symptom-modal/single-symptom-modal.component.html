@@ -1,0 +1,55 @@
+<div class="selected-service">
+    <div class="symptom-name" class="align-items-center d-flex">
+        <span class="f-16 fw-500">
+            {{selectedSymptomObj.title}}
+        </span>
+
+        <div class="btn-wrapper">
+
+            <div class="edit-delete-btn">
+                <button class="btn" style="margin-right: 5px" *ngIf="!editMode" (click)="editSymptom()"><i
+                        class="fas fa-pencil-alt ms-text-primary"></i></button>
+            </div>
+
+            <div class="save-cancel-btn" *ngIf="editMode">
+                <button class="btn" style="margin-right: 5px" (click)="updateSymptom()"><i
+                        class="fas fa-save"></i></button>
+                <button class="btn" style="margin-right: 5px" (click)="cancelEdit()"><i
+                        class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="selected-service-list">
+        <label class="f-16 fw-500">List of Service</label>
+        <hr />
+
+        <ng-container *ngIf="selectedSymptomService && selectedSymptomService.length > 0">
+            <div class="service-name f-13 fw-500" *ngFor="let service of selectedSymptomService">
+                {{service?.service.name}}
+            </div>
+        </ng-container>
+       
+
+        <ng-container *ngIf="!selectedSymptomService ||selectedSymptomService?.length === 0">
+            <div class="no-data">
+                <div class="service-name f-13 fw-500">
+                    No Service are added for the  {{selectedSymptomObj.title}}. 
+                </div>
+    
+                <button class="btn-small-new btn-square" (click)="editSymptom()">Add Service</button>
+            </div>
+         
+        </ng-container>
+    </div>
+
+ 
+    <div class="selected-service-list" *ngIf="editMode">
+        <label class="f-16 fw-500 mb-3">
+            Edit Service for {{selectedSymptomObj.title}}
+        </label>
+        <p-multiSelect [resetFilterOnHide]="true"  appendTo="body" [options]="serviceList" [(ngModel)]="selectedServiceIds"
+            display="chip" optionLabel="name" optionValue="id">
+        </p-multiSelect>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <ng-container >
+      <p-tabPanel header="Lead Templates">
+        <app-email-template-list *ngIf="isDataLoaded" (emitTableEvent)="onEventFromTable($event)" [rowData]="leadTemplates"></app-email-template-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Patient Templates">
+        <app-email-template-list *ngIf="isDataLoaded" (emitTableEvent)="onEventFromTable($event)" [rowData]="patientTemplates"></app-email-template-list>
+      </p-tabPanel>
+      
+      <p-tabPanel header="Appointment Templates">
+        <app-email-template-list (emitTableEvent)="onEventFromTable($event)" *ngIf="isDataLoaded" [rowData]="appontmentTemplates"></app-email-template-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Event Templates">
+        <app-email-template-list *ngIf="isDataLoaded" (emitTableEvent)="onEventFromTable($event)" [rowData]="eventTemplates"></app-email-template-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Mass Email Templates">
+        <app-email-template-list *ngIf="isDataLoaded" (emitTableEvent)="onEventFromTable($event)" [rowData]="massEmailTemplates"></app-email-template-list>
+      </p-tabPanel>
+    </ng-container>
+  </p-tabView>
+</div>

@@ -1,0 +1,409 @@
+.bg-white p,
+.bg-white a,
+.bg-white div,
+.bg-white h3,
+label {
+  font-family: 'Work Sans', sans-serif;
+}
+
+.panel-body,
+.panel-card-content {
+  border: none;
+  background: #F8FAFE;
+}
+
+.panel-header {
+  background: #D8E2F6;
+  min-height: unset;
+  color: #333333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-header h3 {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 1em;
+}
+
+.panel-card-content {
+  max-width: 98%;
+}
+
+label,
+input,
+p,
+a,
+div {
+  font-size: 14px;
+  color: #333333;
+}
+
+.panel-link {
+  background: #fff;
+  border-radius: 4px;
+  color: #333;
+  padding: 10px;
+  border-radius: 10px;
+  height: 28px;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-section {
+  display: flex;
+  column-gap: 1em;
+  margin-right: 1em;
+}
+
+.panel-link a {
+  color: #333333;
+}
+
+.panel-link a {
+  padding: 7px;
+}
+
+.panel-card-content input[type='checkbox'] {
+  width: 15px;
+  height: 15px !important;
+  margin-right: 5px;
+  margin-bottom: 0px;
+  margin-top: -3px;
+  cursor: pointer;
+}
+
+.title-element-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.panel-card-content p {
+  margin-bottom: 10px;
+}
+
+.form-element {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-element .show-as-radio label {
+  padding-right: 2em;
+  padding-left: 5px;
+}
+
+.show-as-radio {
+  display: flex;
+  align-items: center;
+}
+
+.show-as-radio p-inputswitch ::ng-deep .p-inputswitch {
+  width: 40px;
+  height: 20px;
+}
+
+.show-as-radio p-inputswitch ::ng-deep .p-inputswitch .p-inputswitch-slider {
+  top: 3px;
+}
+
+.show-as-radio p-inputswitch ::ng-deep .p-inputswitch-slider:before {
+  width: 20px;
+  height: 20px;
+  left: 0;
+  box-shadow: 0 0 2rem 0 rgb(160 184 212 / 80%);
+}
+
+.show-as-radio ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+  background: #2656C9 !important;
+}
+
+.show-as-radio p-inputswitch ::ng-deep .p-inputswitch:hover .p-inputswitch-slider,
+.show-as-radio p-inputswitch ::ng-deep .p-inputswitch-slider {
+  background: #ced4da
+}
+
+.show-as-radio p-inputswitch ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #D8E2F6;
+}
+
+.custom-input {
+  padding-top: 1em;
+}
+
+.custom-input input {
+  max-width: 75%;
+  box-shadow: none !important;
+
+}
+
+.custom-input input[type="radio"] {
+  max-width: 100%;
+  cursor: pointer;
+}
+
+p,
+.custom-input label {
+  font-size: 14px;
+}
+
+.form-element label {
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+}
+
+.panel-link {
+  cursor: pointer;
+}
+
+.cdk-drag.panel-blue {
+  margin-bottom: 2em;
+  margin-left: 1em;
+  cursor: grab;
+  border-radius: 18px;
+}
+
+.title {
+  margin-bottom: 2em;
+}
+
+span.mover {
+  position: absolute;
+  left: 0em;
+  /* z-index: 8888888; */
+}
+
+.login-box {
+  position: relative;
+}
+
+/*
+.right-card {
+  margin-bottom: 2em;
+} */
+
+.button-flex {
+  display: flex;
+  padding-left: 15px;
+  margin-bottom: 2em;
+}
+
+@media screen and (max-width:767px) {
+  .panel-header h3 {
+    font-size: 16px;
+    padding: 10px 5px;
+    padding-left: 10px;
+  }
+
+  .panel-link {
+    margin-right: 1em;
+    padding: 5px;
+  }
+
+  .panel-link a {
+    font-size: 14px;
+  }
+
+  .custom-input input {
+    max-width: 100%;
+  }
+}
+
+
+.panel-blue .desc,
+.panel-blue .title1 {
+  margin-bottom: 8px;
+}
+
+
+.bg-white {
+  background-color: #fff;
+  padding: 0;
+  border: none;
+}
+
+.bg-card {
+  padding: 2em;
+  max-width: 95%;
+  margin: 0 auto;
+  background: #eff2f9;
+  cursor: pointer;
+  border-radius: 16px;
+  margin-bottom: 2em;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.bg-card.active {
+  background-color: #D8E2F6;
+  ;
+
+}
+
+.bg-card:hover {
+  background-color: #f2f2f2;
+}
+
+.bg-card img {
+  max-width: 100%;
+  border-radius: 8px;
+  width: 100%;
+}
+
+
+.bg-card img {
+  transition: opacity 0.3s ease;
+}
+
+.bg-card:hover img {
+  opacity: 0.7;
+}
+
+.padding-class {
+  padding-left: 2em;
+}
+
+.small-title p {
+  font-size: 16px !important;
+  color: #333333;
+  font-weight: 500;
+  margin-bottom: 1em;
+  margin-top: 3em;
+}
+
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Style the label to create a custom checkbox */
+input[type="checkbox"]+label {
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+}
+
+/* Style the custom checkbox */
+input[type="checkbox"]+label:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  border: 1px solid #333;
+  border-radius: 6px;
+}
+
+/* Change the background color of the checkbox when checked */
+input[type="checkbox"]:checked+label:before {
+  background-color: #D8E2F6;
+  border: 1px solid #D8E2F6;
+}
+
+/* Style the checkmark inside the checkbox */
+label:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  width: 6px;
+  height: 12px;
+  border: 2px solid #2656C9;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  display: none;
+}
+
+/* Show the checkmark when the checkbox is checked */
+input[type="checkbox"]:checked+label:after {
+  display: block;
+}
+
+.new-ui-dialog ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.button-group {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.bg-card:hover .button-group {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.card-btn {
+  border-radius: 12px;
+  margin-top: 1em;
+  padding: 16px 10px;
+  text-align: center;
+  font-size: 14px;
+  background: #fff;
+  font-weight: 500;
+}
+
+.card-btn .show-as-radio {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bg-card.active {
+  border: 2px solid #2656C9;
+}
+
+.show-selected {
+  position: absolute;
+  right: 2em;
+  top: 2em;
+  display: none;
+}
+
+.show-selected i {
+  font-size: 24px;
+  color: #2656C9;
+}
+
+
+.bg-card.active .show-selected {
+  display: block;
+}
+
+.dialog-new-v1 .form-group{
+  margin-bottom: 20px;
+}
+
+
+.disabled{
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #ccc, #999);
+  -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}

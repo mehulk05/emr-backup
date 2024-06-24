@@ -1,0 +1,36 @@
+<div>
+  <label for="numColumnsDropdown">Select number of columns:</label>
+  <select id="numColumnsDropdown" (change)="onNumColumnsChanged($event)">
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let column of displayedColumns; let i = index">
+        <input type="text" [(ngModel)]="columnNames[i]">
+      </th>
+      <th *ngIf="rows.length > 1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of rows; let i = index">
+      <td *ngFor="let column of displayedColumns">
+        <input type="text" [(ngModel)]="row[column]" [readonly]="column <= numFixedColumns">
+      </td>
+      <td *ngIf="rows.length > 1">
+        <div class="btn-flex">
+          <button (click)="removeRow(i)">-</button>
+        <button (click)="addRowByIndex(i)">+</button>
+        </div>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="submit-btn" (click)="addRow()">+</button>
+<button class="submit-btn" (click)="submit()">Submit</button>

@@ -1,0 +1,124 @@
+<p-dialog [header]="'Edit Email'" (onHide)="hideModal()" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+
+  <!-- Modal body -->
+  <div class="body-section">
+    <div class="add-edit-form ml-0">
+      <div class="form form-type2">
+        <form [formGroup]="emailForm">
+          <div class="row mx-0">
+
+            <!-- ---------------------------- Name Feild ----------------------------- -->
+            <div class="col-lg-8 col-md-12 col-sm-12 pl-0">
+              <div class="form-group" [ngClass]="
+                    f.name.invalid && (f.name.dirty || f.name.touched)
+                      ? 'has-error'
+                      : ''
+                  ">
+                <label>Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective />
+                <div class="error error-msg">
+                  <div *ngIf="f.name.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is required.
+                  </div>
+                  <div *ngIf="f.name.errors?.pattern">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is invalid.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ----------------------------- Subject Line Feild ----------------------------- -->
+            <div class="col-lg-8 col-md-12 col-sm-12 pl-0">
+              <div class="form-group" [ngClass]="
+                    f.subject.invalid && (f.subject.dirty || f.subject.touched)
+                      ? 'has-error'
+                      : ''
+                  ">
+                <div class="form-group">
+                  <label>Subject<span class="error-red">*</span></label>
+                  <input type="text" formControlName="subject" placeholder="Subject line"
+                    class="form-control input-type2" appErrorStylingDirective />
+                </div>
+                <div class="error error-msg">
+                  <div *ngIf="f.subject.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Subject is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!-- -------------------------- Lead Variable --------------------------- -->
+            <div class="px-0" *ngIf="f.templateFor.value === 'Lead'">
+              <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+                *ngFor="let emailVariables of leadEmailVariables; let i = index"
+                (click)="addVariables($event, emailVariables)">
+                <i class="fas fa-plus ms-text-secondary"></i>
+                {{ emailVariables.label }}
+              </button>
+            </div>
+
+            <!-- -------------------------- Mass Email Variable --------------------------- -->
+            <div class="px-0" *ngIf="f.templateFor.value === 'MassEmail'">
+              <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+                *ngFor="let emailVariables of massEmailVariables; let i = index"
+                (click)="addVariables($event, emailVariables)">
+                <i class="fas fa-plus ms-text-secondary"></i>
+                {{ emailVariables.label }}
+              </button>
+            </div>
+
+
+             <!-- --------------------------Appointment Email Variable --------------------------- -->
+             <div class="px-0" *ngIf="f.templateFor.value === 'Appointment'">
+              <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+                *ngFor="let emailVariables of appointmentEmailVariables; let i = index"
+                (click)="addVariables($event, emailVariables)">
+                <i class="fas fa-plus ms-text-secondary"></i>
+                {{ emailVariables.label }}
+              </button>
+            </div>
+
+             <!-- --------------------------Patient Email Variable --------------------------- -->
+             <div class="px-0" *ngIf="f.templateFor.value === 'Patient'">
+              <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+                *ngFor="let emailVariables of patientEmailVariables; let i = index"
+                (click)="addVariables($event, emailVariables)">
+                <i class="fas fa-plus ms-text-secondary"></i>
+                {{ emailVariables.label }}
+              </button>
+            </div>
+
+
+
+            <!-- -------------------------- Body--------------------------- -->
+            <div class="col-lg-12 col-md-12 col-sm-12 pl-0">
+              <label class="mt-2" for="body"> Body </label>
+              <div class="form-group">
+                <ckeditor #ckeditor class="editor" id="body" formControlName="body" (ready)="editorReady()"
+                  data="<p>Hello, world!</p>">
+                </ckeditor>
+              </div>
+            </div>
+
+
+            <!-- ------------------------- div class row ends -------------------------- -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal footer -->
+  <ng-template pTemplate="footer">
+    <div class="modal-footer-section">
+      <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal" (click)="saveForm()">Save</button>
+      <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal"
+        (click)="hideModal()">Cancel</button>
+
+    </div>
+  </ng-template>
+</p-dialog>

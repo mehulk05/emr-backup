@@ -1,0 +1,57 @@
+    <div class="main-div">
+    <!-- --------------------------- Left card start --------------------------- -->
+    <div class="left-card">
+    <h3 class="title-content">Scrape Website</h3>
+    <p class="font-15">
+        We scrape your website for questions and answers and create the scrape questionnaire from it. These questions and answers are indexed to be search from your chatbot. You can modify that chat questionnaire as you need.
+    </p>
+    <!-- -------------------------- Form --------------------------- -->
+    <div class="form form-type2">
+    <form class="form" [formGroup]="scrapForm" class="customForm" (ngSubmit)="submitScrapForm()">
+
+        <div class="col-md-12 form-part">
+            <div class="p-0 pb-3">
+                <div class="row mt-2">
+                    <div class="col-md-12" style="padding-left: 0px;"
+                        [ngClass]="sForm.scrapWebsiteUrl.invalid && ((sForm.scrapWebsiteUrl.dirty || sForm.scrapWebsiteUrl.touched))?'has-error':''">
+                        <label>URL<span class="error-red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Url" formControlName="scrapWebsiteUrl" appErrorStylingDirective>
+                        <div class="error error-msg">
+                            <div *ngIf="sForm.scrapWebsiteUrl.touched && sForm.scrapWebsiteUrl.errors?.required">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> URL is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 text-left">
+                    <button  class="btn" style="margin-left: 0;" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" style="display: none;"
+                    [ngClass]="sForm.scrapWebsiteUrl.invalid && ((sForm.scrapWebsiteUrl.dirty || sForm.scrapWebsiteUrl.touched))?'has-error':''">
+                    <label> Frequency (after days) <span class="error-red">*</span></label>
+                    <br />
+                    <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" class="form-control" formControlName="scrapWebsiteFrequency">
+                    <div class="error error-msg">
+                        <div *ngIf="sForm.scrapWebsiteUrl.touched && sForm.scrapWebsiteFrequency.errors?.required">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Frequency is required.
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    <!-- -------------------------- Form --------------------------- -->
+    </div>
+    <!-- --------------------------- Left card end --------------------------- -->
+    <!-- --------------------------- Right card end --------------------------- -->
+    <div class="right-card">
+        <img src="../../../../../assets/poster.png" alt="img" height="350px">
+    </div>
+    <!-- --------------------------- Right card end --------------------------- -->
+    </div>

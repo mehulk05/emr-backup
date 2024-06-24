@@ -1,0 +1,10 @@
+
+.error-bg {
+  background-color: #f16a6a24;
+  border: 0.5px solid #f16a6a24;
+  border-radius: 16px;
+  padding: 1em;
+  color: #DD1B00;
+  font-weight: 400;
+}
+

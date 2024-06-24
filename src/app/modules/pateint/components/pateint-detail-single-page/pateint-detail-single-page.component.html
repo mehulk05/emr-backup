@@ -1,0 +1,30 @@
+<p-accordion [multiple]="true" class="custom-accordion">
+  <p-accordionTab class="custom-tab" [selected]="true" header="Create Patient" *ngIf="!patientId">
+    <app-add-edit-patient-form [patientId]="patientId"></app-add-edit-patient-form>
+  </p-accordionTab>
+  <ng-container *ngIf="patientId">
+    <p-accordionTab class="custom-tab" [selected]="true" header="Patient Detail">
+      <app-patient-detail [patientId]="patientId" (changeTaskList)="changeTaskList($event)"
+        (changeAppointmentList)="changeAppointmentList($event)"></app-patient-detail>
+    </p-accordionTab>
+    <p-accordionTab class="custom-tab" header="Questionnaire">
+      <app-patient-questionarie [patientId]="patientId"></app-patient-questionarie>
+    </p-accordionTab>
+    <p-accordionTab class="custom-tab" header="Tasks">
+      <app-patient-task [patientId]="patientId"></app-patient-task>
+    </p-accordionTab>
+    <p-accordionTab class="custom-tab" header="Consents">
+      <app-patient-consent [patientId]="patientId"></app-patient-consent>
+    </p-accordionTab>
+    <p-accordionTab class="custom-tab" header="Payments">
+      <app-patient-payment [patientId]="patientId"></app-patient-payment>
+    </p-accordionTab>
+    <p-accordionTab class="custom-tab" header="Appointments">
+      <app-patient-appointment [patientId]="patientId"></app-patient-appointment>
+    </p-accordionTab>
+    <p-accordionTab class="custom-tab" header="Timeline">
+      <app-patient-timeline [patientId]="patientId"></app-patient-timeline>
+    </p-accordionTab>
+  </ng-container>
+
+</p-accordion>

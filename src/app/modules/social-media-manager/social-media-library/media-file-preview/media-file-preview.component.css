@@ -1,0 +1,15 @@
+.form-type2{
+   
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.form-type2 img{
+    max-width: 80%;
+    height: auto;
+}
+
+.form.form-type2{
+    padding-bottom: 2em;
+}

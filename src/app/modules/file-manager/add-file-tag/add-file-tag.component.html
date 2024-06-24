@@ -1,0 +1,62 @@
+<div class="blue-card new-ui">
+    <div class="bg-white panel-blue">
+      <form [formGroup]="patientTagForm">
+        <div class="add-edit-form pl-13">
+          <!-- <div class="page-new-form-title">
+            <h3 *ngIf="!id">Create Media Tag</h3>
+            <h3 *ngIf="id">Edit Media Tag</h3>
+          </div> -->
+          <div class="form form-type2">
+            <div class="row mx-0">
+              <!-- ----------------------------- Name Feild ----------------------------- -->
+              <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="form-group" [ngClass]="
+                  f.name.invalid && (f.name.dirty || f.name.touched)
+                    ? 'has-error'
+                    : ''
+                ">
+                  <label>Name<span class="error-red">*</span></label>
+                  <input type="text" class="form-control input-type2" formControlName="name" (input)="onLabelAdd($event)"
+                    appErrorStylingDirective />
+                  <div *ngIf="duplicateLabel" class="error-duplicate">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Tag with this name already present.
+                  </div>
+                  <div class="error error-msg">
+                    <div *ngIf="f.name.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is
+                      required
+                    </div>
+                    <div *ngIf="f.name.errors?.pattern">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is
+  invalid                  </div>
+                  </div>
+                </div>
+              </div>
+  
+  
+  
+              <!-- --------------------------- buttons section --------------------------- -->
+              <div class="col-lg-8 col-md-12 col-sm-12 mt-2
+              ">
+                <div class="form-group">
+                  <div class="button-flex">
+                    <button [disabled]="!patientTagForm.valid" (click)="submitForm()" class="btn-save-new btn-small-new ng-star-inserted">
+                      <span class="btn-text">Save</span>
+                    </button>
+  
+                    <button type="button" (click)="goBack()" class="btn-default-new btn-small-new">
+                      <span class="btn-text"> Cancel</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- ------------------------- div class row ends -------------------------- -->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  
+  </div>

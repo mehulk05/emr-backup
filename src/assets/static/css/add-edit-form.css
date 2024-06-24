@@ -1,0 +1,312 @@
+/* ----------------------------- upper card css ----------------------------- */
+.blue-card .profile-header {
+  position: relative;
+  height: 165px;
+  margin-bottom: 2rem;
+  /* background: linear-gradient(to left, rgb(0, 158, 222), rgba(0, 159, 222, 0.6)); */
+  background: linear-gradient(to left, #315FCB, rgba(49 95 203 / 60%));
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.blue-card .profile-header .content-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.blue-card .profile-header .content-wrapper h2 {
+  font-size: 28px;
+}
+
+.blue-card .profile-header .header-img-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blue-card .profile-header .header-img-wrapper .header-img {
+  max-height: 130%;
+  margin: -1rem;
+}
+
+.blue-card .profile-header .circle1 {
+  position: absolute;
+  height: 220px;
+  width: 220px;
+  left: 0;
+  top: 30px;
+  transform: translate(-50%, 0);
+  background: #D3DDF4;
+  border-radius: 50%;
+  z-index: -9;
+}
+
+.blue-card .circle2 {
+  position: absolute;
+  height: 240px;
+  width: 270px;
+  right: -200px;
+  bottom: 60px;
+  transform: translate(-50%, 0);
+  background: #D3DDF4;
+  border-radius: 50%;
+  z-index: -9;
+}
+
+.add-edit-form {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 2em 0;
+}
+
+.add-edit-form-business-audit {
+  margin: 0 auto;
+  padding: 2em 0;
+  /* max-width: 50%; */
+}
+
+.add-edit-form .form-group {
+  /* margin-bottom: 30px; */
+  padding-bottom: 1em;
+}
+
+.form-type2 label .error-red {
+  font-size: 22px;
+}
+
+.add-edit-form-business-audit .form-group {
+  margin-bottom: 30px;
+}
+
+/* --------------------------- upper card css ends -------------------------- */
+.add-edit-form p-dropdown.p-element.p-inputwrapper {
+  display: block;
+}
+
+.add-edit-form p-multiselect.p-element.p-inputwrapper {
+  display: block;
+}
+
+.add-edit-form p-calendar.p-element.p-inputwrapper .p-calendar,
+.add-edit-form p-multiselect.p-element.p-inputwrapper .p-multiselect,
+.add-edit-form p-dropdown.p-element.p-inputwrapper .p-dropdown,
+.add-edit-form p-multiselect.p-element.p-inputwrapper .p-dropdown {
+  width: 100%;
+  border-radius: 8px;
+  height: 40px;
+  background: #F5F7FB;
+  border: 1px solid #C4C4C4;
+}
+
+.add-edit-form p-calendar.p-element.p-inputwrapper .p-calendar {
+  border: none;
+}
+
+.add-edit-form .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
+  height: 32px;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(64 68 82 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(64 68 82 / 8%) 0px 2px 5px 0px;
+}
+
+.add-edit-form .p-multiselect.p-multiselect-chip .p-multiselect-token,
+.add-edit-form .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background-color: #009EDE;
+  color: #fff;
+}
+
+p-dropdown.ng-invalid .p-dropdown,
+p-multiselect.ng-invalid .p-multiselect,
+p-multiselect.ng-dirty>.p-multiselect {
+  border: 1px solid #ced4da !important;
+}
+
+p-dropdown.ng-invalid.ng-touched .p-dropdown,
+p-multiselect.ng-invalid.ng-touched .p-multiselect,
+p-multiselect.ng-dirty.ng-invalid>.p-multiselect {
+  background: rgba(255, 64, 64, 0.2) !important;
+  border: 1px solid #FF4040 !important;
+}
+
+.p-dropdown-panel {
+  z-index: 1 !important;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: #009EDE !important;
+  border-color: #009EDE;
+  color: #fff !important;
+  border-radius: 0;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+  box-shadow: none !important;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  font-size: 14px !important;
+  color: #000 !important;
+}
+
+/* -------------------------------- card css -------------------------------- */
+.card-wrapper.card {
+  background: #FFFFFF;
+  box-shadow: 0 0 2rem 0 rgb(41 48 66 / 20%);
+  border-radius: 5.76147px;
+  padding: 2em;
+  border: 0px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                       panel css business profile page                      */
+/* -------------------------------------------------------------------------- */
+.bg-light {
+  background: #f5f7fb;
+}
+
+.panel-header {
+  background: #D8E2F6;
+
+  min-height: 46px;
+  color: #fff;
+}
+
+.panel-header h3 {
+  margin: 0;
+  padding: 1em;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.panel-body {
+  background: #ffffff;
+  border-radius: 7px;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.panel-blue {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 2rem 0 rgb(41 48 66 / 20%);
+}
+
+.panel-card-content {
+  max-width: 90%;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid rgba(163, 172, 185, 0.2);
+  border-radius: 8px;
+  padding: 1em 1em;
+  margin-bottom: 1em;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                      custom searchbox css on task page                     */
+/* -------------------------------------------------------------------------- */
+.search-box .search {
+  position: relative;
+  margin-right: 10px;
+}
+
+.search-box .fa {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #009EDE;
+}
+
+.search-box input {
+  padding-left: 2em;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.task-header .buttons {
+  display: flex;
+  align-items: center;
+
+}
+
+.task-header button {
+  margin-right: 10px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Filter Button css                             */
+/* -------------------------------------------------------------------------- */
+.filter-buttons {
+
+  display: flex;
+  grid-column-gap: 10px;
+  column-gap: 10px;
+  flex-wrap: wrap;
+
+}
+
+.filter-buttons button {
+  border: 2px solid;
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 70px;
+  margin-bottom: 1em;
+}
+
+.table-filter {
+  margin: 2em 0 1em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-title {
+  padding-right: 1em;
+}
+
+.filter-title p {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* Input Fields  */
+.error-bg {
+  background-color: rgba(221, 27, 0, 0.05);
+  border: 0.5px solid #DD1B00;
+  border-radius: 8px;
+  padding: 1em;
+  color: #DD1B00;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media screen and (max-width:550px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .task-header {
+    padding: 1em;
+    justify-content: flex-start;
+  }
+}
+
+
+/* ------------------------ Calendar view agenda css ------------------------ */
+.e-schedule .e-agenda-view {
+  min-height: 50vh;
+}

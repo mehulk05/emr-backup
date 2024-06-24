@@ -1,0 +1,39 @@
+<div class="tab-view" >
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="My Templates">
+      <div *ngIf="source === 'myWebsite'">
+      <app-default-pages (onPageUpdate)="refreshPage($event)" [previwThumbnailLink]="previwThumbnailLink" [defaultTemplates]="defaultTemplates" [bid]="this.loggedInUser.businessId"
+        [websiteLink]="ssrDomain" [landingPageLibraryLink]="landingPageLibraryLink"></app-default-pages>
+      <p-paginator  [rows]="paginatorConfig.noOfRecord" [totalRecords]="totalDataCount?.totalCount"
+        (onPageChange)="paginate($event)" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {{paginatorConfig.currentRecordIndex}} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="paginatorConfig.recordArray"></p-paginator>
+        </div>
+    </p-tabPanel>
+
+    <!-- <p-tabPanel header="Library">
+      <div *ngIf="source === 'Libary'">
+      <app-default-pages (onPageUpdate)="refreshPage($event)" *ngIf="source==='Libary'" [isEditDisabled]="true" [isDeleteDisabled]="true" [previwThumbnailLink]="previwThumbnailLink" [defaultTemplates]="libraryTemplates" [bid]="this.loggedInUser.businessId"
+      [websiteLink]="ssrDomain" [landingPageLibraryLink]="landingPageLibraryLink"></app-default-pages>
+
+      <p-paginator [rows]="myPaginatorConfig.noOfRecord" [totalRecords]="totalDataCustomCount?.count"
+      (onPageChange)="paginate($event)" [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {{myPaginatorConfig.currentRecordIndex}} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="myPaginatorConfig.recordArray"></p-paginator>
+   </div>
+  </p-tabPanel> -->
+  <p-tabPanel header="Relevant Templates">
+    <div *ngIf="source === 'ServiceRelated'">
+    <app-landingpage-service></app-landingpage-service>
+    </div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Other Templates">
+    <div *ngIf="source === 'otherLandingPage'">
+    <app-landing-page-others-service></app-landing-page-others-service>
+    </div>
+  </p-tabPanel>
+
+  </p-tabView>
+  <!-- -------------------------- custom paginator --------------------------- -->
+</div>

@@ -1,0 +1,51 @@
+<div class="row mx-0 new-ui">
+  <div class="col-lg-6 col-md-6 col-sm-12" *ngFor="let landingPage of defaultTemplates | landingFilter: landingPageFilter">
+    <div class="wrapper">
+      <div class="overlay-wrapper">
+        <div class="bg-img">
+          <iframe [src]="previwThumbnailLink +'bid='+bid+'&lpid='+landingPage?.id | safeUrl"></iframe>
+        </div>
+        <div class="overlay">
+          <div class="button-flex">
+            <button class="btn-save-new btn-xs-new" *ngIf="!isEditDisabled" (click)="editPage(landingPage.id)">Edit</button>
+            <button class="btn-save-new btn-xs-new" (click)="previewPage(landingPage)">Preview</button>
+            <button class="btn-save-new btn-xs-new"*ngIf="isEditDisabled && !isPublic"  (click)="useTemplate(landingPage)">Use Template</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="img bg-img" [style.background]="'url(' +landingPage?.landingPageImage+ ')' "></div> -->
+
+
+
+      <div class="page-body">
+        <div class="heading-title">
+          <div class="flex-layout" >
+            <p (click)="editPage(landingPage.id)"> {{ landingPage.name}}</p>
+          </div>
+
+          <p class="light" *ngIf="landingPage?.createdBy">By {{landingPage.createdBy || '-'}}</p>
+          <div class="buttons-icons">
+
+            <p class="link-new" (click)="previewPage(landingPage)" target="_blank">
+              Preview</p>&nbsp;
+            <a class="link-new" href="javascript:void(0)" (click)="editPage(landingPage.id)" *ngIf="!isEditDisabled">Edit</a> &nbsp;
+            <!-- <a href="{{oldDomain}}/assets/static/landingpage.html?bid={{ bid }}&lpid={{landingPage.id}}"
+              target="_blank"> Preview</a> &nbsp; -->
+
+            <a href="javascript:void(0)" (click)="deleteTrash(landingPage)" style="float: right;" *ngIf = "!isDeleteDisabled">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+
+
+          <p class="light"> On {{ landingPage.updatedAt ?
+            (landingPage.updatedAt | date:'medium') :  (landingPage?.createdAt | date:'medium')}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

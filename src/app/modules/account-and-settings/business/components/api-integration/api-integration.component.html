@@ -1,0 +1,97 @@
+<div class="tab-view align-to-breadcrumb panel-small-font">
+  <app-custom-panel title="{{title}}" [addTopPadding]="20" [infoUlr]="helpCenterUlr" [infoVisible]="true">
+
+    <form class="form-group" [formGroup]="apiIntegration">
+      <div *ngFor="let control of formData?.controls">
+        <div [ngSwitch]="control.type">
+          <ng-template ngSwitchCase="text">
+            <div class="form-group mb-20">
+              <label class="login-label" for="control.name">{{control.label}}</label>
+              <input type="text" class="basic-input input-type1 form-control" [formControlName]="control.name" [id]="control.name" [readonly]="control?.enable"
+                 />
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <button type="submit" class="btn-save-new btn-long-new" [disabled]="!apiIntegration.valid"
+      (click)="submitForm()">{{source === 'PODIUM' ? 'Login': 'Save'}}</button>
+    </form>
+
+  </app-custom-panel>
+
+  <app-custom-panel [title]="'History'" [addTopPadding]="20">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="chartItem">
+        <div class="item">
+          <table id="datatable" datatable class="table thead-light table-borderless table-hover">
+            <div class="loader"></div>
+            <thead>
+              <tr>
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Request
+                </th>
+
+                <th>
+                  Response
+                </th>
+                <th>
+                  Created Date
+                </th>
+                <th>
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <ng-container
+              *ngIf="integrationHistories && integrationHistories.length>0 && integrationConfig.totalItems>0">
+              <tbody *ngFor="let goHighLevelRecord of integrationHistories  | paginate: integrationConfig">
+                <tr>
+                  <td>{{getStatus(goHighLevelRecord?.status)}} </td>
+                  <td>{{goHighLevelRecord?.request?.substring(0, 10)}} <a data-bs-toggle="tooltip"
+                      data-bs-placement="top" [title]="goHighLevelRecord?.request"
+                      (click)="showMoreIntegrationDetails(goHighLevelRecord?.request, 'Request')"> <i
+                        class="fa fa-info-circle"></i></a>
+                  </td>
+                  <td>{{goHighLevelRecord?.response?.substring(0, 10)}} <a data-bs-toggle="tooltip"
+                      data-bs-placement="top" [title]="goHighLevelRecord?.response"
+                      (click)="showMoreIntegrationDetails(goHighLevelRecord?.response, 'Response')"> <i
+                        class="fa fa-info-circle"></i></a></td>
+                  <td>{{goHighLevelRecord?.createdAt | date : 'medium'}}</td>
+                  <td style="cursor: pointer" *ngIf="goHighLevelRecord?.status === 1"
+                    (click)="getintegrationDetails(goHighLevelRecord?.request, goHighLevelRecord?.id)"> <button
+                      type="submit" class="btn-save-new btn-long-new">Retry</button></td>
+                </tr>
+              </tbody>
+            </ng-container>
+
+          </table>
+          <ng-container *ngIf="integrationHistories && integrationHistories.length>0 && integrationConfig.totalItems>0">
+            <pagination-controls (pageChange)="pageChangedForAppointment($event)" id="8"></pagination-controls>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+
+  </app-custom-panel>
+</div>
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    [header]="headerName" [(visible)]="showModal" (onHide)="cancelDetailPopUp()">
+
+    <!-- ---------------------------- image cropper ---------------------------- -->
+    <div class="modal-body">
+      <div class="image-cropper-wrapper row mx-0">
+        <div class="col-lg-12 col-md-12">
+          {{detailsMessage}}
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-md-5 col-sm-12 pt-3">
+        <div class="panel-blue">
+            <div class="panel-header">
+                <h3>Import Export File</h3>
+                <div class="f-14 fw-500 faq-link">
+                    <a class="link"
+                        href="https://support.growth99.com/portal/en/kb/articles/how-to-upload-leads-file-into-growth99-17-8-2022"
+                        target="_blank">FAQ Link</a>
+                </div>
+            </div>
+            <div class="panel-body p-4">
+                <div class="left-container">
+                    <app-file-drag-import (fileUpdate)="fileUpdate($event)" [resetInput]="resetFileUploadInput" [sampleFileLink]="'assets/Lead_List_format.xlsx'"></app-file-drag-import>
+                    
+                    <div class="f-14">
+                        You can import upto 5000 records through an .xls, .xlsx. To import more than 5000 records upload in the
+                        split file.
+                    </div>
+
+                    <div class="button-flex d-flex mt-4">
+                        <button type="button" class="btn-save-new btn-small-new" (click)="downloadAsExcel()">
+                          Export To Excel
+                        </button>
+                        <button type="button" class="btn-save-new btn-small-new" (click)="downloadAsPdf()">
+                            Export To PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7 col-sm-12 pt-3">
+        <div class="panel-blue">
+            <div class="panel-header">
+                <h3>
+                    Upload History
+                </h3>
+            </div>
+    
+            <div class="panel-body">
+                <div class="datatable-container">
+                    <table id="datatable" datatable class="table thead-light table-borderless table-hover">
+                        <div class="loader"></div>
+                        <thead>
+                            <tr>
+                                <th class="f-15 fw-600">
+                                    File Name
+                                </th>
+
+                                <th class="f-15 fw-600">
+                                    Added
+                                </th>
+
+                                <th class="f-15 fw-600">
+                                    Skipped
+                                </th>
+                                <th class="f-15 fw-600">
+                                    Updated
+                                </th>
+                                <th class="f-15 fw-600">
+                                    Created Date
+                                </th>
+                                <th class="f-15 fw-600">
+                                    Created By
+                                </th>
+                            </tr>
+                        </thead>
+                        <ng-container *ngIf="uploadHistories && uploadHistories.length>0 && historyConfig.totalItems>0">
+                            <tbody >
+                                <tr *ngFor="let uploadHistory of uploadHistories  | paginate: historyConfig">
+                                    <td>{{uploadHistory?.fileName}} </td>
+                                    <td>{{uploadHistory?.added}}</td>
+                                    <td>{{uploadHistory?.skipped}}</td>
+                                    <td>{{uploadHistory?.updated}}</td>
+                                    <td>{{uploadHistory?.createdAt | date : 'medium'}}</td>
+                                    <td>{{uploadHistory?.createdBy?.firstName}}
+                                        {{uploadHistory?.createdBy?.lastName}}</td>
+                                </tr>
+                            </tbody>
+                        </ng-container>
+
+                    </table>
+                    <div class="pagination-container">
+                    <ng-container *ngIf="uploadHistories && uploadHistories.length>0 && historyConfig.totalItems>0">
+                        <pagination-controls (pageChange)="pageChanged($event)" id="8"></pagination-controls>
+                    </ng-container>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- -------------------------- import file --------------------------- -->
+<ng-container *ngIf="showImportModal">
+    <app-import-file [showImportModal]="showImportModal" [modalImportMessage]=null
+        (modalImportClosed)="onCloseImportFileModal($event)"></app-import-file>
+</ng-container>
+
+<!-- -------------------------- export file --------------------------- -->
+<ng-container *ngIf="showExportModal">
+    <app-export-file [showExportModal]="showExportModal" [modalExportMessage]=null
+        (modalExportClosed)="onCloseExportFileModal($event)"></app-export-file>
+</ng-container>
+
+
+<ng-container *ngIf="showExcelModal">
+    <app-excel-column-list [showModal]="showExcelModal" [files]="fileExcel" [columnsNames]="excelColumns"
+        [mendatoryColunms]="mendatoryColunms" (modalUpload)="uploadModel($event)"
+        (modalClosed)="modalClosed($event)" [isLead]="true"></app-excel-column-list>
+</ng-container>

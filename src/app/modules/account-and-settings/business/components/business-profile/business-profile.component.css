@@ -1,0 +1,149 @@
+.icon-border-blue {
+  padding: 10px 15px;
+}
+
+.panel-card-content {
+  text-align: center;
+}
+
+.panel-card-content p {
+  font-size: 14px;
+}
+
+.panel-card-content .table-btn-wrapper {
+  margin-top: 2em;
+  padding-bottom: 1em;
+}
+
+
+.note {
+  font-size: 14px;
+  padding-top: 10px;
+  font-weight: 400;
+  color: #2656C9;
+}
+
+.error-duplicate {
+  color: red;
+  font-size: 13px;
+  padding-top: 5px;
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                left side css                               */
+/* -------------------------------------------------------------------------- */
+.card-content {
+  position: relative;
+}
+
+.image-circle .img {
+  position: relative;
+  position: relative;
+  border-radius: 50%;
+  border: 3px solid #d8e2f6;
+  height: 120px;
+  width: 120px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-circle button{
+  margin-right: 0 !important;
+}
+
+img {
+  max-height: 100px;
+  max-width: 100px;
+  height: auto;
+  border-radius: 50%;
+}
+
+
+.edit-icon {
+  position: absolute;
+  right: 0em;
+  bottom: 1em;
+  background: #fff;
+  padding: 3px 6px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #2656C9;
+  color: #2656C9;
+}
+
+.card-content .panel-header {
+  height: auto;
+  min-height: unset;
+}
+
+
+.modal-body img {
+  border: 2px solid black;
+  display: flex;
+  margin: 2em auto;
+  border-radius: 50%;
+}
+
+
+.wraning {
+  font-size: 13px;
+  font-style: italic;
+  margin: 0 !important;
+  display: block;
+  overflow: hidden;
+  padding: 0 1em;
+  font-weight: 500;
+}
+
+.wraning .fa {
+  color: #856404;
+}
+
+
+@media screen and (max-width:991px) {
+  .left-card {
+    padding: 1em 0 3em;
+  }
+}
+
+.error-bg {
+  background-color: #f16a6a24;
+  border: 0.5px solid #f16a6a24;
+  border-radius: 16px;
+  padding: 1em;
+  color: #DD1B00;
+  font-weight: 400;
+}
+
+.leftalign {
+  margin-left: -18px;
+}
+
+textarea {
+  height: 279px;
+}
+
+.inline-checkbox {
+  display: flex;
+  column-gap: 0.5em;
+  align-items: center;
+}
+
+.inline-checkbox label {
+  padding-bottom: 0;
+  padding-left: 5px;
+}
+
+/* .add-edit-form {
+  padding-top: 0em !important;
+} */
+
+.div-margin-left {
+  margin-left: -14px;
+}
+
+.div-margin-top {
+  margin-top: -5px;
+}

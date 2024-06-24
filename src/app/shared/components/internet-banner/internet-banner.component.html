@@ -1,0 +1,4 @@
+<div *ngIf="isWeakConnection || !isOnline" [ngClass]="{ 'weak-connection': isWeakConnection, 'offline': !isOnline }">
+    <span>{{ bannerText }}</span>
+    <button (click)="closeBanner()">X</button>
+</div>

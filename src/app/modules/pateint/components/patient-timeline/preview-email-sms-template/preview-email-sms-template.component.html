@@ -1,0 +1,20 @@
+<p-dialog [header]="'Preview'" (onHide)="hideModal()" [(visible)]="showModal" [modal]="true"
+[breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}"
+[baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    <!-- Modal body -->
+    <div class="body-section" *ngIf="modalData">
+      <p [innerHtml]="modalData | safeHtml"></p>
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+
+

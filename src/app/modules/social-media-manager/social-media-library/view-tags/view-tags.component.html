@@ -1,0 +1,16 @@
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+        [style]="{width: '30vw', height: '30vh'}" [header]="'Tags'" [(visible)]="showTagsData"
+        (onHide)="closeModal()">
+
+        <!-- ---------------------------- image cropper ---------------------------- -->
+        <div class="modal-body">
+            <div class="blue-card new-ui">
+                <ng-container *ngFor="let tag of tagsData">
+                    <p-tag severity="success" [value]="tag?.libraryTag?.name"></p-tag>
+                </ng-container>
+
+            </div>
+        </div>
+    </p-dialog>
+</div>

@@ -1,0 +1,21 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Profile">
+      <app-user-profile *ngIf="source === 'profile'"></app-user-profile>
+    </p-tabPanel>
+    <p-tabPanel header="Appointments">
+      <app-user-appointment *ngIf="source === 'appointments'"></app-user-appointment>
+    </p-tabPanel>
+    <p-tabPanel header="Working Schedule">
+      <app-user-working-schedule *ngIf="source === 'working'"></app-user-working-schedule>
+    </p-tabPanel>
+
+    <p-tabPanel header="Vacation Schedule">
+      <app-user-vacation-schedule *ngIf="source === 'vacation'"></app-user-vacation-schedule>
+    </p-tabPanel>
+
+    <p-tabPanel *ngIf="showChangePassword" header="Change Password">
+      <app-change-password *ngIf="source === 'change-password'"></app-change-password>
+    </p-tabPanel>
+  </p-tabView>
+</div>

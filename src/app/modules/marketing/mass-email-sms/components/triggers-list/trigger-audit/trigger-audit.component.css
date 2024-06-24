@@ -1,0 +1,28 @@
+.audit-header {
+  padding: 1rem 0 0.5rem 0;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid gainsboro;
+}
+
+.audit-body {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #2656c9;
+}
+
+.audit-body .audit-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.audit-body .audit-description {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.no-audit {
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

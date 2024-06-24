@@ -1,0 +1,9 @@
+<div class="tab-view new-ui">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Configuration">
+      <app-notification-center
+        [businessInfo]="businessInfo"
+      ></app-notification-center>
+    </p-tabPanel>
+  </p-tabView>
+</div>

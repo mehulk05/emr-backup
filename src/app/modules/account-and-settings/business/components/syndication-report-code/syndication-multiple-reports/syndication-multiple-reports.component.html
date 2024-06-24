@@ -1,0 +1,52 @@
+<div class="panel-blue">
+  <div class="panel-body">
+    <div class="add-edit-form">
+      <form [formGroup]="form">
+        <div formArrayName="inputFields" *ngFor="let input of inputFields.controls; let i = index">
+          <div [formGroupName]="i">
+            <div class="form-group row-flex">
+              <div class="input-wrapper">
+                <label>Location</label>
+                <input formControlName="reportName" class="form-control input-type2" type="text">
+                <div class="error error-msg" *ngIf="input.get('reportName').touched || input.get('reportName').dirty">
+                  <div *ngIf="input.get('reportName').errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Location is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-wrapper">
+                <label> Report URL</label>
+                <input formControlName="reportUrl" class="form-control input-type2" type="text">
+                <div class="error error-msg" *ngIf="input.get('reportUrl').touched || input.get('reportUrl').dirty">
+                  <div *ngIf="input.get('reportUrl').errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Report URL is required
+                  </div>
+
+                  <div *ngIf="input.get('reportUrl').errors?.pattern">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Report URL is invalid
+                  </div>
+                </div>
+              </div>
+
+              <div class="btn-flex button-wrapper">
+                <button (click)="addInputFields()">
+                  <i class="fa fa-plus"></i>
+                </button>
+
+                <button class="delete" (click)="removeInputFields(i)">
+                  <i class="fa fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn-save-new btn-small-new" [disabled]="form.invalid" (click)="submitForm()">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

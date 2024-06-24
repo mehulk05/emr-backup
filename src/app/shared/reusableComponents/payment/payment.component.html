@@ -1,0 +1,31 @@
+<div class="stripe-page">
+  <div class="panel-blue">
+    <div class="example example1">
+      <div *ngIf="stripeLoaded">
+          <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions" class="stripePay">
+          </ngx-stripe-card>
+      </div>
+  </div>
+  <div class="button-flex"  *ngIf="!preBookingOnly" >
+
+      <button   [disabled]="disablePaymentButton" type="submit" [ngStyle]="btnStyle" (click)="createPaymentIntent()" class="btn btn-small btn-primary-border">
+          Pay {{currency?.currencySymbol}}{{booking?.amountToPaid}}
+      </button>
+    
+      <button *ngIf="!hidePayLater" type="button" [ngStyle]="btnStyle" (click)="onCancel()" class="btn btn-small btn-primary-border">
+          Cancel
+      </button>
+  </div>
+
+  <div class="button-flex"  *ngIf="preBookingOnly" >
+    <button *ngIf="hidePayLater" [disabled]="disablePaymentButton" type="submit" [ngStyle]="btnStyle" (click)="createPreBookingPaymentIntent()" class="btn btn-small btn-primary-border">
+        Pay {{currency?.currencySymbol}}{{booking?.appointment?.amountToPaid}}
+    </button>
+    <button *ngIf="!hidePayLater" [disabled]="disablePaymentButton"   type="submit" [ngStyle]="btnStyle" (click)="createPreBookingPaymentIntent()" class="btn btn-small btn-primary-border">
+        Pay {{currency?.currencySymbol}}{{booking?.appointment?.preBookingCost}}
+    </button>
+</div>
+   </div>
+</div>
+
+

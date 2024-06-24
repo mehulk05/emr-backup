@@ -1,0 +1,11 @@
+.btn-primary-border{
+  background: #FFFFFF;
+  border: 2px solid #009EDE;
+  border-radius: 8px;
+  color: #009EDE;
+  font-weight: 600;
+}
+
+.cdk-drop-list{
+  margin-top: 5px;
+}

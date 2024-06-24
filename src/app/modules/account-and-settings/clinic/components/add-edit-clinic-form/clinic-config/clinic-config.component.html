@@ -1,0 +1,212 @@
+<div class="panel-blue new">
+  <div class="panel-header">
+    <div class="panel-title">
+      Clinic Configuration
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="add-edit-form">
+      <div class="form form-type2">
+        <form [formGroup]="clinicConfigFormSetting" (ngSubmit)="submitForm()">
+          <div class="row mx-0">
+            <!-- -------------------------- Clinic Name feild --------------------------- -->
+            <div class="col-lg-8 col-md-12 col-sm-12">
+
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" formControlName="ccPatientEmail" id="ccPatientEmail" />
+                  <label for="ccPatientEmail">Keep Email ID in CC For Auto Emails Sent To Leads </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" formControlName="showBookAppointmentButton" id="showBookAppointmentButton" />
+                  <label for="showBookAppointmentButton">Show Booking Appointment Button on Public Pages. </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" formControlName="showCategoriesOnAppointmentBookingPage"
+                    id="showCategoriesOnAppointmentBookingPage" />
+                  <label for="showCategoriesOnAppointmentBookingPage">Show Categories on Public Pages. </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" formControlName="seamlessPatientExperience" id="seamlessPatientExperience" />
+                  <label for="seamlessPatientExperience">Enable Seamless patient experience
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" [title]="title1"
+                      href="https://growth99.zohodesk.com/portal/en/kb/articles/seamless-patient-experience-video"
+                      target="_blank"> <i class="fa fa-info-circle"></i></a>
+                  </label>
+                </div>
+              </div>
+              <!--          <div class="form-group">-->
+              <!--            <div class="inline-checkbox">-->
+              <!--              <input type="checkbox" (change)="onEnablePriceVaries($event)" formControlName="priceVaries" />-->
+              <!--              <label for="link">Hide Service Cost from public booking </label>-->
+              <!--            </div>-->
+              <!--          </div>-->
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" formControlName="sendPatientWelcomeEmail" id="sendPatientWelcomeEmail"
+                    class="" />
+                  <label for="sendPatientWelcomeEmail">Enable Patient Portal</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" (change)="onPreBookingOnly($event)" formControlName="showPayButton"
+                    id="showPayButton" class="" />
+                  <label for="showPayButton">Enable Payment Link <a data-bs-toggle="tooltip" data-bs-placement="top"
+                      [title]="title3" href="/stripe/setup"> <i
+                        class="fa fa-info-circle"></i></a></label>
+                </div>
+              </div>
+              <div class="form-group" *ngIf="enablePaymentLink">
+                <div class="inline-checkbox">
+                  <input type="checkbox" (change)="hidePayLaterOnly($event)" formControlName="hidePayLater" class=""
+                    id="hidePayLater" />
+                  <label for="hidePayLater">Hide Pay Later From The Public Appointment Page</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" (change)="disableVirtualAppointmentOnly($event)"
+                    [checked]="disableVirtualAppointment" formControlName="disableVirtualAppointment" class=""
+                    id="disableVirtualAppointment" />
+                  <label for="disableVirtualAppointment">Disable Virtual Appointment</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="inline-checkbox">
+                  <input type="checkbox" (change)="disableInPersonAppointmentOnly($event)"
+                    [checked]="disableInPersonAppointment" formControlName="disableInPersonAppointment" class=""
+                    id="disableInPersonAppointment" />
+                  <label for="disableInPersonAppointment">Disable In Person Appointment</label>
+                </div>
+              </div>
+
+              <!--<div class="form-group">-->
+              <!--<div class="inline-checkbox">-->
+              <!--<input type="checkbox" (change)="disableVirtualAppointmentOnly($event)"-->
+              <!--[checked]="disableVirtualAppointment" class="" id="disableVirtualAppointment" />-->
+              <!--<label for="disableVirtualAppointment">Disable Virtual Appointment</label>-->
+              <!--</div>-->
+              <!--</div>-->
+
+              <!--<div class="form-group">-->
+              <!--<div class="inline-checkbox">-->
+              <!--<input type="checkbox" (change)="disableInPersonAppointmentOnly($event)"-->
+              <!--[checked]="disableInPersonAppointment" class="" id="disableInPersonAppointment" />-->
+              <!--<label for="disableInPersonAppointment">Disable In Person Appointment</label>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!-- <div *ngIf="enablePaymentLink" class="form-group">
+            <div class="inline-checkbox">
+              <input type="checkbox" (change)="onChangeCollectDeposit($event)" formControlName="preBookingOnly" class="" />
+            <label for="link">Collect Non-Refundable Deposit</label>
+            </div>
+          </div>
+
+
+          <div  *ngIf="collectDeposit" class="form-group" >
+            <label>Default deposit cost<span class="error-red">*</span></label>
+            <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" class="form-control input-type2" formControlName="defaultPreBookingCost" appErrorStylingDirective>
+          </div> -->
+
+              <div class="form-group">
+                <label>How many hours in advance do you want to block the appointment booking?<span
+                    class="error-red">*</span></label>
+                <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                  class="form-control input-type2" formControlName="appointmentBlockWithinHours"
+                  appErrorStylingDirective>
+              </div>
+
+              <!-- <div class="form-group" >
+            <label>Notes Label</label>
+            <input type="text"  class="form-control input-type2" formControlName="notesLabel" appErrorStylingDirective>
+          </div>
+
+          <div class="form-group">
+            <div class="inline-checkbox">
+              <input type="checkbox"  formControlName="notesRequiredOptional" class="" />
+            <label for="link">Make Notes question mandatory</label>
+            </div>
+          </div> -->
+              <div class="row" style="margin-bottom:10px">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div>
+                    <div class="div-margin-left form-group">
+                      <div>
+                        <label>Notes Label <a data-bs-toggle="tooltip" data-bs-placement="top" [title]="title2"
+                            href="https://growth99.zohodesk.com/portal/en/kb/articles/how-to-add-an-additional-personalized-field-to-the-appointment-booking-form"
+                            target="_blank"> <i class="fa fa-info-circle"></i></a></label>
+                      </div>
+
+                      <div class="flex-box">
+                        <input type="text" class="form-control input-type2" formControlName="notesLabel"
+                          appErrorStylingDirective>
+
+                        <div class="">
+                          <input type="checkbox" formControlName="notesRequiredOptional" id="notesRequiredOptional"
+                            class="" />
+                          <label for="notesRequiredOptional">Make Notes question mandatory</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" style="margin-bottom:10px;padding-top: 10px;">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div>
+                    <div class="inline-checkbox div-margin-left form-group">
+                      <input type="checkbox" (change)="onChangeProviderBasedBooking($event)"
+                        formControlName="isProviderBasedAppointment" id="isProviderBasedAppointment" class="" />
+                      <label for="isProviderBasedAppointment">Allow Multiple Booking Without Provider(Allow Double
+                        Booking)
+                        <a data-bs-toggle="tooltip" data-bs-placement="top" [title]="title"
+                          href="https://growth99.zohodesk.com/portal/en/kb/articles/how-to-book-multiple-bookings-without-provider-in-growth99"
+                          target="_blank"> <i class="fa fa-info-circle"></i></a>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="providerBaseBooking" class="col-lg-5 col-md-12 col-sm-12 ">
+                  <div class="inline-checkbox div-margin-left form-group">
+                    <input style="width: 81px;height: 32px;" type="number" onwheel="return false;"
+                      (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" class="form-control input-type2"
+                      formControlName="numberOfSlotsAvailable" appErrorStylingDirective>
+                    <label>Number of booking allowed per slot</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- --------------------------- buttons section --------------------------- -->
+            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px;">
+              <div class="form-group">
+                <div class="button-flex">
+                  <button class="btn-save-new btn-small-new" [disabled]="!clinicConfigFormSetting.valid">
+                    <span class="btn-text">Save</span>
+                  </button>
+
+                  <button type="button" class="btn-small-new btn-default-new" (click)="onCancelForm()">
+                    <span class="btn-text"> Cancel</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ------------------------- div class row ends -------------------------- -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,442 @@
+<div class="add-edit-form">
+  <div class="form form-type2">
+    <form [formGroup]="clinicForm" (ngSubmit)="submitForm()">
+      <div class="row mx-0">
+        <!-- -------------------------- Clinic Name feild --------------------------- -->
+        <div class="col-lg-6 col-md-12 col-sm-12 pl-0">
+          <div class="panel-inner-wrapper">
+
+            <div class="form-group" [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+              <label>Clinic Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinic Name is required.
+                </div>
+
+                <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinic Name cannot contain special
+                  characters and should not start with space.
+                </div>
+              </div>
+            </div>
+
+            <!-- ------------------------ contact number field ------------------------- -->
+            <div class="form-group"
+              [ngClass]="f.contactNumber.invalid && ((f.contactNumber.dirty || f.contactNumber.touched))?'has-error':''">
+              <label>Contact Number<span class="error-red">*</span></label>
+              <input type="text" pattern="\d{9,10}" class="form-control input-type2" formControlName="contactNumber" maxlength="14"
+                minlength="9" appPhoneNumberFormat [phoneNumberControl]="$any(clinicForm.get('contactNumber'))">
+              <div class="error error-msg">
+                <div *ngIf="f.contactNumber.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Contact Number is required.
+                </div>
+                <div *ngIf="f.contactNumber.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Contact Number is invalid.
+                </div>
+              </div>
+            </div>
+
+            <!-- --------------------------- Time zone field --------------------------- -->
+            <div class="form-group"
+              [ngClass]="f.timezone.invalid && ((f.timezone.dirty || f.timezone.touched))?'has-error':''">
+              <label>Timezone<span class="error-red">*</span></label>
+              <p-dropdown [options]="clinicTimezones" formControlName="timezone" #dropdown [filter]="true"
+                placeholder="Select Timezone">
+              </p-dropdown>
+              <div class="error error-msg">
+                <div *ngIf="f.timezone.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Timezone is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- ------------------------ Address field starts ------------------------- -->
+            <div class="form-group"
+              [ngClass]="f.address.invalid && ((f.address.dirty || f.address.touched))?'has-error':''">
+              <label>Address<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="address"
+                ngx-google-places-autocomplete [options]='addressOptionCountry' #placesRef="ngx-places"
+                (onAddressChange)="handleAddressChange($event)" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.address.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Address is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- --------------------- About Clinic section starts --------------------- -->
+            <div class="form-group" [ngClass]="f.about.invalid && ((f.about.dirty || f.about.touched))?'has-error':''">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label style="margin-left: -10px;">About Clinic</label>
+                </div>
+                <div class="col-lg-6 ai-row pr-0">
+                 <app-ai-button [showModal]="showAiModal" [message]="clinicForm.value.about" [category]="category" (modalClosed)="aiModelClose($event)"></app-ai-button>
+                </div>
+              </div>
+              <textarea rows="3" cols="80" class="form-control textarea" formControlName="about"
+                appErrorStylingDirective></textarea>
+                <span style="color: #b8902d"
+                >Character Remaining:
+                {{
+                  totalCharacterLength - (clinicForm.controls['about'].value?.length || 0)
+                }}/{{totalCharacterLength}}</span
+              >
+            </div>
+
+            <!-- ---------------------- Notification email starts ---------------------- -->
+            <!-- <div class="form-group"
+            [ngClass]="f.notificationEmail.invalid && ((f.notificationEmail.dirty || f.notificationEmail.touched))?'has-error':''">
+            <label>Notification Email<span class="error-red">*</span></label>
+            <input type="email" class="form-control input-type2" formControlName="notificationEmail"
+              appErrorStylingDirective>
+            <div class="error error-msg">
+              <div *ngIf="f.notificationEmail.errors?.required">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Notification Email is required.
+              </div>
+              <div *ngIf="f.notificationEmail.errors?.pattern">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Notification Email is invalid.
+              </div>
+            </div>
+          </div> -->
+
+
+            <!-- ------------------------- Country code starts ------------------------- -->
+            <!-- <div class="row">
+            <div class="form-group col-md-4 d-inline-block "
+              [ngClass]="f.countryCode.invalid && ((f.countryCode.dirty || f.countryCode.touched))?'has-error':''">
+              <label>Country Code<span class="error-red">*</span></label><br>
+              <div class=" col-md-8" *ngIf="demoflag">
+                <select class="form-control input-type2" #countrycode (change)="changeWebsite($event)">
+                  <option *ngFor="let countrycode of countryList" [value]="countrycode.countryCode">{{countrycode.name}}
+                    {{countrycode.countryCode}}</option>
+                </select>
+              </div>
+              <div class="col-md-8" *ngIf="cflage">
+                <input type="text" #countryCodeISD (click)="demo()" class="form-control input-type2"
+                  formControlName="countryCode" appErrorStylingDirective>
+              </div>
+              <div class="error error-msg">
+                <div *ngIf="f.countryCode.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Country Code is required.
+                </div>
+              </div>
+            </div> -->
+            <!-- ----------------------- SMS Notification Number ----------------------- -->
+
+            <!-- <div class="form-group col-md-8  d-inline-block"
+              [ngClass]="f.notificationSMS.invalid && ((f.notificationSMS.dirty || f.notificationSMS.touched))?'has-error':''">
+              <label>Notification SMS</label>
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                class="form-control input-type2" formControlName="notificationSMS" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.notificationSMS.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Notification SMS Number is required.
+                </div>
+                <div *ngIf="f.notificationSMS.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Notification SMS Number is invalid.
+                </div>
+              </div>
+            </div> -->
+
+
+
+            <!-- </div> -->
+
+            <!-- ------------------------ Currency Field Starts ------------------------ -->
+            <div class="form-group"
+              [ngClass]="f.currency.invalid && ((f.currency.dirty || f.currency.touched))?'has-error':''">
+              <label>Currency<span class="error-red">*</span></label>
+              <p-dropdown [options]="currencies" #currency formControlName="currency" [filter]="true">
+              </p-dropdown>
+              <div class="error error-msg">
+                <div *ngIf="f.currency.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Currency is required.
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <!-- ---------------------- Website url feild starts ----------------------- -->
+            <div class="form-group"
+              [ngClass]="f.website.invalid && ((f.website.dirty || f.website.touched))?'has-error':''">
+              <label>Website URL
+                <span class="small-text">(URL should start with http)</span>
+              </label>
+              <input type="url" class="form-control input-type2" formControlName="website" appErrorStylingDirective>
+              <!-- <div *ngIf="clinicForm.get('website').hasError('invalidWebsite')" class="error error-msg">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Website URL is invalid.
+              </div> -->
+              <div class="error error-msg">
+                <div *ngIf="f.website.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Website URL is invalid.
+                </div>
+              </div>
+            </div>
+
+             <!-- ---------------------- Secondary url feild starts ----------------------- -->
+             <div class="form-group"
+             [ngClass]="f.secondaryUrls.invalid && ((f.secondaryUrls.dirty || f.secondaryUrls.touched))?'has-error':''">
+             <label>Secondary URLs
+               <span class="small-text">(URL should start with http and multiple URLs should be seperated by comma)</span>
+             </label>
+             <input type="url" class="form-control input-type2" formControlName="secondaryUrls" appErrorStylingDirective>
+             <div *ngIf="clinicForm.get('secondaryUrls').hasError('invalidWebsite')" class="error error-msg">
+               <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> URL is invalid.
+             </div>
+             <div class="error error-msg">
+               <div *ngIf="f.secondaryUrls.errors?.pattern">
+                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> URL is invalid.
+               </div>
+             </div>
+           </div>
+
+            <!-- -------------------- Appointment URL feild starts --------------------- -->
+            <div class="form-group"
+              [ngClass]="f.appointmentUrl.invalid && ((f.appointmentUrl.dirty || f.appointmentUrl.touched))?'has-error':''">
+              <label>Appointment URL
+                <!-- <span class="error-red">*</span> -->
+                <span class="small-text">(Enter the appointment URL you use (Aesthetic Record, Squareup), OR the website
+                  contact page URL)</span>
+              </label>
+              <input type="url" class="form-control input-type2" formControlName="appointmentUrl"
+                appErrorStylingDirective>
+
+              <div class="error error-msg">
+                <div *ngIf="f.appointmentUrl.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment URL is required.
+                </div>
+                <div *ngIf="f.appointmentUrl.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Appointment URL is invalid.
+                </div>
+              </div>
+            </div>
+
+            <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 10px;">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn-save-new btn-small-new" [disabled]="!clinicForm.valid">
+                  <span class="btn-text">Save</span>
+                </button>
+
+                <button type="button" class="btn-small-new btn-default-new" (click)="onCancelForm()">
+                  <span class="btn-text"> Cancel</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+
+          <!-- -------------------------- Clinic Timing feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12 bg-light-blue">
+            <div class="form-group clinic-hour-setting">
+              <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3 mobile-only">
+                  <!-- <label> By Appointment</label> -->
+                </div>
+                <div class="col-md-3 mobile-only">
+                  <label>Open</label>
+                </div>
+                <div class="col-md-3 mobile-only">
+                  <label>Close</label>
+                </div>
+              </div>
+              <app-clinic-business-hour [day]="'MONDAY'" [value]="businessHours.MONDAY"
+                (inputChange)="onBusinessHoursChange($event)"></app-clinic-business-hour>
+              <app-clinic-business-hour [day]="'TUESDAY'" [value]="businessHours.TUESDAY"
+                (inputChange)="onBusinessHoursChange($event)"></app-clinic-business-hour>
+              <app-clinic-business-hour [day]="'WEDNESDAY'" [value]="businessHours.WEDNESDAY"
+                (inputChange)="onBusinessHoursChange($event)"></app-clinic-business-hour>
+              <app-clinic-business-hour [day]="'THURSDAY'" [value]="businessHours.THURSDAY"
+                (inputChange)="onBusinessHoursChange($event)"></app-clinic-business-hour>
+              <app-clinic-business-hour [day]="'FRIDAY'" [value]="businessHours.FRIDAY"
+                (inputChange)="onBusinessHoursChange($event)"></app-clinic-business-hour>
+              <app-clinic-business-hour [day]="'SATURDAY'" [value]="businessHours.SATURDAY"
+                (inputChange)="onBusinessHoursChange($event)"></app-clinic-business-hour>
+              <app-clinic-business-hour [day]="'SUNDAY'" [value]="businessHours.SUNDAY"
+                (inputChange)="onBusinessHoursChange($event)"></app-clinic-business-hour>
+            </div>
+
+            <!-- -------------------------- GIft card detial --------------------------- -->
+
+            <div class="form-group"
+              [ngClass]="f.giftCardDetail.invalid && ((f.giftCardDetail.dirty || f.giftCardDetail.touched))?'has-error':''">
+              <label>Gift Card Details</label>
+              <textarea rows="3" cols="80" class="form-control textarea" formControlName="giftCardDetail"
+                appErrorStylingDirective></textarea>
+            </div>
+            <!-- ---------------------------- Gift Card url ---------------------------- -->
+
+            <div class="form-group"
+              [ngClass]="f.giftCardUrl.invalid && ((f.giftCardUrl.dirty || f.giftCardUrl.touched))?'has-error':''">
+              <label>Gift Card URL
+                <span class="small-text">(URL should start with http)</span>
+              </label>
+              <input type="url" class="form-control input-type2" formControlName="giftCardUrl" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.giftCardUrl.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Gift Card URL is invalid.
+                </div>
+              </div>
+            </div>
+
+            <!-- ------------------------- Google my business -------------------------- -->
+            <!-- <div class="form-group"
+          [ngClass]="f.googleMyBusiness.invalid && ((f.googleMyBusiness.dirty || f.googleMyBusiness.touched))?'has-error':''">
+          <label>Google My Business
+            <span class="small-text">(URL should start with http)</span>
+          </label>
+          <input type="url" class="form-control input-type2" formControlName="googleMyBusiness" appErrorStylingDirective>
+          <div class="error error-msg">
+            <div *ngIf="f.googleMyBusiness.errors?.pattern">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Google My Business URL is invalid.
+            </div>
+          </div>
+        </div> -->
+
+            <!-- ------------------------- Google my business -------------------------- -->
+            <!-- <div class="form-group"
+        [ngClass]="f.googlePlaceId.invalid && ((f.googlePlaceId.dirty || f.googlePlaceId.touched))?'has-error':''">
+        <label>Google Place Id
+          <span class="small-text">(URL should start with http)</span>
+        </label>
+       <a href="https://growth99.zohodesk.com/portal/en/kb/articles/how-to-find-the-google-place-id" target="blank"> <i class="fa fa-info-circle" aria-hidden="true" style="padding-left: 2px;"></i></a>
+        <input type="url" class="form-control input-type2" formControlName="googlePlaceId" appErrorStylingDirective>
+        <div class="error error-msg">
+          <div *ngIf="f.googlePlaceId.errors?.pattern">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Google Place Id URL is invalid.
+          </div>
+        </div>
+      </div> -->
+            <!-- ---------------------------- INstagram url ---------------------------- -->
+
+            <div class="form-group"
+              [ngClass]="f.instagram.invalid && ((f.instagram.dirty || f.instagram.touched))?'has-error':''">
+              <label>Instagram URL
+                <span class="small-text">(URL should start with http)</span>
+              </label>
+              <input type="url" class="form-control input-type2" formControlName="instagram" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.instagram.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Instagram URL is invalid.
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------------------------- Facebook url ----------------------------- -->
+
+            <!-- <div class="form-group"
+            [ngClass]="f.facebook.invalid && ((f.facebook.dirty || f.facebook.touched))?'has-error':''">
+            <label>Facebook URL
+              <span class="small-text">(URL should start with http)</span>
+            </label>
+            <input type="url" class="form-control input-type2" formControlName="facebook" appErrorStylingDirective>
+            <div class="error error-msg">
+              <div *ngIf="f.facebook.errors?.pattern">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Facebook URL is invalid.
+              </div>
+            </div>
+          </div> -->
+
+            <!-- ---------------------------- Yelp url ----------------------------- -->
+
+            <!-- <div class="form-group"
+           [ngClass]="f.yelpUrl.invalid && ((f.yelpUrl.dirty || f.yelpUrl.touched))?'has-error':''">
+           <label>Yelp URL
+             <span class="small-text">(URL should start with http)</span>
+           </label>
+           <input type="url" class="form-control input-type2" formControlName="yelpUrl" appErrorStylingDirective>
+           <div class="error error-msg">
+             <div *ngIf="f.yelpUrl.errors?.pattern">
+               <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Yelp URL is invalid.
+             </div>
+           </div>
+         </div> -->
+
+            <!-- ----------------------------- Twitter url ----------------------------- -->
+
+            <div class="form-group"
+              [ngClass]="f.twitter.invalid && ((f.twitter.dirty || f.twitter.touched))?'has-error':''">
+              <label>Twitter URL
+                <span class="small-text">(URL should start with http)</span>
+              </label>
+              <input type="url" class="form-control input-type2" formControlName="twitter" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.twitter.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Twitter URL is invalid.
+                </div>
+              </div>
+            </div>
+
+             <!-- ----------------------------- Tiktok url ----------------------------- -->
+
+            <div class="form-group"
+              [ngClass]="f.tiktok.invalid && ((f.tiktok.dirty || f.tiktok.touched))?'has-error':''">
+              <label>TikTok URL
+                <span class="small-text">(URL should start with http)</span>
+              </label>
+              <input type="url" class="form-control input-type2" formControlName="tiktok" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.tiktok.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Tiktok URL is invalid.
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------------------------- Payment Link ----------------------------- -->
+
+            <div class="form-group"
+              [ngClass]="f.paymentLink.invalid && ((f.paymentLink.dirty || f.paymentLink.touched))?'has-error':''">
+              <label>Payment Link
+                <span class="small-text">(URL should start with http)</span>
+              </label>
+              <input type="url" class="form-control input-type2" formControlName="paymentLink" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.paymentLink.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Payment Link is invalid.
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+            <div *ngIf="bookingUrlLink!==null  && bookingUrlLink;">
+              <label for="">Online Booking Website</label>
+              <div *ngIf="clinicData?.notificationEmail" class="narrow">
+                <a target="_blank" class="link" href="{{bookingUrlLink}}">{{bookingUrlLink}}</a>
+              </div>
+              <div *ngIf="!clinicData?.notificationEmail" class="narrow">
+                <span style="color: red">* To view the link you need to
+                  complete the clinic setup.</span>
+              </div>
+            </div>
+          </div> -->
+
+            <div class="form-group">
+              <div *ngIf="bookingUrlLink!==null  && bookingUrlLink;">
+<!--                <label for="">Online Booking Website</label>-->
+                <label>Online Booking Website</label>
+                <div class="narrow">
+                  <a target="_blank" class="link" href="{{bookingUrlLink}}">{{bookingUrlLink}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+      </div>
+    </form>
+  </div>
+</div>

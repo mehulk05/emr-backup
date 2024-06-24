@@ -1,0 +1,81 @@
+<div class="section-detail">
+  <div class="bookapt-title">
+    <div class="title">
+      <h1 [ngStyle]="{ 'color':'red'}">Select Service</h1>
+    </div>
+  </div>
+
+  <div class="serviceName">
+    <ng-container *ngIf="showServiceByCategory">
+      <app-service-accordian [services]="services" [booking]="booking" [buttonForegroundColor]="buttonForegroundColor"
+        [activeLinkStyle]="activeLinkStyle" [titleColor]="titleColor" [currency]="currency"
+        [buttonBackgroundColor]="buttonBackgroundColor" [showRadio]="true"
+        (selectedServiceEmitter)="onServiceClick($event)"></app-service-accordian>
+    </ng-container>
+
+    <ng-container *ngIf="!showServiceByCategory">
+      <app-service-by-list [services]="services" [booking]="booking" [buttonForegroundColor]="btnTextStyle.color"
+        [activeLinkStyle]="activeLinkStyle" [titleColor]="titleColor" [currency]="currency"
+        [buttonBackgroundColor]="btnStyle.backgroundColor" [showRadio]="true"
+        (selectedServiceEmitter)="onServiceClick($event)"></app-service-by-list>
+    </ng-container>
+    <!-- <div *ngFor="let service of services;let i = index" class="service-details">
+      <div class="img service-img" *ngIf="serviceImgUrl">
+        <img src={{serviceImgUrl}} [ngStyle]="{ 'border-color':'transparent'}" class="cirlc">
+      </div>
+      <div class="img" *ngIf="!serviceImgUrl">
+        <div id="circle">
+          <div class="segment"></div>
+          <div [ngStyle]="{'border-color':btnStyle.border}" class="segment"></div>
+        </div>
+
+        <div class="arrows">
+          <span [ngStyle]="activeLinkStyle" class="font-arrow">&#187;</span>
+        </div>
+      </div>
+      <div class="text">
+        <p [ngStyle]="titleStyle" class="bold">{{service?.name}}</p>
+        <div class="description1" *ngIf="service.description">
+
+          <p class="no-sow" *ngIf="!showMore ">
+            {{ service.description | slice :0:100}} <span *ngIf=" !showMore && (service.description.length) > 70">...
+              <a [ngStyle]="activeLinkStyle" href="javascript:; " *ngIf="!showMore "
+                (click)="setShowMore(true,i) ">[Show More]</a> </span> </p>
+
+          <p class="no-sow1" *ngIf="showMore && i!== selectedIndex">
+            {{ service.description | slice :0:100}} <span *ngIf=" showMore  && (service.description.length) > 70">...
+              <a [ngStyle]="activeLinkStyle" href="javascript:; " *ngIf="showMore" (click)="setShowMore(true,i) ">[Show
+                More]</a> </span> </p>
+
+          <p class="sow" *ngIf="showMore && selectedIndex ===i ">{{ service.description }}
+            <a [ngStyle]="activeLinkStyle" href="javascript:; " *ngIf="showMore " (click)="setShowMore(false,i) ">[Show
+              Less]</a>
+          </p>
+        </div>
+
+        <p *ngIf="service.showDepositCost" [ngStyle]="" class="bold-text"> {{booking.selectedClinic.currencySymbol}} {{service.depositCose}}.00 &nbsp; •
+          <span>{{service.durationInMinutes ? service.durationInMinutes : '30'}} mins </span></p>
+          <p *ngIf="service.showDepositCost">
+            <b>Deposit Cost</b>
+          </p>
+        <p  *ngIf="service.priceVaries && !service.showDepositCost" [ngStyle]="" class="bold-text"> Price Varies&nbsp; •
+          <span>{{service.durationInMinutes ? service.durationInMinutes : '30'}} mins </span></p>
+          <p *ngIf="!service.priceVaries && !service.showDepositCost" [ngStyle]="" class="bold-text"> {{booking.selectedClinic.currencySymbol}} {{service.serviceCost}}.00 &nbsp; •
+            <span>{{service.durationInMinutes ? service.durationInMinutes : '30'}} mins </span></p>
+      </div>
+      <div class="radio-btn" style="float:right;">
+
+        <ejs-checkbox [style.color]="btnTextStyle.color" (change)="onServiceClick($event, service)" [style.backgroundColor]="btnStyle.backgroundColor"
+          value={{service.id}} [checked]="isChecked(service.id)"></ejs-checkbox>
+      </div>
+    </div> -->
+    <div class="book-btn-right">
+      <button type="button" *ngIf="!userId"
+        [ngStyle]="{'background-color': btnStyle.backgroundColor,'color':btnStyle.color,'border':btnStyle.border}"
+        class="btn btn-dark mr-2" (click)="goBack()">BACK</button>
+
+      <button [ngStyle]="btnStyle" type="button" style="float:right;" class="btn btn-dark" (click)="continue()"
+        [disabled]="this.booking.selectedServices.length === 0">Continue</button>
+    </div>
+  </div>
+</div>

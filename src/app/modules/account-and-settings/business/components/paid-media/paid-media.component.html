@@ -1,0 +1,37 @@
+<div class="panel-blue">
+  <div class="panel-body">
+    <div class="add-edit-form">
+      <form [formGroup]="paidMediaForm" (ngSubmit)="submitForm()">
+        <div class="form form-type2">
+          <div class="form-group"
+            [ngClass]="f.paidMediaCode.invalid && ((f.paidMediaCode.dirty || f.paidMediaCode.touched))?'has-error':''">
+            <label for="">Paid Media Code <span class="small-text">
+                ( Please enter the source URL without iframe code.)
+              </span></label>
+            <br />
+            <div class="form-datastudio d-flex">
+              <textarea rows="5" class="form-control w-50" formControlName="paidMediaCode"></textarea>
+              <span class="delete-icon d-flex align-items-end ml-3"><i class="fa fa-trash-o text-danger"
+                  (click)="deleteCodeInDataStudio()"></i></span>
+            </div>
+
+            <div class="error error-msg">
+              <div *ngIf="f.paidMediaCode.errors?.required">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please fill the above field with valid url
+              </div>
+              <div *ngIf="f.paidMediaCode.errors?.pattern">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please enter the URL in correct format
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <button type="submit" class="btn-save-new btn-small-new">Save</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

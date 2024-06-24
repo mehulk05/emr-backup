@@ -1,0 +1,111 @@
+<div class="bg-white datatable-table">
+    <div class="table-list">
+        <p-table #dt1 responsiveLayout="stack" [reorderableColumns]=true sortField="appointmentCreatedDate"
+            [sortOrder]="-1" [value]="folderList" [columns]="selectedColumns" [paginator]="true" [rows]="50"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="globalFilterColumn">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <!-- ---------------------- Column visibility starts ----------------------- -->
+                    <p-multiSelect [resetFilterOnHide]="true" [options]="columns" [(ngModel)]="selectedColumns"
+                        optionLabel="header" selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}"
+                        placeholder="Choose Columns">
+                    </p-multiSelect>
+
+                    <!-- ------------------------- Table Search starts ------------------------- -->
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <div class="table-button">
+                            <input pInputText class="search-table" type="text"
+                                (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                placeholder="Search keyword" />
+                            <div class="table-btn-wrapper">
+                                <button class="btn-save-new btn-small-new" (click)="addFolder()">
+                                    <i class="fa fa-plus"></i> Add Folders
+                                </button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </ng-template>
+
+            <!-- ---------------------------- Table starts ----------------------------- -->
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <ng-container *ngFor="let col of columns">
+                        <th [pSortableColumn]="col.field" *ngIf="col.field !== 'actions'">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                        <th *ngIf="col.field === 'actions'">
+                            {{col.header}}
+                        </th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+
+            <!-- -------------------------- Table body starts -------------------------- -->
+            <ng-template pTemplate="body" let-data let-columns="columns">
+                <tr class="mobile-special">
+                    <ng-container *ngFor="let col of columns">
+                        <td>
+                            <ng-container [ngSwitch]="col.field">
+                                <ng-container *ngSwitchCase="'name'">
+                                    <a [routerLink]="['./', data.id]">
+                                        <p>
+                                            <i style="font-size: 20px;" class="far fa-folder"></i>
+                                            {{data?.name}}
+                                        </p>
+                                    </a>
+
+                                   
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="'createdBy'">
+                                    <p *ngIf="data?.createdBy">By {{data.createdBy.firstName || '-'}}</p>
+                                </ng-container>
+
+
+
+                                <ng-container *ngSwitchCase="'createdAt'">
+                                    <p> On {{ data.updatedAt ?
+                                        (data.createdAt | date:'medium') : (data?.createdAt | date:'medium')}}
+                                    </p>
+                                </ng-container>
+
+
+
+                                <ng-container *ngSwitchDefault>
+                                    <span class="click-edit">
+                                        <span class="p-column-title">{{col.header}}</span> {{data[col.field] ?? '-'}}
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'actions'">
+                                    <span class="p-column-title">{{col.header}}</span>
+
+                                    <button class="btn-invisible" mat-icon-button [matMenuTriggerFor]="menu"
+                                        aria-label="Example icon-button with a menu">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                    <mat-menu #menu="matMenu">
+                                        <button (click)="editPage(data.id)" mat-menu-item>Edit</button>
+                                        <button (click)="viewFiles(data.id)" mat-menu-item>View</button>
+                                        <button (click)="deleteTrash(data.id)" mat-menu-item>Delete</button>
+                                    </mat-menu>
+
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+
+<ng-container *ngIf="showAddFolderModal">
+    <app-add-edit-media-folder [data]="folderList" [showAddFolderModal]="showAddFolderModal" [editId]="editId"
+        (afterModalClose)="onAddFolderModalClose($event)"></app-add-edit-media-folder>
+</ng-container>

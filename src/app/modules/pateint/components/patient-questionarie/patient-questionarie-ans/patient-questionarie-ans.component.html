@@ -1,0 +1,73 @@
+<div class="bg-white datatable-table">
+  <div class="title">
+    <h3>Questionnaire Details - {{questionnaireName}}</h3>
+    <div class="table-btn-wrapper">
+      <span class="icon">
+        <i class="fa fa-arrow-left"></i>
+        <a href="javascript:void(0);" (click)="showEditPatient()">Back</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="table-list">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+            <table datatable class="table thead-light table-borderless">
+                <tbody>
+                    <tr *ngFor="let question of rowData; let i = index" class="table-light">
+                        <td>{{ question?.questionName }}</td>
+                        <td *ngIf="question?.questionType === 'Input'"> {{ question?.answerText }}
+                        </td>
+                        <td *ngIf="question?.questionType === 'Text'"> {{ question?.answerText }}
+                        </td>
+                        <td *ngIf="question?.questionType === 'Date'"> {{ question?.answerText }}
+                        </td>
+                        <td *ngIf="question?.questionType === 'Phone_Number'"> {{ question?.answerText }}
+                        </td>
+                        <td *ngIf="question?.questionType === 'Yes_No' && (question?.answer || question?.answerText)"> Yes <br />
+
+                         <span *ngIf=" question?.answerComments">Comments: {{ question?.answerComments }}</span> </td>
+                        <td *ngIf="question?.questionType === 'Yes_No' && (!question?.answer && !question?.answerText)"> No </td>
+                        <td
+                            *ngIf="question?.questionType === 'Multiple_Selection_Text' && question?.patientQuestionChoices">
+
+                            <!-- {{printData(question)}} -->
+                            {{renderDataForMultiSelect(question)}}
+                          </td>
+
+
+                            <!-- {{printData(question?.patientQuestionChoices)}}
+                            <ng-container *ngIf="!question?.patientQuestionChoices ||  !question?.patientQuestionChoices.length">
+                              <span>{{question?.answerText}}</span>
+                            </ng-container>
+
+
+                            <ng-container *ngIf="question?.patientQuestionChoices &&  question?.patientQuestionChoices.length">
+                              <div *ngFor="let pqc of question?.patientQuestionChoices">
+                                <span
+                                          *ngIf="pqc.selected">-{{pqc.choiceName}}</span>
+                                </div>
+
+                                {{printData(question?.patientQuestionChoices)}}
+                            </ng-container> -->
+
+                            <!-- <ul>
+                                <li *ngFor="let pqc of question?.patientQuestionChoices"><span
+                                        *ngIf="pqc.selected">{{pqc.choiceName}}</span></li>
+                            </ul> -->
+                        <!-- </td> -->
+                        <td *ngIf="question.questionType === 'File'">
+                          <a *ngIf="question.answerText" href="{{ question.answerText }}" target="_blank" rel="noopener noreferrer">
+                            {{ question.answerText }}
+                          </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

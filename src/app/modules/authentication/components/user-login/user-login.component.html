@@ -1,0 +1,67 @@
+<main class="login login-page new-ui">
+    <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/Geometric%20patterns.png"
+        class="login-geometric-bg">
+    <div class="top-section">
+        <div class="center-content">
+            <!-- <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/g99%20full%20logo.svg" class="logo"> -->
+            <div class="main-box">
+                <h2 class="title">Sign in to your account</h2>
+                <ng-container *ngIf="errMsg">
+                    <app-error-success-panel [error]="errMsg" [success]="accountCreationMessage"></app-error-success-panel>
+                </ng-container>
+
+                <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="input-color">
+                    <!-- Input Email -->
+                    <div class="input-field form-group"
+                        [ngClass]="loginForm.controls.email.invalid && ((loginForm.controls.email.dirty || loginForm.controls.email.touched))?'has-error':''">
+                        <span class="label">Email</span>
+                        <input formControlName="email" type="text" class="input form-control" >
+                        <div class="error error-msg" *ngIf="(loginForm.dirty || loginForm.touched)
+                                        && loginForm.controls.email.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is required.
+                        </div>
+                        <div class="error error-msg" *ngIf="(loginForm.dirty || loginForm.touched)
+                                        && loginForm.controls.email.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is invalid.
+                        </div>
+                    </div>
+                    <!-- Input Password -->
+                    <div class="input-field form-group"
+                        [ngClass]="loginForm.controls.password.invalid && ((loginForm.controls.password.dirty || loginForm.controls.password.touched))?'has-error':''">
+                        <div class="password-row">
+                            <p class="label">Password</p>
+                            <a class="label link-new" routerLink="/forget-password">Forgot your password?</a>
+                        </div>
+                        <div class="password-wrapper form-group">
+                            <input formControlName="password" [type]="!isShowPassword?'password' : 'text'"
+                                name="password" class="input form-control" id="password" >
+                            <span class="show-hide graymedium" (click)="toggleShowPasswordField()">
+                                <i class="fa" [ngClass]="{
+                                    'fa-eye-slash': !isShowPassword,
+                                    'fa-eye': isShowPassword
+                                }"></i>
+                            </span>
+                        </div>
+                        <div class="error error-msg"
+                            *ngIf="(loginForm.dirty || loginForm.touched) && loginForm.controls.password.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Password is required.
+                        </div>
+                    </div>
+
+
+                    <button [disabled]="loginForm.invalid" class="btn-save-new btn-small-new">Continue</button>
+                    <!-- <p class="normal text-center no-account">Don’t have an account?
+                        <a routerLink="/sign-up" class="link"> Sign up</a>
+                    </p> -->
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+<div *ngIf="showBusinessSelectionModal">
+  <app-select-business [userData]="userDatabyEmailAPI" (afterBusinessSelection)="onBusinessSelect($event)"></app-select-business>
+</div>

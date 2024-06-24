@@ -1,0 +1,28 @@
+<div class="container">
+    <div [hidden]="submitted || failed" class="row">
+        <div class="col-4"></div>
+        <div class="col-4 text-center">
+            <form (ngSubmit)="onSubmit()" #emailForm="ngForm" novalidate>
+                <div class="form-group ">
+                    <br><br>
+                    <label for="email">Please enter email address to unsubscribe</label>
+                    <br><br>
+                    <input type="text" class="form-control" id="email" required email [(ngModel)]="email" name="email">
+                    <div [hidden]="emailForm.form.valid || emailForm.form.pristine" class="alert alert-danger">
+                        Email address is required
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success" [disabled]="!emailForm.form.valid">Unsubscribe</button>
+            </form>
+        </div>
+    </div>
+    <div [hidden]="!submitted">
+        <br><br>
+        <h3 class="text-center">Email Unsubscribed Successfully!</h3>
+    </div>
+    <div [hidden]="!failed">
+        <br><br>
+        <h3 class="text-center">You are not subscribed</h3>
+    </div>    
+</div>

@@ -1,0 +1,55 @@
+input[type="checkbox"] {
+  display: none;
+}
+
+label{
+  font-size: 16px;
+  font-weight: 400;
+}
+/* Style the label to create a custom checkbox */
+input[type="checkbox"] + label {
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  line-height: 15px;
+}
+
+/* Style the custom checkbox */
+input[type="checkbox"] + label:before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  border: 1px solid #333;
+  border-radius: 6px;
+}
+
+/* Change the background color of the checkbox when checked */
+input[type="checkbox"]:checked + label:before {
+  background-color: #D8E2F6;
+  border: 1px solid #D8E2F6;
+}
+
+/* Style the checkmark inside the checkbox */
+label:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 0px;
+  width: 6px;
+  height: 12px;
+  border: 2px  solid #2656C9;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  display: none;
+}
+
+/* Show the checkmark when the checkbox is checked */
+input[type="checkbox"]:checked + label:after {
+  display: block;
+}

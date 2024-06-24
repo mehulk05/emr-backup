@@ -1,0 +1,138 @@
+.add-edit-form {
+  max-width: 100%;
+  padding: 0;
+}
+
+.left-card .panel-blue {
+  padding: 2em 1em
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-type2 label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-type2 input,
+.form-type2 textarea {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-type2 textarea {
+  min-height: 85px;
+}
+
+.timing-class {
+  padding: 1em;
+  border: 1px dashed #80808099;
+  margin-bottom: 2em;
+}
+
+.left-card {
+  padding: 0;
+}
+
+.card-content {
+  position: relative;
+}
+
+.image-circle .img {
+  max-width: 170px;
+  margin: 0 auto;
+  position: relative;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  background: #fff;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 50%;
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+}
+
+
+.edit-icon {
+  position: absolute;
+  right: 0em;
+  bottom: 1em;
+  background: #fff;
+  padding: 10px 13px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #009ede;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-content .panel-header {
+  height: 120px;
+}
+
+
+.img-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.img-icons img {
+  cursor: pointer;
+  height: 100px;
+  width: 100px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1em;
+}
+/* .img-icons .imgs{
+
+  box-shadow: 0px 2.41072px 54.2412px rgb(163 171 185 / 24%);
+  border: 2px solid #f5f5f5;
+} */
+
+.img-icons img:hover {
+  opacity: 0.7;
+}
+
+.img-options {
+  margin-top: 2em
+}
+
+.img-options p {
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+  border-bottom: 1px solid gainsboro;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+}
+
+
+
+.modal-body img{
+  border: 4px solid black;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+@media screen and (max-width:991px) {
+  .right-card{
+    padding: 0;
+    margin-bottom: 3em;
+  }
+  .flex-sb.row .col-lg-6{
+    margin-bottom: 10px;
+  }
+}

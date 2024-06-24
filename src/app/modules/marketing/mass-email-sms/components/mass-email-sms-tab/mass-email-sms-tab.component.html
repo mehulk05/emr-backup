@@ -1,0 +1,35 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Email Campaigns">
+      <app-mass-email-sms-list
+        *ngIf="source === 'mass-email'"
+        [limit]="emailLimit"
+        [availableLimit]="availableEmailQuota"
+        [leadCount]="totalLeadsEmailCount"
+        [patientCount]="totalPatientsEmailCount"
+        (emitTableEvent)="onEventFromTable($event)"
+        [type]="'email'"
+        [isEmail] = "true"
+        [rowData]="massEmailTemplate"
+        [reloadTable]="reloadTable"
+        (refreshEvent)="refreshEvent($event)"
+      ></app-mass-email-sms-list>
+    </p-tabPanel>
+
+    <p-tabPanel header="SMS Campaigns">
+      <app-mass-email-sms-list
+        (emitTableEvent)="onEventFromTable($event)"
+        [limit]="smsLimit"
+        *ngIf="source === 'mass-sms'"
+        [availableLimit]="availableSmsQuota"
+        [leadCount]="totalLeadsSmsCount"
+        [isEmail] = "false"
+        [patientCount]="totalPatientsSmsCount"
+        [type]="'sms'"
+        [rowData]="massSmsTemplate"
+        [reloadTable]="reloadTable"
+        (refreshEvent)="refreshEvent($event)"
+      ></app-mass-email-sms-list>
+    </p-tabPanel>
+  </p-tabView>
+</div>

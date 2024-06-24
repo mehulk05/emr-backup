@@ -1,0 +1,128 @@
+<div class="bg-light">
+    <div class="leads-graphs">
+        <div class="leads-stats">
+            <div class="title ml-1">
+                <h3>All Tasks</h3>
+                <div class="togglecontainer m-2 p-2">
+                    <div (click)="showTable()" [ngClass]="showHide?'tabletoggle':'tabletoggleactive'">
+                        <i class="fas fa-table" [ngStyle]="!showHide?{color:'white'}:{color:'#2656C9'}"></i>
+                        <p [ngClass]="showHide?'toggleTxt':'toggleTxtactive'">Table</p>
+                    </div>
+                    <div (click)="showGrid()" [ngClass]="!showHide?'graphtoggle':'graphtoggleactive'">
+                        <i class="fa fa-th-list" [ngStyle]="showHide?{color:'white'}:{color:'#2656C9'}"></i>
+                        <p [ngClass]="!showHide?'toggleTxt':'toggleTxtactive'" class="toggleTxt">Grid</p>
+                    </div>
+                </div>
+
+
+
+                <div class="mr-2">
+                    <button class="btn-save-new btn-small-new" (click)="createeSmsTemplate()"
+                        style="margin-left: 10px;">
+                        <i class="fa fa-plus"></i>
+                        Add New
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="lead-stat-cards">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="muted-text">
+                                            Total Tasks
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column justify-content-between">
+                                        <p class="count">
+                                            {{this.taskList.length }}
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="muted-text">
+                                            To-do
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column justify-content-between">
+                                        <p class="count Todotxt">{{todoCount}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="muted-text">
+                                            In Progress
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column justify-content-between">
+                                        <p class="count Inprogresstxt">{{inProgressCount}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="muted-text">
+                                            Completed
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column justify-content-between">
+                                        <p class="count Completedtxt">{{completedCount}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <ng-container *ngIf="showHide">
+        <app-task-list-new-layout></app-task-list-new-layout>
+    </ng-container>
+
+    <div class="lead-table" *ngIf="!showHide">
+        <app-task-table (statusChanged)="loadData()"></app-task-table>
+    </div>
+
+</div>

@@ -1,0 +1,33 @@
+<section class="msger tab-view">
+  <ng-container *ngFor="let message of chat">
+    <div
+      class="msg-panel"
+      [ngClass]="message?.direction === 'outgoing' ? 'left-msg' : 'right-msg'"
+    >
+      <div class="msg-bubble panel-blue panel-border">
+        <div class="panel-header">
+          <div class="msg-info panel-title">
+            <div class="msg-info-name">
+              {{
+                message?.direction === 'outgoing'
+                  ? businessName
+                  : firstName
+                  ? firstName + ' ' + lastName
+                  : message?.senderNumber
+              }}
+            </div>
+            <div class="msg-info-time">
+              {{ message?.createdDateTime | date: 'medium' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="msg-text">
+            {{ message?.message }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</section>

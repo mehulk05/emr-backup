@@ -1,0 +1,119 @@
+
+<div class="bg-white datatable-table  new-ui">
+  <!-- <div class="title">
+    <h3>Post Library</h3>
+  </div> -->
+  <div class="table-list">
+    <p-table #dt1 responsiveLayout="stack" [reorderableColumns]=true sortField="appointmentCreatedDate" [sortOrder]="-1" [value]="rowData"
+    [columns]="selectedColumns"
+     [globalFilterFields]="globalFilterColumn">
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <!-- ---------------------- Column visibility starts ----------------------- -->
+          <p-multiSelect [resetFilterOnHide]="true"  [options]="columns" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}" placeholder="Choose Columns">
+          </p-multiSelect>
+
+          <!-- ------------------------- Table Search starts ------------------------- -->
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <div class="table-button">
+              <input pInputText class="search-table" type="text"
+                (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                <div class="table-btn-wrapper">
+                  <button class="btn-save-new btn-small-new">
+                    <i class="fa fa-plus"></i>
+                    <a class="" [routerLink]="['/post-library/al-config']">Configure AI Post</a>
+                  </button>
+                  <button class="btn-save-new btn-small-new">
+                    <i class="fa fa-plus"></i>
+                    <a class="" [routerLink]="['/post-library/add']">Add Post</a>
+                  </button>
+
+              </div>
+              </div>
+          </span>
+        </div>
+      </ng-template>
+
+      <!-- ---------------------------- Table starts ----------------------------- -->
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <th [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </ng-container>
+        </tr>
+      </ng-template>
+
+        <!-- -------------------------- Table body starts -------------------------- -->
+      <ng-template pTemplate="body" let-data let-columns="columns">
+        <tr class="mobile-special">
+          <ng-container *ngFor="let col of columns">
+            <td>
+              <ng-container [ngSwitch]="col.field">
+
+                <ng-container *ngSwitchCase="'createdAt'">
+                  <span class="click-edit" (click)="editTemplate(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatTime( data[col.field])}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'scheduledDate'">
+                  <span class="click-edit" (click)="editTemplate(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatTime( data[col.field])}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'approved'">
+                  <span class="click-edit" (click)="editTemplate(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{formatWord( data[col.field])}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'actions'">
+                  <span class="p-column-title">{{col.header}}</span>
+                  <a *ngIf="!data.approved" [routerLink]="['/post-library', data.id,'edit' ]">
+                    <i class="fas fa-edit ms-text-primary"></i>
+                  </a>
+                  <a class="link-new" [routerLink]="['/post-library', data.id,'edit' ]" *ngIf="data.sent">
+                    <i  class="fas fa-sticky-note"></i> Posted
+                  </a>
+                  <a class="link-new" [routerLink]="['/post-library', data.id,'edit' ]" *ngIf="data.approved && !data.sent">
+                    <i  class="fas fa-sticky-note"></i> Approved
+                  </a>
+                  <a class="iconSuccess" *ngIf="!data.approved" style="margin-left: 5px" href="javascript:void(0)" (click)="approvePost(data.id)">
+                      <i class="fa fa-check-circle" style="margin-right: 0"></i> Approve
+                  </a>
+                  <a  *ngIf="!data.approved" href="javascript:void(0)" (click)="deleteTemplateModal(data)"><i
+                    class="far fa-trash-alt ms-text-danger"></i>
+                  </a>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                  <span class="click-edit" (click)="editTemplate(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{data[col.field]}}</span>
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-container>
+
+        </tr>
+
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]=null (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>
+
+
+<!-- -------------------------- custom paginator --------------------------- -->
+<p-paginator [rows]="paginatorConfig.noOfRecord" [totalRecords]="totalDataCount?.totalCount"
+(onPageChange)="paginate($event)" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[rowsPerPageOptions]="paginatorConfig.recordArray"></p-paginator>

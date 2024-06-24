@@ -1,0 +1,214 @@
+<div class="blue-card">
+  <div class="add-edit-form">
+    <div class="form form-type2">
+      <div class="row mx-0">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+          <div class="panel-blue">
+            <div class="panel-header">
+              <h3>
+                Two way Text Configuration
+                <span class="f-14" *ngIf="
+                    businessInfo?.getTwilioNumber &&
+                    businessInfo.twilioNumber
+                  ">({{ businessInfo.twilioNumber }})</span>
+              </h3>
+            </div>
+
+            <div class="panel-body">
+              <form [formGroup]="twoWayTextForm">
+                <ng-container>
+                  <!-- <div class="mb-4">
+                    <div class="switch-wrapper form-group show-as-radio">
+                      <label for="link"
+                        >Enable Two way Text
+                        <a
+                          href="https://support.growth99.com/portal/en/kb/articles/two-way-texting-feature-in-the-g99-application"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          target="_blank"
+                          ><i class="fa fa-info-circle"></i></a
+                      ></label>
+                      <p-inputSwitch
+                        formControlName="getTwilioNumber"
+                      ></p-inputSwitch>
+                    </div>
+                    <div *ngIf="!businessInfo?.getTwilioNumber" class="note">
+                      ( Currently, all customer notifications are sent from a
+                      default number. You won't be notified about incoming text
+                      messages from customers. Two-way text functionality
+                      provides you with a dedicated number for your business and
+                      enable seamless message conversations. )
+                    </div>
+                    <div *ngIf="businessInfo?.getTwilioNumber" class="note">
+                      ( All notifications sent to your clients will be from a
+                      unique number displayed in the header. You will now
+                      receive all incoming messages and can reply to them as
+                      well from the two-way text dashboard. )
+                    </div>
+                  </div> -->
+
+                  <div class="mb-4">
+                    <div class="switch-wrapper form-group show-as-radio">
+                      <label [ngClass]="
+                          !businessInfo?.getTwilioNumber ? 'muted-text-7' : ''
+                        ">
+                        Enable SMS Forwarding to the Notification number
+                      </label>
+                      <p-inputSwitch formControlName="enableTwoWaySMS"
+                        [disabled]="!businessInfo?.getTwilioNumber"></p-inputSwitch>
+                    </div>
+
+                    <ng-container *ngIf="
+                        !businessInfo?.getTwilioNumber;
+                        else twoWayTextEnabled
+                      ">
+                      <div>
+                        <div class="note">
+                          ( Please enable Two-way text first to start using this
+                          feature. )
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-template #twoWayTextEnabled>
+                      <div *ngIf="!businessInfo?.enableTwoWaySMS">
+                        <div class="note">
+                          ( When enabled, All incoming SMS notifications will be
+                          forwarded to the number chosen by you for
+                          notifications.)
+                        </div>
+                      </div>
+                      <div *ngIf="businessInfo?.enableTwoWaySMS">
+                        <div class="note">
+                          ( All incoming SMS notifications are now being
+                          forwarded to the number chosen by you for
+                          notifications. )
+                        </div>
+                      </div>
+                    </ng-template>
+                  </div>
+                  <!-- <div class="mb-4">
+                    <div class="switch-wrapper form-group show-as-radio">
+                      <label
+                        [ngClass]="
+                          !businessInfo?.getTwilioNumber ? 'muted-text-7' : ''
+                        "
+                      >
+                        Enable AI message suggestions
+                      </label>
+                      <p-inputSwitch
+                        formControlName="enableAiTwoWaySMSSuggestion"
+                        [disabled]="!businessInfo?.getTwilioNumber"
+                      ></p-inputSwitch>
+                    </div>
+                  </div> -->
+                  <div class="mb-4">
+                    <div class="switch-wrapper form-group show-as-radio">
+                      <label [ngClass]="
+                          !businessInfo?.getTwilioNumber ? 'muted-text-7' : ''
+                        ">
+                        Enable AI Based Autoresponder
+                      </label>
+                      <p-inputSwitch formControlName="enableSmsAutoReply"
+                        [disabled]="!businessInfo?.getTwilioNumber"></p-inputSwitch>
+                    </div>
+                    <div class="note">
+                      ( This service is currently in its Beta Stage, and the responses provided may not be entirely
+                      accurate. Please keep a note of the same. )
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="switch-wrapper form-group show-as-radio">
+                      <label [ngClass]="
+                          !businessInfo?.getTwilioNumber ? 'muted-text-7' : ''
+                        ">
+                        Enable Email Notification for incoming messages
+                      </label>
+                      <p-inputSwitch formControlName="enableEmailNotificationForMessages"
+                        [disabled]="!businessInfo?.getTwilioNumber"></p-inputSwitch>
+                    </div>
+                    <div class="note" *ngIf="twoWayTextForm.controls.enableEmailNotificationForMessages.value">
+                      ( You will now receive email notifications for all incoming text messages on <strong>{{
+                        businessInfo?.notificationEmail ? businessInfo.notificationEmail : 'Notification Email'
+                        }}</strong>. Please note that this feature will utilize your subscribed email quota. )
+                    </div>
+                    <div class="note" *ngIf="!twoWayTextForm.controls.enableEmailNotificationForMessages.value">
+                      ( Enable this feature to start receiving incoming message notifications on the email address
+                      you've added to the notification center. Please note that enabling it will utilize your subscribed
+                      email quota. )
+                    </div>
+                  </div>
+                </ng-container>
+
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+          <div class="info">
+            <div class="header">
+              <span>
+                You are now subscribed to Two-way Text
+              </span>
+            </div>
+
+            <div class="info-links pt-4">
+              <span *ngIf="businessInfo?.getTwilioNumber">
+                Not Happy with the Service?
+              </span>
+              <div class="links pt-2">
+                <a href="mailto:support@growth99.com" title="mailto:support@growth99.com" target="_blank"
+                  class="mr-2">Contact Support</a>
+                <a *ngIf="businessInfo?.getTwilioNumber" href="javascript:void(0)" title="Unsubscribe" class="ml-2"
+                  (click)="showDisableTwoWayModal()">Unsubscribe</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog [header]="'Enable Two way Text'" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }" [style]="{ width: '50vw' }"
+  [baseZIndex]="10000" [draggable]="false" (onHide)="hideModal()" [resizable]="false">
+  <div class="ms-panel no-shadow">
+    <div mat-dialog-content class="custom-modal ms-panel custom-blue">
+      <div class="ms-panel-body p-2">
+        <p>
+          Two-way text is a chargeable service the amount for which will be
+          added to your monthly bill. It will also use up messages from your
+          subscribed SMS quota. Are you sure you want to continue?
+        </p>
+      </div>
+      <div class="btn-main button-flex">
+        <button type="button" class="btn btn-primary" (click)="enableTwoWayText()">
+          Yes
+        </button>
+        <button type="button" class="btn btn-primary" (click)="hideModal()">
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog [header]="'Disable Two way Text'" [(visible)]="showDisableTwoWayTextModal" [modal]="true"
+  [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }" [style]="{ width: '40vw' }"
+  [baseZIndex]="10000" [draggable]="false" (onHide)="hideDisableTwoWayTextModal()" [resizable]="false">
+  <div class="ms-panel no-shadow">
+    <div mat-dialog-content class="custom-modal ms-panel custom-blue">
+      <div class="ms-panel-body p-2">
+        <p>Are you sure you want to disable Two Way Text?</p>
+      </div>
+      <div class="btn-main button-flex">
+        <button type="button" class="btn btn-primary" (click)="disableTwoWayText()">
+          Yes
+        </button>
+        <button type="button" class="btn btn-primary" (click)="hideDisableTwoWayTextModal()">
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</p-dialog>

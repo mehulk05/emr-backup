@@ -1,0 +1,16 @@
+<div class="tab-view">
+    <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+        <p-tabPanel header="My Consent">
+            <div *ngIf="source === 'myConsent'">
+                <app-consent-list></app-consent-list>
+            </div>
+        </p-tabPanel>
+
+ 
+        <p-tabPanel header="Other Consents">
+            <div *ngIf="source === 'otherConsent'">
+                <app-consent-others></app-consent-others>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>

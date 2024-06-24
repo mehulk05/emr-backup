@@ -1,0 +1,354 @@
+<div class="bg-white new-ui datatable-table" id="print-section">
+  <div class="title">
+    <h3>Payments</h3>
+  </div>
+
+  <div class="panel-blue">
+    <div class="header-button">
+      <div class="left-tile">
+        <p>
+          Invoice #: {{appointment?.id}}
+        </p>
+      </div>
+      <div class="dropdown">
+        <a href="javascript:void(0)" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <!-- -------------------------- Mobile print btn --------------------------- -->
+          <li>
+            <button class="btn-borders" (click)="sendInvoice()">
+              <i class="fa fa-envelope" aria-hidden="true"></i> Add Service
+            </button>
+          </li>
+          <li>
+            <button class="btn-borders" printSectionId="print-section" ngxPrint styleSheetFile [useExistingCss]="true"
+              styleSheetFile="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+              <i class="fa fa-print" aria-hidden="true"></i> Print
+            </button>
+          </li>
+
+          <!-- ----------------------- mobile add servicd btn ------------------------ -->
+          <li *ngIf="appointment?.paymentStatus === 'Unpaid' ">
+            <button class="btn-borders" (click)="openServiceModal()">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add Service
+            </button>
+          </li>
+
+          <!-- -------------------------- mobile refund btn -------------------------- -->
+          <li *ngIf="appointment?.paymentStatus === 'Paid' || appointment?.paymentStatus === 'PartiallyPaid' || appointment?.paymentStatus === 'PartiallyRefunded'">
+            <button class="btn-borders" (click)="openRefundModal()">
+              <i class="fa fa-undo" aria-hidden="true"></i>Refund
+            </button>
+          </li>
+
+          <!-- -------------------------- mobile cancel btn -------------------------- -->
+          <li>
+            <button class="btn-borders">
+              Cancel
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ----------------------------- desktop btn ----------------------------- -->
+      <div class="right-btn button-flex">
+        <button class="btn btn-primary-border btn-small" (click)="sendInvoice()">
+          <i class="fa fa-envelope" aria-hidden="true"></i> Send Invoice
+        </button>
+        <button class="btn btn-primary-border btn-small lg-mr-1" printSectionId="print-section" ngxPrint styleSheetFile
+          [useExistingCss]="true"
+          styleSheetFile="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+          <i class="fa fa-print" aria-hidden="true"></i> Print
+        </button>
+        <button class="btn btn-primary-border btn-small lg-mr-1"
+          (click)="openServiceModal()">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Service
+        </button>
+
+        <button *ngIf="appointment?.paymentStatus === 'Paid' || appointment?.paymentStatus === 'PartiallyPaid' ||
+         appointment?.paymentStatus === 'PartiallyRefunded'"
+          class="btn btn-primary-border btn-small lg-mr-1" (click)="openRefundModal()">
+          <i class="fa fa-undo" aria-hidden="true"></i>Refund
+        </button>
+
+        <button class="save-border-btn" (click)="goBack()">
+          Cancel
+        </button>
+      </div>
+
+
+
+    </div>
+
+    <div class="invoice-section">
+      <div class="row mx-0">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+          <img src={{defaultImg}} />
+        </div>
+
+        <div class="col-xl-9 col-lg-6 col-md-6 col-sm-12">
+          <!-- --------------------------- Pateint detail ---------------------------- -->
+          <div class="section-class">
+            <p>
+              Patient Details
+            </p>
+
+            <div class="form-group-flex">
+              <label>
+                Name:
+              </label>
+              <div class="form-control input-element">{{appointment?.patient?.firstName}}
+                {{appointment?.patient?.lastName}}</div>
+            </div>
+
+
+            <div class="form-group-flex">
+              <label>
+                Email:
+              </label>
+              <div class="form-control input-element">{{appointment?.patient?.email}}</div>
+            </div>
+
+            <div class="form-group-flex">
+              <label>
+                Phone:
+              </label>
+              <div class="form-control input-element">{{appointment?.patient?.phone}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+
+          <!-- --------------------------- Clinic Section ---------------------------- -->
+          <div class="section-class section2">
+            <p>
+              Clinic Details
+            </p>
+
+            <div class="form-group-flex">
+              <div class="form-control input-element">{{appointment?.clinic?.name}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ------------------------------- Provider ------------------------------- -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+          <div class="section-class section2">
+            <p>
+              Provider Details
+            </p>
+
+
+            <div class="form-group-flex">
+              <div class="form-control input-element">{{appointment?.provider?.firstName}} {{appointment?.provider?.lastName}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ------------------------------- Payment ------------------------------- -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+          <div class="section-class section2">
+            <p>
+              Payment Status
+            </p>
+
+
+
+            <div class="form-group-flex section2">
+              <div class="form-control input-element">{{formatWord(appointment?.paymentStatus)}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-class section3">
+          <!-- ------------------------- Appointment detail -------------------------- -->
+          <p>
+            Appointment Details
+          </p>
+          <div class="row mx-0">
+            <div class="col-lg-4 col-md-4 col-sm-12 px-0">
+
+
+
+              <div class="form-group-flex">
+                <label>
+                  Id:
+                </label>
+                <div class="form-control input-element">{{appointment?.id}}</div>
+
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 px-0">
+              <div class="form-group-flex">
+                <label>
+                  Date:
+                </label>
+                <div class="form-control input-element"> {{ formatTimeService.formatBookingHistoryTime(appointment?.appointmentDate) }}</div>
+
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 px-0">
+              <div class="form-group-flex">
+                <label>
+                  Status:
+                </label>
+                <div class="form-control input-element">{{appointment?.appointmentConfirmationStatus}}</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                  Transaction detail if payment is paid                  -->
+      <!-- ----------------------------------------------------------------------- -->
+      <div class="table-section" *ngIf="appointment?.paymentStatus !== 'Unpaid'">
+        <div class="transaction-detail">
+          <p>Transaction Details</p>
+        </div>
+
+        <table class="table table-bordered">
+          <thead>
+            <th>
+              Amount
+            </th>
+
+            <th>
+              Payment Type
+            </th>
+
+            <th>
+              Date
+            </th>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let payment of appointmentPayments; let i = index">
+              <td>{{payment?.amount}}</td>
+              <td>{{formatWord(payment?.paymentStatus)}}</td>
+              <td> {{ formatTimeService.formatTime(payment?.createdAt) }}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                   Service name table with appointment                   -->
+      <!-- ----------------------------------------------------------------------- -->
+      <div class="table-section">
+        <div class="transaction-detail">
+          <p>Service Details</p>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <th>
+              Sr No.
+            </th>
+
+            <th>
+              Service Name
+            </th>
+
+            <th>
+              Service Duration (Minute)
+            </th>
+
+            <th>
+              Amount
+            </th>
+            <th class="action">
+              Action
+            </th>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let service of appointment?.services; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{service?.name}}</td>
+              <td>{{service?.durationInMinutes}}</td>
+              <td>{{currency}} {{service?.serviceCost}}
+                <!-- <a href="javascript:void(0)" (click)="editService(service)"><i class="fas fa-edit ms-text-primary"></i></a>
+                <a href="javascript:void(0)" (click)="deleteAppointmentServiceModal(service)"><i
+                  class="far fa-trash-alt ms-text-danger"></i></a> -->
+              </td>
+              <td class="action">
+                <a href="javascript:void(0)" (click)="editService(service)"><i class="fas fa-edit ms-text-primary"></i></a>
+                <a href="javascript:void(0)" (click)="deleteAppointmentServiceModal(service)"><i
+                  class="far fa-trash-alt ms-text-danger"></i></a>
+              </td>
+
+
+            </tr>
+            <tr class="no-border">
+
+              <td colspan="3" style="text-align: right;">
+                <b> Total </b> :
+              </td>
+
+              <td *ngIf="!editCost" colspan="2" style="text-align: left;">
+                {{currency}} {{appointment?.totalCost}}
+                <a href="javascript:void(0)" (click)="editTotalCost()"><i class="fas fa-edit ms-text-primary"></i></a>
+                <!-- <a href="javascript:void(0)" (click)="cancelTotalCost(service)"><i
+                  class="far fa-trash-alt ms-text-danger"></i></a> -->
+              </td>
+
+              <td class="submitAmount" *ngIf="editCost" colspan="2" style="text-align: left;">
+                <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" [(ngModel)]="appointment.totalCost" class="form-control" />
+
+                <span *ngIf="appointment?.totalCost !== this.amount && appointment.totalCost > 0">
+                  <a href="javascript:void(0)" (click)="submitPaymentForm1()">
+                    <i class="fas fa-save" aria-hidden="true"></i>
+                  </a>
+                </span>
+
+                <a href="javascript:void(0)" (click)="cancelTotalCost()"><i
+                  class="far fa-trash-alt ms-text-danger"></i></a>
+
+                <div class="error-block" *ngIf="!appointment?.totalCost">
+                  Please enter the amount.
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-white">
+
+  <div class="payment" *ngIf="appointment?.paymentStatus !== 'Paid' ">
+    <app-payment [booking]="appointment" (afteronPaymentSuccess)="onPaymentSuccess()"
+      (afteronPaymentCancel)="onPaymentCancel()"></app-payment>
+  </div>
+</div>
+
+<ng-container *ngIf="showModal">
+  <app-payment-refund [appointmentId]="appointmentId" [showModal]="showModal" (modalClosed)="onCloseModal($event)">
+  </app-payment-refund>
+</ng-container>
+
+
+<ng-container *ngIf="showServiceModal">
+  <app-add-service [appointment]="appointment" [showModal]="showServiceModal" (modalClosed)="onCloseModal($event)">
+  </app-add-service>
+</ng-container>
+
+<ng-container *ngIf="showEditServiceModal">
+  <app-edit-service [appointment]="appointment" [service]="service" [showModal]="showEditServiceModal" (modalClosed)="onCloseModal($event)">
+  </app-edit-service>
+</ng-container>
+
+<ng-container *ngIf="showDeleteModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showDeleteModal" [modalMessage]=null
+    (modalClosed)="onCloseAppointmentServiceModal($event)"></app-delete-warning>
+</ng-container>

@@ -1,0 +1,168 @@
+.btn{
+  border-radius: 8px;
+}
+.title{
+  border:  none !important;
+}
+.leadStatusFilter{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.leadStatusFilter .buttons{
+  display: flex;
+  column-gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lead-filters{
+  padding-left: 0px;
+  padding-top: 10px;
+}
+
+.leadStatusFilter p{
+  font-size: 16px;
+  font-weight: 600;
+  padding-right: 1em;
+  margin-bottom: 1em;
+}
+
+.leadStatusFilter{
+  margin-bottom: 1em;
+}
+
+.leadStatusFilter .buttons button{
+  border: 2px solid;
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 70px;
+  margin-bottom: 1em;
+}
+
+/* --------------------- source button colors for leads --------------------- */
+.btn-lp{
+  color: #109bc7 !important;
+  border-color: #109bc7 !important;
+}
+.btn-chatbot{
+  color: #FF8383 !important;
+  border-color: #FF8383 !important;
+}
+.btn-vc{
+  color: #01b700 !important;
+  border-color: #01b700 !important;
+}
+.btn-all{
+  color: gray !important;
+  border-color: gray !important;
+
+}
+.btn-form{
+  color: #001AFF !important;
+  border-color: #001AFF !important;
+}
+.btn-manual{
+  color: #FF008A !important;
+  border-color: #FF008A !important;
+}
+.btn-facebook{
+  color: #ffd600 !important;
+  border-color: #ffd600 !important;
+}
+
+
+/* ----------------------- Status btn colors for lead ----------------------- */
+.btn-new{
+  color: #fff !important;
+  background-color: #01b700 !important;
+}
+
+.btn-cold
+{
+  color: #fff !important;
+  background-color: #109bc7 !important;
+}
+
+.btn-won{
+  color: #fff !important;
+  background-color: #F6AE3C !important;
+}
+
+.btn-warm{
+  color: #fff !important;
+  background-color: #FFD600 !important;
+}
+
+.btn-dead{
+  color: #fff !important;
+  background-color: #000 !important;
+}
+.btn-hot{
+  color: #fff !important;
+  background-color: #c51900 !important;
+}
+
+/* --------------------------- Lead tag filter css -------------------------- */
+.leadTagFilter p{
+  font-size: 16px;
+  font-weight: 600;
+  padding-right: 1em;
+}
+
+.leadTagFilter{
+  display: flex;
+  align-items: center;
+}
+.leadTagFilter .buttons{
+  display: flex;
+  column-gap: 10px;
+}
+.btn-reset
+{
+  border: 2px solid;
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 70px;
+  border-color:#009EDE !important;
+  color:#009EDE !important;
+  border: 2px solid !important;
+}
+.leadTagFilter .btn-reset:focus,
+.leadTagFilter .btn-reset:hover{
+  background-color: #fff !important;
+  border-color:#009EDE !important;
+}
+.leadTagFilter select{
+  min-width: 200px;
+  min-height: auto;
+  height: 35px;
+}
+
+.filter-btn{
+  display: flex;
+  column-gap: 1em;
+}
+
+.filter-btn button{
+  border: 2px solid;
+  font-size: 12px;
+  font-weight: 700;
+  /* min-width: 70px; */
+  border-color: #009EDE;
+  color: #009EDE;
+  padding: 0px 10px;
+  height: 34px;
+  min-height: auto;
+}
+
+.available.tags{
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+}
+.available.tags p{
+  font-size: 16px;
+  font-weight: 600;
+  padding-right: 1em;
+}
+

@@ -1,0 +1,59 @@
+<div class="preview-card" *ngIf="showLayout === '1'">
+  <div class="panel-blue" *ngIf="integrationScript && integrationScript !== null">
+    <div class="panel-header">
+      <h3>Cliff Hanger</h3>
+    </div>
+
+    <div class="panel-body">
+
+      <div class="panel-card-content no-border">
+
+
+        <app-url-preview [iframeUrl]="integrationScript" [previewUrl]="integrationPreviewUrl"></app-url-preview>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="preview-card"  *ngIf="showLayout === '3'">
+  <div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="title preview-code">
+        <div class="heading">
+          <p>Cliff Hanger Integration Code</p>
+        </div>
+        <div class="subtitle">
+
+          <p>
+            Add below code to your website to show all of the integration features.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="preview-code">
+        <p>Add Custom CSS </p>
+        <textarea rows="5" class="form-control"></textarea>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="preview-code">
+        <div class="preview-box">
+          <div class="iframeurl">{{integrationScript}}</div>
+          <div class="button-flex">
+            <a href="javascript:void(0)" class="copy-url border-btn" (click)="copyLink()">
+              <i class="fa fa-copy"></i> COPY LINK</a>
+            <a  href={{integrationPreviewUrl}} target="_blank" class="preview-url border-btn">
+              <i class="fa fa-globe"></i> PREVIEW</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+

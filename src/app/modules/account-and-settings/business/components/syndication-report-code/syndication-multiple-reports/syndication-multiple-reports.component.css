@@ -1,0 +1,40 @@
+
+
+
+.form-group.row-flex {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 1em;
+  width: 100%;
+}
+
+.input-wrapper {
+  width: 50%;
+}
+
+
+.btn-flex.button-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+  min-height: 90px;
+}
+
+.button-wrapper button {
+  background: none;
+  border-radius: 50%;
+  color: #333;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+input.ng-touched.ng-invalid {
+  background: rgba(255, 64, 64, 0.2);
+  border: 1px solid #FF4040;
+}
+
+.button-wrapper button.delete {
+  color: #333;
+}

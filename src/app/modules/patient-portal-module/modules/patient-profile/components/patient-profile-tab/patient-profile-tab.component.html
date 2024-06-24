@@ -1,0 +1,13 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Profile">
+      <app-patient-profile [patientId]="currentPaitent.id"></app-patient-profile>
+    </p-tabPanel>
+
+    <!-- <p-tabPanel header="Change Password">
+      <app-patient-change-password [patientId]="currentPaitent.id"></app-patient-change-password>
+    </p-tabPanel> -->
+
+    </p-tabView>
+
+    </div>

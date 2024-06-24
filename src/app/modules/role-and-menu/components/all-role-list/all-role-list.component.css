@@ -1,0 +1,33 @@
+/* all-role-list.css */
+.menu-list-box {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .menu-list-box ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu-list-box li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-list-box li:hover {
+    background-color: #eaeaea;
+  }
+  
+  .menu-list-box li.selected {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .menu-list-box li.selected:hover {
+    background-color: #0056b3;
+  }
+  

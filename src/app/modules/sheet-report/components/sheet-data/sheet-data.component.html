@@ -1,0 +1,44 @@
+
+
+<h2>
+    Paid Media Sheet
+  </h2>
+<div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of headers">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of sheetData">
+          <td *ngFor="let cell of row">{{ cell }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="sheetData.length === 0" class="no-data">No data available</div>
+  </div>
+
+
+
+  <br/>
+
+  <h2>
+    Support Sheet
+  </h2>
+
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of supportHeaders">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of supportDataInfo">
+          <td *ngFor="let cell of row">{{ cell }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="supportDataInfo.length === 0" class="no-data">No data available</div>
+  </div>

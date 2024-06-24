@@ -1,0 +1,158 @@
+<div class="bg-white new-ui">
+  <div class="page-wrapper">
+    <div class="main-section">
+      <form class="form" [formGroup]="scheduleForm">
+        <div class="working-schedule-form">
+          <div class="form-group">
+            <div class="input-type3-wrapper">
+              <p class="input-type3-label">User</p>
+              <input type="email" readonly class="input-type2 custom-ipt" formControlName="user" />
+            </div>
+          </div>
+
+          <div class="form-group"
+            [ngClass]="scheduleFormControls.clinicId.invalid && (scheduleFormControls.clinicId.dirty || scheduleFormControls.clinicId.touched) ? 'has-error' : ''">
+            <div class="input-type3-wrapper">
+              <p class="input-type3-label">Clinic <span class="error-red">*</span></p>
+
+              <p-dropdown [style]="{'width': '100%'}" optionLabel="name" optionValue="id"
+                placeholder="Select Clinic to View Schedule" [options]="userClinics"
+                formControlName="clinicId" (onChange)="onClinicSelect($event)"></p-dropdown>
+
+              <div class="error error-msg"
+                *ngIf="scheduleFormControls.clinicId.invalid && (submitted || scheduleFormControls.clinicId.dirty || scheduleFormControls.clinicId.touched)">
+                <div *ngIf="scheduleFormControls.clinicId.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Select a clinic
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group"
+            [ngClass]="scheduleFormControls.dateFromDate.invalid && (scheduleFormControls.dateFromDate.dirty || scheduleFormControls.dateFromDate.touched) ? 'has-error' : ''">
+            <div class="input-type3-wrapper">
+              <p class="input-type3-label required">Date from <span>*</span></p>
+
+              <p-calendar appendTo="body" [showIcon]="true" formControlName="dateFromDate"
+                inputId="navigators"></p-calendar>
+
+              <div class="error error-msg"
+                *ngIf="scheduleFormControls.dateFromDate.invalid && (submitted || scheduleFormControls.dateFromDate.dirty || scheduleFormControls.dateFromDate.touched)">
+                <div *ngIf="scheduleFormControls.dateFromDate.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Please choose from Date
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group"
+            [ngClass]="scheduleFormControls.dateFromDate.invalid && (scheduleFormControls.dateFromDate.dirty || scheduleFormControls.dateFromDate.touched) ? 'has-error' : ''">
+            <div class="input-type3-wrapper">
+              <p class="input-type3-label required">Date to <span>*</span></p>
+              <!-- Pankaj: input style class added -->
+              <p-calendar appendTo="body" [showIcon]="true" formControlName="dateToDate"
+                inputId="navigators"></p-calendar>
+
+              <div class="error error-msg"
+                *ngIf="scheduleFormControls.dateToDate.invalid && (submitted || scheduleFormControls.dateToDate.dirty || scheduleFormControls.dateToDate.touched)">
+                <div *ngIf="scheduleFormControls.dateToDate.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Please choose from Date
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div formArrayName="slots"
+          [ngClass]="scheduleForm.controls['dateFromDate'].hasError('dateRangeError') ? 'error' : 'no-error'">
+          <div class="blue-box working-schedule-form second-form"
+            *ngFor="let slot of slotsArray.controls; let i = index" formGroupName="{{i}}"
+            [ngClass]="slot.get('timeFromDate').value && slot.get('timeToDate').value && slot.get('timeFromDate').value > slot.get('timeToDate').value ? 'error' : 'no-error'">
+
+            <div class="error-block">
+              <div *ngIf="scheduleForm.controls['dateFromDate'].hasError('dateRangeError')">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                From date must be less than or equal to To date
+              </div>
+              <div
+                *ngIf="slot.get('timeFromDate').value && slot.get('timeToDate').value && slot.get('timeFromDate').value > slot.get('timeToDate').value">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                From Time must be smaller than to Time for selected date.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-type3-wrapper">
+                <p class="input-type3-label required">Days <span>*</span></p>
+                <p-multiSelect [resetFilterOnHide]="true" [style]="{'width':'100%', 'height' : '42px'}"
+                  [options]="daysList" selectedItemsLabel="{0} days" defaultLabel="Select day" #days
+                  formControlName="days" (click)="filterByDays()" [filter]="true"></p-multiSelect>
+              </div>
+            </div>
+
+            <div class="form-group"
+              [ngClass]="slot.get('timeFromDate').invalid && (slot.get('timeFromDate').dirty || slot.get('timeFromDate').touched) ? 'has-error' : ''">
+              <div class="input-type3-wrapper">
+                <p class="input-type3-label required">Time from <span>*</span></p>
+                <p-calendar [style]="{'width':'100%'}" (onSelect)="handleDateSelect($event, 'timeFromDate', i)"
+                  [timeOnly]="true" hourFormat="12" formControlName="timeFromDate"></p-calendar>
+                <div class="error error-msg"
+                  *ngIf="slot.get('timeFromDate').invalid && (submitted || slot.get('timeFromDate').dirty || slot.get('timeFromDate').touched)">
+                  <div *ngIf="slot.get('timeFromDate').hasError('required')">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Please choose from time
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group"
+              [ngClass]="slot.get('timeToDate').invalid && (slot.get('timeToDate').dirty || slot.get('timeToDate').touched) ? 'has-error' : ''">
+              <div class="input-type3-wrapper">
+                <p class="input-type3-label required">Time to <span>*</span></p>
+                <!-- pankaj : input style class added -->
+                <p-calendar [style]="{'width':'100%'}" [timeOnly]="true"
+                  (onSelect)="handleDateSelect($event, 'timeToDate', i)" hourFormat="12"
+                  formControlName="timeToDate"></p-calendar>
+                <div class="error error-msg"
+                  *ngIf="slot.get('timeToDate').invalid && (submitted || slot.get('timeToDate').dirty || slot.get('timeToDate').touched)">
+                  <div *ngIf="slot.get('timeToDate').hasError('required')">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Please choose to time
+                  </div>
+                  <div class="error error-msg" *ngIf="slot.hasError('timeRange')">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    To time must be greater than from time
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group input-type3-wrapper">
+              <!-- <button class="btn btn-save btn-regular" (click)="submitWorkingScheduleForm()">Save</button> -->
+              <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/icons/close_small.svg" alt="close icon"
+                (click)="removeSlots(i)" class="close-icon">
+            </div>
+          </div>
+
+        </div>
+        <div class="add-new" (click)="addSlots()">
+          <div class="plus-wrapper">
+            <p class="plus">+</p>
+          </div>
+          <p class="normal theme-text add-new-text">ADD NEW</p>
+        </div>
+        <!-- submit form data -->
+        <div class="button-flex">
+          <button class="btn-save-new btn-small-new" (click)="submitWorkingScheduleForm()"
+            [disabled]="!scheduleForm.valid">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

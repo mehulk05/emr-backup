@@ -1,0 +1,220 @@
+<!-- ------------------------ leads by month graph ------------------------- -->
+<div class="lead-detail-report bg-light">
+
+    <!-- ------------------------- Appoitnment grapsh -------------------------- -->
+    <div class="leads-table-wrapper">
+
+        <div class="row mx-0">
+            <!-- ------------------- Consultation type doghnut graph -------------------- -->
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="leads-graph bg-white">
+                    <div class="leads-table-wrapper">
+                        <div class="lead-title dashboard-title panel-header">
+                            <div class="col-sm-12 btn-flex">
+                                <h4>
+                                    Consultation Type
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card chartItem" style="margin-top: 70px;">
+                            <div class="item">
+                                <canvas baseChart *ngIf="LeadbySourcePieChart"
+                                    [data]="LeadbySourcePieChart.pieChartData"
+                                    [labels]="LeadbySourcePieChart.pieChartLabels"
+                                    [chartType]="LeadbySourcePieChart.pieChartType"
+                                    [options]="LeadbySourcePieChart.pieChartOptions"
+                                    [plugins]="LeadbySourcePieChart.pieChartPlugins"
+                                    [legend]="LeadbySourcePieChart.pieChartLegend"
+                                    [colors]="LeadbySourcePieChart.pieChartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="card table-responsive" style="margin-top: 120px;">
+                                    <table class="table thead-light table-borderless table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th *ngFor="let label of LeadbySourcePieChart.pieChartLabels">{{label}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td *ngFor="let d of LeadbySourcePieChart.pieChartData; let j=index">
+                                                    {{d}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --------------------- Appointment per month graph --------------------- -->
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="leads-graph">
+                    <div class="leads-table-wrapper">
+                        <div class="lead-title dashboard-title panel-header">
+                            <div class="col-sm-12 btn-flex">
+                                <h4>
+                                    Appointments Per Month
+                                </h4>
+
+                                <button class="save-border-btn" (click)="changeGraph('appointmentPerMonth')">
+                                    Show {{lineChart.isLineGraph ?'Bar' : 'Line'}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card chartItem line-chart">
+                            <div class="item">
+                                <canvas baseChart [datasets]="lineChart.lineChartData"
+                                    [labels]="lineChart.lineChartLabels" [options]="lineChart.lineChartOptions"
+                                    [colors]="lineChart.lineChartColors" [legend]="lineChart.lineChartLegend"
+                                    [chartType]="lineChart.lineChartType"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card table-responsive">
+                                <table class="table thead-light table-borderless table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th *ngFor="let label of lineChart.lineChartLabels">{{label}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let d of lineChart.lineChartData">
+                                            <td *ngFor="let label of lineChart.lineChartLabels; let j=index;">
+                                                {{d && d?.data[j]}}</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- ---------------------------Service Wise Payment graphs --------------------------- -->
+    <div class="leads-table-wrapper">
+        <div class="row mx-0">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="leads-graph">
+                    <div class="leads-table-wrapper">
+                        <div class="lead-title dashboard-title panel-header">
+                            <div class="col-sm-12 btn-flex">
+                                <h4>
+                                    Payments
+                                </h4>
+
+                                <button class="save-border-btn" (click)="changeGraph('apt-payment')">
+                                    Show {{lineChartForServicePayment.isLineGraph ? 'Bar' : 'Line'}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card chartItem line-chart">
+                            <div class="item">
+                                <canvas baseChart [datasets]="lineChartForServicePayment.lineChartData"
+                                    [labels]="lineChartForServicePayment.lineChartLabels"
+                                    [options]="lineChartForServicePayment.lineChartOptions"
+                                    [colors]="lineChartForServicePayment.lineChartColors"
+                                    [legend]="lineChartForServicePayment.lineChartLegend"
+                                    [chartType]="lineChartForServicePayment.lineChartType">
+                                </canvas>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card table-responsive">
+                                <table class="table thead-light table-borderless table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Service</th>
+                                            <th *ngFor="let label of lineChartForServicePayment.lineChartLabels">
+                                                {{label}}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let d of lineChartForServicePayment.lineChartData">
+                                            <td>{{d.label}}</td>
+                                            <td
+                                                *ngFor="let label of lineChartForServicePayment.lineChartLabels; let j=index">
+                                                {{d && d.data[j]}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!----------------------Service Wise Appointment Status graphs-------------------------------->
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="leads-graph">
+                    <div class="leads-table-wrapper">
+                        <div class="lead-title dashboard-title panel-header">
+                            <div class="col-sm-12 btn-flex">
+                                <h4>
+                                    Appointments
+                                </h4>
+
+                                <button class="save-border-btn" (click)="changeGraph('apt-status')">
+                                    Show {{ChartForServiceWiseAppointmentStatus.isLineGraph ? 'Bar' : 'Line'}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card chartItem line-chart">
+                            <div class="item">
+                                <canvas baseChart [datasets]="ChartForServiceWiseAppointmentStatus.lineChartData"
+                                    [labels]="ChartForServiceWiseAppointmentStatus.lineChartLabels"
+                                    [options]="ChartForServiceWiseAppointmentStatus.lineChartOptions"
+                                    [colors]="ChartForServiceWiseAppointmentStatus.lineChartColors"
+                                    [legend]="ChartForServiceWiseAppointmentStatus.lineChartLegend"
+                                    [chartType]="ChartForServiceWiseAppointmentStatus.lineChartType"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card table-responsive">
+                                <table class="table thead-light table-borderless table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Service</th>
+                                            <th
+                                                *ngFor="let label of ChartForServiceWiseAppointmentStatus.lineChartLabels">
+                                                {{label}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let d of ChartForServiceWiseAppointmentStatus.lineChartData">
+                                            <td>{{d.label}}</td>
+                                            <td
+                                                *ngFor="let label of ChartForServiceWiseAppointmentStatus.lineChartLabels; let j=index">
+                                                {{d && d.data[j]}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

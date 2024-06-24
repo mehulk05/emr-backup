@@ -1,0 +1,157 @@
+<div class="blue-card bg-white box-shadow-light">
+  <div class="card">
+    <div class="add-edit-form">
+      <div class="form form-type2">
+        <form [formGroup]="landingPageForm">
+          <div class="row mx-0">
+            <div class="col-lg-12">
+              <div class="form-group" [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+                <label>Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="name" />
+                <div class="error error-msg">
+                  <div *ngIf="f.name.errors?.whitespace">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Name cannot be empty or whitespace only.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12" *ngIf="id">
+              <div class="form-group">
+                <label for="link"> Form Link</label>
+                <div class="">
+                  <a href="{{ssrDomain}}/service/{{replaceSpecialCharacter(landingPage?.name)}}" class="preview-link"
+                    target="_blank">Click to preview </a>
+                  <!-- <a style="cursor: pointer;" class="preview-link" title="Click to preview"
+                                        (click)="previewLink()">{{link}}</a> -->
+                  <a href="javascript:void(0)" (click)="copyLink(landingPage?.name)" class="ml-3 copy-icon align2">Copy
+                    Link</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <label for=""> Tags </label>
+              <div class="cutom-tag-wrapper form-group">
+                <app-custom-tags [items]=" [
+                            { id: 1, name: 'Item 1' },
+                            { id: 2, name: 'Item 2' },
+                            { id: 3, name: 'Item 3' },
+                            { id: 4, name: 'Item 4' },
+                          ]" [selectedValue]="[{ id: 1, name: 'Item 1' },]"></app-custom-tags>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Scripts in Header.
+                  <span>(*These scripts will be printed in the
+                    &lt;head&gt;
+                    section)</span>
+                </label>
+                <textarea rows="3" cols="80" class="form-control textarea"
+                  formControlName="googleAnalyticsGlobalCode"></textarea>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Scripts in Body.
+                  <span>(*These scripts will be printed in the
+                    &lt;body&gt;
+                    section)</span>
+                </label>
+                <textarea rows="3" cols="80" class="form-control textarea"
+                  formControlName="googleAnalyticsGlobalCodeUrl"></textarea>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Script in thank you page
+                  <span>(*These scripts will be printed on thank you
+                    page upon form
+                    submission)</span>
+                </label>
+                <textarea rows="3" cols="80" class="form-control textarea"
+                  formControlName="landingPageTrackCode"></textarea>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Iframe css</label>
+                <textarea rows="3" cols="80" class="form-control textarea" formControlName="iframeCSS"></textarea>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Custom css</label>
+                <textarea rows="3" cols="80" class="form-control textarea" formControlName="buttonCSS"></textarea>
+              </div>
+            </div>
+
+
+            <div class="col-sm-12">
+              <div class="popup">
+                <input type="checkbox" class="mr-3" formControlName="showPopupOnPageLoad" />
+                <label for="link"> Show popup on page Load </label>
+              </div>
+
+            </div>
+
+            <div class="col-sm-12">
+              <div class="popup">
+                <input type="checkbox" formControlName="isCustom" class="mr-3" />
+                <label for="link"> Is Custom </label>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="popup">
+                <input type="checkbox" formControlName="isWebsite" class="mr-3" />
+                <label for="link"> Is Website </label>
+              </div>
+            </div>
+            <!--------------------------------editors--------------------------------------->
+            <div class="old-editor" *ngIf=" editorValue === 'newEditor' ">
+              <p>If you want to try New Editor please click on <span style="color: #007bff; cursor: pointer;"
+                  (click)="changeEditor('newEditor')">Try
+                  New Editor</span>
+                <app-ai-button class="ml-0" [showModal]="showAiModal" [message]="templateVal" [category]="category"
+                  [totalCharacterLength]="totalCharacterLength" (modalClosed)="aiModelClose($event)"></app-ai-button>
+              </p><br>
+              <app-new-editor [landingTemplateValue]="templateVal" (getEditorValue)="onGetEditor($event)">
+              </app-new-editor>
+            </div>
+            <div class="old-editor" *ngIf=" editorValue === 'oldEditor' ">
+              <p>If you want to try Old Editor please click on <span style="color: #007bff; cursor: pointer;"
+                  (click)="changeEditor('oldEditor')">Try Old
+                  Editor</span>
+              </p><br>
+              <app-old-editor #oldEditor [landingTemplateValue]="templateVal">
+              </app-old-editor>
+              <!-- <app-html-editor #htmlEditor [projectData]="editorProjectData" [htmlTemplateValue]="templateVal"
+                [showSaveCancelButton]="false"></app-html-editor> -->
+              <!----------------------------------editors--------------------------------------------->
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!----------------------------Button--------------------------------->
+      <div class="footer">
+        <button class="save-color-btn" type="button" (click)="onFormSubmit()">
+          Save
+        </button>
+
+        <button class="save-border-btn" type="button" (click)="back()">
+          Cancel
+        </button>
+      </div>
+      <!----------------------------Button--------------------------------->
+    </div>
+  </div>
+</div>

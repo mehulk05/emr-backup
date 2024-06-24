@@ -1,0 +1,466 @@
+<div class="blue-card new-ui">
+  <div class="panel-blue">
+
+
+
+
+
+    <div class="add-edit-form" style="padding: 24px 12px 24px 12px !important;">
+
+      <div class="form form-type2">
+        <div class="row mx-0">
+
+
+          <div [ngClass]="lead||patient ? 'col-lg-8 col-md-12 col-sm-12' :'col-12'">
+            <form [formGroup]="taskForm">
+
+              <div class="card-content">
+                <div class="panel-blue">
+                  <div class="panel-header">
+
+
+                    <h3>Task Details</h3>
+
+
+                  </div>
+                  <div class="panel-body">
+
+                    <div class="form-group" class="col-12">
+                      <div [ngClass]="
+                    f.name.invalid && (f.name.dirty || f.name.touched)
+                      ? 'has-error'
+                      : ''
+                  ">
+                        <label>Task Name<span class="error-red">*</span></label>
+                        <input type="text" class="form-control input-type2" formControlName="name"
+                          appErrorStylingDirective />
+
+                        <div class="error error-msg">
+                          <div *ngIf="f.name.touched && f.name.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="form-group" class="col-12">
+                      <label class="mt-2" for=""> Description</label>
+                      <textarea rows="3" cols="100" formControlName="description" class="form-control"></textarea>
+                    </div>
+
+
+
+                    <div class="col-12 d-flex flex-row justify-content-between">
+
+                      <div class="form-group flex-1">
+                        <label>Priotity<span class="error-red">*</span></label>
+                        <p-dropdown placeholder="Select priority" [options]="taskPriority" formControlName="priority"
+                          optionLabel="name" optionValue="code">
+                        </p-dropdown>
+
+                        <ng-template let-item pTemplate="taskStatus">
+                          {{ item }}
+                        </ng-template>
+                      </div>
+
+                      <div class="form-group flex-1 mx-2">
+                        <label>Status<span class="error-red">*</span></label>
+                        <p-dropdown placeholder="Select status" [options]="taskStatus"
+                          formControlName="workflowTaskStatus" optionLabel="name" optionValue="code">
+                        </p-dropdown>
+
+                        <ng-template let-item pTemplate="taskStatus">
+                          {{ item }}
+                        </ng-template>
+                      </div>
+
+                      <div class="form-group flex-1">
+                        <label>Deadline</label>
+                        <p-calendar appendTo="body" [showIcon]="true"  inputId="navigators" formControlName="deadline"
+                          [minDate]="today"></p-calendar>
+                      </div>
+
+                    </div>
+
+
+
+
+                    <div class="col-12 d-flex flex-row justify-content-between">
+
+
+
+
+
+                      <div class="form-group flex-1">
+                        <label class="mt-2">Connect Task to</label>
+                        <p-dropdown placeholder="Connect Task to" (onChange)="onQstnTypeChange($event)"
+                          [showClear]="true" [options]="entity" formControlName="leadOrPatient">
+                        </p-dropdown>
+                      </div>
+
+                      <ng-container *ngIf="['Lead','Patient'].includes(f.leadOrPatient.value)">
+                        <span style="width: 10px;"></span>
+
+                        <div class="form-group flex-1" *ngIf="isLead">
+                          <label class="mt-2">Select Lead</label>
+                          <p-dropdown placeholder="Select Lead" optionLabel="fullName" [showClear]="true"
+                            [options]="leads" [filter]="true" filterBy="fullName" optionValue="id"
+                            formControlName="questionnaireSubmissionId">
+                          </p-dropdown>
+                        </div>
+
+                        <div class="form-group flex-1" *ngIf="isPatient">
+                          <label class="mt-2">Select Patient</label>
+                          <p-dropdown placeholder="Select Patient" optionLabel="name" [showClear]="true"
+                            [options]="patients" [filter]="true" filterBy="name" optionValue="id"
+                            formControlName="workflowTaskPatient">
+                          </p-dropdown>
+                        </div>
+                      </ng-container>
+
+
+                    </div>
+
+
+
+                    <div class="col-12">
+
+
+
+                      <div class="form-group flex-1" [ngClass]="
+                      f.workflowTaskUser.invalid &&
+                      (f.workflowTaskUser.dirty || f.workflowTaskUser.touched)
+                        ? 'has-error'
+                        : ''
+                    ">
+                        <label class="mt-2">Assign Task to<span class="error-red">*</span></label>
+                        <p-dropdown placeholder="Select user" optionLabel="firstName" [options]="users" optionValue="id"
+                          formControlName="workflowTaskUser">
+                        </p-dropdown>
+
+                        <div class="error error-msg">
+                          <div *ngIf="f.workflowTaskUser.touched && f.workflowTaskUser.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Please select user
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+
+                      <div class="col-lg-8 col-md-12 col-sm-12 mt-1">
+                        <div class="form-group">
+                          <div class="button-flex">
+                            <button [disabled]="!taskForm.valid" (click)="submitForm()"
+                              class="btn-save-new btn-small-new ng-star-inserted">
+                              <span class="btn-text">Save</span>
+                            </button>
+
+                            <button type="button" (click)="back()" class="btn-default-new btn-small-new">
+                              <span class="btn-text"> Cancel</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+
+
+
+
+
+
+
+          <div class="col-lg-4 col-md-12 col-sm-12" *ngIf="lead||patient">
+            <form [formGroup]="leadForm">
+
+
+              <div class="card-content">
+                <div class="panel-blue">
+
+                  <div class="panel-header d-flex justify-content-between align-items-center flex-row">
+                    <h3>{{lead?'Lead':'Patient'}} Info</h3>
+                    <button style="margin: 0 5px 0 0;" type="button" (click)="goToDetail()"
+                      class="btn-save-new btn-small-new ng-star-inserted">
+                      <span class="btn-text">{{lead?'Lead':'Patient'}} Detail</span>
+                    </button>
+                  </div>
+                  <div class="panel-body" style="height: 620px; padding-left: 10px;">
+                    <div class="row mx-0">
+
+                      <div class="col-12">
+                        <label class="head">First Name</label>
+                        <div *ngIf="isLead" class="sub">{{lead?.firstName ? lead?.firstName : '-'}}
+                        </div>
+                        <div *ngIf="!isLead" class="sub">{{patient?.firstName ? patient?.firstName: '-'}}</div>
+                      </div>
+
+                      <div class="col-12">
+                        <label class="head">Last Name</label>
+                        <div *ngIf="isLead" class="sub">{{lead?.lastName ? lead?.lastName : '-'}}
+                        </div>
+                        <div *ngIf="!isLead" class="sub">{{patient?.lastName ? patient?.lastName: '-'}}</div>
+                      </div>
+
+                      <!-- <div class="col-12">
+                        <label class="head">Gender</label>
+                        <div *ngIf="isLead" class="sub">{{lead?.gender ? lead.gender : '-'}}</div>
+                        <div *ngIf="!isLead" class="sub">{{patient?.gender?patient.gender:'-'}}</div>
+                      </div> -->
+
+
+                      <div class="col-12">
+                        <label class="head">Phone Number</label>
+                        <div *ngIf="isLead" class="sub">{{lead?.phoneNumber?lead?.phoneNumber:'-'}}</div>
+                        <div *ngIf="!isLead" class="sub">{{patient?.phoneNumber?patient?.phoneNumber:'-'}}</div>
+                      </div>
+
+
+                      <div class="col-12">
+                        <label class="head">Email</label>
+                        <div *ngIf="isLead" class="sub">{{lead?.email?lead?.email:'-'}}</div>
+                        <div *ngIf="!isLead" class="sub">{{patient?.email?patient?.email:'-'}}</div>
+                      </div>
+
+                      <!--- <div class="col-12">
+                        <label>Message</label>
+                        <div class="sub">{{leadControls.firstName.value}}</div>
+                      </div>
+
+                     <div class="col-12">
+                        <label>Symptoms</label>
+                        <div class="sub">{{leadControls.firstName.value}}</div>
+                      </div>
+
+                      <div class="col-12">
+                        <label>Source</label>
+                        <div class="sub">{{leadControls.firstName.value}}</div>
+                      </div> -->
+
+
+
+                      <!-- <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group" [ngClass]="
+                            leadControls.firstName.invalid &&
+                            (leadControls.firstName.dirty || leadControls.firstName?.touched)
+                              ? 'has-error'
+                              : ''
+                          ">
+                          <label>First Name<span class="error-red">*</span></label>
+                          <input type="text" class="form-control input-type2" formControlName="firstName"
+                            appErrorStylingDirective />
+
+                          <div class="error error-msg">
+                            <div *ngIf="leadControls.firstName.errors?.required">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>First Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group" [ngClass]="
+                            leadControls.lastName.invalid &&
+                            (leadControls.lastName.dirty || leadControls.lastName.touched)
+                              ? 'has-error'
+                              : ''
+                          ">
+                          <label>Last Name<span class="error-red">*</span></label>
+                          <input type="text" class="form-control input-type2" formControlName="lastName"
+                            appErrorStylingDirective />
+
+                          <div class="error error-msg">
+                            <div *ngIf="leadControls.lastName.errors?.required">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Last Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group" [ngClass]="
+                            leadControls.phoneNumber.invalid &&
+                            (leadControls.phoneNumber.dirty ||
+                              leadControls.phoneNumber.touched)
+                              ? 'has-error'
+                              : ''
+                          ">
+                          <label>Phone Number<span class="error-red">*</span></label>
+                          <input type="text" class="form-control input-type2" formControlName="phoneNumber"
+                            appErrorStylingDirective />
+
+                          <div class="error error-msg">
+                            <div *ngIf="leadControls.phoneNumber.errors?.required">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Phone Number is required
+                            </div>
+                            <div *ngIf="leadControls.phoneNumber.errors?.pattern">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true">
+                              </i> Phone Number is invalid.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group" [ngClass]="
+                            leadControls.email.invalid &&
+                            (leadControls.email.dirty || leadControls.email.touched)
+                              ? 'has-error'
+                              : ''
+                          ">
+                          <label>Email<span class="error-red">*</span></label>
+                          <input type="text" class="form-control input-type2" formControlName="email"
+                            appErrorStylingDirective />
+
+                          <div class="error error-msg">
+                            <div *ngIf="leadControls.email.errors?.required">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Email is required
+                            </div>
+                            <div *ngIf="leadControls.email.errors?.pattern">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Email is invalid
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+                      <div *ngIf="!taskId" class="col-lg-8 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <div class="button-flex">
+                            <button [disabled]="!leadForm.valid" (click)="submitForm()"
+                              class="btn-save-new btn-small-new ng-star-inserted">
+                              <span class="btn-text">Save</span>
+                            </button>
+
+                            <button type="button" (click)="back()" class="btn-default-new btn-small-new">
+                              <span class="btn-text"> Cancel</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div> -->
+
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+
+
+
+
+          </div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- 
+
+<div class="blue-card" *ngIf="patient">
+  <div class="panel-blue bg-white">
+    <form [formGroup]="patientForm">
+      <div class="add-edit-form">
+        <div class="title">
+          <h3>Patient Information</h3>
+          <button style="margin-bottom: 5px;" type="button" (click)="goToPatientDetail()"
+            class="btn btn-save btn-regular">
+            <span class="btn-text"> Go to Patient Detail</span>
+          </button>
+        </div>
+        <div class="form form-type2">
+          <div class="row mx-0">
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label>First Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="firstName"
+                  appErrorStylingDirective />
+              </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label>Last Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="lastName"
+                  appErrorStylingDirective />
+              </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label>Phone Number<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="phoneNumber"
+                  appErrorStylingDirective />
+              </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label>Email<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="email" appErrorStylingDirective />
+
+
+              </div>
+            </div>
+
+
+
+            <div *ngIf="!taskId" class="col-lg-8 col-md-12 col-sm-12">
+              <div class="form-group">
+                <div class="button-flex">
+                  <button [disabled]="!leadForm.valid" (click)="submitForm()" class="btn btn-save btn-regular">
+                    <span class="btn-text">Save</span>
+                  </button>
+
+                  <button type="button" (click)="back()" class="btn btn-cancel btn-regular">
+                    <span class="btn-text"> Cancel</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->

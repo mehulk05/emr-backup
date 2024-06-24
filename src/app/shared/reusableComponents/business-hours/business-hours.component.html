@@ -1,0 +1,35 @@
+<div class="row business-hours">
+  <div class="col-md-4 checkbox-wrapper">
+    <input
+      type="checkbox"
+      [(ngModel)]="businessHour.checked"
+      [checked]="businessHour.checked"
+      (input)="check($event)"
+      (change)="onChange()"
+      id="hour-{{ businessHour.index }}"
+    />
+    <label for="hour-{{ businessHour.index }}">
+      {{ businessHour.day | titlecase }}</label
+    >
+    <br />
+  </div>
+  <div class="col-md-4">
+    <p-calendar
+      [(ngModel)]="businessHour.openHour"
+      (onClose)="onChange()"
+      [hideOnDateTimeSelect]="true"
+      [timeOnly]="true"
+      [hourFormat]="'12'"
+      inputId="opentimeonly"
+    ></p-calendar>
+  </div>
+  <div class="col-md-4">
+    <p-calendar
+      [(ngModel)]="businessHour.closeHour"
+      (onClose)="onChange()"
+      [timeOnly]="true"
+      [hourFormat]="'12'"
+      inputId="closetimeonly"
+    ></p-calendar>
+  </div>
+</div>

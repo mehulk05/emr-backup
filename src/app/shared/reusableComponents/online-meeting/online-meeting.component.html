@@ -1,0 +1,61 @@
+<div class="appointment-view" *ngIf="appointment !== null && !showMeeting">
+  <div class="panel-blue">
+    <div class="panel-header">
+      <h3>Online Meeting</h3>
+    </div>
+
+    <div class="panel-body">
+      <div class="panel-card-content">
+        <!-- --------------------------------- ID ---------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            Dr. Name
+          </label>
+
+          <p>
+            {{appointment?.providerName}}
+          </p>
+        </div>
+
+        <!-- ------------------------------- Doctor -------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            Patient
+          </label>
+
+          <p>
+            {{appointment?.patientFirstName + ' ' + appointment?.patientLastName}}
+          </p>
+        </div>
+
+        <!-- ------------------------------- Clinic -------------------------------- -->
+        <div class="item-wrapper">
+          <label>
+            Time
+          </label>
+
+          <p>
+            {{formatBookingHistoryTime(appointment?.appointmentStartDate)}}
+          </p>
+        </div>
+
+
+        <div class="item-wrapper">
+          <div *ngIf="!showMeeting && !meetingEnded" class="mt-4">
+            <button type="button" class="btn-save-new btn-small-new" (click)="joinMeeting()">Start</button>
+          </div>
+
+          <div *ngIf="meetingEnded" class="mt-4">
+            <p>Meeting is ended.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="showMeeting" class="mt-4">
+  <app-aws-chime-online-meeting [config]="config" (onLeaveMeeting)="onLeaveMeeting()"
+    (onEndMeeting)="onEndMeeting()"></app-aws-chime-online-meeting>
+</div>

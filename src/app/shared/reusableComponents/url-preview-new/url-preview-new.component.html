@@ -1,0 +1,17 @@
+<div class="panel-blue">
+  <div class="panel-header">
+    <h3>{{ title }}</h3>
+
+    <span class="icon">
+      <i class="fa fa-copy" (click)="copyLink()"></i>
+    </span>
+    <span class="icon">
+      <i class="fa fa-globe" (click)="openPreview()"></i>
+    </span>
+  </div>
+
+  <div class="panel-body">
+    <!-- Content of the panel -->
+    <ng-content></ng-content>
+  </div>
+</div>

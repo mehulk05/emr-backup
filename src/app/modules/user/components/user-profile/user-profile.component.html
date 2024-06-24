@@ -1,0 +1,381 @@
+<div class="blue-card new-ui tab-view">
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+    <div class="row mx-0">
+
+      <!-- -------------------------- left card section -------------------------- -->
+      <div class="col-lg-8 col-md-12 col-sm-12 px-0 left-card order-1 order-lg-0">
+        <!-- -------------------------- profile page form -------------------------- -->
+        <div class="add-edit-form pl-16">
+
+          <div class="form form-type2">
+
+            <div class="row mx-0">
+              <!-- -------------------------- First Name feild --------------------------- -->
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group"
+                  [ngClass]="f.firstName.invalid && ((f.firstName.dirty || f.firstName.touched))?'has-error':''">
+                  <label>First Name<span class="error-red">*</span></label>
+                  <input type="text" class="form-control input-type2" formControlName="firstName"
+                    appErrorStylingDirective>
+                  <div class="error error-msg">
+                    <div *ngIf="f.firstName.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is required.
+                    </div>
+                    <div *ngIf="f.firstName.errors?.pattern">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is invalid.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- --------------------------- Last Name feild --------------------------- -->
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group"
+                  [ngClass]="f.lastName.invalid && ((f.lastName.dirty || f.lastName.touched))?'has-error':''">
+                  <label>Last Name<span class="error-red">*</span></label>
+                  <input type="text" class="form-control input-type2" formControlName="lastName"
+                    appErrorStylingDirective>
+                  <div class="error error-msg">
+                    <div *ngIf="f.lastName.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is required.
+                    </div>
+                    <div *ngIf="f.lastName.errors?.pattern">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is invalid.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ----------------------------- Email Feild ----------------------------- -->
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group"
+                  [ngClass]="f.email.invalid && ((f.email.dirty || f.email.touched))?'has-error':''">
+                  <label>Email Address<span class="error-red">*</span></label>
+                  <div *ngIf="editUser">
+                    <input type="text" class="form-control input-type2" formControlName="email"
+                      appErrorStylingDirective>
+                  </div>
+                  <div *ngIf="!editUser">
+                    <input type="text" class="form-control input-type2" formControlName="email" readonly
+                      appErrorStylingDirective>
+                  </div>
+                  <div class="error error-msg">
+                    <div *ngIf="f.email.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is required.
+                    </div>
+                    <div *ngIf="f.email.errors?.pattern">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is invalid.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ------------------------- Phone number field -------------------------- -->
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group pb-2"
+                  [ngClass]="f.phone.invalid && ((f.phone.dirty || f.phone.touched))?'has-error':''">
+                  <label>Phone Number<span class="error-red">*</span></label>
+                  <input type="text" pattern="\d{9,10}" class="form-control input-type2" formControlName="phone" appErrorStylingDirective
+                  maxlength="14" minlength="9" appPhoneNumberFormat [phoneNumberControl]="$any(userForm.get('phone'))">
+                  <div class="error error-msg">
+                    <div *ngIf="f.phone.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is required.
+                    </div>
+                    <div *ngIf="f.phone.errors?.pattern">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is invalid.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group pt-0 pb-2">
+                  <div class="inline-checkbox">
+                    <app-custom-checkbox1 label="I consent to receive alerts via text message" for="isSmsOptedIn"
+                      [control]="$any(userForm.get('isSmsOptedIn'))"></app-custom-checkbox1>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- ---------------------------- Role field ----------------------------- -->
+
+
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group"
+                  [ngClass]="f.roleId.invalid && ((f.roleId.dirty || f.roleId.touched))?'has-error':''">
+                  <label>Role<span class="error-red">*</span></label>
+                  <p-dropdown [options]="roles" formControlName="roleId" [filter]="true" filterBy="name"
+                    placeholder="Select Role" optionLabel="name" optionValue="id">
+                    <ng-template let-item pTemplate="clinics">
+                      {{item.name}}
+                    </ng-template>
+                  </p-dropdown>
+                  <div class="error error-msg">
+                    <div *ngIf="f.roleId.touched && f.roleId.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Role is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- --------------------------- Designation feild --------------------------- -->
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group"
+                  [ngClass]="f.designation.invalid && ((f.designation.dirty || f.designation.touched))?'has-error':''">
+                  <label>Designation</label>
+                  <input type="text" class="form-control input-type2" formControlName="designation"
+                    appErrorStylingDirective>
+                </div>
+              </div>
+
+              <!-- ----------------------- User Description field ------------------------ -->
+              <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="!isProvider || isMobileDevice">
+                <div class="form-group"
+                  [ngClass]="f.description.invalid && ((f.description.dirty || f.description.touched))?'has-error':''">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <label style="margin-left: -10px;">Description</label>
+                    </div>
+                    <div class="col-lg-9 pr-0">
+                      <app-ai-button [showModal]="showAiModal" [message]="userForm.value.description"
+                        [totalCharacterLength]="totalCharacterLength" [category]="category"
+                        (modalClosed)="aiModelClose($event)"></app-ai-button>
+                    </div>
+                  </div>
+                  <textarea rows="5" cols="80" class="form-control textarea" formControlName="description"
+                    appErrorStylingDirective></textarea>
+
+                  <span style="color: #b8902d">Character Remaining:
+                    {{
+                    totalCharacterLength - (userForm.controls['description'].value?.length || 0)
+                    }}/{{totalCharacterLength}}</span>
+
+                  <div class="error error-msg">
+                    <div *ngIf="f.description.errors?.maxlength">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                      Description should not exceed {{totalCharacterLength}} characters
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- -------------------------- user is provider --------------------------- -->
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <div class="flex-sb show-as-radio ">
+                    <label>User is a Provider?</label>
+                    <p-inputSwitch formControlName="isProvider" (onChange)="toggleProvider($event)"></p-inputSwitch>
+                  </div>
+                </div>
+              </div>
+
+              <div [ngClass]="isProvider? 'show row px-0' : 'hidden'">
+
+                <!-- -------------------------- Clinic Selection --------------------------- -->
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group"
+                    [ngClass]="f.clinicIds.invalid && ((f.clinicIds.dirty || f.clinicIds.touched))?'has-error':''">
+                    <label>Clinics<span class="error-red">*</span></label>
+                    <p-multiSelect [resetFilterOnHide]="true" [options]="clinicList" (onChange)="OnClinicSelect($event)"
+                      formControlName="clinicIds" optionLabel="name" optionValue="id" display="chip">
+                    </p-multiSelect>
+
+                    <div class="error error-msg">
+                      <div *ngIf="f.clinicIds.errors?.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinics are required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- --------------------- Service Category Selection ---------------------- -->
+
+                <div class="col-lg-6 col-md-12 col-sm-12 pl-lg-0">
+                  <div class="form-group"
+                    [ngClass]="f.serviceCategoryIds.invalid && ((f.serviceCategoryIds.dirty || f.serviceCategoryIds.touched))?'has-error':''">
+                    <label>Service Category<span class="error-red">*</span></label>
+                    <p-multiSelect [resetFilterOnHide]="true" (onChange)="OnServiceCategroySelect($event)"
+                      [options]="serviceCategory" formControlName="serviceCategoryIds" optionLabel="name"
+                      optionValue="id" display="chip">
+                    </p-multiSelect>
+
+                    <div class="error error-msg">
+                      <div *ngIf="f.serviceCategoryIds.errors?.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Categories are required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- ------------------------- Service Feild Start ------------------------- -->
+                <div class="col-lg-6 col-md-12 col-sm-12 pr-lg-0">
+                  <div class="form-group"
+                    [ngClass]="f['serviceIds'].invalid && ((f['serviceIds'].dirty || f['serviceIds'].touched))?'has-error':''">
+                    <label>Services<span class="error-red">*</span></label>
+                    <p-multiSelect [resetFilterOnHide]="true" [options]="servicesList" formControlName="serviceIds"
+                      optionLabel="name" optionValue="id" display="chip" (onChange)="onServiceSelect($event.value)">
+                    </p-multiSelect>
+
+                    <div class="error error-msg">
+                      <div *ngIf="f.serviceIds.errors?.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Services are required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <!-- ----------------------------- button div ------------------------------ -->
+
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <div class="button-flex">
+                    <button *ngIf="showSaveButton" class="btn-save-new btn-small-new" [disabled]="!userForm.valid">
+                      Save
+                    </button>
+                    <button type="button" class="btn-default-new btn-small-new" (click)="onCancelSubmit()">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- ------------------------- Row ends below div -------------------------- -->
+            </div>
+
+            <!-- ------------------------- FOrm ends below div ------------------------- -->
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ------------------------- right card  section ------------------------- -->
+      <div class="col-lg-4 col-md-12 col-sm-12 px-0 right-card bg-light-blue order-0 order-lg-1">
+        <div class="right-card-wrapper">
+          <div class="title" *ngIf="isMobileDevice">
+            <h3>User Profile</h3>
+          </div>
+          <div class="card-content">
+            <div class="image-circle bg-light-blue">
+              <div class="img bg-light-blue">
+                <img [src]="profileImageUrl || 'https://g99plus.b-cdn.net/AEMR/assets/img/profileDefault.png'">
+              </div>
+              <div class="icon-btn">
+                <div class="action-btn">
+                  <input type="file" #myFileInput class="form-control d-none" id="file-input"
+                    (change)="fileChangeEvent($event)" accept="image/*" />
+                  <label for="file-input">
+                    <span>
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </label>
+                </div>
+                <div class="action-btn" *ngIf="profileImageUrl" (click)="deleteProfile()">
+                  <i class="fa fa-trash"></i>
+                </div>
+              </div>
+            </div>
+            <div class="panel-blue">
+              <div class="panel-header bg-light-blue">
+
+              </div>
+            </div>
+            <div class="panel-body">
+              <!-- <div class="reset-password" *ngIf="!currentSupportUser && userId && isSupportUser"> -->
+              <div class="reset-password" *ngIf="showResetPassword">
+                <app-support-user-reset-password [userEmail]="username"></app-support-user-reset-password>
+              </div>
+              <div class="description-field row mx-0">
+                <!-- ----------------------- User Description field ------------------------ -->
+                <div class="col-lg-12 col-md-12 col-sm-12" *ngIf=" !isMobileDevice && isProvider">
+                  <div class="form-group"
+                    [ngClass]="f.description.invalid && ((f.description.dirty || f.description.touched))?'has-error':''">
+                    <div class="row">
+                      <div class="col-lg-3">
+                        <label style="margin-left: -10px;">Description</label>
+                      </div>
+                      <div class="col-lg-9 pr-0">
+                        <app-ai-button [showModal]="showAiModal" [message]="userForm.value.description"
+                          [totalCharacterLength]="totalCharacterLength" [category]="category"
+                          (modalClosed)="aiModelClose($event)"></app-ai-button>
+                      </div>
+                    </div>
+                    <textarea rows="3" cols="80" class="form-control textarea" formControlName="description"
+                      appErrorStylingDirective></textarea>
+
+                    <span style="color: #b8902d">Character Remaining:
+                      {{
+                      totalCharacterLength - (userForm.controls['description'].value?.length || 0)
+                      }}/{{totalCharacterLength}}</span>
+
+
+                    <div class="error error-msg">
+                      <div *ngIf="f.description.errors?.maxlength">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        Description should not exceed {{totalCharacterLength}} characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="quick-links">
+                <!-- <app-quick-links [businessId]="businessId" [isProvider]="isProvider" [userId]="userId"></app-quick-links> -->
+                <app-quick-links [quickLinkData]="quickLinkData" [businessId]="businessId" [isProvider]="isProvider" [userId]="userId">
+                </app-quick-links>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Image upload modal                            -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    header="Edit Profile Image" [(visible)]="showModalForImage" (onHide)="cancelImageUpload()">
+
+    <!-- ---------------------------- image cropper ---------------------------- -->
+    <div class="modal-body">
+      <div class="image-cropper-wrapper row mx-0">
+        <div class="col-lg-6 col-md-6">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [resizeToWidth]="128"
+            [aspectRatio]="1/1" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <img [src]="croppedImage" class="img-responsive" />
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ------------------------- Image cropper ends -------------------------- -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveImage()">
+          <i [ngClass]="isImageUploading? 'pi-spin pi-spinner' : 'pi-check'" class="pi"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancelImageUpload()">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+
+
+<ng-container *ngIf="showModalForTemplate">
+  <div class="dialog-new-v1 dialog-with-close-icon">
+    <app-popup-landing-pages [showModalForImage]="showModalForTemplate"
+      (afterImageSelection)="afterImageSelection($event)"></app-popup-landing-pages>
+  </div>
+
+</ng-container>

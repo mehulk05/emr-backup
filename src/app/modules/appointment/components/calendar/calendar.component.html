@@ -1,0 +1,71 @@
+<!-- <div class="title pt-3 ml-1">
+    <h5>Calendar</h5>
+  </div> -->
+<div class="bg-white datatable-table" style="padding-left: 8px;">
+  <div class="add-edit-form no-margin-form-group p-0">
+    <div class="form form-type2">
+      <form [formGroup]="filterForm">
+        <div class="row mx-0">
+          <!-- -------------------------- Clinic feild --------------------------- -->
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="form-element">
+                <label>
+                  Clinic
+                </label>
+
+                <p-dropdown [options]="clinicsForFilter" formControlName="clinicIdForFilter" [filter]="true"
+                  filterBy="name" (onChange)="onClinicSelect($event)" placeholder="Select Clinic" optionLabel="name"
+                  optionValue="id">
+                </p-dropdown>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- -------------------------- Service feild --------------------------- -->
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="form-element">
+                <label>
+                  Services
+                </label>
+
+                <p-dropdown [options]="servicesForFilter" formControlName="serviceIdForFilter" [filter]="true"
+                  filterBy="name" (onChange)="onServiceSelect($event)" placeholder="Select Service" optionLabel="name"
+                  optionValue="id">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Provider feild --------------------------- -->
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="form-element">
+                <label>
+                  Providers
+                </label>
+
+                <p-dropdown [options]="providersForFilter" (onChange)="onProviderSelect($event)"
+                  formControlName="providerIdForFilter" [filter]="true" filterBy="fullName"
+                  placeholder="Select Provider" optionLabel="fullName" optionValue="id">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="calendar-view">
+    <ng-container></ng-container>
+    <app-calendar-view [userId]="userId" [currentUserResponse]="currentUserResponse" [appointments]="appointments"
+      [businessId]="businessId" [selectedDropDownsObj]="filterForm.value"
+      [currentSelectedProvider]="currentSelectedProvider" [providersFromParent]="providersForFilter"
+      (afterAppointmentCreated)="onAppointmentCreated($event)" (afterProviderSelection)="OnProviderSelection($event)"
+      (afterVacationCreated)="afterVacationCreated()" [providerColorObj]="providerColorObj" [clinics]="clinicsForFilter"
+      [timezone]="timezone" (loadAppointmentsCallback)="loadAppointmentsCallback($event)"></app-calendar-view>
+  </div>
+</div>

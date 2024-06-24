@@ -1,0 +1,50 @@
+<div>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                              Non Edit Mode                              -->
+<!-- ----------------------------------------------------------------------- -->
+  <ng-container *ngIf="!isEditMode">
+    <span class="field-value">
+      {{value}}
+
+      <span class="edit-icon" (click)="showInlineEdit(field , value)">
+        <i class="fa fa-edit"></i>
+      </span>
+    </span>
+
+  </ng-container>
+
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                            Inline Edit Mode                             -->
+  <!-- ----------------------------------------------------------------------- -->
+  <ng-container *ngIf="isEditMode">
+
+    <!-- ----------------------- For normal input field ------------------------ -->
+    <ng-container *ngIf="inputType!=='dropdown'">
+      <span class="field-value">
+        <input [type]="inputType" class="form-control" [ngClass]="hasError? 'error-class': ''" (input)="onInput($event)" [(ngModel)]="inlineEditObj.value" [value]="value">
+        <span class="edit-icon" (click)="saveValue()">
+          <i class="fa fa-save"></i>
+        </span>
+      </span>
+
+      <span class="error">
+
+      </span>
+    </ng-container>
+
+
+    <!-- ---------------- for advance input field like dropdown ---------------- -->
+    <ng-container *ngIf="inputType==='dropdown'">
+      <span class="field-value">
+        <select [(ngModel)]="inlineEditObj.value">
+          <option *ngFor="let c of options" [ngValue]="c">{{c}}</option>
+        </select>
+        <span class="edit-icon" (click)="saveValue()">
+          <i class="fa fa-save"></i>
+        </span>
+      </span>
+    </ng-container>
+  </ng-container>
+</div>

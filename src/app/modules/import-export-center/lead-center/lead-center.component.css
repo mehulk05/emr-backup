@@ -1,0 +1,29 @@
+
+ .left-container {
+   width: min(450px, 100%);
+   margin: 0 auto;
+ }
+
+ .link {
+  font-style: unset;
+ }
+
+ .datatable-container {
+  overflow-y: auto;
+ }
+
+ .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ }
+
+ .panel-header .faq-link {
+  padding: 1em;
+ }
+ ::ng-deep .pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}

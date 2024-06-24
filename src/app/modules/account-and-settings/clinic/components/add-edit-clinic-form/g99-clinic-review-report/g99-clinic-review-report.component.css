@@ -1,0 +1,18 @@
+.month-year-selector{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+i:hover{
+  color: blue;
+  cursor: pointer;
+}
+
+.generate-report-link:hover{
+  cursor: pointer;
+}
+
+.add-edit-form{
+  padding-top: 0 ;
+}

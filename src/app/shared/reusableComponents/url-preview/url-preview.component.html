@@ -1,0 +1,14 @@
+
+<div class="preview-card">
+  <div class="border-box">
+    <div class="iframeurl">{{iframeUrl}}</div>
+  </div>
+
+  <div class="button-flex" *ngIf="!hideButton">
+    <a href="javascript:void(0)" class="copy-url border-btn" (click)="copyLink()">
+      <i class="fa fa-copy"></i> Copy Link</a>
+    <a  href={{previewUrl}} target="_blank" class="preview-url border-btn">
+      <i class="fa fa-globe"></i> Preview</a>
+  </div>
+</div>
+

@@ -1,0 +1,51 @@
+<div class="tab-container">
+
+  <div class="row mt-2" style="display:flex;">
+    <div class="col-xl-4 col-lg-12 col-md-12">
+      <app-patient-detail-left-tab (loadAppointmentList)="loadAppointmentList($event)"
+        (patientDetailsUpdated)="patientDetailsUpdated($event)"></app-patient-detail-left-tab>
+      <!-- <app-patient-dyanamic-table></app-patient-dyanamic-table> -->
+    </div>
+    <div class="col-xl-4 col-lg-12 col-md-12 p-0 m-0">
+      <div class="middle-tab-wrapper">
+        <app-patient-detail-middle-tab (loadTaskList)="loadTaskList($event)"></app-patient-detail-middle-tab>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-12  col-md-12">
+      <app-patient-detail-right-tab [currentIndex]="currentIndex"></app-patient-detail-right-tab>
+    </div>
+  </div>
+
+  <!-- ------------------ Next and prev btn for lead detail ------------------ -->
+  <div *ngIf="source !== 'single-page'">
+    <div class="prev-next-btn">
+      <div *ngIf="patientIds && patientIds.length > 0">
+        <button type="button" class="transparent-btn mr-2" [disabled]="currentIndex === 0"
+          (click)="goToPatients('last')">
+          Prev
+        </button>
+
+        <button type="button" class="transparent-btn" [disabled]="currentIndex === patientIds.length - 1"
+          (click)="goToPatients('next')">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="source === 'single-page'">
+    <div class="prev-next-btn-singlepage">
+      <div *ngIf="patientIds && patientIds.length > 0">
+        <button type="button" class="transparent-btn mr-2" [disabled]="currentIndex === 0"
+          (click)="goToPatients('last')">
+          Prev
+        </button>
+
+        <button type="button" class="transparent-btn" [disabled]="currentIndex === patientIds.length - 1"
+          (click)="goToPatients('next')">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

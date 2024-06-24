@@ -1,0 +1,83 @@
+<ng-container *ngIf="true">
+
+    <div class="row mx-0" *ngIf="groupMenuList.length > 0 || menuList.length > 0">
+        <div class="col-lg-6 col-md-6 col-sm-12 panel-card">
+            <!-- ----------------------------- Headermenu ------------------------------ -->
+            <div class="menu-container">
+                <div *ngFor="let defaultMenu of headerMenuList" class="panel-card-content">
+                    <app-menu-item [menu]="defaultMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+
+
+                    <!-- Header group menu -->
+                    <div *ngFor="let groupMenu of defaultMenu.groupItems" class="panel-card-content">
+                        <app-menu-item [menu]="groupMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+
+                        <div class="menu-container" *ngIf="groupMenu.items.length > 0">
+                            <!-- Header group menu -> child items -->
+                            <div *ngFor="let menuItems of groupMenu.items" class="panel-card-content">
+                                <app-menu-item [menu]="menuItems" (addToMenu)="addToMenu($event)"></app-menu-item>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Header child item -->
+                    <div *ngFor="let childMenu of defaultMenu.items" class="panel-card-content">
+                        <app-menu-item [menu]="childMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!-- ----------------------------- Group menu ------------------------------ -->
+            <div class="menu-container">
+                <div *ngFor="let defaultMenu of groupMenuList" class="panel-card-content">
+                    <app-menu-item [menu]="defaultMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+
+                    <!-- Group menu -> child items -->
+                    <div *ngFor="let item of defaultMenu.items" class="panel-card-content">
+                        <app-menu-item [menu]="item" (addToMenu)="addToMenu($event)"></app-menu-item>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- -------------------------------- MMenu -------------------------------- -->
+            <div class="menu-container">
+                <div *ngFor="let defaultMenu of menuList" class="panel-card-content">
+                    <app-menu-item [menu]="defaultMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    
+        <div class="col-lg-6 col-md-6 col-sm-12 panel-card">
+            <!-- Render added menus here -->
+            <div class="menu-container" cdkDropList [cdkDropListData]="addedMenus" (cdkDropListDropped)="drop($event)"
+                 [cdkDropListConnectedTo]="getConnectedDropLists()" id="cdkDropList-standalone">
+              <div *ngFor="let menu of addedMenus; let i = index" class="panel-card-content" cdkDrag [cdkDragData]="menu">
+                <app-menu-item [menu]="menu"></app-menu-item>
+                <span class="badge">{{ menu.menuType }}</span>
+
+                <div *ngIf="menu.menuType === 'Group'" class="menu-container" cdkDropList [cdkDropListData]="menu.items"
+                     (cdkDropListDropped)="drop($event)" [id]="getGroupDropListId(menu)" #childrenList="cdkDropList"
+                     [cdkDropListConnectedTo]="getConnectedDropLists()">
+
+                  <div *ngFor="let item of menu.items; let j = index" class="panel-card-content" cdkDrag [cdkDragData]="item">
+                    <app-menu-item [menu]="item"></app-menu-item>
+                    <span class="badge">{{ item.menuType }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+</ng-container>

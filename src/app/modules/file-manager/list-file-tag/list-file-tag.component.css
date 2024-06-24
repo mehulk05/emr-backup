@@ -1,0 +1,24 @@
+::ng-deep .p-dialog-header {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+}
+
+::ng-deep .p-dialog-content {
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+}
+
+.button-flex button:nth-child(2) {
+    margin-left: 0;
+}
+
+.table-btn-wrapper {
+    cursor: pointer;
+}
+
+.error-duplicate {
+    color: red;
+    font-size: 13px;
+    padding-top: 5px;
+    font-weight: 500;
+}

@@ -1,0 +1,849 @@
+<div class="row main-title justify-content-center align-items-center pt-4" *ngIf="triggerId">
+  <div class="col-md-auto readOnlyMsg" *ngIf="executionStatus === STATUS_COMPLETED">
+    <p class="text-center">( Trigger already executed, to look at the statistics please click on
+      <a class="link" data-bs-toggle="tooltip" data-bs-placement="top" title="Show Audit for this trigger"
+        href="javascript:void(0)" (click)="viewCompletedTriggerAudit()">
+        <i class="fa fa-bar-chart" aria-hidden="true"> </i> View Audit
+      </a>)
+    </p>
+  </div>
+</div>
+<div class="bg-white new-ui">
+  <div class="px-2">
+    <app-email-sms-audit-banner [layout]="2"></app-email-sms-audit-banner>
+  </div>
+  <div class="add-edit-form">
+    <div class="form form-type2">
+
+      <div class="trgger">
+        <fieldset [disabled]="executionStatus === STATUS_COMPLETED">
+          <!-- ----------------------------- Form starts ----------------------------- -->
+          <form [formGroup]="triggerForm" [ngClass]="{'disbale-form': executionStatus === STATUS_COMPLETED}">
+            <div id="tigger1">
+              <div class="wrapper">
+                <div class="actions desktop-only">
+                  <div class="row flex-column align-items-center content-wrapper">
+                    <!-- ------------------- Step1 Start- Name to broadcast -------------------- -->
+                    <div class="col-xl-7 col-lg-10 col-md-12 box-connector" id="name">
+                      <div class="wrapper1 mx-4 my-3">
+                        <div class="rightpart">
+                          <div class="panel-blue mb-0">
+                            <div class="panel-header">
+                              <div class="panel-header-left">
+                                <div class="header-icon">
+                                  <!-- <img src="/assets/images/trigger-icon.png" alt="Trigger" width="23px" height="23px"> -->
+                                  <span><i class="fas fa-code-branch fa-lg" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="header-content">
+                                  <div class="header-title">
+                                    Create {{ source ? (source === 'mass-email' ? 'Email' : 'SMS') : ''}} Campaign
+                                  </div>
+                                  <div class="header-subtitle">
+                                    Name Your Campaign
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="panel-header-right">
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                  (click)="redirectToTablePage()" class="close removebtn">
+                                  <i class="fa fa-close" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="input-feild">
+                              <label for="trigger-name" class="label">Name</label>
+                              <input class=" pr-2 mt-3" type="text" class="form-control" formControlName="name"
+                                name="name" id="trigger-name" type="text" required />
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <ng-container *ngIf="actionIndex < 0">
+                        <div class="next-button-container">
+                          <div>
+                            <button [disabled]="triggerForm.controls.name.value === ''" class="next-button" (click)="goTo(!preselectedModuleName ? 0 : 
+                                triggerForm.controls.moduleName.value === '' || triggerForm.controls.moduleName.value === LEAD_MODULE
+                                || triggerForm.controls.moduleName.value === PATIENT_MODULE ? 1 : 2)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                    <!-- --------------------- Step2 Select Broadcast for ---------------------- -->
+                    <ng-container *ngIf="!preselectedModuleName">
+                      <div class="col-xl-7 col-lg-10 col-md-12 box-connector" *ngIf="actionIndex >= 0" id="moduleName">
+                        <div class="wrapper1 mx-4 my-3">
+                          <div class="rightpart">
+                            <div class="panel-blue mb-0">
+                              <div class="panel-header">
+                                <div class="panel-header-left">
+                                  <div class="header-icon">
+                                    <!-- <img src="/assets/images/trigger-icon.png" alt="Trigger" width="23px" height="23px"> -->
+                                    <span><i class="fas fa-code-branch fa-lg" aria-hidden="true"></i></span>
+                                  </div>
+                                  <div class="header-content">
+                                    <div class="header-title">
+                                      Module Selection
+                                    </div>
+                                    <div class="header-subtitle">
+                                      Select module for your Trigger Workflow
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="panel-header-right">
+                                  <button type="button" data-dismiss="modal" aria-label="Close" (click)="goTo(-1)"
+                                    class="close removebtn">
+                                    <i class="fa fa-close" aria-hidden="true"></i>
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div class="input-feild">
+                                <label class="label">Select Module</label>
+                                <div class="radio-buttons">
+                                  <label for={{LEAD_MODULE}}>
+                                    <input class=" pr-2" formControlName="moduleName" name="moduleName"
+                                      (change)="setModuleName()" type="radio" value={{LEAD_MODULE}}>Lead
+                                  </label>
+
+                                  <label for="{{PATIENT_MODULE}}">
+                                    <input class=" pr-2" type="radio" formControlName="moduleName"
+                                      (change)="setModuleName()" name="moduleName" value={{PATIENT_MODULE}}>Patient
+                                  </label>
+
+                                  <label for="{{ALL_MODULE}}">
+                                    <input class=" pr-2" type="radio" formControlName="moduleName"
+                                      (change)="setModuleName()" name="moduleName" value={{ALL_MODULE}}>Both
+                                  </label>
+
+                                </div>
+
+                                <div class="row button-save-cancel">
+                                  <div *ngIf="triggerForm.controls.moduleName.value==='' || triggerForm.controls.moduleName.value===LEAD_MODULE
+                                                || triggerForm.controls.moduleName.value===PATIENT_MODULE"
+                                    class="text-left pl-0">
+                                    <button type="submit" class="btn-small-new btn-save-new mt-1 mb-2"
+                                      [disabled]="triggerForm.controls.moduleName.value ===''"
+                                      (click)="goTo(1)">Next</button>
+
+                                  </div>
+                                  <div *ngIf="triggerForm.controls.moduleName.value===ALL_MODULE" class="text-left">
+                                    <button type="submit" class="btn-small-new btn-save-new mt-1 mb-2"
+                                      [disabled]="triggerForm.controls.moduleName.value ===''"
+                                      (click)="goTo(2)">Next</button>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <ng-container *ngIf="actionIndex === 0">
+                          <div class="next-button-container">
+                            <div>
+                              <button [disabled]="triggerForm.controls.moduleName.value ===''" class="next-button"
+                                (click)="goTo(
+                                  triggerForm.controls.moduleName.value === '' || triggerForm.controls.moduleName.value === LEAD_MODULE
+                                  || triggerForm.controls.moduleName.value === PATIENT_MODULE ? 1 : 2)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                  fill="none">
+                                  <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                  <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+
+                    <!-- ------------------------- Step3 Select Status ------------------------- -->
+                    <div class="rel col-xl-7 col-lg-10 col-md-12 box-connector"
+                      *ngIf="actionIndex>0 && triggerForm.controls.moduleName.value!==ALL_MODULE" id="triggerAction">
+                      <svg class="abs" fill="#D8E2F6" width="64px" height="64px" viewBox="0 0 64 64" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                          <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;"></rect>
+                          <g id="Icons1" serif:id="Icons">
+                            <g id="Strike"> </g>
+                            <g id="H1"> </g>
+                            <g id="H2"> </g>
+                            <g id="H3"> </g>
+                            <g id="list-ul"> </g>
+                            <g id="hamburger-1"> </g>
+                            <g id="hamburger-2"> </g>
+                            <g id="list-ol"> </g>
+                            <g id="list-task"> </g>
+                            <g id="trash"> </g>
+                            <g id="vertical-menu"> </g>
+                            <g id="horizontal-menu"> </g>
+                            <g id="sidebar-2"> </g>
+                            <g id="Pen"> </g>
+                            <g id="Pen1" serif:id="Pen"> </g>
+                            <g id="clock"> </g>
+                            <g id="external-link"> </g>
+                            <g id="hr"> </g>
+                            <g id="info"> </g>
+                            <g id="warning"> </g>
+                            <g id="plus-circle"> </g>
+                            <g id="minus-circle"> </g>
+                            <g id="vue"> </g>
+                            <g id="cog"> </g>
+                            <g id="logo"> </g>
+                            <path id="arrow-down"
+                              d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z">
+                            </path>
+                            <g id="radio-check"> </g>
+                            <g id="eye-slash"> </g>
+                            <g id="eye"> </g>
+                            <g id="toggle-off"> </g>
+                            <g id="shredder"> </g>
+                            <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g>
+                            <g id="react"> </g>
+                            <g id="check-selected"> </g>
+                            <g id="turn-off"> </g>
+                            <g id="code-block"> </g>
+                            <g id="user"> </g>
+                            <g id="coffee-bean"> </g>
+                            <g id="coffee-beans">
+                              <g id="coffee-bean1" serif:id="coffee-bean"> </g>
+                            </g>
+                            <g id="coffee-bean-filled"> </g>
+                            <g id="coffee-beans-filled">
+                              <g id="coffee-bean2" serif:id="coffee-bean"> </g>
+                            </g>
+                            <g id="clipboard"> </g>
+                            <g id="clipboard-paste"> </g>
+                            <g id="clipboard-copy"> </g>
+                            <g id="Layer1"> </g>
+                          </g>
+                        </g>
+                      </svg>
+                      <div class="wrapper1 mx-4 my-3">
+                        <div class="rightpart1">
+                          <div class="panel-blue mb-0">
+                            <div class="panel-header">
+                              <div class="panel-header-left">
+                                <div class="header-icon">
+                                  <!-- <img src="/assets/images/leads-icon.png" alt="Lead Icon" width="23px" height="23px"> -->
+                                  <span class="vertical-align-top">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                      <path
+                                        d="M48 48h88c13.3 0 24-10.7 24-24s-10.7-24-24-24H32C14.3 0 0 14.3 0 32V136c0 13.3 10.7 24 24 24s24-10.7 24-24V48zM175.8 224a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm-26.5 32C119.9 256 96 279.9 96 309.3c0 14.7 11.9 26.7 26.7 26.7h56.1c8-34.1 32.8-61.7 65.2-73.6c-7.5-4.1-16.2-6.4-25.3-6.4H149.3zm368 80c14.7 0 26.7-11.9 26.7-26.7c0-29.5-23.9-53.3-53.3-53.3H421.3c-9.2 0-17.8 2.3-25.3 6.4c32.4 11.9 57.2 39.5 65.2 73.6h56.1zm-89.4 0c-8.6-24.3-29.9-42.6-55.9-47c-3.9-.7-7.9-1-12-1H280c-4.1 0-8.1 .3-12 1c-26 4.4-47.3 22.7-55.9 47c-2.7 7.5-4.1 15.6-4.1 24c0 13.3 10.7 24 24 24H408c13.3 0 24-10.7 24-24c0-8.4-1.4-16.5-4.1-24zM464 224a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm-80-32a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zM504 48h88v88c0 13.3 10.7 24 24 24s24-10.7 24-24V32c0-17.7-14.3-32-32-32H504c-13.3 0-24 10.7-24 24s10.7 24 24 24zM48 464V376c0-13.3-10.7-24-24-24s-24 10.7-24 24V480c0 17.7 14.3 32 32 32H136c13.3 0 24-10.7 24-24s-10.7-24-24-24H48zm456 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H608c17.7 0 32-14.3 32-32V376c0-13.3-10.7-24-24-24s-24 10.7-24 24v88H504z" />
+                                    </svg>
+                                  </span>
+                                </div>
+                                <div class="header-content">
+                                  <div class="header-title">
+                                    For {{ triggerForm.controls.moduleName.value === PATIENT_MODULE ? 'Patients' :
+                                    'Leads'
+                                    }} Where
+                                  </div>
+                                  <div class="header-subtitle">
+                                    Select the Filters that are applicable to this Trigger
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="panel-header-right">
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                  (click)="CancelLeadsFrom(-1)" class="close removebtn">
+                                  <i class="fa fa-close" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            </div>
+
+                            <div class="input-feild">
+                              <!-- --------------------- Sub step3 If Module is lead ---------------------- -->
+                              <ng-container *ngIf="triggerForm.controls.moduleName.value ===LEAD_MODULE">
+                                <label class="label">Lead Status <span class="required">*</span></label>
+
+                                <div class="form-group mb-0">
+                                  <p-multiSelect [resetFilterOnHide]="true" #dropdown [options]="leadStatusList"
+                                    formControlName="triggerConditions" display="chip"
+                                    [placeholder]="'Select lead status'">
+                                  </p-multiSelect>
+                                </div>
+                                <br>
+
+                                <div class="confirm-box lead-source pos-rel">
+                                  <label>Add Lead Source <i>(Optional)</i></label>
+                                  <p class="info">All Lead sources selected by default</p>
+                                  <p-multiSelect [resetFilterOnHide]="true" [options]="leadSourceList"
+                                    optionLabel="label" optionValue="value" formControlName="source" display="chip"
+                                    [placeholder]="'Select lead source'">
+                                  </p-multiSelect>
+                                </div>
+                                <br>
+
+                                <div class="confirm-box pos-rel">
+                                  <label>Add Lead Tags <i>(Optional)</i></label>
+                                  <p class="info">All Lead tags selected by default</p>
+                                  <div class="form-group mb-0 pb-0">
+                                    <p-multiSelect [resetFilterOnHide]="true" [options]="leadTagList"
+                                      formControlName="leadTags" display="chip" [placeholder]="'Select lead tag'"
+                                      optionLabel="name">
+                                    </p-multiSelect>
+                                  </div>
+                                </div>
+                              </ng-container>
+
+                              <!-- ------------------------- Patient Part start -------------------------- -->
+                              <!-- --------------------- Sub step3 If Module is Appointment ---------------------- -->
+
+                              <ng-container *ngIf="triggerForm.controls.moduleName.value ===PATIENT_MODULE">
+                                <div *ngIf="showPatientStatusDropDown">
+                                  <label class="label">Patient status <span class="required">*</span></label>
+                                  <div class="form-group mb-0">
+                                    <p-multiSelect [resetFilterOnHide]="true" #dropdown [options]="patientStatusList"
+                                      formControlName="patientStatus" display="chip"
+                                      [placeholder]="'Select patient status'">
+                                    </p-multiSelect>
+                                  </div>
+
+                                  <div *ngIf="patientTagList">
+                                    <br>
+                                    <div class="confirm-box pos-rel">
+                                      <label class="label">Patient Tag <i>(Optional)</i></label>
+                                      <p class="info">All Patient Tags selected by default</p>
+                                      <div class="form-group mb-0">
+                                        <p-multiSelect [resetFilterOnHide]="true" [options]="patientTagList"
+                                          formControlName="patientTags" display="chip"
+                                          [placeholder]="'Select patient tag'" optionLabel="name">
+                                        </p-multiSelect>
+                                      </div>
+                                    </div>
+                                    <br>
+                                  </div>
+                                </div>
+
+                                <div class="confirm-box pos-rel">
+                                  <label class="label">Appointment status <i>(Optional)</i> </label>
+                                  <p class="info">All Appointment Status selected by default</p>
+                                  <div class="form-group mb-0 pb-0">
+                                    <p-multiSelect [resetFilterOnHide]="true" optionLabel="label" optionValue="value"
+                                      [options]="appointmentStatusList" formControlName="triggerConditions"
+                                      display="chip" [placeholder]="'Select appointment status'">
+                                    </p-multiSelect>
+                                  </div>
+                                </div>
+
+                              </ng-container>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                      <ng-container *ngIf="actionIndex <= 1">
+                        <div class="next-button-container">
+                          <div>
+                            <button [disabled]="triggerForm.controls.moduleName?.value === PATIENT_MODULE ? triggerForm.controls.patientStatus?.value.length === 0
+                                        : triggerForm.controls.triggerConditions.value?.length === 0"
+                              class="next-button" (click)="goTo(2)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
+                                fill="none">
+                                <path d="M9.74292 0.88562L9.74292 20.2189" stroke="white" />
+                                <path d="M19.4089 10.5516L0.0756593 10.5516" stroke="white" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+
+                    <!-- ----------------- Step4 Condition Select the Template ----------------- -->
+                    <div class="rel col-xl-7 col-lg-10 col-md-12 px-1" *ngIf="actionIndex > 1">
+                      <div class="" id="condition">
+                        <div class="action2 m-5 p-0" id="action2" formArrayName="triggerData"
+                          *ngFor="let condition of triggerForm.get('triggerData')?.controls;let i =index">
+                          <ng-container [formGroupName]="i">
+                            <svg class="abs" fill="#D8E2F6" width="64px" height="64px" viewBox="0 0 64 64" version="1.1"
+                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                              xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                              style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                              <g id="SVGRepo_iconCarrier">
+                                <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;">
+                                </rect>
+                                <g id="Icons1" serif:id="Icons">
+                                  <g id="Strike"> </g>
+                                  <g id="H1"> </g>
+                                  <g id="H2"> </g>
+                                  <g id="H3"> </g>
+                                  <g id="list-ul"> </g>
+                                  <g id="hamburger-1"> </g>
+                                  <g id="hamburger-2"> </g>
+                                  <g id="list-ol"> </g>
+                                  <g id="list-task"> </g>
+                                  <g id="trash"> </g>
+                                  <g id="vertical-menu"> </g>
+                                  <g id="horizontal-menu"> </g>
+                                  <g id="sidebar-2"> </g>
+                                  <g id="Pen"> </g>
+                                  <g id="Pen1" serif:id="Pen"> </g>
+                                  <g id="clock"> </g>
+                                  <g id="external-link"> </g>
+                                  <g id="hr"> </g>
+                                  <g id="info"> </g>
+                                  <g id="warning"> </g>
+                                  <g id="plus-circle"> </g>
+                                  <g id="minus-circle"> </g>
+                                  <g id="vue"> </g>
+                                  <g id="cog"> </g>
+                                  <g id="logo"> </g>
+                                  <path id="arrow-down"
+                                    d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z">
+                                  </path>
+                                  <g id="radio-check"> </g>
+                                  <g id="eye-slash"> </g>
+                                  <g id="eye"> </g>
+                                  <g id="toggle-off"> </g>
+                                  <g id="shredder"> </g>
+                                  <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g>
+                                  <g id="react"> </g>
+                                  <g id="check-selected"> </g>
+                                  <g id="turn-off"> </g>
+                                  <g id="code-block"> </g>
+                                  <g id="user"> </g>
+                                  <g id="coffee-bean"> </g>
+                                  <g id="coffee-beans">
+                                    <g id="coffee-bean1" serif:id="coffee-bean"> </g>
+                                  </g>
+                                  <g id="coffee-bean-filled"> </g>
+                                  <g id="coffee-beans-filled">
+                                    <g id="coffee-bean2" serif:id="coffee-bean"> </g>
+                                  </g>
+                                  <g id="clipboard"> </g>
+                                  <g id="clipboard-paste"> </g>
+                                  <g id="clipboard-copy"> </g>
+                                  <g id="Layer1"> </g>
+                                </g>
+                              </g>
+                            </svg>
+                            <div class="wrapper1">
+                              <div class="rightpart">
+                                <div class="panel-blue mb-0" [class.mb-0]="condition.controls.actionIndex.value<=2">
+                                  <div class="panel-header">
+                                    <div class="panel-header-left">
+                                      <div class="header-icon">
+                                        <span><i class="fas fa-paper-plane fa-lg" aria-hidden="true"></i></span>
+                                      </div>
+                                      <div class="header-content">
+                                        <div class="header-title">
+                                          To Send {{ source ? (source === 'mass-email' ? 'Email' : 'SMS') : ''}}
+                                        </div>
+                                        <div class="header-subtitle">
+                                          Select What Action Do You Want To Do
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="panel-header-right">
+                                      <button type="button" data-dismiss="modal" aria-label="Close"
+                                        (click)="removeTriggerData(1,i)" class="close removebtn">
+                                        <i class="fa fa-close" aria-hidden="true"></i>
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div class="input-feild">
+                                    <!-- --------------------- Substep4 If module is lead ---------------------- -->
+                                    <ng-container *ngIf="!source">
+                                      <div class="row py-2">
+                                        <div class="col-6 px-0 radio-button-wrapper">
+                                          <input id="radio-SMS" class="pr-2" (change)="setCommunicationType('SMS',i)"
+                                            type="radio" formControlName="triggerType" value='SMS'>
+                                          <label for="radio-SMS">
+                                            SMS
+                                          </label>
+                                        </div>
+
+                                        <div class="col-6 px-0 radio-button-wrapper">
+                                          <input id="radio-EMAIL" class="pr-2"
+                                            (change)="setCommunicationType('EMAIL',i)" type="radio"
+                                            formControlName="triggerType" value="EMAIL">
+                                          <label for="radio-EMAIL">
+                                            Email
+                                          </label>
+                                        </div>
+                                      </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="triggerForm.controls.moduleName.value === LEAD_MODULE ">
+
+                                      <!-- --------------- Sub-step 4.1 For LEad If Selected Action is SMS ---------------- -->
+                                      <ng-container *ngIf="condition.controls.triggerType.value==='SMS'">
+                                        <div class="">
+                                          <label for="sms-template-{{i}}">Using Template</label>
+                                          <div class="templates-dropdown-wrapper">
+                                            <div class="templates-dropdown">
+                                              <select [disabled]="true" id="sms-template-{{i}}"
+                                                class="form-control small" [disabled]="true" name="trigger-event"
+                                                aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>
+                                                  Please select template
+                                                </option>
+                                                <option *ngFor="let sms of leadSmsTemplate"
+                                                  [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                  [ngValue]="sms.id">{{ sms.name }}</option>
+                                              </select>
+                                              <span class="edit-template"
+                                                (click)="editSMSTemplate(condition.controls.triggerTemplate.value, i)">Edit
+                                                Template</span>
+                                            </div>
+                                            <button type="button" class="btn-save-new btn-small-new"
+                                              (click)="openTemplatesModal(triggerForm.controls.moduleName.value, condition.controls.triggerType.value, i)">Choose</button>
+                                          </div>
+                                        </div>
+
+                                      </ng-container>
+
+                                      <!-- --------------- Sub-step 4.1 For LEad If Selected Action is Email ---------------- -->
+                                      <ng-container *ngIf="condition.controls.triggerType.value==='EMAIL'">
+                                        <div class="">
+                                          <label for="email-template-{{i}}">Using Template</label>
+                                          <div class="templates-dropdown-wrapper">
+                                            <div class="templates-dropdown">
+                                              <select [disabled]="true" id="email-template-{{i}}"
+                                                class="form-control small" [disabled]="true" name="trigger-event"
+                                                aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>
+                                                  Please select template
+                                                </option>
+                                                <option *ngFor="let email of leadEmailTemplate"
+                                                  [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                  [ngValue]="email.id">{{ email.name }}</option>
+                                              </select>
+                                              <span class="edit-template"
+                                                (click)="editEmailTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                Template</span>
+                                            </div>
+                                            <button type="button" class="btn-save-new btn-small-new"
+                                              (click)="openTemplatesModal(triggerForm.controls.moduleName.value, condition.controls.triggerType.value, i)">Choose</button>
+                                          </div>
+                                        </div>
+
+                                      </ng-container>
+
+                                      <!-- --------------- Sub-step 4.1 For LEad If Selected Action is Task ---------------- -->
+
+                                    </ng-container>
+                                    <!-- ----------------- Sub Step 4 If Module is appointment ----------------- -->
+                                    <ng-container *ngIf="triggerForm.controls.moduleName.value ===PATIENT_MODULE">
+
+                                      <!-- --------------- Sub-step 4.1 For Appointment If Selected Action is SMS ---------------- -->
+                                      <ng-container *ngIf="condition.controls.triggerType.value==='SMS'">
+                                        <div class="">
+                                          <label for="sms-template-{{i}}">Using Template</label>
+                                          <div class="templates-dropdown-wrapper">
+                                            <div class="templates-dropdown">
+                                              <select [disabled]="true" id="sms-template-{{i}}"
+                                                class="form-control small" name="trigger-event"
+                                                aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>
+                                                  --Please select network--
+                                                </option>
+                                                <option *ngFor="let sms of appointmentPatientSMSTemplate"
+                                                  [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                  [ngValue]="sms.id">{{ sms.name }}</option>
+                                              </select>
+                                              <span class="edit-template"
+                                                (click)="editSMSTemplate(condition.controls.triggerTemplate.value, i)">Edit
+                                                Template</span>
+                                            </div>
+                                            <button type="button" class="btn-save-new btn-small-new"
+                                              (click)="openTemplatesModal(triggerForm.controls.moduleName.value, condition.controls.triggerType.value, i)">Choose</button>
+                                          </div>
+                                        </div>
+
+                                      </ng-container>
+
+                                      <!-- --------------- Sub-step 4.1 For Appointment If Selected Action is Email ---------------- -->
+                                      <ng-container *ngIf="condition.controls.triggerType.value==='EMAIL'">
+                                        <div class="">
+                                          <label for="email-template-{{i}}">Using Template</label>
+                                          <div class="templates-dropdown-wrapper">
+                                            <div class="templates-dropdown">
+                                              <select [disabled]="true" id="email-template-{{i}}"
+                                                class="form-control small" name="trigger-event"
+                                                aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>
+                                                  --Please select network--
+                                                </option>
+                                                <option *ngFor="let email of appointmentPatientEmailTemplate"
+                                                  [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                  [ngValue]="email.id">{{ email.name }}</option>
+                                              </select>
+                                              <span class="edit-template"
+                                                (click)="editEmailTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                Template</span>
+                                            </div>
+                                            <button type="button" class="btn-save-new btn-small-new"
+                                              (click)="openTemplatesModal(triggerForm.controls.moduleName.value, condition.controls.triggerType.value, i)">Choose</button>
+                                          </div>
+                                        </div>
+                                      </ng-container>
+                                    </ng-container>
+
+                                    <!-- ----------------- Sub Step 4 If Module is All ----------------- -->
+                                    <ng-container *ngIf="triggerForm.controls.moduleName.value===ALL_MODULE">
+                                      <!-- --------------- Sub-step 4.1 For Appointment If Selected Action is SMS ---------------- -->
+                                      <ng-container *ngIf="condition.controls.triggerType.value==='SMS'">
+                                        <div class="">
+                                          <label for="sms-template-{{i}}">Using Template</label>
+                                          <div class="templates-dropdown-wrapper">
+                                            <div class="templates-dropdown">
+                                              <select [disabled]="true" id="sms-template-{{i}}"
+                                                class="form-control small" name="trigger-event"
+                                                aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>
+                                                  --Please select network--
+                                                </option>
+                                                <option *ngFor="let sms of leadPatientSmsTemplate"
+                                                  [selected]="condition.controls.triggerTemplate.value === sms.id"
+                                                  [ngValue]="sms.id">{{ sms.name }}</option>
+                                              </select>
+                                              <span class="edit-template"
+                                                (click)="editSMSTemplate(condition.controls.triggerTemplate.value, i)">Edit
+                                                Template</span>
+                                            </div>
+                                            <button type="button" class="btn-save-new btn-small-new"
+                                              (click)="openTemplatesModal(triggerForm.controls.moduleName.value, condition.controls.triggerType.value, i)">Choose</button>
+                                          </div>
+                                        </div>
+
+                                      </ng-container>
+
+                                      <!-- --------------- Sub-step 4.1 For Appointment If Selected Action is Email ---------------- -->
+                                      <ng-container *ngIf="condition.controls.triggerType.value==='EMAIL'">
+                                        <div class="">
+                                          <label for="email-template-{{i}}">Using Template</label>
+                                          <div class="templates-dropdown-wrapper">
+                                            <div class="templates-dropdown">
+                                              <select [disabled]="true" id="email-template-{{i}}"
+                                                class="form-control small" name="trigger-event"
+                                                aria-placeholder="Trigger Event">
+                                                <option value="-1" disabled>
+                                                  --Please select network--
+                                                </option>
+                                                <option *ngFor="let email of leadPatientEmailTemplate"
+                                                  [selected]="condition.controls.triggerTemplate.value === email.id"
+                                                  [ngValue]="email.id">{{ email.name }}</option>
+                                              </select>
+                                              <span class="edit-template"
+                                                (click)="editEmailTemplate(condition.controls.triggerTemplate.value)">Edit
+                                                Template</span>
+                                            </div>
+                                            <button type="button" class="btn-save-new btn-small-new"
+                                              (click)="openTemplatesModal(triggerForm.controls.moduleName.value, condition.controls.triggerType.value, i)">Choose</button>
+                                          </div>
+                                        </div>
+
+                                      </ng-container>
+                                    </ng-container>
+
+                                  </div>
+
+                                </div>
+
+                                <!-- <div class="border-small-bottom"
+                                  [ngClass]="condition.controls.actionIndex.value>2 ? '' :'hidden'">
+                                </div> -->
+
+                              </div>
+
+                            </div>
+
+                            <!-- ---------------------- Step5 Select The Schedule ---------------------- -->
+                            <div class="col-md-12 pt-5 rel" id='time{{i}}'>
+                              <div id="action3">
+                                <svg class="abs-cond" fill="#D8E2F6" width="64px" height="64px" viewBox="0 0 64 64"
+                                  version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                                  xmlns:serif="http://www.serif.com/"
+                                  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                  <g id="SVGRepo_iconCarrier">
+                                    <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;">
+                                    </rect>
+                                    <g id="Icons1" serif:id="Icons">
+                                      <g id="Strike"> </g>
+                                      <g id="H1"> </g>
+                                      <g id="H2"> </g>
+                                      <g id="H3"> </g>
+                                      <g id="list-ul"> </g>
+                                      <g id="hamburger-1"> </g>
+                                      <g id="hamburger-2"> </g>
+                                      <g id="list-ol"> </g>
+                                      <g id="list-task"> </g>
+                                      <g id="trash"> </g>
+                                      <g id="vertical-menu"> </g>
+                                      <g id="horizontal-menu"> </g>
+                                      <g id="sidebar-2"> </g>
+                                      <g id="Pen"> </g>
+                                      <g id="Pen1" serif:id="Pen"> </g>
+                                      <g id="clock"> </g>
+                                      <g id="external-link"> </g>
+                                      <g id="hr"> </g>
+                                      <g id="info"> </g>
+                                      <g id="warning"> </g>
+                                      <g id="plus-circle"> </g>
+                                      <g id="minus-circle"> </g>
+                                      <g id="vue"> </g>
+                                      <g id="cog"> </g>
+                                      <g id="logo"> </g>
+                                      <path id="arrow-down"
+                                        d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z">
+                                      </path>
+                                      <g id="radio-check"> </g>
+                                      <g id="eye-slash"> </g>
+                                      <g id="eye"> </g>
+                                      <g id="toggle-off"> </g>
+                                      <g id="shredder"> </g>
+                                      <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g>
+                                      <g id="react"> </g>
+                                      <g id="check-selected"> </g>
+                                      <g id="turn-off"> </g>
+                                      <g id="code-block"> </g>
+                                      <g id="user"> </g>
+                                      <g id="coffee-bean"> </g>
+                                      <g id="coffee-beans">
+                                        <g id="coffee-bean1" serif:id="coffee-bean"> </g>
+                                      </g>
+                                      <g id="coffee-bean-filled"> </g>
+                                      <g id="coffee-beans-filled">
+                                        <g id="coffee-bean2" serif:id="coffee-bean"> </g>
+                                      </g>
+                                      <g id="clipboard"> </g>
+                                      <g id="clipboard-paste"> </g>
+                                      <g id="clipboard-copy"> </g>
+                                      <g id="Layer1"> </g>
+                                    </g>
+                                  </g>
+                                </svg>
+                                <div class="wrapper1">
+                                  <div class="rightpart1">
+
+                                    <!-- ---------------------- Step 5.1 Select the Time ----------------------- -->
+                                    <div class="panel-blue mb-0">
+                                      <div class="panel-header">
+                                        <div class="panel-header-left">
+                                          <div class="header-icon">
+                                            <!-- <img src="/assets/images/clock-icon.png" alt="Frequency Icon" width="23px" height="23px"> -->
+                                            <span><i class="fas fa-clock fa-lg" aria-hidden="true"></i></span>
+                                          </div>
+                                          <div class="header-content">
+                                            <div class="header-title">
+                                              At
+                                            </div>
+                                            <div class="header-subtitle">
+                                              Select The Time Particulars To Schedule This Trigger
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="panel-header-right"></div>
+                                      </div>
+
+                                      <div class="input-feild">
+                                        <label class="label"> At What time it should trigger*&nbsp;</label>
+                                        <span style="font-size: small;">({{browserTimezone}})</span>
+                                        <div class="date-feild">
+                                          <div class="form-group mr-2 pb-0">
+                                            <p-calendar [showTime]="true" [minDate]="todayDate" hourFormat="12"
+                                              [inputStyle]="{'width':'70%'}" formControlName="scheduledDateTime">
+                                            </p-calendar>
+                                            <ng-template [ngTemplateOutlet]="validationMessage">
+                                            </ng-template>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </div>
+
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                          <ng-template #validationMessage>
+                            <span class="error"
+                              *ngIf="condition.controls.scheduledDateTime.value===null || condition.controls.scheduledDateTime.value===''">
+                              Please enter date
+                            </span>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row justify-content-center button-save-cancel-lst mt-5 mx-0">
+                    <div class="col-md-12 px-0 col-lg-7">
+                      <div class="text-left button-flex" [ngClass]="isLastLevel ? 'mx-4 px-2' : ''">
+                        <button *ngIf="isLastLevel" type="submit" class="btn-small-new btn-save-new"
+                          [disabled]="true">Save</button>
+                        <button *ngIf="!isLastLevel" type="submit" class="btn-small-new btn-save-new"
+                          [disabled]="!(isDropdownSelected) || (disableSaveButton || !(triggerForm.valid && triggerForm.dirty)
+                                    || !(executionStatus === STATUS_SCHEDULED || executionStatus === EMPTY_STRING)
+                                    || (isEmailCount && isEmailQuotaReached) || (isSmsCount && isSmsQuotaReached) 
+                                    || (source === 'mass-sms' && smsCount * segmentsCount > availableSmsQuota)
+                                    || cancelModal)"
+                          (click)="submitTrigger()">Save</button>
+                        <span role="button" class="btn-small-new btn-default-new text-center"
+                          (click)="redirectToTablePage()">Cancel</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+  <!-- <ng-container *ngIf="showPreviewModal">
+    <app-preview-email-sms-template [modalData]="modalData" [showModal]="showPreviewModal"
+    (modalClosed)="onCloseModal($event)"></app-preview-email-sms-template>
+  </ng-container> -->
+
+  <ng-container *ngIf="showSmsModal">
+    <app-trigger-edit-sms-template [modalData]="modalData" [showModal]="showSmsModal"
+      (modalClosed)="onCloseSmsEditModal($event)"></app-trigger-edit-sms-template>
+  </ng-container>
+
+
+  <ng-container *ngIf="showEmailModal">
+    <app-trigger-edit-email-template [modalData]="modalData" [showModal]="showEmailModal"
+      (modalClosed)="onCloseModal($event)"></app-trigger-edit-email-template>
+  </ng-container>
+
+  <app-templates-modal [moduleName]="templateModalData.triggerType" [showModal]="showTemplatesModal"
+    [templates]="templateModalData.templates" (hideTemplateModal)="showHideTemplatesDialog($event)"
+    (templateSelected)="templateSelected($event)"></app-templates-modal>
+
+  <ng-container *ngIf="source === 'mass-sms' && showSegmentsMessage">
+    <app-sms-segments-warning [showModal]="showSegmentsMessage" [segmentCount]="segmentsCount" [smsCount]="smsCount"
+      [availableSmsQuota]="availableSmsQuota"
+      (modalClosed)="hideSegmentsWarningModal($event)"></app-sms-segments-warning>
+  </ng-container>
+
+  <ng-container *ngIf="source === 'mass-email' && showEmailMessage">
+    <app-email-segments-warning [showModal]="showEmailMessage"  [emailCount]="emailCount"
+      [availableEmailQuota]="availableEmailQuota"
+      (modalClosed)="hideEmailWarningModal($event)"></app-email-segments-warning>
+  </ng-container>
+</div>

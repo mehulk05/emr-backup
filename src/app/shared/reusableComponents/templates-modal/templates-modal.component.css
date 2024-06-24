@@ -1,0 +1,109 @@
+.custom-modal-header,
+.custom-modal-footer {
+  width: 100%;
+  display: flex;
+}
+
+.custom-modal-header {
+  flex-direction: column;
+  gap: 15px;
+}
+
+.custom-modal-footer {
+  align-items: flex-end;
+  position: relative;
+  padding-bottom: 2em;
+  border-top: 1px solid gainsboro;
+}
+
+.custom-modal-footer .template-btn-wrapper {
+  position: absolute;
+  bottom: -12px;
+  right: auto;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-modal-header .module-name-text {
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: 0.2px;
+}
+
+.custom-modal-header .search-container {
+  position: relative;
+  width: 100%;
+}
+
+.custom-modal-header .search-container i {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  opacity: 0.5;
+  color: #333333 !important;
+}
+
+.custom-modal-header .search-container input {
+  border-radius: 1em !important;
+  padding-left: 32px;
+  height: 32px;
+  width: 75%;
+}
+
+.template-card {
+  cursor: pointer;
+  border-radius: 1em;
+  border: 1px solid #f8fafe;
+}
+
+.template-card .template-name:hover {
+  color: #2656c9;
+}
+
+.template-card .template-body {
+  background-color: #f8fafe;
+  border-radius: 1em;
+  word-break: break-word;
+}
+
+.template-card.selected .template-name {
+  color: #2656c9;
+}
+
+.template-card.selected {
+  border: 1px solid #2656c9;
+}
+
+::ng-deep .templates-dialog .p-dialog .p-dialog-header {
+  background: #2656c9 !important;
+  color: #fff !important;
+}
+
+::ng-deep .templates-dialog .p-dialog .p-dialog-content {
+  background-color: #f8fafe;
+}
+
+::ng-deep .templates-dialog .p-dialog .p-dialog-header .p-dialog-header-icon:hover {
+  background: #2656c9 !important;
+  color: #333333 !important;
+}
+
+::ng-deep .templates-dialog .p-dialog .p-dialog-header .p-dialog-header-icon:hover span {
+  color: #333333 !important;
+}
+
+::ng-deep .templates-dialog .p-dialog .p-dialog-header .p-dialog-header-icon span {
+  color: #fff !important;
+}
+::ng-deep .p-dialog .p-dialog-content {
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+.btn-save-new:disabled {
+  background: #767B85 !important;
+}

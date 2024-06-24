@@ -1,0 +1,105 @@
+.reviews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-left: 30px;
+}
+
+.reviews .card {
+  width: 15rem;
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s, box-shadow 0.3s ease-out;
+}
+
+.review .card .card-title {
+  margin-bottom: 0;
+}
+
+.review .card .card-body {
+  min-height: 147px;
+}
+
+.reviews .review .description-wrapper .card-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.reviews-wrapper .card-header .card-icon {
+  width: 25px;
+  height: 25px;
+  text-align: center;
+}
+
+.reviews-wrapper .card-header .card-icon i {
+  font-size: 17px;
+}
+
+.reviews-wrapper .card:hover {
+  transform: translateY(-5px) scale(1.005) translateZ(0);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11), 0 24px 36px rgba(0, 0, 0, 0.11);
+}
+
+.reviews-wrapper .pagination-box {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.current-page {
+  color: black;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 2px;
+}
+
+.navigation-btn {
+  cursor: pointer;
+  padding: 2px;
+}
+
+.checked {
+  color: orange;
+  margin-right: 2px;
+}
+
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px;
+}
+
+.custom-modal-header .module-name-text {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: 0.2px;
+}
+
+.custom-modal-header .search-container {
+  position: relative;
+}
+
+.custom-modal-header .search-container i {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  opacity: 0.5;
+  color: #333333 !important;
+}
+
+.custom-modal-header .search-container input {
+  border-radius: 1em !important;
+  padding-left: 32px;
+  height: 32px;
+  width: 100%;
+}

@@ -1,0 +1,164 @@
+<div class="new-ui">
+<div class="task-header">
+  <div class="search-box">
+
+    <div class="search">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control" [(ngModel)]="websitePageFilter" placeholder="Search here">
+    </div>
+  </div>
+</div>
+
+<div class="website-list">
+  <div class="row mx-0">
+    <div class="col-lg-6 col-md-6 col-sm-12 order-lg-1 order-md-1">
+      <div class="panel-blue blue-box">
+        <div class="website-config">
+          <p class="title1">
+            Your website URL is <a href="{{websiteLink}}" target="_blank">{{websiteLink}}</a>
+          </p>
+          <p class="title1">
+            To configure your website please follow below steps.
+          </p>
+
+          <p class="desc">
+            Step 1. Add cname entry in to your DNS. <br>
+            Step 2.Add target and value as below.
+          </p>
+
+          <p class="preview">
+            <a href="{{websiteLink}}" target="_blank">
+              Preview my default website</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 order-lg-0 order-md-0"
+      *ngFor="let landingPage of defaultTemplates | filter: websitePageFilter">
+      <div class="wrapper">
+
+        <div class="img bg-img">
+          <iframe [src]="link+'bid='+landingPage?.tenantId+'&lpid='+landingPage?.id | safeUrl"></iframe>
+        </div>
+
+        <div class="page-body">
+          <div class="heading-title">
+            <div class="flex-layout">
+              <p (click)="editPage(landingPage.id)"> {{ landingPage.name }}</p>
+              <div class="buttons-icons">
+                <a href="javascript:void(0)" (click)="editPage(landingPage.id)"> <i class="fa fa-edit"></i></a> &nbsp;
+
+                <a  href="{{ssrhost}}/website?bid={{ landingPage.tenantId }}&lpid={{landingPage.id}}" target="_blank"><i
+                    class="fa fa-eye"></i> </a>
+                <a href="javascript:void(0)" style="margin-left: 10px;" (click)="delete(landingPage.id)">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="heading-theme" (click)="editPage(landingPage.id)">
+              <p> Theme is</p> &nbsp; &nbsp;
+              <p class="themeName" *ngIf="!landingPage.buttonBackgroundColor">Default</p>
+              <button *ngIf="landingPage.buttonBackgroundColor" class="button-theme"
+                [ngStyle]="{'background-color':landingPage.buttonBackgroundColor}">
+              </button>
+            </div>
+
+            <div class="preview-colors">
+              <div class="theme-slect" (click)="selectTheme(landingPage,'red','#fff','red')">
+                <button class="button-theme" style="background-color: red;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#D0021B','#fff','#D0021B')">
+                <button class="button-theme" style="background-color:#D0021B;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#F5A623','#fff','#F5A623')">
+                <button class="button-theme" style="background-color:#F5A623;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#F8E71C','#fff','#F8E71C')">
+                <button class="button-theme" style="background-color:#F8E71C;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#8B572A','#fff','#8B572A')">
+                <button class="button-theme" style="background-color:#8B572A;color: #fff;">
+                </button>
+              </div>
+
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#7ED321','#fff','#7ED321')">
+                <button class="button-theme" style="background-color:#7ED321;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#417505','#fff','#417505')">
+                <button class="button-theme" style="background-color:#417505;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#BD10E0','#fff','#BD10E0')">
+                <button class="button-theme" style="background-color:#BD10E0;color: #fff;">
+                </button>
+              </div>
+
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#9013FE','#fff','#9013FE')">
+                <button class="button-theme" style="background-color:#9013FE;color: #fff;">
+                </button>
+              </div>
+
+
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#4A90E2','#fff','#4A90E2')">
+                <button class="button-theme" style="background-color:#4A90E2;color: #fff;">
+                </button>
+              </div>
+
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#50E3C2','#000000','#000000')">
+                <button class="button-theme" style="background-color:#50E3C2;color: #000000;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#B8E986','#000000','#000000')">
+                <button class="button-theme" style="background-color:#B8E986;color: #000000;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#50E3C2','#fff','#50E3C2')">
+                <button class="button-theme" style="background-color:#50E3C2;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#00bfff','#fff','#00bfff')">
+                <button class="button-theme" style="background-color:#00bfff;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#1e90ff','#fff','#1e90ff')">
+                <button class="button-theme" style="background-color:#1e90ff;color: #fff;">
+                </button>
+              </div>
+
+              <div class="theme-slect" (click)="selectTheme(landingPage,'#000','#fff','#000')">
+                <button class="button-theme" style="background-color:#000;color: #fff;">
+                </button>
+              </div>
+            </div>
+            <p class="light">By {{landingPage.createdBy?.firstName || '-'}}, On {{ landingPage.updatedAt?
+              (landingPage.updatedAt | date:'medium') :'-'}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+</div>

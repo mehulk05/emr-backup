@@ -1,0 +1,542 @@
+.container-fluid {
+  height: 100%;
+  overflow: auto;
+}
+
+.container-fluid::-webkit-scrollbar {
+  height: 12px;
+  width: 9px;
+  background: rgb(189 192 192)
+}
+
+.container-fluid::-webkit-scrollbar-thumb {
+  background: #828280;
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: 0px 1px 2px rgba(73, 75, 75, 0.75);
+}
+
+.container-fluid::-webkit-scrollbar-corner {
+  background: #000;
+}
+
+.main1 {
+  margin: 50px 80px;
+  color: #262628;
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+}
+
+.right-div1,
+.left-div1 {
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.left-div1 {
+  padding: 50px 80px;
+  box-shadow: 32px 0px 62px 32px rgb(228 216 216 / 60%);
+}
+
+.right-div1 {
+  padding: 50px 70px;
+  box-shadow: 32px 32px 62px 32px rgb(228 216 216 / 60%);
+}
+
+.title h1 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  margin: 0;
+}
+
+.left-div1 .image-logo img {
+  border-radius: 16px;
+}
+
+.book-apt,
+.image-logo {
+  text-align: center;
+}
+
+.image-logo .title {
+  padding-top: 20px;
+}
+
+.book-apt {
+  padding-top: 40px;
+}
+
+.book-apt-btn .book {
+  border-radius: 60px;
+  background-color: #262628;
+  padding: 21.5px 39px;
+}
+
+.book-apt-btn .book a {
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+p {
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  color: #262628;
+  margin: 0;
+}
+
+.title {
+  color: #262628;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 50px;
+}
+
+.description p {
+  font-size: 16px;
+  line-height: 24.14px;
+  color: #262628
+}
+
+.location {
+  margin-top: 50px;
+}
+
+.location .title {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.map-desc,
+.maps {
+  margin-top: 20px;
+}
+
+.maps iframe {
+  border-radius: 16px;
+  width: 100%;
+}
+
+.map-desc p {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 21px;
+  padding-left: 40px;
+  padding-top: 5px;
+  width: 92%;
+  height: 50px;
+}
+
+.location-img {
+}
+
+.social-media {
+  margin-top: 50px;
+}
+
+.social-media .title {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.icons {
+  padding-top: 20px;
+}
+
+.icons img {
+  padding-right: 36px;
+}
+
+.contact-detial {
+  padding-top: 20px;
+}
+
+.contact-detial p {
+  margin-bottom: 5px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 300;
+}
+
+.gift {
+  margin-top: 40px;
+  border: 2px solid #e4e6ef;
+  border-radius: 16px;
+  margin-bottom: 26px;
+}
+
+.gift .gift-text {
+  padding: 30px 40px 30px 30px;
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #262628;
+}
+
+.gift .desc {
+  font-size: 12px;
+  padding-top: 10px;
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #262628;
+}
+
+.buy-btn {
+  margin-top: 20px;
+}
+
+.buy-btn button {
+  background: #262628;
+  border-radius: 60px;
+  margin: 0;
+}
+
+.buy-btn a {
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.buy-btn a {
+  padding: 5.5px 33.5px;
+}
+
+.gift .title h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 22px;
+}
+
+.service {
+  padding-top: 15px;
+}
+
+.service p,
+.service p a {
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 24px;
+  display: inline;
+  letter-spacing: 0.019em;
+  padding-right: 16px;
+  text-transform: uppercase;
+}
+
+.service p a.active {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 1px;
+  color: #3EC1F3;
+  font-weight: bold;
+}
+
+.service p,
+.service p a {
+  font-weight: 300;
+  color: rgba(38, 38, 40, 0.6);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.serviceName {
+  margin-top: 30px;
+}
+
+.service-details {
+  overflow: hidden;
+  border: 3px solid rgb(243, 244, 246, 0.7);
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+.service-details {
+  padding: 20px 20px 20px;
+  margin-bottom: 10px;
+}
+
+.service-details .img {
+  padding-right: 20px;
+  position: relative;
+  float: left;
+}
+
+.arrows {
+  position: absolute;
+  top: -10px;
+  left: 18px;
+}
+
+.service-details .text {
+  float: left;
+  width: 58%;
+}
+
+.service-details p {
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-size: 15px;
+  line-height: 18px;
+  margin: 0;
+  color: #262628;
+  margin-bottom: 10px;
+}
+
+.service-details p.bold {
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.book-btn-right {
+  float: left;
+  position: relative;
+  top: 50%;
+}
+
+.book-btn-right button {
+  background: #262628;
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 0;
+   font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.book-btn-right button a {
+   font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.right-part {
+  float: left;
+}
+
+agm-map {
+  width: auto;
+  height: 400px;
+}
+
+.service-details .img {
+  max-width: 80px;
+}
+
+.icons .fab {
+  font-size: 24px;
+  color: #3EC1F3;
+}
+
+.icons a {
+  padding-right: 20px
+}
+
+.service-details .description1 p {
+  line-height: 23px;
+}
+
+.service-details .description1 a {
+  font-weight: bold;
+}
+
+@media screen and (min-width:1199px) and (max-width:1550px) {
+  .book-btn-right {
+      float: right;
+  }
+  .right-div1 {
+      padding: 50px 30px
+  }
+  .main1 {
+      margin: 50px 30px;
+  }
+}
+
+@media screen and (max-width:1544px) {
+  .service-details .img {
+      height: 75px;
+  }
+}
+
+@media screen and (min-width:1199px) {
+  .service-details.services-listing {
+      display: flex;
+      align-items: center;
+  }
+}
+
+@media screen and (min-width:992px) and (max-width:1198px) {
+  .main1 {
+      margin: 50px 30px;
+  }
+  .service-details p.bold {
+      margin-top: 0;
+  }
+  .service-details .img {
+      height: 70px;
+  }
+}
+
+@media screen and (max-width:1198px) {
+  .book-btn-right {
+      padding-top: 20px;
+      margin-left: -10px;
+  }
+}
+
+@media screen and (max-width:991px) {
+  .main1 {
+      margin: 50px 20px;
+  }
+  .left-div1 {
+      padding: 50px 20px;
+  }
+  .right-div1 {
+      padding: 50px 20px;
+  }
+  .book-btn-right {
+      padding-top: 0px;
+  }
+  .service-details.services-listing {
+      display: flex;
+      align-items: center;
+  }
+}
+
+@media screen and (min-width:620px) and (max-width:768px) {
+  .book-btn-right {
+      float: right;
+      padding-top: 0;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .service-details p.bold,
+  .service-details p {
+      font-size: 14px;
+  }
+  .service-details p.bold {
+      margin-top: 20px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .main1{
+    margin: 20px 0;
+  }
+  .main1 .col-xs-12{
+    padding: 0;
+  }
+  .book-btn-right {
+      padding-top: 20px;
+      margin-left: -10px;
+  }
+  .service-details p.bold {
+      margin-top: 0;
+  }
+  .service-details.services-listing {
+      display: block;
+      align-items: center;
+  }
+  .service-details .img {
+      height: 70px;
+  }
+  .service-details .text {
+      float: none;
+      width: auto;
+  }
+  .service-details .img {
+      display: none
+  }
+
+  ::ng-deep  .book-btn-right button,
+  .book-btn-right button{
+    border-radius: 8px;
+
+  }
+  ::ng-deep  .book-btn-right button a,
+  .book-btn-right button a{
+    font-size: 14px;
+    padding: 2px 15px;
+  }
+}
+
+#circle,
+#circle .segment {
+  border-color: lightgray;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+  box-sizing: border-box;
+  height: 60px;
+  position: relative;
+  width: 60px;
+}
+
+#circle .segment {
+  -webkit-clip-path: inset(0 0 0 24px);
+  /*content: ''; EDIT: not needed */
+  left: -5px;
+  position: absolute;
+  top: -5px;
+}
+
+#circle .segment:nth-child(1) {
+  border-color: #d6d6d6;
+  -webkit-clip-path: inset(-0px 0px 0 0);
+}
+
+#circle .segment:nth-child(2) {
+  border-color: blue;
+  transform: rotate(60deg);
+}
+
+.font-arrow {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.service-details .no-margin {
+  margin-top: 0 !important;
+}
+
+img.cirlc {
+  border-radius: 50%;
+  border: 3px solid;
+  max-width: 100%;
+}
+
+.service-details .pricing span {
+  color: #262628;
+}
+
+.clinicLogo {
+  max-height: 150px;
+  max-width: 150px;
+  height: auto;
+  width: auto;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 640px) and (-webkit-min-device-pixel-ratio: 2) {
+  .btn-gift a {
+      font-size: 12px;
+      padding: 5px 10px;
+  }
+}

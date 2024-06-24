@@ -1,0 +1,113 @@
+<div class="quick-links">
+  <div class="row mx-0">
+    <!-- ------------------------- Clinic Booking url -------------------------- -->
+    <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="quickLinkData?.appointmentUrl">
+      <div class="link-wrapper">
+        <div class="left-icon">
+          <div class="stat">
+            <i class="fas fa-clinic-medical"></i>
+           </div>
+        </div>
+
+        <div class="right-link">
+          <a href={{quickLinkData?.appointmentUrl}} target="_blank">Clinic URL</a>
+        </div>
+      </div>
+    </div>
+
+        <!-- ----------------------------- Chatbot url ----------------------------- -->
+        <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="chatBotUrl">
+          <div class="link-wrapper">
+            <div class="left-icon">
+              <div class="stat">
+                <i class="fas fa-robot"></i>
+               </div>
+            </div>
+
+            <div class="right-link">
+              <a href={{chatBotUrl}} target="_blank">Chatbot</a>
+            </div>
+          </div>
+        </div>
+
+
+    <!-- -------------------------- User Booking Url --------------------------- -->
+    <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="quickLinkData?.providerUrl">
+      <div class="link-wrapper">
+        <div class="left-icon">
+          <div class="stat">
+            <i class="fa-user-md fas"></i>
+           </div>
+        </div>
+
+        <div class="right-link">
+          <a href={{quickLinkData?.providerUrl}} target="_blank">Provider URL</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- -------------------------- Clinci review url -------------------------- -->
+    <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="quickLinkData?.clinicReviewUrl">
+      <div class="link-wrapper">
+        <div class="left-icon">
+          <div class="stat">
+            <i class="fa fa-bahai"></i>
+           </div>
+        </div>
+
+        <div class="right-link">
+          <a href={{quickLinkData?.clinicReviewUrl}} target="_blank"> Review Reel </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------------ Virtual Consultation ------------------------- -->
+    <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="quickLinkData?.symptomComposerUrl">
+      <div class="link-wrapper">
+        <div class="left-icon">
+          <div class="stat">
+            <i class="fa-diagnoses fas"></i>
+           </div>
+        </div>
+
+        <div class="right-link">
+          <a href={{quickLinkData?.symptomComposerUrl}} target="_blank">Self Assessment</a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- --------------------------- Contaact FOrms ---------------------------- -->
+    <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="quickLinkData?.contactUrl">
+      <div class="link-wrapper">
+        <div class="left-icon">
+          <div class="stat">
+            <i class="fa fa-wpforms"></i>
+           </div>
+        </div>
+
+        <div class="right-link">
+          <a href={{quickLinkData?.contactUrl}} target="_blank">Contact Form</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ----------------------------- MY Website ------------------------------ -->
+    <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="quickLinkData?.myWebsiteUrl">
+      <div class="link-wrapper">
+        <div class="left-icon">
+          <div class="stat">
+            <i class="fa-laptop fas"></i>
+           </div>
+        </div>
+
+        <div class="right-link">
+          <a href={{quickLinkData?.myWebsiteUrl}} target="_blank">My Website</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+.card-wrapper{
+  margin-bottom: 3em;
+}
+.border-class {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 1em;
+}
+.iframe iframe{
+  width: 100%;
+  min-height: 600px;
+  border: none;
+}
+.code-title p {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+.code-config {
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.border-box {
+  border: 1.5px solid #D7D7D7;
+  border-radius: 5px;
+  padding: 10px 10px;
+  margin-top: 1em;
+  word-break: break-word;
+  margin-bottom: 1em;
+}
+
+.iframeurl {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3c4257;
+}
+
+.buttons-wrapper{
+  display: flex;
+  justify-content: center;
+  column-gap: 5px;
+}
+
+.title  h3{
+  font-weight: 600;
+font-size: 26px;
+line-height: 42px;
+color: #009EDE;
+}
+
+
+.error-icon{
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #009EDE;
+}
+
+.error-text a{
+  color: #009EDE;
+
+  font-weight: 500;
+}
+
+.error-text{
+  font-weight: 500;
+}

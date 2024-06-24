@@ -1,0 +1,36 @@
+.iframeurl {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  color: #333333;
+}
+
+.border-box {
+  background: #f5f7fb;
+  border: 1px solid #c4c4c4;
+  border-radius: 8px;
+
+  padding: 10px 10px;
+  word-break: break-word;
+  margin-bottom: 1em;
+}
+
+.button-flex {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+.button-flex a {
+  font-size: 12px;
+  font-weight: 700;
+  color: #3c4257;
+  border: 0.5px solid #009EDE;
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #009EDE;
+}
+
+.copy-url {
+  margin-right: 1em;
+}

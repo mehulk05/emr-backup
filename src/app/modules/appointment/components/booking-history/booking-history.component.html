@@ -1,0 +1,98 @@
+<!--
+<div class="bg-white datatable-table">
+    <div class="title">
+        <h3>Appointment</h3>
+    </div>
+    <div class="table-list">
+        <div class="table-header">
+            <div class="table-header-wrapper">
+                <div class="dropdown mr-1">
+                    <button type="button" class="column-visibility dropdown-toggle" data-bs-toggle="dropdown">Column Visibility
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="p-2 dropdown-select dropdown-item" *ngFor="let c of columns; let i = index">
+                            <input type="checkbox" [(ngModel)]="c.isChecked" (ngModelChange)="showColumns(c)"> {{c.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-button mr-1">
+                    <div class="table-btn-wrapper">
+                        <span class="icon">
+                      <i class="fa fa-plus"></i>
+                      <a href="javascript:void(0);">Patient</a>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive mh-400" *ngIf="rowData.length>0">
+            <table id="datatable" datatable class="row-border hover" [dtOptions]="dtOptions">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Patient</th>
+                        <th scope="col">Clinic</th>
+                        <th scope="col">Provider</th>
+                        <th scope="col">Services</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Appointment Date</th>
+                        <th scope="col">Payment Status</th>
+                        <th scope="col">Appointment Status</th>
+                        <th scope="col" width="100px">Created Date</th>
+                        <th scope="col" width="100px">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let data of rowData; let i = index" class="table-light">
+                        <td (click)="editAppointment(data.id)" scope="row">{{ data.id}}</td>
+                        <td (click)="editAppointment(data.id)" style="width:10%" scope="row">
+                            {{data?.patientFirstname}} {{data?.patientLastName}}
+                        </td>
+
+                        <td (click)="editAppointment(data.id)" style="width:10%" scope="row">{{data?.clinicName}}</td>
+
+                        <td (click)="editAppointment(data.id)" style="width:10%" scope="row">
+                            {{data?.providerName}}
+                        </td>
+
+                        <td (click)="editAppointment(data.id)" style="width:10%" scope="row">
+                            <span *ngFor="let bookedService of data.serviceList">
+                            {{bookedService.serviceName}}
+                        </span>
+                        </td>
+                        <td (click)="editAppointment(data.id)" style="width:10%" scope="col">
+                            {{data?.appointmentType}}</td>
+
+                        <td (click)="editAppointment(data.id)" style="width:10%" scope="row">
+                            <span class="hidden">
+                          {{ data?.appointmentStartDate? (data?.appointmentStartDate | date : "yyyy/MM/dd hh:mm a") : '-'}}
+                        </span> {{ formatTimeService.formatBookingHistoryTime( data?.appointmentStartDate)}}
+                        </td>
+
+                        <td (click)="editAppointment(data.id)">{{data?.paymentStatus}}</td>
+                        <td (click)="editAppointment(data.id)">{{data.appointmentStatus}}</td>
+
+                        <td (click)="editAppointment(data.id)" style="width:10%" scope="row">
+                            <span class="hidden">
+                          {{ data?.appointmentCreatedDate? (data?.appointmentCreatedDate | date : "yyyy/MM/dd hh:mm a") : '-'}}</span> {{formatTimeService.formatTime(data?.appointmentCreatedDate)}}
+                        </td>
+
+                        <td>
+                            <a href="javascript:void(0)" (click)="editAppointment(data.id)"><i
+                            class="fas fa-edit ms-text-primary"></i></a>
+                            <a href="javascript:void(0)" (click)="deleteAppointmentModal(data)"><i
+                            class="far fa-trash-alt ms-text-danger"></i></a>
+                            <a [routerLink]="['/appointment/', data.id, 'meeting']" *ngIf="data?.appointmentType === 'Virtual'"><i
+                            class="fas fa-video ms-text-secondary"></i></a>
+                            <a *ngIf="data?.paymentStatus === 'Unpaid'" [routerLink]="['/appointment', data.id, 'payment']" routerLinkActive="router-link-active"><i class="fas fa-dollar-sign ms-text-secondary"></i></a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> -->

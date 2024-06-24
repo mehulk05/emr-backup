@@ -1,0 +1,35 @@
+<div class="container" *ngIf="showReportNotificationDetails">
+  <p *ngIf="clinicProperties?.mailNotificationInterval"><i class="fa fa-info-circle" aria-hidden="true"
+      style="padding-left: 2px;"></i> Email will be sent to Clinic Notification Email Address</p>
+  <p *ngIf="clinicProperties?.mailNotificationInterval" class="my-3">Scheduled Interval : <span
+      class="container my-3">{{clinicProperties?.mailNotificationInterval}} Days</span></p>
+  <p *ngIf="!clinicProperties?.mailNotificationInterval" class="py-2">Schedule not set</p>
+</div>
+<div class="container">
+  <p *ngIf="clinicProperties?.notificationTriggerDate" class="py-2">Next report date : <span
+      class="container my-3">{{formatTimeService.formatDateForLeadTimeLine(clinicProperties?.notificationTriggerDate)}}</span>
+  </p>
+</div>
+<div class="container py-3 time-frame-wrapper">
+  <p>Set Time frame :</p>
+
+  <div class="d-flex  justify-content-start gap-3 container month-year-selector my-2 form-group">
+    <select [(ngModel)]="reportGenerationSuffix" (ngModelChange)="changePrefix()"
+      style="padding: 10px; background:#edf2ff; border:none; margin:0px 10px;">
+      <option *ngFor="let suffix of reportGenerationSuffixs">{{suffix}}</option>
+    </select>
+    <select [(ngModel)]="reportGenerationPrefix"
+      style="padding: 10px; background:#edf2ff; border:none; margin:0px 10px">
+      <option *ngFor="let prefix of reportGenerationPrefixs">{{prefix}}</option>
+    </select>
+    <p-calendar *ngIf="reportGenerationSuffix==='Month'" [(ngModel)]="date" class="mx-2" [showIcon]="true" appendTo="body"
+      [minDate]="minDate" [maxDate]="maxDate">
+    </p-calendar>
+
+  </div>
+</div>
+
+
+<button class="btn-small-new btn-save-new ml-3" (click)="submitReportInterval()">
+  Save
+</button>

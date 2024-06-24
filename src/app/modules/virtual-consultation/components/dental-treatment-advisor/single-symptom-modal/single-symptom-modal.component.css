@@ -1,0 +1,45 @@
+.selected-service{
+    padding: 1em;
+    color: #000;
+}
+
+
+
+.btn-wrapper {
+    display: flex;
+    padding-left: 1em;
+    column-gap: 1em;
+}
+
+button.btn {
+    color: #fff;
+    color: #0d6efd;
+    padding: 4px 7px;
+    font-size: 11px;
+    border: 1px solid #0d6efd;
+}
+
+.selected-service-list{
+    box-shadow: 0 0 2rem 0 rgb(41 48 66 / 20%);
+    padding: 10px 10px;
+    border-radius: 5px;
+    margin-top: 1em;
+    border-bottom: 2px solid gainsboro;
+}
+
+.selected-service-list .service-name{
+    padding: 3px 8px;
+}
+
+.selected-service ::ng-deep .p-multiselect{
+    max-width: 100%;
+    width: 100%;
+}
+
+.no-data{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 1em;
+    padding: 1em;
+}

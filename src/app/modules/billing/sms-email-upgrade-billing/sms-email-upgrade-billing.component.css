@@ -1,0 +1,33 @@
+tbody {
+    height: 400px;
+    /* Just for the demo          */
+    overflow-y: auto;
+    /* Trigger vertical scroll    */
+    overflow-x: hidden;
+    /* Hide the horizontal scroll */
+}
+
+.main-wrap {
+    padding: 10px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main-wrap button {
+    position: relative;
+    bottom: 15px;
+}
+
+.alert-wrap {
+    margin: 20px 0px 5px 25px;
+}
+
+.table-container {
+    /* margin: 5px 15px 5px 8px; */
+    margin: 0;
+}
+
+::ng-deep .p-datatable-wrapper {
+    padding-right: 0 !important;
+}

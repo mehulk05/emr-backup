@@ -1,0 +1,346 @@
+<div class="blue-card bg-white new-ui pl-1">
+  <!-- <div class="bg-white datatable-table">
+    <div class="title">
+      <h3>{{title}}</h3>
+    </div>
+  </div> -->
+  <div class="add-edit-form">
+    <div class="form form-type2">
+      <form [formGroup]="serviceForm" (ngSubmit)="submitForm()">
+        <div class="row mx-0">
+          <!-- -------------------------- Service Name feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+              <label>Service Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" (input)="onLabelAdd($event)" formControlName="name"
+                appErrorStylingDirective>
+              <div *ngIf="duplicateLabel" class="error-duplicate">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                Service with this name already present.
+              </div>
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Name is required.
+                </div>
+
+                <!-- <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Name can only contain alphabets and space.
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- Clinic Feild Start -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.clinicIds.invalid && ((f.clinicIds.dirty || f.clinicIds.touched))?'has-error':''">
+              <label>Select Clinic<span class="error-red">*</span></label>
+              <p-multiSelect [resetFilterOnHide]="true" (onChange)="onClinicSelect($event)" placeholder="Select Clinic"
+                [options]="clinicList" formControlName="clinicIds" optionLabel="name" optionValue="id" display="chip">
+              </p-multiSelect>
+
+              <div class="error error-msg">
+                <div *ngIf="f.clinicIds.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinic Name are required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- Service Duration Field ---------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.durationInMinutes.invalid && ((f.durationInMinutes.dirty || f.durationInMinutes.touched))?'has-error':''">
+              <label>Service Duration<span class="error-red">*</span></label>
+
+              <p-dropdown [options]="serviceTimeDurations" formControlName="durationInMinutes"
+                placeholder="Select Service Duration">
+              </p-dropdown>
+              <div class="error error-msg">
+                <div *ngIf="f.durationInMinutes.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Duration is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- Service Category Field ---------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.serviceCategoryId.invalid && ((f.serviceCategoryId.dirty || f.serviceCategoryId.touched))?'has-error':''">
+              <label>Service Category<span class="error-red">*</span></label>
+
+              <p-dropdown [options]="serviceCategories" formControlName="serviceCategoryId" [filter]="true"
+                filterBy="name" placeholder="Select Category" optionLabel="name" optionValue="id">
+              </p-dropdown>
+              <div class="error error-msg">
+                <div *ngIf="f.serviceCategoryId.touched && f.serviceCategoryId.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Category is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- Servce Cost  field -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.serviceCost.invalid && ((f.serviceCost.dirty || f.serviceCost.touched))?'has-error':''">
+              <label>Service Cost<span class="error-red">*</span></label>
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                class="form-control input-type2" formControlName="serviceCost" appErrorStylingDirective>
+              <div class="error error-msg">
+
+                <div *ngIf="f.serviceCost.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Cost is required.
+                </div>
+                <div *ngIf="f.serviceCost.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Cost is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- --------------------------service url feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.serviceURL.invalid && ((f.serviceURL.dirty || f.serviceURL.touched))?'has-error':''">
+              <label>Service URL</label>
+              <input type="text" class="form-control input-type2" formControlName="serviceURL" appErrorStylingDirective>
+              <div class="error error-msg">
+
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service URL is invalid.
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- Deposit Cost Y/N field -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.priceVaries.invalid && ((f.priceVaries.dirty || f.priceVaries.touched))?'has-error':''">
+              <!-- <label>Collect Deposit Cost?</label>
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" class="form-control input-type2" formControlName="preBookingCost"
+                appErrorStylingDirective> -->
+
+              <div class="inline-checkbox">
+                <input type="checkbox" formControlName="priceVaries" (change)="onPriceVaries($event)" class="" />
+                <label for="link">Hide Service Cost from public booking</label>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ------------------------- Show service In Public booking Y/N field -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.showInPublicBooking.invalid && ((f.showInPublicBooking.dirty || f.showInPublicBooking.touched))?'has-error':''">
+              <!-- <label>Collect Deposit Cost?</label>
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" class="form-control input-type2" formControlName="preBookingCost"
+                appErrorStylingDirective> -->
+
+              <div class="inline-checkbox">
+                <input type="checkbox" formControlName="showInPublicBooking" class="" />
+                <label for="link">Disable booking for this Service Via online booking</label>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ------------------------- Deposit Cost Y/N field -------------------------- -->
+          <div *ngIf="isPreBookingCostAllowed" class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.isPreBookingCostAllowed.invalid && ((f.isPreBookingCostAllowed.dirty || f.isPreBookingCostAllowed.touched))?'has-error':''">
+              <!-- <label>Collect Deposit Cost?</label>
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" class="form-control input-type2" formControlName="preBookingCost"
+                appErrorStylingDirective> -->
+
+              <div class="inline-checkbox">
+                <input type="checkbox" formControlName="isPreBookingCostAllowed" (change)="onChange($event)" class="" />
+                <label for="link">Enable collecting deposits during online appointment booking</label>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ------------------------- Show service In ChatBot booking Y/N field -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.disableBookingWithChatbot.invalid && ((f.disableBookingWithChatbot.dirty || f.disableBookingWithChatbot.touched))?'has-error':''">
+              <div class="inline-checkbox">
+                <input id="disableBookingWithChatbot" type="checkbox" formControlName="disableBookingWithChatbot"
+                  class="" />
+                <label for="disableBookingWithChatbot">Disable booking for this Service Via ChatBot</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- Deposit Cost  field -------------------------- -->
+          <div *ngIf="isDepositAllowed" class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.preBookingCost.invalid && ((f.preBookingCost.dirty || f.preBookingCost.touched))?'has-error':''">
+              <label>Deposit Cost</label>
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                class="form-control input-type2" formControlName="preBookingCost" appErrorStylingDirective>
+              <div class="error error-msg">
+
+                <div *ngIf="f.preBookingCost.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Deposit Cost is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ---------------------------- Service show deposit section ---------------------------- -->
+          <div *ngIf="isDepositAllowed" class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.showDepositOnPublicBooking.invalid && ((f.showDepositOnPublicBooking.dirty || f.showDepositOnPublicBooking.touched))?'has-error':''">
+              <div class="inline-checkbox">
+                <input type="checkbox" formControlName="showDepositOnPublicBooking" class="" />
+                <label for="link">Show deposit cost on public appointment</label>
+              </div>
+            </div>
+          </div>
+          <!-- ---------------------------- Service Description section ---------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.description.invalid && ((f.description.dirty || f.description.touched))?'has-error':''">
+              <div class="row">
+                <div class="col-lg-6 mt-2">
+                  <label style="margin-left: -10px;">Service Description</label>
+                </div>
+                <div class="col-lg-6 ai-row pr-0">
+                  <app-ai-button [showModal]="showAiModal" [message]="serviceForm.value.description"
+                    [totalCharacterLength]="totalCharacterLength" [category]="category"
+                    (modalClosed)="aiModelClose($event)"></app-ai-button>
+                </div>
+              </div>
+              <textarea rows="3" cols="80" class="form-control textarea" formControlName="description"
+                appErrorStylingDirective></textarea>
+              <span style="color: #b8902d">Character Remaining:
+                {{
+                totalCharacterLength - (serviceForm.controls['description'].value?.length || 0)
+                }}/{{totalCharacterLength}}</span>
+            </div>
+          </div>
+          <!-- ---------------------------- Service Description section ---------------------------- -->
+          <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.description.invalid && ((f.description.dirty || f.description.touched))?'has-error':''">
+              <label>Service Description</label>
+              <textarea rows="3" cols="80" class="form-control textarea" formControlName="description"
+                appErrorStylingDirective></textarea>
+            </div>
+          </div> -->
+
+
+
+
+          <!-- ------------------------- Service Consenst Feild Start -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.consentIds.invalid && ((f.consentIds.dirty || f.consentIds.touched))?'has-error':''">
+              <label>Consents</label>
+              <p-multiSelect [resetFilterOnHide]="true" placeholder="Select Consent" [options]="consentList"
+                formControlName="consentIds" optionLabel="name" optionValue="id" display="chip">
+              </p-multiSelect>
+            </div>
+          </div>
+
+          <!-- ------------------------- Service Questionarie Feild Start -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.questionnaireIds.invalid && ((f.questionnaireIds.dirty || f.questionnaireIds.touched))?'has-error':''">
+              <label>Questionnaire</label>
+              <p-multiSelect [resetFilterOnHide]="true" placeholder="Select Questionnaire" [options]="questionnaireList"
+                formControlName="questionnaireIds" optionLabel="name" optionValue="id" display="chip">
+              </p-multiSelect>
+            </div>
+          </div>
+
+          <!-- ---------------------------- Service IMage ---------------------------- -->
+          <div class="form-group" style="display: flex; column-gap: 1em;">
+            <div class="save-color-btn-wrapper">
+              <button class="btn-save-new btn-small-new" type="button" *ngIf="!uploadFile" #upload
+                (click)="myFileInput.click()">
+                Upload Service Image
+              </button>
+              <button class="btn-save-new btn-small-new" type="button" *ngIf="uploadFile" #upload
+                (click)="myFileInput.click()">
+                Change Service Image
+              </button>
+              <input formControlName="file" #myFileInput id="file" type="file" class="form-control" #fileInput
+                accept="image/*" (change)="fileChangeEvent($event)" />
+            </div>
+            <div class="save-color-btn-wrapper" *ngIf="uploadFile" (click)="removeFile()">
+              <button class="btn-save-new btn-small-new" type="button">
+                Remove Service Image
+              </button>
+
+            </div>
+
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="productAddfromImages" *ngIf="uploadFile">
+                  <img class="img-fluid" [src]="uploadFile">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn-small-new btn-save-new" [disabled]="!serviceForm.valid && !submitted">
+                  Save
+                </button>
+
+                <button type="button" class="btn-default-new btn-small-new" (click)="goBack()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-----------------------------------Image upoad--------------------------------------->
+
+<div class="editTitleModal new-ui-dialog">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    header="Add Service Image" [(visible)]="showModalForImage" (onHide)="cancelImageUpload()">
+
+    <!-- ---------------------------- image cropper ---------------------------- -->
+    <div class="modal-body">
+      <div class="image-cropper-wrapper row mx-0">
+        <div class="col-lg-6 col-md-6">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <!-- <img [src]="croppedImage" class="img-responsive" /> -->
+          <img class="img-fluid" [src]="croppedImage" style="height:150;width:200">
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ------------------------- Image cropper ends -------------------------- -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn-small-new btn-save-new" data-dismiss="modal" (click)="saveImage()">
+          <i [ngClass]="isImageUploading? 'pi-spin pi-spinner' : 'pi-check'" class="pi"></i> Save</button>
+        <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="cancelImageUpload()">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

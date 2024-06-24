@@ -1,0 +1,232 @@
+.lead-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1em;
+  height: 100%;
+}
+
+.lead-info-card {
+  background-color: #f8fafe;
+  border-radius: 1em 1em 0 0;
+  overflow: hidden;
+}
+
+.lead-info-card.lead-details,
+.lead-info-card.notes-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.lead-info-card.lead-details {
+  height: 55%;
+}
+
+.lead-info-card.notes-card {
+  height: 45%;
+}
+
+.lead-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.74em 1em;
+  background-color: #d8e2f6;
+}
+
+.lead-info-content {
+  overflow-y: auto;
+  padding: 1.5em 1em;
+  /* border-bottom: 1px solid #d8e2f6; */
+}
+
+.lead-info-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lead-info-content::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.lead-info-content::-webkit-scrollbar-thumb {
+  background: #d8e2f6;
+}
+
+.source-url {
+  color: #2656c9;
+  font-size: 12px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  word-break: break-word;
+}
+
+.lead-status .lead-status-name {
+  color: #ffffff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 4px 12px;
+  margin-right: 8px;
+  border-radius: 1em;
+}
+
+.lead-status .lead-status-name.PENDING {
+  background-color: #f9c005;
+}
+
+.lead-status .lead-status-name.JUNK {
+  background-color: #9f9f9f;
+}
+
+.lead-status .lead-status-name.NEW {
+  background-color: #01b700;
+}
+
+.lead-status .lead-status-name.COLD,
+.lead-status .lead-status-name.EXISTING {
+  background-color: #00b2d6;
+}
+
+.lead-status .lead-status-name.WARM {
+  background-color: #fb6900;
+}
+
+.lead-status .lead-status-name.HOT,
+.lead-status .lead-status-name.DELETED {
+  background-color: #c51900;
+}
+
+.lead-status .lead-status-name.WON {
+  background-color: #aa4ee7;
+}
+
+.lead-status .lead-status-name.DEAD {
+  background-color: #000000;
+}
+
+.lead-info-footer {
+  /* height: 100%; */
+  /* overflow-y: auto; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  background-color: #fff;
+  margin: 0 0.5em 0.5em 0.5em;
+  padding: 0 0.25em;
+  border-radius: 4px;
+}
+
+.lead-info-footer .lead-comment-form {
+  border-top: 1px solid #d8e2f6;
+}
+
+.notes-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-item .notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.notes-item .notes-header .notes-header-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.notes-item .notes-header .notes-time {
+  color: #333;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.46;
+}
+
+.notes-item .notes-header .notes-header-item .author-img {
+  width: 21px;
+  height: 21px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.notes-item .notes-header .notes-header-item .author-name {
+  color: #3255c2;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.notes-item .notes-body-item .notes-description {
+  border-radius: 6px;
+  border: 1px solid #d8e2f6;
+  background: #f8fafe;
+  padding: 0.5em 0.75em;
+  color: #333;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  word-wrap: break-word;
+}
+
+.notes-wrapper {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.notes-textbox-wrapper {
+  position: relative;
+}
+
+.notes-textbox-wrapper textarea {
+  color: #595959;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.notes-textbox-wrapper .send-icon {
+  cursor: pointer;
+  position: absolute;
+  bottom: 3px;
+  right: 7px;
+  color: grey;
+}
+
+.notes-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notes-wrapper::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.notes-wrapper::-webkit-scrollbar-thumb {
+  background: #d8e2f6;
+}
+
+.notes-date-wrapper {
+  text-align: center;
+  margin: 0.25em 0;
+  padding-top: 0.25em;
+}
+
+.notes-date-wrapper .notes-date {
+  background-color: #d8e2f6;
+  border-radius: 1em;
+  padding: 6px 12px;
+  color: #333;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

@@ -1,0 +1,60 @@
+.full-container {
+  flex: 1;
+}
+
+.full-container > div {
+  margin: 30px 150px;
+}
+
+.hover-class:hover {
+  background-color: #f0f0f5;
+}
+
+.card {
+  background-color: #f8fafe;
+  margin: 30px 0px;
+  padding: 0px 0px 5px 0px;
+  box-shadow: 2px 2px 5px 1px grey;
+}
+
+.add-on-txt {
+  text-align: center;
+  color: #2656c9;
+  font-size: 12px;
+  padding-top: 3px;
+}
+
+p-dialog ::ng-deep .p-component-overlay {
+  background-color: rgb(38, 86, 201, 0.3) !important;
+}
+
+.buyLogo {
+  margin: 10px 0px 0px 0px;
+  height: 20px;
+  width: 30px !important;
+}
+
+::ng-deep .buy-pack-modal .p-dialog .p-dialog-content {
+  padding: 0 !important;
+  border-radius: 15px;
+}
+
+::ng-deep .buy-pack-modal .p-dialog .p-dialog-footer {
+  padding: 0 0.5rem 1.5rem 1.5rem !important;
+}
+
+::ng-deep .buy-pack-modal .p-dialog .p-dialog-header {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .full-container > div {
+    margin: 30px 20px;
+  }
+
+  .card {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

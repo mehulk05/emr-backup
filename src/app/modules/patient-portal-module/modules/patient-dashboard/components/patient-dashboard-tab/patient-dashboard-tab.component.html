@@ -1,0 +1,21 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="My Appointments">
+      <app-patient-appointment [currentPaitent]="currentPaitent"></app-patient-appointment>
+    </p-tabPanel>
+
+    <p-tabPanel header="Consents">
+      <app-patient-consent [currentPaitent]="currentPaitent"></app-patient-consent>
+    </p-tabPanel>
+
+    <p-tabPanel header="Questionnaire">
+      <app-patient-questionarie [currentPaitent]="currentPaitent"></app-patient-questionarie>
+    </p-tabPanel>
+
+    <p-tabPanel header="Payments">
+      <app-patient-payment [currentPaitent]="currentPaitent"></app-patient-payment>
+    </p-tabPanel>
+  </p-tabView>
+
+
+</div>

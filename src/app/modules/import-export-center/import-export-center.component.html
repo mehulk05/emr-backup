@@ -1,0 +1,13 @@
+<div class="tab-view new-ui">
+    <p-tabView  [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+         <p-tabPanel header="Leads">
+            <app-lead-center *ngIf="source === 'leads'"></app-lead-center>
+         </p-tabPanel>
+         <p-tabPanel header="Patients">
+            <app-patient-center *ngIf="source === 'patient'"></app-patient-center>
+         </p-tabPanel>
+         <p-tabPanel header="Triggers">
+            <app-trigger-center *ngIf="source === 'triggers'"></app-trigger-center>
+         </p-tabPanel>
+    </p-tabView>
+ </div>

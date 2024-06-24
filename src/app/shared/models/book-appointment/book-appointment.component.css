@@ -1,0 +1,82 @@
+.add-edit-form.custom{
+    max-width: 100%;
+    padding: 0;
+  }
+  .modal-appt .add-edit-form{
+    padding: 25px 0;
+  }
+  .calendar-label{
+    display: flex;
+  }
+  .calendar-label label{
+    padding-bottom: 0;
+    width: 30%;
+  }
+  .calendar-formcontrol{
+    width: 70%;
+  }
+  .provider-buttons {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 1em;
+  }
+  
+  .active-filter {
+    padding: 1em 0;
+    border-top: 2px solid gainsboro;
+  }
+  
+  .provider-buttons p,
+  .active-filter p {
+    margin-bottom: 0;
+  }
+  
+  .provider-buttons p {
+    padding-right: 1em;
+    font-size: 14px;
+    padding-right: 1em;
+    font-weight: 500;
+  }
+  
+  .provider-buttons {
+    border-top: 2px solid gainsboro;
+    border-bottom: 2px solid gainsboro;
+    padding: 1em 0;
+  }
+  
+  .provider-buttons button {
+    margin-left: 10px;
+    padding: 5px 12px;
+    font-size: 15px
+  }
+  .list-view{
+    padding: 1em;
+  }
+  
+  @media screen and (max-width:767px) {
+    .add-edit-form .form-group{
+      margin-bottom: 25px;
+    }
+    .calendar-formcontrol{
+      width: 100%;
+    }
+  }
+  @media screen and (max-width:550px) {
+    .calendar-label{
+      flex-direction: column;
+    }
+    .calendar-label label{
+      width: auto;
+      padding-bottom: 10px;
+    }
+  }
+  ::ng-deep .p-button {
+    color: #ffffff;
+    background: #2656C9;
+    border: 1px solid #2656C9;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 3px;
+}

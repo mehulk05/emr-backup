@@ -1,0 +1,30 @@
+<p-dialog [header]="'Business Selection'" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  (onHide)="hideModal()" [draggable]="false" [resizable]="false">
+
+  <!-- ----------------------------- Modal Body ------------------------------ -->
+
+  <div class="modal-body">
+    <div class="panel-card" *ngFor="let data of userData">
+      <div class="card-wrapper">
+        <div class="business-img">
+          <img *ngIf="data?.logoUrl; else noLogo" alt="profile img" class="profile-img" src="{{data.logoUrl}}">
+          <ng-template #noLogo>
+            <img  alt="profile img" class="profile-img" src="https://g99plus.b-cdn.net/AEMR/assets/img/growth99_icon.png">
+          </ng-template>
+        </div>
+        <div class="business-info-wrapper">
+          <div class="business-info">
+            <h3> {{data.name}}</h3>
+            <!-- <p> Business Info</p> -->
+          </div>
+
+          <div class="btn-wrapper">
+            <button class="btn-save-new btn-small-new" (click)="onBusinessSelect(data.tenantId)">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</p-dialog>

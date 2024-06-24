@@ -1,0 +1,62 @@
+<div class="blue-card bg-white">
+  <div class="notifications-graphs" *ngIf="!showOnlyOneUserSource">
+    <div class="notifications-stats">
+      <div class="title">
+        <h3>SMS Audit Overview</h3>
+      </div>
+
+      <div class="notification-stat-cards">
+        <div class="row mx-0">
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card notification-card">
+              <div class="card-body">
+                <div class="flex-wrapper">
+                  <div class="left-wrap">
+                    <p class="muted-text">SMS Count</p>
+                    <p class="muted-text">
+                      Sent:
+                      <span class="count">{{ sentMessageCount }}</span>
+                    </p>
+                    <p class="muted-text">
+                      Received:
+                      <span class="count">{{ receivedMessageCount }}</span>
+                    </p>
+                  </div>
+                  <div class="right-wrap notification-icon-wrapper">
+                    <span class="icon">
+                      <i
+                        class="far fa-comment-alt"
+                        aria-hidden="true"
+                        style="font-size: 20px"
+                      ></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notification-audit-table">
+    <app-two-way-text-audit-table
+      [rowData]="rowData"
+      [totalCount]="totalCount"
+      (onPaginate)="paginate($event)"
+      (onActionClicked)="onActionClicked($event)"
+    ></app-two-way-text-audit-table>
+  </div>
+</div>
+
+<p-sidebar
+  [(visible)]="sideBarVisible"
+  position="right"
+  [baseZIndex]="10000"
+  styleClass="p-sidebar-md"
+>
+  <app-two-way-text-chat-side-bar
+    [chat]="smsArray"
+    [businessName]="businessInfo?.name"
+  ></app-two-way-text-chat-side-bar>
+</p-sidebar>

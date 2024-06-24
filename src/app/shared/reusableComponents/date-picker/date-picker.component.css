@@ -1,0 +1,10 @@
+.form-input-field{
+  display: flex;
+  align-items: center;
+}
+
+.form-input-field input{
+  font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -1,0 +1,7 @@
+  <div *ngIf="filteredList.length > 0">
+    <ul>
+      <li *ngFor="let user of filteredList" (click)="selectUser(user)">
+        {{ user.name }} ({{ user.email }})
+      </li>
+    </ul>
+  </div>

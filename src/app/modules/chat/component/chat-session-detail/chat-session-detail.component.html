@@ -1,0 +1,40 @@
+<div class="panel-blue">
+  <div class="panel-header">
+    <h3>
+      Chat Session
+    </h3>
+  </div>
+
+  <div class="panel-body">
+    <div id="{{ message.mdid }}" *ngFor="let message of messages" class="chat-message" [ngClass]="{
+      'ms-chat-outgoing': !message.isBot(),
+      'ms-chat-incoming': message.isBot()}">
+      <!-- ----------------------------- Body Start ------------------------------ -->
+      <div class="media-body">
+        <div class="ms-chat-text">
+
+          <!-- ----------------------------- Bot Message ----------------------------- -->
+          <p *ngIf="!message.isBot()">
+            {{ formatWord(message.content)}}
+            <span class="ms-chat-text-arrow"></span>
+          </p>
+
+          <!-- ---------------------------- User message ----------------------------- -->
+          <p *ngIf="message.isBot()">
+            <span *ngIf="message.isContentType('Card')">
+              <span style="display: block" class="mb-0" [innerHTML]="message.content"></span>
+            </span>
+            <span *ngIf="message.isContentType('Text')">
+              <span [innerHTML]="message.content"></span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal-body">
+
+  <button class="btn btn-primary-border btn-small" (click)="goBack()">Back</button>
+</div>
+</div>

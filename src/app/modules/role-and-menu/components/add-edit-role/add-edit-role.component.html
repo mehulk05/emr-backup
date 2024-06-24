@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <app-all-role-list [menus]="menus" (menuSelected)="addSelectedMenu($event)"></app-all-role-list>
+        </div>
+        <div class="col-md-6">
+            <app-selected-role-list [selectedMenus]="selectedMenus" [menus]="menus" (menuDeleted)="deleteMenu($event)"
+                (moveUp)="moveUp($event)" (moveDown)="moveDown($event)" (menuMoved)="onMenuMoved($event)"></app-selected-role-list>
+        </div>
+
+        <button (click)="onSubmit()">Submit</button>
+    </div>
+</div>

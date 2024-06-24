@@ -1,0 +1,21 @@
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-container .flex-box{
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.search-container form {
+  flex: 1 0 auto;
+}
+
+@media screen and (max-width: 767px) {
+  .search-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

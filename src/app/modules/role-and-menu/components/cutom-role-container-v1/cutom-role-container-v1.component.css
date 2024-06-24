@@ -1,0 +1,121 @@
+/* Left Panel styles */
+
+.left-panel {
+    padding: 15px;
+    background-color: #f0f0f0; /* Light gray background for the left panel */
+    border-right: 1px solid #ccc; /* Border on the right side */
+  }
+  
+  .menu-group {
+    margin-bottom: 15px; /* Space between menu groups */
+  }
+  
+  .menu-group-title {
+    font-weight: bold;
+    margin-bottom: 5px; /* Space below group title */
+    color: #333; /* Darker text color */
+  }
+  
+  .menu-item {
+    padding: 8px 0;
+    margin-left: 10px; /* Indentation for child items */
+  }
+  
+  .menu-subitem {
+    margin-left: 20px; /* Further indentation for sub-items */
+  }
+  
+  /* Right Panel styles */
+  
+  .panel-card {
+    padding: 0;
+  }
+  
+  .panel-card-content {
+    max-width: 100% !important;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f8f9fa; /* Light background color */
+    margin-bottom: 10px;
+  }
+  
+  .menu-container {
+    border: 1px solid #dee2e6; /* Light border around containers */
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #fff; /* White background */
+    margin-bottom: 15px;
+  }
+  
+  .menu-container .panel-card-content {
+    margin-bottom: 5px; /* Space between items */
+  }
+  
+  .menu-container .panel-card-content:last-child {
+    margin-bottom: 0; /* No margin for the last item */
+  }
+  
+  .menu-container .badge {
+    margin-left: 5px; /* Space between menu item and badge */
+  }
+  
+  /* Drag and drop styles */
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Box shadow for drag preview */
+  }
+  
+  .cdk-drop-list {
+    min-height: 30px; /* Minimum height for drop lists */
+    padding: 10px;
+    background-color: #f8f8f8;
+      border: 2px dotted #ccc; /* Dashed border for drop area */
+    border-radius: 4px;
+    margin-left: 2em;
+    min-height: 250px;
+  }
+  
+  .cdk-drop-list .menu-subitem {
+      margin-left: 10px; /* Further indentation for sub-items */
+    }
+    
+  
+  .cdk-drop-list.cdk-drop-list-dragging-over {
+    background-color: #e0e0e0; /* Background color when dragging over */
+  }
+  
+  .cdk-drop-list ::ng-deep .menu-box {
+      margin-bottom: 0;
+  }
+  
+  .group-menu-container{
+      background-color: #f7f9fc;
+      padding: 1em;
+      margin-bottom: 2em;
+      box-shadow: 0 0 .875rem 0 rgba(41, 48, 66, .05);
+      border-radius: 8px;
+  }
+  
+  .cdk-drag.panel-card-content.group-menu-container{
+      padding: 1em;
+      margin-bottom: 2em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 1px dotted;
+  }
+  
+  /* Responsive adjustments */
+  
+  @media (max-width: 768px) {
+    .left-panel {
+      padding: 10px;
+    }
+  }
+  
+
+  .panel-header1{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+  }

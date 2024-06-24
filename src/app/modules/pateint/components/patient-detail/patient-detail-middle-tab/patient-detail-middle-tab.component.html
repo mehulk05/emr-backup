@@ -1,0 +1,194 @@
+<div class="lead-info-container">
+  <div class="lead-info-card task-container">
+    <div class="lead-info-header">
+      <div class="lead-status">
+        <span class="lead-status-name">
+          Task Dashboard
+        </span>
+      </div>
+      <div class="right-header-wrapper">
+        <button type="button" class="blue-btn" (click)="addTaskTemplateModal()">
+          <i style="color: white; padding-right: 3px;" class="fa fa-plus"></i>
+          <p class="light-txt">Add Task</p>
+        </button>
+      </div>
+    </div>
+    <div class="lead-info-content">
+      <div class="small-table">
+        <form [formGroup]="leadStatusForm">
+          <p-table [value]="leadTasks" *ngIf="leadTasks && leadTasks.length > 0" scrollHeight="340px" [rowHover]="true"
+            [tableStyle]="{ 'min-width': '100%', margin:'0px',padding:'0px' }">
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="task-table-head-txt">Task Name</th>
+                <th class="task-table-head-txt">Assigned to</th>
+                <th class="task-table-head-txt">Status</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-task>
+              <tr (click)="editTask(task.id)">
+                <td>
+                  <small>{{ task.name }}</small>
+                </td>
+                <td>
+                  <small>{{ task.userName }}</small>
+                </td>
+
+
+                <td>
+                  <div class="d-flex justify-content-start align-items-center flex-row">
+                    <div class="circle" [ngClass]="task?.status">
+                    </div>
+                    <div [ngClass]="task?.status+'txt'">
+                      {{ task?.status==='Inprogress'? 'In Progress':task?.status === 'Todo'?'To-do':'Completed'}}
+                    </div>
+                  </div>
+                </td>
+
+                <!-- <ng-container *ngIf="task?.status !== 'Completed';else complete">
+                  <td>
+                    <div class="d-flex align-items-center flex-row">
+                      <div class="lead-color-btn" [style.background-color]="'#FF7D01'"></div>
+                      <small [style.color]="'#FF7D01'">Pending</small>
+                    </div>
+  
+                  </td>
+                </ng-container>
+                <ng-template #complete>
+                  <td>
+                    <div class="d-flex align-items-center flex-row">
+                      <div class="lead-color-btn" [style.background-color]="'#2656C9'"></div>
+                      <small [style.color]="'#2656C9'">Completed</small>
+                    </div>
+                  </td>
+                </ng-template> -->
+
+            </ng-template>
+          </p-table>
+          <div class="no-data" *ngIf="!leadTasks || leadTasks.length === 0">
+            No tasks to display here
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!------------------- notes ------------------>
+  <div class="lead-info-card notes-card">
+    <div class="lead-info-header">
+      <div class="lead-status">
+        <span class="lead-status-name">
+          Notes
+        </span>
+      </div>
+    </div>
+
+    <div class="notes-wrapper bg-white m-2 mb-0 px-2">
+      <div class="" *ngIf="leadComments.length===0">
+        <p class="no-data" style="height: 250px;">
+          No comments to display here
+        </p>
+      </div>
+
+      <div class="" *ngIf="leadComments.length>0">
+        <div class="notes-item mb-2" *ngFor="let item of leadComments">
+          <div class="notes-header">
+            <div class="notes-header-item">
+              <div class="author-img">
+                <div>
+                  <img *ngIf="item.profileImageUrl" [attr.src]="
+                          item.profileImageUrl" width="100%" height="auto" />
+                  <span class="initials-circle" *ngIf="!item.profileImageUrl">{{getInitials(item.createdBy)}}</span>
+                </div>
+              </div>
+
+              <div class="author-name">
+                {{ item.createdBy }}
+              </div>
+            </div>
+            <div class="notes-time">
+              {{ formatTimeService.formatTime(item.createdAt) }}
+            </div>
+          </div>
+
+          <div class="notes-body-item">
+            <div *ngIf="item.comment" class="notes-description" [innerHtml]="getTextAnswerValue(item.comment)">
+            </div>
+            <div *ngIf="!item.comment && item.patientNotesFilelink" class="notes-description">
+              <span class="file-icon">
+                <i [class]="getFileIconClass(item.patientNotesFileType)"></i>
+              </span>
+              <a *ngIf="item.patientNotesFilelink" class="notes-link" href="{{item.patientNotesFilelink }}" target="_blank" rel="noopener noreferrer">
+                {{ item.patientNotesFileName || 'View File' }}
+                <span class="file-icon">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lead-info-footer">
+      <div [formGroup]="leadCommentForm" class="info-wrapper px-2 py-3 lead-comment-form">
+        <div class="notes-textbox-wrapper">
+          <textarea *ngIf="!patientNotesFile" #commentInput formControlName="comment" class="form-control overflow-hidden" rows="1"
+            placeholder="Add note here..." (input)="commentChanged($event)"
+            (keydown.enter)="onKeydown($event)"></textarea>
+
+            <div *ngIf="patientNotesFile" class="selected-file">
+              <div class="file-info">
+                <span class="file-icon">
+                  <i class="fas fa-file"></i>
+                </span>
+                <span class="file-name">{{ patientNotesFile.name }}</span>
+                <div class="patient-notes-btns">
+                  <label for="patient-notes-file-input" class="edit-btn">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </label>
+                  <label (click)="deletelnFile()" class="delete-btn">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </label>
+                </div>
+              </div>
+            </div> 
+
+          <span (click)="save()" role="button" class="send-icon">
+            <i class="far fa-paper-plane fa"></i>
+          </span>
+
+          <ng-template #filePicker>
+            <input type="file" #myFileInput class="form-control d-none" id="patient-notes-file-input"
+              (change)="fileChangeEvent($event)"
+              accept="application/pdf,image/*,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+              <span class="upload-icon" (click)="myFileInput.click()">
+                <i class="fas fa-paperclip"></i>
+              </span>
+          </ng-template>
+
+          <div *ngIf="patientNotesFilelink || patientNotesFile; else filePicker">
+            <input type="file" #myFileInput class="form-control d-none" id="patient-notes-file-input"
+              (change)="fileChangeEvent($event)"
+              accept="application/pdf,image/*,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="showModal">
+  <app-add-edit-patient-task [showModal]="showModal" (modalClosed)="onCloseModal($event)" [patientId]="patientId">
+  </app-add-edit-patient-task>
+</ng-container>
+
+<ng-container *ngIf="showNotesModal && showNotesModalValid">
+    <app-patient-notes-modal [showModal]="showNotesModal && leadComments.length>0 && showNotesModalValid" [id]="patientId"
+      [notes]="leadComments" (modalClosed)="onLeadNoteCloseModal($event)">
+    </app-patient-notes-modal>
+</ng-container>
+
+<ng-container *ngIf="showPopup">
+<app-notes-userlist-popup
+                [filteredList]="filteredList"
+                (userSelected)="onUserSelected($event)"
+              ></app-notes-userlist-popup>
+  </ng-container>

@@ -1,0 +1,158 @@
+
+<div class="bg-white datatable-table">
+  <div class="title"><h3>Fill Questionnaire</h3></div>
+  <div class="add-edit-form">
+    <div class="form form-type2">
+      <form [formGroup]="patientQuestionnaireForm" (ngSubmit)="submitForm()" class="form-array"
+        novalidate>
+        <input type="hidden" formControlName="id" />
+
+        <!-- -------------------------- FormArray starts --------------------------- -->
+        <div formArrayName="patientQuestionAnswers">
+          <div *ngFor="let pqa of patientQuestionAnswers.controls; let i=index" [formGroupName]="i"
+            class="row mt-4 d-inline w-20">
+            <div class="form-group form-row" *ngIf="!pqa.value.hidden">
+              <div class="col-lg-12" *ngIf="!(pqa.value.questionType === 'Multiple_Selection_Text' && !pqa.value.allowMultipleSelection && !pqa.value.showDropDown && pqa.value.preSelectCheckbox)">
+                <label [attr.for]="pqa?.questionId">{{ pqa.value.questionName }}</label>
+                <span *ngIf="pqa.value.required" style="color:red">*</span>
+              </div>
+              <!-- --------------------- Switch case for Form Array ---------------------- -->
+              <div [ngSwitch]="pqa.value.questionType" class="switchCase">
+
+                <!-- ----------------------------- input feild ----------------------------- -->
+                <div *ngSwitchCase="'Input'" class="input-feild form-group form-array-feild">
+                  <input type="text" class="form-control" formControlName="answerText">
+                </div>
+
+                <!-- ----------------------------- text field ------------------------------ -->
+                <div *ngSwitchCase="'Text'" class="text-field form-group form-array-feild">
+                  <textarea rows="2" class="form-control" formControlName="answerText"></textarea>
+                </div>
+
+                <!-- ----------------------------- Phone Number field ------------------------------ -->
+                <div *ngSwitchCase="'Phone_Number'" class="text-field form-group form-array-feild">
+                  <textarea rows="1" class="form-control" formControlName="answerText"></textarea>
+                </div>
+
+                <!-- ----------------------------- File field ------------------------------ -->
+                <div class="input-field" *ngSwitchCase="'File'">
+                  <input formControlName="answerText" type="file"  class="input input-border" data-type="File" data-type1="Test file upload" name="78708" placeholder="Test file upload"  accept="image/jpeg,image/png,image/gif,.pdf, .xls, .xlsx" style="box-shadow: rgb(0, 59, 111) 0px 0px 0px 0rem;">
+                </div>
+
+                <!-- ----------------------------- Date field ------------------------------ -->
+                <div *ngSwitchCase="'Date'">
+                  <span class="date-time">
+                    <input class="form-control" type="date"  formControlName="answerText">
+                  </span>
+                </div>
+
+                <!-- ---------------------------- Yes no feild ----------------------------- -->
+                <div *ngSwitchCase="'Yes_No'">
+                  <div class="form-group col-md-12 mb-0">
+                    <label>
+                      <input type="radio" [value]="true" id="{{ 'true' + i}}" formControlName="answer"> 
+                      <i class="ms-checkbox-check"></i>
+                    </label>&nbsp;
+                    <span> Yes</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>
+                      <input type="radio" [value]="false" id="{{ 'false' + i}}" formControlName="answer">
+                      <i class="ms-checkbox-check"></i>
+                    </label>&nbsp;
+                    <span> No</span>
+                    <!-- <textarea rows="3" class="form-control" *ngIf="pqa.value.answer === true"
+                      formControlName="answerComments" placeholder="Comments.."></textarea> -->
+                  </div>
+                </div>
+
+                <!-- ---------------------- Multiple selection field ----------------------- -->
+                <div *ngSwitchCase="'Multiple_Selection_Text'">
+
+                  <div class="" *ngIf="pqa.value.allowMultipleSelection && !pqa.value.showDropDown && !pqa.value.preSelectCheckbox">
+                    <div class="form-group" formArrayName="patientQuestionChoices">
+                      <div *ngFor="let pqc of pqa.controls['patientQuestionChoices'].controls; let j=index" [formGroupName]="j">
+                        <div class="vertical-options">
+                          <input type="checkbox" fromControlName="selected" id="{{pqc.id + j}}"
+                            [checked]="pqc.value.selected" (change)="onCheckboxChange($event, pqc, pqa, i, j)">
+                            <i class="ms-checkbox-check"></i>&nbsp;
+                          <span>{{ pqc.value.choiceName }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mb-3" *ngIf="!pqa.value.allowMultipleSelection && pqa.value.showDropDown && !pqa.value.preSelectCheckbox">
+                    <div class="form-group" formArrayName="patientQuestionChoices">
+                      <select formControlName="selected">
+                        <option *ngFor="let pqc of pqa.controls['patientQuestionChoices'].controls; let j=index" [formGroupName]="j" id="{{pqc.id + j}}" [value]="pqc.value.choiceName" (change)="onCheckboxChange($event, pqc, pqa, i, j)">
+                          {{ pqc.value.choiceName }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>                  
+
+                  <div class="col-md-12 mb-3" *ngIf="!pqa.value.allowMultipleSelection && !pqa.value.showDropDown && pqa.value.preSelectCheckbox">
+                    <div class="form-group" formArrayName="patientQuestionChoices">
+                      <div class="" *ngIf="(pqa.value.questionType === 'Multiple_Selection_Text' && !pqa.value.allowMultipleSelection && !pqa.value.showDropDown) && pqa.value.preSelectCheckbox && pqa.value.patientQuestionChoices?.length === 0">
+                        <input type="checkbox" [value] ="pqa.value.preSelectCheckbox"  [checked]="pqa.value.preSelectCheckbox">&nbsp;
+                        <label >{{ pqa.value.questionName }}</label>
+                        <span *ngIf="pqa.value.required" style="color:red">*</span>
+                      </div>
+                      <div *ngIf="(pqa.value.questionType === 'Multiple_Selection_Text' && !pqa.value.allowMultipleSelection && !pqa.value.showDropDown) && pqa.value.preSelectCheckbox && pqa.value.patientQuestionChoices?.length">
+                        <label >{{ pqa.value.questionName }}</label>
+                        <span *ngIf="pqa.value.required" style="color:red">*</span>
+                        <div *ngFor="let pqc of pqa.controls['patientQuestionChoices'].controls; let j=index"
+                        [formGroupName]="j">
+                            <div class="vertical-options">
+                              <input type="checkbox" fromControlName="selected" id="{{pqc.id + j}}"
+                                [checked]="pqc.value.choiceName" (change)="onCheckboxChange($event, pqc, pqa, i, j)">
+                                <i class="ms-checkbox-check"></i>&nbsp;
+                              <span>{{ pqc.value.choiceName }}</span>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!pqa.value.allowMultipleSelection && !pqa.value.showDropDown && !pqa.value.preSelectCheckbox">
+                    <div class="form-group" formArrayName="patientQuestionChoices">
+                      <div *ngFor="let pqc of pqa.controls['patientQuestionChoices'].controls; let j=index" [formGroupName]="j">
+                        <div class="vertical-options">
+                          <input type="checkbox" fromControlName="selected" id="{{pqc.id + j}}"
+                            [checked]="pqc.value.selected" (change)="onChangeSingleSelection($event, i, j, pqa)">
+                            <i class="ms-checkbox-check"></i>&nbsp;
+                          <span>{{ pqc.value.choiceName }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                </div>
+                
+                <!-- --------------------- Multiple choice field ends ---------------------- -->
+              </div>
+              <!-- ------------------------ switch case div ends ------------------------- -->
+            </div>
+          </div>
+        </div>
+
+         <!-- --------------------------- buttons section --------------------------- -->
+         <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn btn-save btn-regular" [disabled]="!patientQuestionnaireForm.valid">
+                  <span class="btn-text">Save</span>
+                </button>
+
+                <button type="button" (click)="backToDashboard()" class="btn btn-cancel btn-regular">
+                  <span class="btn-text"> Cancel</span>
+                </button>
+              </div>
+            </div>
+          </div>
+         </div>
+
+        <!-- ------------------------- formarray div ends -------------------------- -->
+      </form>
+    </div>
+  </div>
+</div>

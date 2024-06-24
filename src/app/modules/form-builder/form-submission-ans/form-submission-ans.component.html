@@ -1,0 +1,117 @@
+<div class="bg-white datatable-table new-ui">
+  <div class="title">
+    <h3>Questionnaire Details - {{ questionnaireName }}</h3>
+    <div class="table-btn-wrapper">
+      <button class="btn-save-new btn-small-new" (click)="downloadAsPDF()" style="margin-right: 10px;">
+        <i class="fa fa-file-pdf-o"></i>
+        Export To PDF
+      </button>
+      <button class="btn-small-new btn-default-new">
+        <i class="fa fa-arrow-left"></i>
+        <a href="javascript:void(0);" (click)="showQuestionnaireSubmissions()"
+          >Back</a
+        >
+      </button>
+    </div>
+  </div>
+
+  <div class="table-list">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table datatable class="table thead-light table-borderless">
+            <tbody>
+              <tr
+                *ngFor="let question of rowData; let i = index"
+                class="table-light"
+              >
+                <td>{{ question?.questionName }}</td>
+                <td *ngIf="question?.questionType === 'Input'">
+                  {{
+                    symptomsValue(question?.answerText, question?.questionName)
+                  }}
+                </td>
+                <td *ngIf="question?.questionType === 'Text'">
+                  <span [innerHtml]="getTextAnswerValue(question?.answerText)"></span>
+                </td>
+                <td *ngIf="question?.questionType === 'Date' || question?.questionType === 'Address' || question?.questionType === 'Phone_Number'">
+                  {{ question?.answerText }}
+                </td>
+                <td *ngIf="question?.questionType === 'File'">
+                  <a
+                    *ngIf="question?.answerText"
+                    href="{{ question?.answerText }}"
+                    target="_blank"
+                    class="link"
+                    rel="noopener noreferrer"
+                  >
+                    {{ question?.answerText }}
+                  </a>
+                </td>
+                <td *ngIf="question?.questionType === 'Yes_No' || question?.questionType === 'Terms_And_Conditions'">
+                  <span>
+                    <span *ngIf="question.answerText === 'true'"> Yes </span>
+                    <span *ngIf="question.answerText === 'false'"> No </span>
+                  </span>
+                </td>
+                <!-- <td
+                              *ngIf="question?.questionType === 'Multiple_Selection_Text' && question?.questionChoices">
+                              <div *ngFor="let pqc of question?.questionChoices">
+                                <span
+                                          *ngIf="pqc.selected">-{{pqc.name}}</span>
+                                </div>
+                               <ul>
+                                  <li *ngFor="let pqc of question?.patientQuestionChoices"><span
+                                          *ngIf="pqc.selected">{{pqc.choiceName}}</span></li>
+                              </ul>
+                          </td> -->
+                <td
+                  *ngIf="question?.questionType === 'Multiple_Selection_Text'"
+                >
+                  {{ question?.answerText }}
+                  <span
+                    *ngIf="
+                      question?.allowMultipleSelection === false &&
+                      question?.answerText === '' &&
+                      question?.preSelectCheckbox === false
+                    "
+                    >no</span
+                  >
+                </td>
+                <td
+                  *ngIf="question?.questionType === 'Business_Hours'"
+                  class="pl-0"
+                >
+                  <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12 pl-0">
+                      <table class="table thead-light table-borderless">
+                        <tbody>
+                          <ng-container
+                            *ngFor="
+                              let hour of getBusinessHours(question?.answerText)
+                            "
+                          >
+                            <tr>
+                              <td>
+                                <span>
+                                  {{ hour[0] | titlecase }}
+                                </span>
+                              </td>
+                              <td>
+                                <span> : {{ hour[1] }} - {{ hour[2] }} </span>
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

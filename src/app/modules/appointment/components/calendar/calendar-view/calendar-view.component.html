@@ -1,0 +1,481 @@
+<div class="list-view new-ui">
+  <div class="row mx-0">
+    <div class="col-lg-12 px-0" style="border-top: 2px solid gainsboro;
+    border-bottom: 2px solid gainsboro;">
+      <div class="buttons provider-buttons" style="float: left; ">
+        <p class="c-providers"> Providers </p> {{selectedProvider}}
+        <ng-container *ngFor="let provider of providersFromParent;let i = index">
+          <ng-container *ngIf="selectedProvider === provider.fullName;else other_buttons">
+            <button class="btn"
+              [ngStyle]="{backgroundColor:providerColorObj[provider.id]?.color ? (providerColorObj[provider.id]?.color) : '' }"
+              (click)="providerSelection(provider)">
+              <i class="fa fa-check" aria-hidden="true"></i> &nbsp;{{provider.fullName}}
+            </button>
+          </ng-container>
+
+          <ng-template #other_buttons>
+            <button class="btn"
+              [ngStyle]="{backgroundColor:providerColorObj[provider.id]?.color ? (providerColorObj[provider.id]?.color) : '' }"
+              (click)="providerSelection(provider)">
+              {{provider.fullName}}
+            </button>
+          </ng-template>
+        </ng-container>
+      </div>
+      <div style="float: right;" class="buttons provider-buttons">
+        <button type="button" class="btn-save-new btn-small-new" style="margin-left: 40px;"
+          (click)="vactionBooking()">Vacation Booking</button>
+        <button *ngIf="isProvider && !selectedClinicData?.isProviderBasedAppointment" class="btn-save-new btn-long-new"
+          (click)="goToVacation()">
+          Vacation Schedule
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngIf="!isMobileDevice">
+  <ejs-schedule #scheduleObj class="schedule" cssClass='schedule-group-custom-work-days' width='97%' height='650px'
+    [selectedDate]="selectedDate" [eventSettings]='eventSettings' [showQuickInfo]='showQuickInfo'
+    (cellDoubleClick)='cellDoubleClick($event)' (popupOpen)='onPopupOpen($event)'
+    (actionComplete)="onActionComplete($event)" (eventRendered)="onEventRendered($event)" [allowResizing]=true
+    (renderCell)="onRenderCell($event)" [workDays]='workWeekDays'>
+
+    <!-- --------- Below code is to show appoinment detail on tooltip ---------- -->
+    <ng-template #eventSettingsTooltipTemplate let-data>
+      <app-calendar-tooltip [data]="data" [appointments]="appointments"></app-calendar-tooltip>
+    </ng-template>
+
+    <!-- --------- Above code is to show appointment detail on tooltip --------- -->
+  </ejs-schedule>
+</ng-container>
+
+<div class="modal-appt dialog-with-close-icon" *ngIf="showModal">
+  <p-dialog [header]="formTitle" [(visible)]="showModal" [modal]="true" [breakpoints]="{'550px': '90vw'}"
+    [style]="{width: '70vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="hideModal()">
+    <!-- Modal body -->
+    <div class="body-section add-edit-form custom new-ui" #modalBody>
+      <!-- isAppointmentCreated - {{isAppointmentCreated | json}} -->
+      <form [formGroup]="appointmentForm" (ngSubmit)="submit()" class="form form-type2" *ngIf="showModal">
+        <!-- ------------------------- Email feild starts -------------------------- -->
+        <div class="form-group" [ngClass]="f.email.invalid && ((f.email.dirty || f.email.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Email Address<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <p-autoComplete [suggestions]="patientEmails" [dropdown]="true" styleClass="w-100"
+                (onSelect)="OnEmailSelected($event, f.email.errors?.pattern)" (completeMethod)="searchEmail($event)"
+                formControlName="email" (change)="OnEmailFeildBlur($event,f.email.errors?.pattern)"
+                appErrorStylingDirective>
+              </p-autoComplete>
+
+              <div class="error error-msg">
+                <div *ngIf="f.email.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is required.
+                </div>
+                <div *ngIf="f.email.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- -------------------------- First Name Starts -------------------------- -->
+        <div class="form-group"
+          [ngClass]="f.firstName.invalid && ((f.firstName.dirty || f.firstName.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> First Name <span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <input type="text" class="form-control input-type2" formControlName="firstName" appErrorStylingDirective
+                list="firstNames"
+                (keyup)="OnNameFeildBlur(f.firstName.value, f.lastName.value,f.lastName.errors?.pattern)"
+                (change)="OnNameFeildBlur(f.firstName.value, f.lastName.value,f.lastName.errors?.pattern)">
+              <datalist id="firstNames">
+                <option
+                  *ngFor="let patient of patients | nameFilter:f.firstName.value:f.lastName.value:'firstName':'lastName'"
+                  [value]="patient.firstName">{{patient.firstName}}</option>
+              </datalist>
+              <div class="error error-msg">
+                <div *ngIf="f.firstName.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is required.
+                </div>
+                <div *ngIf="f.firstName.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- -------------------------- Last Name starts --------------------------- -->
+        <div class="form-group"
+          [ngClass]="f.lastName.invalid && ((f.lastName.dirty || f.lastName.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Last Name <span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <input type="text" class="form-control input-type2" formControlName="lastName" appErrorStylingDirective
+                list="lastNames"
+                (keyup)="OnNameFeildBlur(f.firstName.value, f.lastName.value, f.lastName.errors?.pattern)"
+                (change)="OnNameFeildBlur(f.firstName.value, f.lastName.value,f.lastName.errors?.pattern)">
+              <datalist id="lastNames">
+                <option
+                  *ngFor="let patient of patients | nameFilter:f.lastName.value:f.firstName.value:'lastName':'firstName'"
+                  [value]="patient.lastName">{{patient.lastName}}</option>
+              </datalist>
+              <div class="error error-msg">
+                <div *ngIf="f.lastName.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is required.
+                </div>
+                <div *ngIf="f.lastName.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------------------- Phone number feild starts ---------------------- -->
+        <div class="form-group" [ngClass]="f.phone.invalid && ((f.phone.dirty || f.phone.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Phone Number <span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <input type="number" class="form-control input-type2" onwheel="return false;" (keydown.arrowup)="(false)"
+                (keydown.arrowdown)="(false)" (keyup)="OnPhoneFeildBlur($event,f.phone.errors?.pattern)"
+                formControlName="phone" appErrorStylingDirective>
+
+              <div class="error error-msg">
+                <div *ngIf="f.phone.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Phone is required.
+                </div>
+                <div *ngIf="f.phone.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- -------------------- Clinic Selection feild starts -------------------- -->
+        <div class="form-group"
+          [ngClass]="f.clinicId.invalid && ((f.clinicId.dirty || f.clinicId.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Clinic<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <p-dropdown [options]="clinics" (onChange)="onClinicSelect($event)" formControlName="clinicId"
+                [filter]="true" filterBy="name" placeholder="Select Clinic" optionLabel="name" optionValue="id">
+                <ng-template let-item pTemplate="clinics">
+                  {{item.name}}
+                </ng-template>
+              </p-dropdown>
+
+              <div class="error error-msg">
+                <div *ngIf="f.clinicId.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinic is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- -------------------- Service Selection feild starts -------------------- -->
+        <div class="form-group"
+          [ngClass]="f.serviceIds.invalid && ((f.serviceIds.dirty || f.serviceIds.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Services<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <p-multiSelect [appendTo]="'body'" [resetFilterOnHide]="true" [options]="serviceByClinicId"
+                (onChange)="onServiceSelect($event)" formControlName="serviceIds" optionLabel="name" optionValue="id"
+                display="chip">
+              </p-multiSelect>
+
+              <div class="error error-msg">
+                <div *ngIf="f.serviceIds.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Services are required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ------------------------ Provider feild start ------------------------- -->
+        <div class="form-group"
+          *ngIf="!selectedClinicData?.isProviderBasedAppointment && appointmentData?.providerId !== 0"
+          [ngClass]="f.providerId.invalid && ((f.providerId.dirty || f.providerId.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Provider<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <p-dropdown [options]="providersByServiceId" (onChange)="onProviderSelect()" formControlName="providerId"
+                [filter]="true" filterBy="fullName" placeholder="Select Provider" optionLabel="fullName"
+                optionValue="id">
+                <ng-template let-item pTemplate="providers">
+                  {{item.fullName}}
+                </ng-template>
+              </p-dropdown>
+              <div class="error error-msg">
+                <div *ngIf="f.providerId.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Provider is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- -------------------------- Date field starts -------------------------- -->
+        <div class="form-group" [ngClass]="f.date.invalid && ((f.date.dirty || f.date.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Date<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <p-calendar appendTo="body" (onSelect)="onDateSelect($event)" formControlName="date"
+                [minDate]="dateTimeObj?.calendarMinDate" [maxDate]="dateTimeObj?.calendarMaxDate" [showIcon]="true"
+                inputId="min-max" [disabled]="!appointmentId"></p-calendar>
+
+              <div class="error error-msg">
+                <div *ngIf="f.date.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Date is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- -------------------------- Time field starts -------------------------- -->
+        <div *ngIf="!appointmentId" class="form-group"
+          [ngClass]="f.time.invalid && ((f.time.dirty || f.time.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Time<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <p-dropdown [options]="dateTimeObj.availableTimes" (onChange)="onTimeSelect($event)"
+                [formControl]="$any(appointmentForm.controls['time'])" optionLabel="label" optionValue="value">
+                <ng-template let-item pTemplate="availableTimes">
+                  {{item.label}}
+                </ng-template>
+              </p-dropdown>
+
+              <div class="error error-msg">
+                <div *ngIf="f.time.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Time is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="appointmentId" class="form-group"
+          [ngClass]="f.timeForUpdateAppt.invalid && ((f.timeForUpdateAppt.dirty || f.timeForUpdateAppt.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Time<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <p-dropdown [options]="dateTimeObj.availableTimes" (onChange)="onTimeSelect($event)"
+                [formControl]="$any(appointmentForm.controls['timeForUpdateAppt'])" optionLabel="label"
+                optionValue="value">
+                <ng-template let-item pTemplate="availableTimes">
+                  {{item.label}}
+                </ng-template>
+              </p-dropdown>
+
+              <div class="error error-msg">
+                <div *ngIf="f.timeForUpdateAppt.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Time is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- -------------------------- Appointment Type field starts -------------------------- -->
+        <div class="form-group"
+          [ngClass]="f.appointmentType.invalid && ((f.appointmentType.dirty || f.appointmentType.touched))?'has-error':''">
+          <div class="calendar-label">
+            <label> Type<span class="required" style="color:red;">*</span></label>
+            <div class="calendar-formcontrol">
+              <div class="col-sm-12" *ngIf="isEnabledInPersonConsulatation()">
+                <input type="radio" value="InPerson" formControlName="appointmentType">
+                <label for="name" style="padding-left: 0.5rem">In Person</label>
+              </div>
+              <div class="col-sm-12" *ngIf="isEnabledVirtualConsulatation()">
+                <input type="radio" value="Virtual" formControlName="appointmentType">
+                <label for="name" style="padding-left: 0.5rem">Virtual</label>
+              </div>
+
+              <div class="error"
+                *ngIf="f.appointmentType.invalid && ((f.appointmentType.dirty || f.appointmentType.touched))">
+                <div *ngIf="f.appointmentType.errors?.required">
+                  Select appointment type.
+                </div>
+              </div>
+
+              <div class="error error-msg">
+                <div *ngIf="f.appointmentType.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Mode is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------------------- Appointment Notes starts ----------------------- -->
+        <div class="form-group">
+          <div class="calendar-label">
+            <label> {{notesLabel}} <span class="required" style="color:red;" *ngIf="notesRequired">*</span></label>
+            <div class="calendar-formcontrol">
+              <textarea class="form-control textarea" formControlName="notes" appErrorStylingDirective></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section mt-2">
+        <ng-container *ngIf="appointmentId">
+          <!-- <button type="button" class="btn-save-new btn-small-new"> <span class="btn-text"
+              (click)="vactionBooking()">Vacation Booking</span></button> -->
+          <button *ngIf="appointmentData?.patientId" type="button" class="btn-save-new btn-small-new"> <span
+              class="btn-text" (click)="goToPatientDetails()">Go to Patient details</span></button>
+          <ng-container *ngIf="appointmentData?.appointmentStatus !== 'Canceled'">
+            <button *ngIf="appointmentId" type="button" class="btn-default-del" data-dismiss="modal"
+              (click)="cancelConfirmVisible = true">Cancel Appointment</button>
+          </ng-container>
+        </ng-container>
+        <button type="button" class="btn-save-new btn-small-new" [disabled]="!appointmentForm.valid"
+          data-dismiss="modal" (click)="submit()">Submit</button>
+        <!-- <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal"
+          (click)="hideModal()">Cancel</button> -->
+
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+<div class="modal-appt dialog-with-close-icon" *ngIf="showModalVaction">
+  <p-dialog [header]="'Vacation booking'" [(visible)]="showModalVaction" [modal]="true"
+    [breakpoints]="{'550px': '90vw'}" [style]="{width: '50vw', height: '90vw'}" [baseZIndex]="10000" [draggable]="false"
+    [resizable]="false" (onHide)="hideVacationModal()">
+    <!-- Modal body -->
+    <div class="body-section add-edit-form custom new-ui">
+      <div class="bg-white">
+        <form class="form" [formGroup]="vacationScheduleForm">
+          <div class="form-group row">
+            <div class="calendar-label align-items-center">
+              <label style="width: 120px;"> Clinic <span class="required" style="color:red;">*</span></label>
+              <div class="calendar-formcontrol">
+                <p-dropdown [options]="clinics" (onChange)="onClinicVacationSelect($event)" formControlName="clinicId"
+                  [filter]="true" filterBy="name" placeholder="Select Clinic" optionLabel="name" optionValue="id">
+                  <ng-template let-item pTemplate="clinics">
+                    {{item.name}}
+                  </ng-template>
+                </p-dropdown>
+
+                <div class="error error-msg">
+                  <div
+                    *ngIf="f.clinicId.errors?.required && vacationScheduleForm.controls.clinicId.invalid && (vacationScheduleForm.controls.clinicId.dirty || vacationScheduleForm.controls.clinicId.touched)">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinic is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- start date -->
+          <div class="row">
+            <div class="form-group col-lg-6 col-md-12 col-sm-12">
+              <div class="input-type3-wrapper">
+                <p class="input-type3-label required">Date from <span>*</span></p>
+                <p-calendar [showIcon]="true" inputId="navigators" formControlName="startDate" appendTo="body">
+                </p-calendar>
+              </div>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-12 col-sm-12">
+              <div class="input-type3-wrapper">
+                <p class="input-type3-label required">Date to <span>*</span></p>
+                <p-calendar [showIcon]="true" inputId="navigators" formControlName="endDate" appendTo="body">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="!vacationScheduleForm.value.allDay">
+            <!-- from time -->
+            <div class="form-group col-lg-6 col-md-12 col-sm-12">
+              <div class="input-type3-wrapper">
+                <p class="input-type3-label required">Time from <span>*</span></p>
+                <!-- pankaj : style - width added formcontrolname added -->
+                <p-calendar [timeOnly]="true" hourFormat="12" formControlName="startTime" appendTo="body">
+                </p-calendar>
+              </div>
+            </div>
+
+            <!-- to time -->
+            <div class="form-group col-lg-6 col-md-12 col-sm-12">
+              <div class="input-type3-wrapper">
+                <p class="input-type3-label required">Time to <span>*</span></p>
+                <!-- pankaj : style - width added  && formcontrolname added-->
+                <p-calendar [timeOnly]="true" hourFormat="12" formControlName="endTime" appendTo="body">
+                </p-calendar>
+              </div>
+            </div>
+
+          </div>
+          <div class="form-group row">
+            <div class="inline-checkbox">
+              <input type="checkbox" formControlName="allDay" class="" (change)="changeSelectAllDays()" />
+              <label for="link" style="margin: 10px;">All Day</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal footer -->
+
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <ng-container *ngIf="clinicVacationScheduleId">
+          <!-- <button type="button" class="btn-save-new btn-small-new ml-4"> <span class="btn-text"
+              (click)="appointmentBooking()">Appointment Booking</span></button> -->
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelClinicVacation()">Cancel
+            Vacation</button>
+        </ng-container>
+        <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal" (click)="submitVacation()"
+          [disabled]="!vacationScheduleForm.valid">Submit</button>
+        <!-- <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal"
+          (click)="hideVacationModal()">Cancel</button> -->
+      </div>
+    </ng-template>
+  </p-dialog>
+
+</div>
+
+
+<div class="isMobile" *ngIf="isMobileDevice">
+  <app-calendar-mobile-view [appointments]="appointments" [dateObj]="dateTimeObj"
+    (handleChangeAppointmentEvent)="OnEditCreateAppointment($event)"></app-calendar-mobile-view>
+</div>
+
+<p-dialog [header]="'Confirmation'" [(visible)]="cancelConfirmVisible" [modal]="true" [breakpoints]="{'550px': '18vw'}"
+  [style]="{width: '50vw', height: '18vw'}" [baseZIndex]="10020" [draggable]="false" [resizable]="false"
+  (onHide)="cancelConfirmVisible=false">
+  <!-- Modal body -->
+  <div class="body-section add-edit-form custom">
+    <div class="bg-white">
+      <div class="page-wrapper">
+        <div class="main-section">
+
+          <h5>Are you sure you want to cancel an Appointment ?</h5>
+
+        </div>
+
+        <div class="footer mt-4">
+          <button type="button" class="btn-default-del" data-dismiss="modal"
+            (click)="cancelAppointments()">Proceed</button>
+          <span style="width: 10px"></span>
+          <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal"
+            (click)="cancelConfirmVisible=false">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</p-dialog>

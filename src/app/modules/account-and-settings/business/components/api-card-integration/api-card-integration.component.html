@@ -1,0 +1,67 @@
+<div class="new-ui" *ngIf="isApiCartdComponant">
+  <div class="card-header">
+    <!-- <button class="settings-btn">Data Outgoing</button> -->
+    <!-- <div>
+            <p-selectButton [options]="stateOptions" (onChange)="onChangeType()" [(ngModel)]="stateValue"
+                optionLabel="label" optionValue="value"></p-selectButton>
+        </div> -->
+    <div class="togglecontainer">
+      <div (click)="onChangeType('Data Outgoing')" class="tabletoggle"
+        [ngClass]="stateValue === 'Data Outgoing' ? 'active' : ''">
+        <p class="toggleTxt">Data Outgoing</p>
+      </div>
+      <div (click)="onChangeType('Data Incoming')" class="tabletoggle"
+        [ngClass]="stateValue === 'Data Incoming' ? 'active' : ''">
+        <p class="toggleTxt">Data Incoming</p>
+      </div>
+    </div>
+    <div class="search-box">
+      <div class="search" style="float: right;">
+        <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i>
+          <input pInputText class="form-control searchbox" [(ngModel)]="searchFilter" type="text"
+            placeholder="Search keyword" />
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content">
+    <div class="row">
+      <div class="col-md-4 gy-3 offset-md-5.5 box" *ngFor="let app of filterDataApps | filter:searchFilter">
+        <div class="box-content">
+          <div class="img-wrapper mb-2 mt-2">
+            <div class="c-icons margin" [ngClass]="app?.icon"> </div>
+            <span class="ml-2 fw-500">
+              {{app?.name}}
+            </span>
+          </div>
+          <div class="description max-lines f-14 fw-400">
+            {{app?.description}}
+          </div>
+        </div>
+
+        <div class="box-footer">
+          <div class="button-wrapper" style="width: 100%;">
+            <div class="settings-border">
+              <button type="button" class=" settings-border-btn" (click)="handleChange(app)">
+                <i class="pi pi-cog mr-1"></i>
+                <span>Manage</span>
+              </button>
+            </div>
+            <div class="show-as-radio">
+              <p-inputSwitch [trueValue]="app.active !== true" (onChange)="onCheckBoxChange($event, app)"
+                [disabled]="app.disable"></p-inputSwitch>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<router-outlet></router-outlet>

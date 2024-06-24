@@ -1,0 +1,13 @@
+.flex-end{
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+  justify-content: flex-end;
+  padding-right: 0;
+}
+
+
+.flex-end button{
+  margin-right: 0;
+}
+

@@ -1,0 +1,78 @@
+<div class="panel-blue panel-border">
+  <div class="panel-header">
+    <div class="panel-title">
+      <div class="review-icon-and-username">
+        <svg *ngIf="review.handleName === 'google'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="50px"
+          height="50px">
+          <path fill="#fbc02d"
+            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+          <path fill="#e53935"
+            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+          <path fill="#4caf50"
+            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+          <path fill="#1565c0"
+            d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+        </svg>
+        <i *ngIf="review.handleName === 'facebook'" class="fa fa-facebook-square fa-3x" aria-hidden="true"
+          style="color: blue"></i>
+        <i *ngIf="review.handleName === 'yelp'" class="fa fa-yelp fa-3x" aria-hidden="true" style="color: #c41200"></i>
+        <i *ngIf="review.handleName === 'other'" class="fa fa-user-circle fa-3x" aria-hidden="true"></i>
+        <div class="review-username">
+          <div>{{ review.name }}</div>
+          <a [class.invisible]="!review.reviewLink" href="{{ review.reviewLink }}" target="blank"
+            class="review-view-review-link">View Review</a>
+        </div>
+      </div>
+
+      <div class="btn-flex">
+        <button class="btn-icon" *ngIf="!editEnabled" (click)="toggleEdit()">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn-icon" (click)="toogleHideReview()">
+          <span *ngIf="review.hidden">
+            <i class="fa fa-eye"></i>
+          </span>
+          <span *ngIf="!review.hidden">
+            <i class="fa fa-eye-slash"></i>
+          </span>
+
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="review-body">
+      <div class="review-count">
+        <span *ngFor="let star of stars">
+          <span class="fa fa-star checked"></span>
+        </span>
+        <span class="review-date">{{ review.publish_date }} </span>
+      </div>
+
+      <div class="review-description">
+        <div class="review-description">
+          <div>
+            <form [formGroup]="reviewData" (ngSubmit)="updateReview()" class="d-flex flex-column">
+              <div class="input-wrapper">
+                <div class="form-group">
+                  <textarea type="text" class="form-control input-type2" formControlName="description"
+                    style="height: auto"></textarea>
+                </div>
+              </div>
+              <div class="align-self-center">
+                <button class="btn-small-new btn-save-new mt-2 mx-2" *ngIf="editEnabled">
+                  Save
+                </button>
+                <button class="btn-small-new btn-default-new mt-2" *ngIf="editEnabled" (click)="toggleEdit()">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

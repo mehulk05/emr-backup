@@ -1,0 +1,43 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <ng-container >
+      <p-tabPanel header="Data Studio Report">
+        <app-data-studio-report *ngIf="source === 'data-studio'"></app-data-studio-report>
+      </p-tabPanel>
+    </ng-container>
+
+    <ng-container >
+      <p-tabPanel header="Paid Media Report">
+        <app-paid-media-reports *ngIf="source === 'paid-media'"></app-paid-media-reports>
+      </p-tabPanel>
+    </ng-container>
+
+    <ng-container>
+      <p-tabPanel header="Leads Report">
+        <app-lead-reports *ngIf="source === 'leads'"></app-lead-reports>
+      </p-tabPanel>
+    </ng-container>
+
+
+    <ng-container>
+      <p-tabPanel header="Appointments Report">
+        <app-appointment-reports *ngIf="source === 'appointments'"></app-appointment-reports>
+      </p-tabPanel>
+    </ng-container>
+
+    <ng-container>
+      <p-tabPanel header="Syndication Report">
+        <!-- <app-syndication-reports></app-syndication-reports> -->
+        <app-syndication-multiple-reports-preview *ngIf="source === 'syndication-reports'"></app-syndication-multiple-reports-preview>
+      </p-tabPanel>
+    </ng-container>
+
+    <!-- <ng-container>
+      <p-tabPanel header="SEO Report">
+        <app-syndication-reports></app-syndication-reports> // already commented line 
+        <app-seo-reports *ngIf="source === 'seo-reports'"></app-seo-reports >
+      </p-tabPanel>
+    </ng-container> -->
+
+  </p-tabView>
+</div>

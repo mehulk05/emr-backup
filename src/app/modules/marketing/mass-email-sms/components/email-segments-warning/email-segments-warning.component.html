@@ -1,0 +1,28 @@
+<div class="editTitleModal dialog-new-v1">
+    <p-dialog [header]="'Insufficient Email Quota'" (onHide)="hideModal()" [(visible)]="showModal" [modal]="true"
+        [breakpoints]="{'1024px': '50vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}"
+        [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+        <!-- Modal body -->
+        <div class="body-section">
+            <div>
+                <span style="color: #FF0000;">You need {{ (emailCount) - availableEmailQuota }} more emails
+                    to create this campaign.</span>
+            </div>
+           
+            <div class="mt-3">
+                <span>Purchase additional email quota or free up space by deleting campaigns scheduled for future execution in order to unblock your quota.</span>
+            </div>
+            <div class="button-flex mt-3">
+                <div class="left-buttons">
+                    <button type="submit" class="btn-save-new btn-small-new" (click)="buyPack()">
+                        Buy More
+                    </button>
+                    <button type="button" class="btn-small-new btn-default-new ml-0" (click)="hideModal()">
+                        Modify Campaign
+                    </button>
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>

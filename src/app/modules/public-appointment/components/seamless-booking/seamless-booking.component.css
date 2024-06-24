@@ -1,0 +1,43 @@
+.div-wrapper{
+  background-color: #fff;
+  max-width: 80%;
+  margin: 0 auto;
+  height: 80vh;
+  width: 100%;
+}
+.div-bg{
+  background-color: #F5F7FB;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  margin-top: 1em;
+}
+.seamless-div{
+  padding-bottom: 2em;
+}
+.title-wrapper{
+  padding: 1em 1em;
+  color: #009EDE;
+  margin-bottom: 2em;
+}
+.title-wrapper h4{
+  text-align: center;
+  font-weight: 700;
+}
+.flex-item-right{
+  display: flex;
+  justify-content: flex-end;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+.save-color-btn:disabled{
+  opacity: 0.4;
+}
+
+@media screen and (max-width: 550px) {
+  .div-wrapper{
+    max-width: 100%;
+  }
+}

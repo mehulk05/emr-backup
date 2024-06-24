@@ -1,0 +1,219 @@
+<div class="component-page">
+  <div class="row mx-0">
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                              Contact form                               -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="col-lg-6 col-md-12">
+      <div class="card-wrapper">
+        <div class="title">
+          <h3>
+            Contact Form
+          </h3>
+        </div>
+
+        <div class="border-class">
+          <div class="iframe">
+            <iframe [src]="componentIntegrationObj?.contactFormUrl | safeUrl"></iframe>
+          </div>
+
+          <div class="code-space">
+            <div class="code-config">
+              <div class="code-title">
+                <p>Integration Code </p>
+              </div>
+
+              <div class="preview-card">
+                <div class="border-box">
+                  <div class="iframeurl">{{componentIntegrationObj?.contactFormCode}}</div>
+
+                </div>
+              </div>
+
+              <div class="buttons-wrapper">
+                <button (click)="configure('contactForm')" class="btn btn-common btn-extra-small">Configure</button>
+                <button (click)="copyCode(componentIntegrationObj?.contactFormCode)" data-toggle="modal" class="btn btn-light btn-extra-small">Copy</button>
+                <button (click)="previewUrl(componentIntegrationObj?.contactFormUrl)" data-toggle="modal" class="btn btn-light btn-extra-small">Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                      Virtual Virtual-Consultation                       -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="col-lg-6 col-md-12">
+      <div class="card-wrapper">
+        <div class="title">
+          <h3>
+            Self Assessment
+          </h3>
+        </div>
+
+        <div class="border-class">
+          <div class="iframe">
+            <iframe [src]="componentIntegrationObj?.vcurl | safeUrl"></iframe>
+          </div>
+
+          <div class="code-space">
+            <div class="code-config">
+              <div class="code-title">
+                <p>Integration Code </p>
+              </div>
+
+              <div class="preview-card">
+                <div class="border-box">
+                  <div class="iframeurl">{{componentIntegrationObj?.vcCode}}</div>
+                </div>
+              </div>
+
+              <div class="buttons-wrapper">
+                <button (click)="configure('vc')" class="btn btn-common btn-extra-small">Configure</button>
+                <button (click)="copyCode(componentIntegrationObj?.vcCode)" data-toggle="modal" class="btn btn-light btn-extra-small">Copy</button>
+                <button (click)="previewUrl(componentIntegrationObj?.vcurl)" data-toggle="modal" class="btn btn-light btn-extra-small">Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 CHatbot                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="col-lg-6 col-md-12">
+      <div class="card-wrapper">
+        <div class="title">
+          <h3>
+            Chatbot
+          </h3>
+        </div>
+
+        <div class="border-class">
+          <div class="iframe">
+            <iframe [src]="componentIntegrationObj?.chatbotUrl | safeUrl"></iframe>
+          </div>
+
+          <div class="code-space">
+            <div class="code-config">
+              <div class="code-title">
+                <p>Integration Code </p>
+              </div>
+
+              <div class="preview-card">
+                <div class="border-box">
+                  <div class="iframeurl">{{componentIntegrationObj?.chatbotCode}}</div>
+                </div>
+              </div>
+
+              <div class="buttons-wrapper">
+                <button (click)="configure('chatbot')" class="btn btn-common btn-extra-small">Configure</button>
+                <button (click)="copyCode(componentIntegrationObj?.chatbotCode)" data-toggle="modal" class="btn btn-light btn-extra-small">Copy</button>
+                <button (click)="previewUrl(chatbotUrl)" data-toggle="modal" class="btn btn-light btn-extra-small">Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                               Appointment                               -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="col-lg-6 col-md-12">
+      <div class="card-wrapper">
+        <div class="title">
+          <h3>
+            Appointment
+          </h3>
+        </div>
+
+        <div class="border-class">
+          <div class="iframe">
+            <iframe [src]="componentIntegrationObj?.appointmentUrl | safeUrl"></iframe>
+          </div>
+
+          <div class="code-space">
+            <div class="code-config">
+              <div class="code-title">
+                <p>Integration Code </p>
+              </div>
+
+              <div class="preview-card">
+                <div class="border-box">
+                  <div class="iframeurl">{{componentIntegrationObj?.appointmentUrl}}</div>
+                </div>
+              </div>
+
+              <div class="buttons-wrapper">
+                <button (click)="configure('appointment')" class="btn btn-common btn-extra-small">Configure</button>
+                <button (click)="copyCode(componentIntegrationObj?.appointmentUrl)" data-toggle="modal" class="btn btn-light btn-extra-small">Copy</button>
+                <button (click)="previewUrl(componentIntegrationObj?.appointmentUrl)" data-toggle="modal" class="btn btn-light btn-extra-small">Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                            Review Reputation                            -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="col-lg-6 col-md-12">
+      <div class="card-wrapper">
+        <div class="title">
+          <h3>
+            Review and Reputation
+          </h3>
+        </div>
+
+        <div class="border-class" >
+
+
+        <div class="error-class" *ngIf="!componentIntegrationObj?.reveiwUrl">
+
+          <div class="error-icon">
+            <i class="fa fa-warning">
+
+            </i>
+          </div>
+
+          <div class="error-text">
+            It seems like Review Reels is not configured for you. Please click <a href="javascript:void(0)" (click)="configure('review')"> here</a> to configure it.
+          </div>
+        </div>
+          <ng-container *ngIf="componentIntegrationObj?.reveiwUrl">
+            <div class="iframe">
+              <iframe [src]="componentIntegrationObj?.reveiwUrl | safeUrl"></iframe>
+            </div>
+
+            <div class="code-space">
+              <div class="code-config">
+                <div class="code-title">
+                  <p>Integration Code </p>
+                </div>
+
+                <div class="preview-card">
+                  <div class="border-box">
+                    <div class="iframeurl">{{componentIntegrationObj?.reviewCode}}</div>
+                  </div>
+                </div>
+
+                <div class="buttons-wrapper">
+                  <button (click)="configure('review')" class="btn btn-common btn-extra-small">Configure</button>
+                  <button (click)="copyCode(componentIntegrationObj?.reveiwUrl)" data-toggle="modal" class="btn btn-light btn-extra-small">Copy</button>
+                  <button (click)="previewUrl(componentIntegrationObj?.reveiwUrl)" data-toggle="modal" class="btn btn-light btn-extra-small">Preview</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

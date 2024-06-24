@@ -1,0 +1,54 @@
+<!-- <p>tracking-code works!</p> -->
+<div class="panel-blue">
+  <div class="panel-body">
+    <div id="trackingCode" class="add-edit-form">
+      <form [formGroup]="trackingCodeFrom" (ngSubmit)="submitTrackingCodeForm()">
+        <div class="row">
+
+          <div class="col-md-12 form-group">
+            <label for="name"><span>Scripts in Header.</span> <span style="font-size: 0.8rem">(*These scripts will be
+                printed in the
+                &lt;head&gt; section)</span></label>
+            <div class="input-group">
+              <textarea type="text" rows="6" class="form-control w-50" formControlName="googleAnalyticsGlobalCode">
+                                </textarea>
+            </div>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <label for="name"><span>Scripts in body.</span> <span style="font-size: 0.8rem">(*These scripts will be
+                printed in the
+                &lt;body&gt; section)</span></label>
+            <div class="input-group">
+              <textarea type="text" rows="6" class="form-control w-50" formControlName="googleAnalyticsGlobalCodeUrl">
+                                </textarea>
+            </div>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <label for="name"><span>Scripts in thank you page.</span> <span style="font-size: 0.8rem">(*These scripts
+                will be printed on thank you
+                page upon form submission)</span></label>
+
+            <div class="input-group">
+              <textarea type="text" rows="6" class="form-control w-50"
+                formControlName="landingPageTrackCode"></textarea>
+
+            </div>
+          </div>
+          <div class="col-md-8 mb-3">
+
+
+            <div class="form-row">
+              <div class="col-md-12 form-group">
+
+                <button type="submit" [disabled]="!trackingCodeFrom?.valid"
+                  class="btn-save-new btn-small-new">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

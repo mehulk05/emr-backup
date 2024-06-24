@@ -1,0 +1,15 @@
+  <div class="tab-view new-ui" [style.padding-top.px]="addTopPadding ? 20 : addTopPadding">
+    <div [ngClass]="{'panel-new': addPanelBorder, 'panel-border': addPanelBorder, 'no-overflow': addNoOverflow}" class="no-overflow">
+      <div class="row panel-header" [ngStyle]="titleStyleProps">
+        <h3 [ngStyle]="fontProps">{{ title }}
+          
+          <a *ngIf="infoVisible && infoUlr?.length > 0" href={{infoUlr}} target="_blank"><i class="fa fa-info-circle"></i></a></h3>
+
+      <div class="panel-body" [ngStyle]="bodyStyleProps">
+        <div class="panel-card-content-new">
+          <!-- Content will be added dynamically here -->
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>

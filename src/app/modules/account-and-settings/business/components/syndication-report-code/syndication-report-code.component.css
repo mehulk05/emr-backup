@@ -1,0 +1,14 @@
+.panel-blue label{
+    font-size: 14px;
+    font-weight: 600;
+  }
+  textarea{
+    font-size: 14px;
+
+  }
+  .btn{
+    color:#ffffff;
+    border: #009ede;
+    background-color: #009ede;
+
+  }

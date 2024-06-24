@@ -1,0 +1,57 @@
+export interface IQuestionaire {
+  createdAt?: string;
+  updatedAt?: string;
+  createdBy?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    username?: string;
+  };
+  updatedBy?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    username?: string;
+  };
+  deleted?: boolean;
+  tenantId?: number;
+  id?: number;
+  defaultQuestionnaireId?: number;
+  name?: string;
+  isPublic?: boolean;
+  chatQuestionnaire?: boolean;
+  questionnaireSource?: string;
+  isContactForm?: boolean;
+  isG99ReviewForm?: boolean;
+  isLeadForm?: boolean;
+  showTitle?: boolean;
+  buttonBackgroundColor?: string;
+  buttonForegroundColor?: string;
+  activeSideColor?: null;
+  titleColor?: string;
+  popupTitleColor?: string;
+  popupLabelColor?: null;
+  inputBoxShadowColor?: null;
+  showTextForComposer?: boolean;
+  textForComposer?: string;
+  hideFieldTitle?: boolean;
+  css?: string;
+  isDefault?: null;
+  identifier?: null;
+  isCustom?: boolean;
+  trackCode?: string;
+  googleAnalyticsGlobalCode?: string;
+  googleAnalyticsGlobalCodeUrl?: string;
+  landingPageName?: null;
+  thankYouPageUrl?: string;
+  appButtonBackgroundColor?: string;
+  appButtonForegroundColor?: string;
+  appTitleColor?: null;
+  submitButtonText?: string;
+  showThankYouPageUrlLinkInContactForm?: boolean;
+  showThankYouPageUrlLinkInVC?: boolean;
+  showThankYouPageUrlLinkInLandingPage?: boolean;
+  thankYouPageUrlVC?: string;
+  thankYouPageUrlLandingPage?: string;
+  questionnaireStatus: string;
+}

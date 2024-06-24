@@ -1,0 +1,43 @@
+.remove-btn {
+  margin-top: 1em;
+}
+
+.add-edit-form{
+  padding-left: 13px!important;
+  padding-right: 13px!important;
+}
+.image-cropper-wrapper image-cropper,
+.image-cropper-wrapper img {
+  flex-basis: 100%;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.image-cropper-wrapper image-cropper {
+  margin-bottom: 2em;
+}
+
+.image_upload {
+  color: red;
+  font-size: 13px;
+  padding-top: 5px;
+  font-weight: 500;
+}
+
+.socialChannel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addLabel {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  overflow: auto;
+}
+
+.new-ui .add-edit-form label{
+  cursor: pointer;
+}

@@ -1,0 +1,39 @@
+<div class="preview-card code-new">
+  <div class="row">
+    <div class="col-lg-6 col-md-12">
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>Cliff Hanger  Integration Code        </h3>
+        </div>
+
+        <div class="panel-body">
+          <div class="no-border">
+            <p class="py-2">
+              Add below code to your website to show all of the integration features.
+            </p>
+            <app-url-preview [iframeUrl]="integrationScript" [previewUrl]="integrationPreviewUrl"></app-url-preview>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12">
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>Custom CSS</h3>
+        </div>
+
+        <div class="panel-body">
+          <div class="no-border">
+            <p class="py-2"> You can add the css style to apply to this form. </p>
+            <div class="form-group">
+              <textarea  formcontrolname="css" rows="5" class="css-form form-control"
+              [(ngModel)]="customCssForButton" (ngModelChange)="onContentChange($event)"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

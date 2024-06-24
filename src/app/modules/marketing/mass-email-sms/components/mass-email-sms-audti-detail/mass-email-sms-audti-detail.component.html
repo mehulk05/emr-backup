@@ -1,0 +1,13 @@
+<div class="panel">
+  <ng-container *ngIf="communicationType === communicationEmail">
+    <app-completed-email-audit-list [triggerName]="triggerName" [triggerModule]="triggerModule"
+      [rowData]="rowTriggerData"></app-completed-email-audit-list>
+  </ng-container>
+
+
+  <ng-container *ngIf="communicationType === communicationSMS">
+    <app-completed-sms-audit-list [triggerName]="triggerName" [triggerModule]="triggerModule"
+      [scheduledDateTime]="scheduledDateTime" [rowData]="rowTriggerData"
+      (refreshListCallback)="refreshListCallback($event)"></app-completed-sms-audit-list>
+  </ng-container>
+</div>

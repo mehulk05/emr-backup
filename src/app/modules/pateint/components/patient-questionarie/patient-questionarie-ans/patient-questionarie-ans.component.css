@@ -1,0 +1,21 @@
+.table-light, .table-light>td, .table-light>th {
+  background-color: #fdfdfe;
+}
+.datatable-table .table>tbody>tr:hover>* {
+  background-color: #ececf6 !important;
+}
+.table-light tbody+tbody, .table-light td, .table-light th, .table-light thead th
+  {
+    border-color: #fbfcfc;
+    border-top: 1px solid #dee2e6
+}
+tr:nth-child(2n) td {
+  border-color: #dee6ed;
+  background-color: #f7f9fc;
+}
+
+.title{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,242 @@
+.add-edit-form.custom {
+  max-width: 100%;
+  padding: 0;
+}
+.add-edit-form {
+  max-width: 99% !important;
+}
+.modal-appt .add-edit-form {
+  padding: 25px 0;
+}
+.calendar-label {
+  display: flex;
+}
+.calendar-label label {
+  padding-bottom: 0;
+  width: 30%;
+}
+.calendar-formcontrol {
+  width: 70%;
+}
+.provider-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 1em;
+}
+
+.active-filter {
+  padding: 1em 0;
+  border-top: 2px solid gainsboro;
+}
+
+.provider-buttons p,
+.active-filter p {
+  margin-bottom: 0;
+}
+
+.provider-buttons p {
+  padding-right: 1em;
+  font-size: 14px;
+  padding-right: 1em;
+  font-weight: 500;
+}
+
+.provider-buttons {
+  padding: 1em 0;
+}
+
+.provider-buttons button {
+  margin-left: 10px;
+  padding: 5px 12px;
+  font-size: 15px;
+}
+.list-view {
+  padding: 1em;
+}
+
+.schedule {
+  margin: 15px 10px 15px 19px !important;
+}
+
+@media screen and (max-width: 767px) {
+  .add-edit-form .form-group {
+    margin-bottom: 25px;
+  }
+  .calendar-formcontrol {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .calendar-label {
+    flex-direction: column;
+  }
+  .calendar-label label {
+    width: auto;
+    padding-bottom: 10px;
+  }
+}
+
+/* pankaj : side container padding isses solving */
+
+.page-wrapper {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 2em 0;
+}
+
+.page-wrapper .main-section {
+  flex: 1;
+}
+
+.working-schedule-form {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 2em;
+  row-gap: 30px;
+  /* padding-top: 2em; */
+}
+
+.close-icon {
+  position: absolute;
+  padding: 0.25rem;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+
+.working-schedule-form.second-form {
+  padding-right: 50px;
+}
+
+p.input-type3-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1f36;
+  margin-bottom: 5px;
+}
+
+p.input-type3-label span {
+  color: #fc4445;
+  font-size: 20px;
+}
+
+.input-type3 {
+  padding: 5px 16px;
+  background-color: #f5f7fb;
+  border: 1px solid #7f7f7f;
+  border-radius: 8px;
+  box-shadow: 0px 4px 90px 0px #a3abb93d;
+}
+
+.add-new {
+  display: flex;
+  column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  margin: 30px 0 0;
+  background-color: #e9ebf0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-new * {
+  cursor: pointer;
+}
+
+.add-new .add-new-text {
+  font-weight: 600;
+}
+
+.plus-wrapper {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #009ede;
+  border-radius: 50%;
+}
+
+.plus-wrapper .plus {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 15px;
+  margin-right: -15px;
+}
+
+/* appointment card css starts */
+
+/* appointment card css ends */
+
+/* custom input css start */
+
+.custom-ipt {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  appearance: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-change {
+  margin-bottom: 30px;
+}
+
+.col-lg-6 {
+  display: inline-block;
+}
+/* custom input css end */
+
+@media screen and (max-width: 768px) {
+  .add-new {
+    margin: 20px 0 0;
+  }
+
+  .working-schedule-form.second-form {
+    padding: 45px 20px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .add-new {
+    margin-bottom: 40px;
+  }
+
+  .working-schedule-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .save-btn {
+    margin-top: 16px;
+    align-self: center;
+  }
+
+  .input-type3-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+  }
+
+  .input-type3 {
+    width: 100%;
+  }
+}

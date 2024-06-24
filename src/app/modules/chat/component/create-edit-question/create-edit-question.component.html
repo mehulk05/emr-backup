@@ -1,0 +1,61 @@
+<p-dialog [header]="createEditModalData?.titleName" [(visible)]="showCreateEditModal" [modal]="true"
+    [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    <!-- Modal body -->
+    <div class="modal-body">
+
+        <form [formGroup]="chatQuestionForm" (ngSubmit)="submitForm()">
+            <div class="row">
+                <div class="col-md-12"
+                    [ngClass]="f.question.invalid && ((f.question.dirty || f.question.touched))?'has-error':''">
+                    <label> Question <span class="error-red">*</span></label>
+                    <input type="text" formControlName="question" class="form-control">
+                    <input type="hidden" formControlName="id" class="form-control">
+                    <div class="error error-msg">
+                        <div *ngIf="f.question.touched && f.question.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Question is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12"
+                    [ngClass]="f.answer.invalid && ((f.answer.dirty || f.answer.touched))?'has-error':''">
+                    <label> Answer <span class="error-red">*</span></label>
+                    <textarea formControlName="answer" class="form-control" type="text"></textarea>
+                    <div class="error error-msg">
+                        <div *ngIf="f.answer.touched && f.answer.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Answer is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12"
+                    [ngClass]="f.referenceLink.invalid && ((f.referenceLink.dirty || f.referenceLink.touched))?'has-error':''">
+                    <label for="">Reference Link</label>
+                    <input formControlName="referenceLink" class="form-control" type="text">
+                    <div class="error error-msg">
+                        <div *ngIf="f.referenceLink.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Reference link is invalid
+                            (should start with http)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+        <div class="modal-footer-section">
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="submitForm()">Save</button>
+            <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+        </div>
+    </ng-template>
+
+</p-dialog>

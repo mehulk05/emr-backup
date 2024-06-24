@@ -1,0 +1,23 @@
+
+<div class="bg-white datatable-table" style="padding-left: 25px;padding-top: 15px;padding-right: 15px;">
+  <!-- <div class="title">
+    <h3>Post Calendar</h3>
+  </div> -->
+<ng-container *ngIf="!isMobileDevice">
+  <ejs-schedule #scheduleObj
+[currentView]="'Month'" [showQuickInfo]='false'
+[eventSettings]='eventSettings'
+[allowDragAndDrop]="false"
+[allowResizing]="false"
+(popupOpen)="onPopupOpen($event)" (actionComplete)="onActionComplete($event)"></ejs-schedule>
+</ng-container>
+
+
+<ng-container *ngIf="showModal">
+  <app-add-edit-calendar-post [showModal]="showModal" [calendarArgs]="calendarArgs" (modalClosed)="onModalClosed($event)"></app-add-edit-calendar-post>
+</ng-container>
+
+<div class="isMobile" *ngIf="isMobileDevice">
+  <app-post-calendar-mobile-view [posts]="posts" (emitShowModal)="onAddPostFromMobile($event)"></app-post-calendar-mobile-view>
+</div>
+</div>

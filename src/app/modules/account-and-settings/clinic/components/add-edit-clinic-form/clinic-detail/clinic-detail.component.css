@@ -1,0 +1,27 @@
+.small-text{
+  font-weight: 400;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+
+.form-group.clinic-hour-setting{
+  margin-bottom: 22px !important;
+}
+.add-edit-form{
+  padding-top: 15px;
+}
+.ai-row{
+  display: flex;
+  justify-content: flex-end;
+}
+.panel-inner-wrapper {
+  padding-left: 15px !important;
+  max-width: 100%;
+  margin: 0 auto;
+}
+@media screen and (max-width:767px) {
+  .mobile-only{
+    display: none;
+  }
+}

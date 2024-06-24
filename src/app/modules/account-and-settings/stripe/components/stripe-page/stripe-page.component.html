@@ -1,0 +1,68 @@
+<div class="bg-white datatable-table">
+    <div class="title">
+        <h3>Stripe
+        </h3>
+    </div>
+
+
+    <div class="table-list px-3 pt-2 pb-4">
+        <div class="my-2" *ngIf="connectedStripeAccount === null">
+            <label>Ensure your Stripe setup is complete to receive payments directly to your account.
+               <br/> If your Stripe isn't connected, payments will be routed to the default Growth99 Stripe account.
+                <br/>For assistance with refunds, please contact the Accounting team.</label>
+            <div class="body" *ngIf="connectedStripeAccount === null">
+
+                <button type="button" class="btn btn-primary-border mt-3" (click)="setupPayouts()">
+                    Setup Stripe
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div *ngIf="connectedStripeAccount" class="table-responsive mh-400">
+
+        <table id="datatable" class="table thead-light table-borderless table-hover">
+            <thead>
+                <tr>
+
+                    <th scope="col">Stripe Account Id</th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Created Date</th>
+                    <th scope="col">Details Submitted</th>
+                    <th scope="col" width="60px">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td>{{ connectedStripeAccount.stripeAccountId }}</td>
+                    <td>{{ connectedStripeAccount.type }}</td>
+                    <!-- <td>{{ email.createdBy?.firstName }}</td> -->
+                    <td>{{ connectedStripeAccount.createdAt | date:'medium' }}</td>
+                    <!-- <td>{{ email.updatedBy?.firstName }}</td> -->
+                    <td>
+                        <span *ngIf="connectedStripeAccount.detailsSubmitted">
+                            Yes
+                        </span>
+                        <span *ngIf="!connectedStripeAccount.detailsSubmitted">
+                            No
+                        </span> &nbsp;
+                        <span *ngIf="!connectedStripeAccount.detailsSubmitted">
+                            <a href="javascript:void(0)" class="" (click)="resumeOnBoarding(connectedStripeAccount.id)">
+                                Complete Onboarding
+                            </a>
+                        </span>
+                    </td>
+                    <td>
+
+                        <a href="javascript:void(0)" (click)="deleteStripeAccount(connectedStripeAccount.id)"><i
+                                class="far fa-trash-alt ms-text-danger"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

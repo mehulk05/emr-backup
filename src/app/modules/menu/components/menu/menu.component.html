@@ -1,0 +1,75 @@
+<div [ngClass]="menu.menuType === 'Group' ? 'group-card-menu': 'child-card'">
+
+  <!-- ------------------------------ menu card ------------------------------ -->
+  <div *ngIf="menu.menuType === 'Menu'" class="menu-card" cdkDrag [cdkDragData]="menu">
+    <div class="menu-card-content">
+      <div class="menu-box">
+        <div class="icon-text-wrapper">
+          <span class="icon" *ngIf="menu.icon"><i [class]="menu.icon"></i></span>
+
+          <span class="menu-name">
+            {{menu.name}}
+          </span>
+        </div>
+
+        <div class="btn-action">
+          <a href="javascript:void(0)" class="mx-2" (click)="moveUpMenu({'menu': menu, 'menus': menus})">
+            <i class="fa fa-arrow-up"></i>
+          </a>
+          <a href="javascript:void(0)" class="mx-2" (click)="moveDownMenu({'menu': menu, 'menus': menus})">
+            <i class="fa fa-arrow-down"></i>
+          </a>
+          <a href="javascript:void(0)" class="mx-2" (click)="changeMenu(menu)">
+            <i class="fa fa-cog"></i>
+          </a>
+          <a href="javascript:void(0)" class="mx-2" (click)="removeMenu(menu)">
+            <i class="fa fa-trash"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- ----------------------------- Group menu ------------------------------ -->
+  <div *ngIf="menu.menuType === 'Group'" class="panel-card group-card" cdkDrag [cdkDragData]="menu">
+    <div class="panel-card-content">
+      <div class="menu-box">
+        <div class="icon-text-wrapper">
+          <span class="icon" *ngIf="menu.icon"><i [class]="menu.icon"></i></span>
+
+          <span class="menu-name">
+            {{menu.name}}
+          </span>
+        </div>
+
+        <div class="btn-action">
+          <a href="javascript:void(0)" class="mx-2" (click)="moveUpMenu({'menu': menu, 'menus': menus})">
+            <i class="fa fa-arrow-up"></i>
+          </a>
+          <a href="javascript:void(0)" class="mx-2" (click)="moveDownMenu({'menu': menu, 'menus': menus})">
+            <i class="fa fa-arrow-down"></i>
+          </a>
+          <a href="javascript:void(0)" class="mx-2" (click)="changeMenu(menu)">
+            <i class="fa fa-cog"></i>
+          </a>
+          <a href="javascript:void(0)" class="mx-2" (click)="removeMenu(menu)">
+            <i class="fa fa-trash"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- -------------------------- Repeat menu list --------------------------- -->
+      <div id="{{'menu' + menu.id}}" cdkDropList [cdkDropListData]="menu.items" (cdkDropListDropped)="drop($event)"
+        [cdkDropListConnectedTo]="getConnectedList()">
+        <ng-container *ngFor="let menuItem of menu.items">
+          <app-menu (deleteMenu)="removeMenu($event)" (updateMenu)="changeMenu($event)" (dropMenu)="drop($event)"
+            (moveUp)="moveUpMenu($event)" (moveDown)="moveDownMenu($event)" [menu]="menuItem" [menusIds]="menusIds"
+            [menus]="menu.items"></app-menu>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

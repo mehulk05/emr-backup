@@ -1,0 +1,87 @@
+<div class="section-detail provider-details">
+  <div class="bookapt-title">
+    <div class="title">
+      <h1 [ngStyle]="titleStyle">SELECT PROVIDERS</h1>
+    </div>
+  </div>
+
+  <div class="serviceName">
+    <ng-container *ngFor="let provider of providers;let i = index">
+      <div class="service-details">
+
+        <div class="img" *ngIf="provider?.profileImageUrl && provider?.id!==0 ">
+          <!-- <img src={{provider?.profileImageUrl}} [ngStyle]="{ 'border-color':activeLinkStyle.color}" class="cirlc"> -->
+          <img src={{provider?.profileImageUrl}} [ngStyle]="{ 'border-color':'transparent'}" class="cirlc">
+        </div>
+
+        <div class="img" *ngIf="!provider?.profileImageUrl && (provider?.id!==0)">
+
+          <div id="circle">
+            <div class="segment"></div>
+            <div [ngStyle]="{ 'border-color':activeLinkStyle.color}" class="segment"></div>
+          </div>
+
+          <div class="arrows">
+            <span [ngStyle]="activeLinkStyle" class="font-arrow">&#187;</span>
+          </div>
+        </div>
+
+        <ng-container *ngIf="provider?.id===0">
+          <app-any-provider-image [activeLinkStyle]="activeLinkStyle" [provider]="provider"
+            [providerList]="providers"></app-any-provider-image>
+        </ng-container>
+
+
+        <div class="text">
+          <p [ngStyle]="titleStyle " class="bold" [ngClass]="provider?.designation? 'no-margin' : 'padd-top'">
+            {{provider?.firstName | uppercase }} {{provider?.lastName | uppercase}}
+          </p>
+          <div  class="description1" *ngIf="provider?.designation ">
+
+            <p class="no-sow" *ngIf="!showMore ">
+              {{ provider?.designation | slice :0:100}} <span
+                *ngIf=" !showMore && (provider?.designation.length)> 70">...
+                <a [ngStyle]="activeLinkStyle" href="javascript:; " *ngIf="!showMore "
+                  (click)="setShowMore(true,i) ">[Show More]</a> </span>
+            </p>
+
+            <p class="no-sow1" *ngIf="showMore && i!== selectedIndex">
+              {{ provider?.designation | slice :0:100}} <span
+                *ngIf=" showMore && (provider?.designation.length) > 70">...
+                <a [ngStyle]="activeLinkStyle" href="javascript:; " *ngIf="showMore "
+                  (click)="setShowMore(true,i) ">[Show More]</a> </span>
+            </p>
+
+            <p class="sow" *ngIf="showMore && selectedIndex ===i ">{{ provider?.designation }}
+              <a [ngStyle]="activeLinkStyle" href="javascript:; " *ngIf="showMore "
+                (click)="setShowMore(false,i) ">[Show Less]</a>
+            </p>
+          </div>
+
+          <div class="book-btn-right">
+            <button [ngStyle]="btnStyle" class="btn btn-dark">
+              <span>
+                <a [ngStyle]="btnTextStyle" href="javascript:void(0)" (click)="continue(provider)">Book</a>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <!-- Message when no providers available -->
+    <div *ngIf="showNoProviderMessage && !(providers && providers.length > 0)"
+      class="service-details no-provider-message">
+      <div class="text">
+      <p [ngStyle]="titleStyle " class="bold">No Provider available for selected service</p></div>
+    </div>
+
+    <div class="book-btn-right1 book-btn-right">
+      <button type="button" *ngIf="!userId"
+        [ngStyle]="{'background-color': btnStyle.backgroundColor,'color':btnStyle.color,'border':btnStyle.border}"
+        class="btn btn-dark mr-2" (click)="goBack()">BACK</button>
+    </div>
+  </div>
+
+</div>

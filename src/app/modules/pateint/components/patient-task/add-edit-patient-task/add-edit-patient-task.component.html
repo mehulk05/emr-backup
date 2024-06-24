@@ -1,0 +1,121 @@
+<div class="lead-task">
+  <p-dialog [header]="'Create Task'" [(visible)]="showModal" [modal]="true"
+    [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false" (onHide)="hideTaskModal()">
+
+    <!-- Modal body -->
+    <div class="body-section">
+      <form [formGroup]="taskForm">
+        <div class="add-edit-form">
+          <div class="form form-type2">
+            <div class="row mx-0">
+              <!-- ----------------------------- Name Feild ----------------------------- -->
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group" [ngClass]="
+                    f.name.invalid && (f.name.dirty || f.name.touched)
+                      ? 'has-error'
+                      : ''
+                  ">
+                  <label>Name<span class="error-red">*</span></label>
+                  <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective />
+
+                  <div class="error error-msg">
+                    <div *ngIf="f.name.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!-- -------------------------- Assign task to User --------------------------- -->
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group" [ngClass]="
+                    f.workflowTaskUser.invalid &&
+                    (f.workflowTaskUser.dirty || f.workflowTaskUser.touched)
+                      ? 'has-error'
+                      : ''
+                  ">
+                  <label class="mt-2">Assign Task to User<span class="error-red">*</span></label>
+                  <p-dropdown placeholder="Select user" optionLabel="firstName" [options]="users" optionValue="id"
+                    formControlName="workflowTaskUser">
+                  </p-dropdown>
+
+                  <div class="error error-msg">
+                    <div *ngIf="f.workflowTaskUser.touched && f.workflowTaskUser.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Please select user
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- -------------------------- Description--------------------------- -->
+              <div class="form-group">
+                <label class="mt-2" for=""> Description</label>
+
+                <textarea rows="3" cols="80" formControlName="description" class="form-control"></textarea>
+              </div>
+
+              <!-- -------------------------- Status --------------------------- -->
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label>Status<span class="error-red">*</span></label>
+                  <p-dropdown placeholder="Select status" [options]="taskStatus" optionLabel="name" optionValue="code"
+                    formControlName="workflowTaskStatus">
+                  </p-dropdown>
+
+                  <ng-template let-item pTemplate="taskStatus">
+                    {{ item }}
+                  </ng-template>
+                </div>
+              </div>
+
+              <!-- -------------------------- Priority --------------------------- -->
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label>Priority<span class="error-red">*</span></label>
+                  <p-dropdown [options]="taskPriority" formControlName="priority" optionLabel="name" optionValue="code"
+                    placeholder="Select priority" [style]="{'width':'100%'}">
+                  </p-dropdown>
+
+                  <ng-template let-item pTemplate="taskStatus">
+                    {{ item }}
+                  </ng-template>
+                </div>
+              </div>
+
+
+
+              <!-- -------------------------- Deadline --------------------------- -->
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div>
+                  <label>Deadline</label>
+                  <p-calendar [monthNavigator]="true" appendTo="body" [yearNavigator]="true" [showIcon]="true"
+                    inputId="navigators" formControlName="deadline" [minDate]="today"></p-calendar>
+                </div>
+              </div>
+              <!-- ------------------------- div class row ends -------------------------- -->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section mt-2">
+
+        <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal" [disabled]="!taskForm.valid"
+          (click)="saveTask()">Save</button>
+        <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal"
+          (click)="hideTaskModal()">Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+
+
+
+</div>

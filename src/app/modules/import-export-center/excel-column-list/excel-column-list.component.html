@@ -1,0 +1,63 @@
+<div class="dialog-new-v1">
+  <p-dialog [header]="'Import File'" [(visible)]="showModal" [modal]="true"
+    [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '40vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false" (onHide)="hideModal()">
+
+    <table id="datatable" class="table thead-light table-borderless table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Field from file</th>
+          <th scope="col">Campaign fields</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let columnsName of columnsList">
+          <td>
+            {{
+            columnsName.name
+            }}
+          </td>
+          <td>
+            <select class="form-control" [(ngModel)]="columnsName.expectedValue" disabled="disabled">
+              <option *ngFor="let columnsNameDropdown of columnsNames;" disabled="disabled">
+                {{columnsNameDropdown}}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="isLead">
+      <label>What do you want to do with the records in the file?</label><span style="color: red;">*</span>
+      <select class="form-control selectRecord" name="recordType" [(ngModel)]="recordType">
+        <option value="1">Merge all the old lead details with the new ones</option>
+        <option value="2">Replace all the old lead details with the new ones</option>
+        <option value="3">Keep the old details only and don't update them with the new details</option>
+      </select>
+    </div>
+
+    <div *ngIf="error.length > 0" [innerHTML]="error" style="color: red; margin-top: 5px;"></div>
+
+
+      <ng-template pTemplate="footer">
+        <div class="modal-footer-section d-flex">
+          <button *ngIf="1 > error.length" type="submit" class="btn-small-new btn-save-new"
+            (click)="uploadModal()">Upload</button>
+
+            <input
+            type="file"
+            #fileInput
+            style="display: none"
+            (change)="onFileSelected($event)"
+          />
+            <button *ngIf="error.length > 0" type="submit" class="btn-small-new btn-save-new"
+              (click)="uploadFile()">   Browse for File</button>
+
+          <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal" (click)="hideModal()">
+            Cancel
+          </button>
+        </div>
+      </ng-template>
+
+
+  </p-dialog>
+</div>

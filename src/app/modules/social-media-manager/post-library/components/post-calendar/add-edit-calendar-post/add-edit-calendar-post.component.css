@@ -1,0 +1,123 @@
+/* .calendar-label{
+  display: flex;
+}
+.calendar-label label{
+  min-width: 140px;
+  padding-bottom: 0;
+}
+.calendar-formcontrol{
+  flex-grow: 1;
+} */
+.form-group{
+  margin-bottom: 30px !important;
+}
+
+.form-type2{
+  padding-top: 2em;
+}
+::ng-deep .p-datepicker table td{
+  padding: 1px !important;
+}
+label.anchor-url {
+  width: 100% !important;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+.del-btn {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  cursor: pointer;
+}
+
+.img-preview {
+  position: relative;
+}
+
+.add-edit-form {
+  padding-top: 0;
+}
+
+.error-bg {
+  background-color: rgba(221, 27, 0, 0.05);
+  border: 0.5px solid #DD1B00;
+  border-radius: 8px;
+  padding: 1em;
+  color: #DD1B00;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.del-btn span {
+  color: red;
+  background: #fff;
+  border-radius: 50%;
+  padding: 7px 9px;
+  border: 2px solid red;
+  width: 30px;
+  height: 30px;
+}
+
+.image-cropper-wrapper image-cropper,
+.image-cropper-wrapper img {
+  flex-basis: 100%;
+  text-align: center;
+  border: 1px solid black;
+}
+
+@media screen and (max-width:767px) {
+  .add-edit-form .form-group {
+    margin-bottom: 25px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .calendar-label {
+    flex-direction: column;
+  }
+
+  .calendar-label label {
+    width: auto;
+    padding-bottom: 10px;
+  }
+
+  .add-edit-form {
+    max-width: 100%;
+  }
+
+  .modal-body {
+    padding: 1em 0;
+  }
+}
+
+.image_upload {
+  color: red;
+  font-size: 13px;
+  padding-top: 5px;
+  font-weight: 500;
+}
+
+.modal-footer-section {
+  padding-top: 2em;
+}
+
+::ng-deep .p-dialog .p-dialog-content{
+  overflow: auto;
+}
+
+.addLabel{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}

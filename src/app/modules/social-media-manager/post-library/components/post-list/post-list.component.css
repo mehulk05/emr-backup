@@ -1,0 +1,21 @@
+
+@media screen and (min-width: 780px) {
+    .iconSuccess{
+       display: block;
+    }
+  }
+
+
+@media screen and (min-width: 991px) {
+  td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+}
+td{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

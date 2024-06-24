@@ -1,0 +1,62 @@
+<p-dialog [header]="'Refund Payment'" [(visible)]="showModal" [modal]="true"
+[breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+[baseZIndex]="10000"  (onHide)="hideModal()"
+    [draggable]="false" [resizable]="false">
+
+    <!-- Modal body -->
+    <div class="modal-body">
+      <h3>Transaction Summary</h3>
+
+      <div class="panel-blue" *ngFor="let payment of appointmentPayments; let i = index">
+        <div class="form-flex-group">
+          <label >Amount : </label>
+          <p>
+            {{ payment.amount }}
+          </p>
+        </div>
+
+        <div class="form-flex-group">
+          <label >Payment Status : </label>
+          <p>
+            {{ payment?.paymentStatus ?? '-' }}
+          </p>
+        </div>
+
+        <div class="form-flex-group">
+          <label >Payment Method : </label>
+          <p>
+            {{ payment?.paymentMethod ?? '-' }}
+          </p>
+        </div>
+
+        <div class="form-flex-group">
+          <label >Payment Time : </label>
+          <p>
+            {{formatTimeService.formatTime(payment.createdAt)}}
+          </p>
+        </div>
+
+
+      </div>
+
+
+      <div class="panel-blue refund-panel">
+        <p>
+          Enter Amount to Refund:
+        </p>
+        <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)" [(ngModel)]="refundAmount" class="form-control" />
+      </div>
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" *ngIf="refundAmount && refundAmount!==0" (click)="submitRefund()">Refund</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+
+      </div>
+    </ng-template>
+  </p-dialog>
+
+
+

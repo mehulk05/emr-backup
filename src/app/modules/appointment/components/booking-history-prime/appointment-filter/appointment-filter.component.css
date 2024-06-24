@@ -1,0 +1,21 @@
+.form-filter{
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.form-filter label{
+  display: none;
+}
+
+.form-filter label[for="afterDate"],
+.form-filter label[for="beforeDate"],
+.form-filter label[for="startDate"],
+.form-filter label[for="endDate"]{
+  display: block;
+  font-size: 14px;
+}
+
+::ng-deep .p-dropdown .p-dropdown-label{
+  padding: 5px !important;
+}

@@ -1,0 +1,40 @@
+::ng-deep .p-datatable .p-datatable-tbody>tr>td,
+::ng-deep .p-datatable .p-datatable-thead>tr>th {
+    font-size: 13.5px;
+}
+
+.table-list td .action-btn{
+  display: flex;
+  align-items: center;
+}
+/* ---------------------- mobile view table header css ---------------------- */
+
+@media screen and (max-width:767px) {
+    .bh-header {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .bh-header>div {
+        flex: 1;
+        text-align: center;
+    }
+    .bh-header .completed {
+        background-color: #00C981;
+    }
+    .bh-header .incompleted {
+        background-color: #F69606;
+    }
+    .bh-header .paid {
+        background-color: #009EDE;
+    }
+    .bh-header .unpaid {
+        background-color: #FF4040;
+    }
+    .bh-header div>p {
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 5px 0;
+    }
+}

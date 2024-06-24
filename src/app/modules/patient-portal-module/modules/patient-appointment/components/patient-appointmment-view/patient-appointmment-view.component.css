@@ -1,0 +1,13 @@
+.item-wrapper{
+  display: flex;
+  align-items: center;
+  border-bottom: 1px dotted gainsboro;
+  padding: 10px 0;
+}
+
+
+.item-wrapper label{
+  min-width: 250px;
+  font-weight: 600;
+}
+

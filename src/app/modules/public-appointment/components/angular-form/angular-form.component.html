@@ -1,0 +1,39 @@
+<!-- <form [formGroup]="form">
+  <div formArrayName="items">
+    <div *ngFor="let pqa of itemsFormArray.controls; let i = index">
+      <div [formGroupName]="i">
+        <div [ngSwitch]="pqa.value.questionType" class="switchCase">
+          <div *ngSwitchCase="'Input'" class="input-feild">
+            <input type="text" class="form-control" [formControlName]="pqa.value.id">
+          </div>
+
+
+          <div *ngSwitchCase="'Date'" class="input-feild">
+            <input type="date" class="form-control" [formControlName]="pqa.value.id">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form> -->
+
+
+
+<form [formGroup]="form" *ngIf="form">
+  <div formArrayName="questions">
+    <div *ngFor="let question of getControls(); index as i">
+      <div [formGroupName]="i">
+        <!-- Add form controls for each object in the array here -->
+        <input *ngIf="contactFormQuestions[i].questionType === 'Input'" type="text" formControlName="control">
+
+        <input *ngIf="contactFormQuestions[i].questionType === 'Date'" type="date" formControlName="control">
+        <select *ngIf="contactFormQuestions[i].questionType === 'Multiple_Selection_Text'" formControlName="control" multiple>
+          <option *ngFor="let choice of contactFormQuestions[i].patientQuestionChoices" [value]="choice.choiceName">{{
+            choice.choiceName }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</form>

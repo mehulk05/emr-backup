@@ -1,0 +1,83 @@
+<div class="lead-filters">
+  <!-- --------------------------- CURRENT FILTER ---------------------------- -->
+  <div class="available tags" *ngIf="filterArray?.length>0">
+    <div class="title">
+      <p>
+        Active Filter
+      </p>
+    </div>
+    <div class="filter-btn">
+      <ng-container *ngFor="let filter of filterArray; let i = index">
+        <button class="btn filters-btn" (click)="removeFilter(i)">
+          <i class="fa fa-close"></i> {{filter?.filter}}
+        </button>
+      </ng-container>
+    </div>
+
+  </div>
+
+  <!-- --------------------------- Active Filter Lead Count ---------------------------- -->
+
+  <div class="leadStatusFilter" *ngIf="filterArray.length>0">
+    <div class="title">
+      <p>
+        Total Filtered Leads : {{totalDataCount?.totalCount ?? 0}}
+      </p>
+    </div>
+
+  </div>
+
+  <!-- --------------------------- LEAD BY SOURCE ---------------------------- -->
+  <!-- <div class="leadStatusFilter">
+    <div class="title">
+      <p>
+        Lead By Source
+      </p>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-lp" (click)="filterBySource('Landing Page')">Landing Page </button>
+      <button class="btn btn-chatbot" (click)="filterBySource('ChatBot')"> Chatbot </button>
+      <button class="btn btn-vc" (click)="filterBySource('Virtual-Consultation')">Virtual-Consultation</button>
+      <button class="btn btn-form" (click)="filterBySource('Form')"> Form</button>
+      <button class="btn btn-manual" (click)="filterBySource('Manual')">Manual </button>
+      <button class="btn btn-facebook" (click)="filterBySource('Facebook')">Facebook </button>
+
+      <button class="btn btn-all" (click)="filterBySource('All')">All </button>
+    </div>
+  </div> -->
+
+  <!-- --------------------------- Lead BY STATTUS --------------------------- -->
+  <!-- <div class="leadStatusFilter">
+    <div class="title">
+      <p>
+        Lead By Status
+      </p>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-new" (click)="filterByStatus('NEW')"> New</button>
+      <button class="btn btn-cold" (click)="filterByStatus('COLD')"> Cold </button>
+      <button class="btn btn-warm" (click)="filterByStatus('WARM')">Warm </button>
+      <button class="btn btn-hot" (click)="filterByStatus('HOT')"> Hot</button>
+      <button class="btn btn-won" (click)="filterByStatus('WON')">Won </button>
+      <button class="btn btn-dead" (click)="filterByStatus('DEAD')">Dead </button>
+
+      <button class="btn btn-all" (click)="filterByStatus('All')">All </button>
+    </div>
+  </div>
+
+  <div class="leadTagFilter">
+    <div class="title">
+      <p>
+        Lead by tags
+      </p>
+    </div>
+    <div class="buttons">
+      <select [(ngModel)]="leadTagFilter" (ngModelChange)="onLeadtagChange($event)">
+        <option [ngValue]=null [disabled]="true" >Select Lead Tag</option>
+        <option *ngFor="let tag of leadTagsResponse" [ngValue]="tag">{{tag.name}}</option>
+      </select>
+
+    <button class="btn-small-new btn-save-new" (click)="resetTag()"> Reset</button>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,354 @@
+:host::ng-deep.selected-item {
+  border-radius: 6px !important;
+  border: 1px !important;
+}
+
+.login-box {
+    font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  padding-top: 30px;
+}
+
+.login-box input::placeholder {
+  font-weight: lighter!important;
+}
+
+.login-box .form-group input[type="email"] {
+  border-radius: 31px;
+  border: none;
+  line-height: 35px;
+  padding-left: 25px;
+  height: 50px;
+}
+
+.login-box .form-group input[type="number"] {
+  border-radius: 31px;
+  border: none;
+  line-height: 35px;
+  padding-left: 25px;
+  height: 50px;
+}
+
+.login-box input[type="password"] {
+  border-radius: 31px;
+  border: none;
+  line-height: 35px;
+  padding-left: 25px;
+  height: 50px;
+}
+
+.login-box .form-group button[type="submit"] {
+  font-family: 'Avenir-Light';
+  font-size: 18px;
+  border-radius: 31px;
+  background-color: #3F84EE;
+  border: none;
+  line-height: 35px;
+  padding-left: 25px;
+  width: 100%;
+}
+
+.login-box .form-group input[type="email"] {
+  border-radius: 31px;
+  background-color: #F3F3F3;
+  border: none;
+  line-height: 35px;
+  padding-left: 25px;
+  height: 50px;
+}
+
+.login-box .form-group input[type="text"] {
+  border-radius: 31px;
+  background-color: #F3F3F3;
+  border: none;
+  line-height: 35px;
+  padding-left: 25px;
+  height: 50px;
+}
+
+.login-box .form-group input[type="password"] {
+  border-radius: 31px;
+  background-color: #F3F3F3;
+  border: none;
+  line-height: 35px;
+  padding-left: 25px;
+  height: 50px;
+}
+
+.puchline {
+  font-size: 12px;
+  font-weight: 500!important;
+  font-family: 'Avenir-Roman';
+  line-height: 26px;
+  margin: 38px 0px;
+}
+
+.login-box .form-group select[type="text"] {
+  border-radius: 31px;
+  border: 1px solid #3F84EE;
+  line-height: 35px;
+  padding-left: 25px;
+  height: 50px;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn {
+  border-radius: 31px !important;
+  border: none;
+  line-height: 35px !important;
+  padding-left: 25px !important;
+  height: 50px !important;
+}
+
+.ng-select {
+  border-radius: 31px !important;
+  border: none;
+  line-height: 35px !important;
+  padding-left: 25px !important;
+  height: 50px !important;
+}
+
+.ng-select {
+  padding: 10px;
+  padding-right: 30px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-size: .65em auto, 100%;
+  color: gray;
+  cursor: pointer !important;
+}
+
+.ng-select span.ng-arrow-wrapper:before {
+  content: "\f0ab";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+}
+
+textarea {
+  padding-left: 25px !important;
+  height: 100px !important;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 8px;
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  cursor: pointer !important;
+}
+
+.title {
+  color: #262628;
+    font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.title h1 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  margin: 0;
+  color: #262628;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login-box .form-group input[type="text"],
+.login-box .form-group input[type="password"],
+.login-box .form-group input[type="number"],
+.login-box .form-group input[type="email"] {
+  opacity: 0.7;
+  border: 3px solid #F3F4F6;
+  box-sizing: border-box;
+  border-radius: 16px;
+  height: 60px;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: normal !important;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
+}
+
+.login-box textarea::placeholder,
+.login-box input::placeholder {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: normal !important;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
+}
+
+.login-box textarea {
+  opacity: 0.7;
+  border: 3px solid #F3F4F6;
+  box-sizing: border-box;
+  border-radius: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: normal !important;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
+}
+
+.book-btn-right button {
+  background: #003B6F;
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+button.btn-dark.pay {
+  background: #003B6F;
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: bold;
+}
+
+.section-detail {
+  overflow: hidden;
+}
+
+.payment-method {
+  margin-top: 30px;
+}
+
+.form-group .error {
+  color: #db3c36;
+  padding-left: 20px;
+}
+
+.desc p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.desc {
+  padding-top: 20px;
+  padding-bottom: 60px;
+}
+
+.payment-title {
+  padding-bottom: 20px;
+}
+
+.pay-method>.row {
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.pay-method .pay-btn:nth-child(1) {
+  margin-right: 0em;
+}
+
+.pay-btn {
+  margin-bottom: 10px;
+  float: left;
+}
+
+.pay-method .singleButton {
+  max-width: 100%;
+  justify-content: flex-end
+}
+
+.form-control {
+  box-shadow: var(--box-shadow-public) !important;
+}
+
+.bookapt-title{
+  padding-top: 1em;
+    border-top: 2px dotted gainsboro;
+    margin-top: 1em;
+}
+@media screen and (max-width:440px) {
+  .pay-method span {
+      display: none;
+  }
+}
+
+@media screen and (min-width:1200px) {
+  .login-box textarea,
+  .login-box input {
+      width: 95%;
+      margin-left: 12px;
+      margin-right: 12px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  button.btn-dark.pay {
+      min-width: 0;
+      padding: 5px 10px;
+      font-weight: 600;
+      font-size: 14px;
+  }
+
+    .payment-method {
+      margin: 0px -50px 0;
+    }
+
+
+    .payment-method ::ng-deep .panel-blue{
+      box-shadow: none !important;
+    }
+
+
+  .title h1{
+    font-size: 20px;
+  }
+
+  .form-group span {
+    padding-left: 1em;
+  }
+
+  .col-md-12{
+    padding: 0 !important;
+  }
+}
+
+
+textarea{
+  opacity: .7;
+  border: 3px solid #f3f4f6;
+  box-sizing: border-box;
+  border-radius: 16px;
+  font-family: Poppins,sans-serif;
+  font-style: normal;
+  font-weight: 400!important;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
+  background-color: #f3f3f3;
+}
+
+.disable button.btn-dark.pay,
+.disable ::ng-deep button.btn-dark.pay{
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.disable button.btn-dark.pay.enable{
+  opacity: 1;
+   cursor: pointer;
+   pointer-events: all;
+}

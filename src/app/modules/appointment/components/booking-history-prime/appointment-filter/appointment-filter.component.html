@@ -1,0 +1,87 @@
+<div class="form-filter">
+  <!-- ------------------------------- Clinic -------------------------------- -->
+  <div class="form-element">
+    <label>
+      By Clinic
+    </label>
+
+    <p-dropdown [options]="clinicList" [(ngModel)]="selectedClinic" [filter]="true" filterBy="name"
+      (onChange)="onClinicSelect($event, 'clinic')" placeholder="By Clinic" optionLabel="name" optionValue="id">
+    </p-dropdown>
+  </div>
+
+  <!-- ------------------------------- Service ------------------------------- -->
+
+
+  <div class="form-element">
+    <label>
+      By Service
+    </label>
+
+    <p-dropdown [options]="serviceList" [(ngModel)]="selectedService" [filter]="true" filterBy="name"
+      (onChange)="onClinicSelect($event, 'service')" placeholder="By Service" optionLabel="name" optionValue="id">
+    </p-dropdown>
+  </div>
+
+
+  <!-- ------------------------------ Provider ------------------------------- -->
+  <div class="form-element">
+    <label>
+      By Provider
+    </label>
+
+    <p-dropdown [options]="providerList" [(ngModel)]="selectedProvider" [filter]="true" filterBy="fullName"
+      (onChange)="onClinicSelect($event, 'provider')" placeholder="By Provider" optionLabel="fullName" optionValue="id">
+    </p-dropdown>
+  </div>
+
+  <!-- Filter by date -->
+
+  <select
+    style="height:33px;width: 200px;margin: 0px 0px 0px 5x;cursor: pointer;font-size:14px;padding:5px;color:rgb(82, 82, 82);"
+    [(ngModel)]="activeDateFilter" class="form-select filter_dropdown" #Dateselect
+    (change)="onDateFilter(Dateselect.value)">
+    <option selected="true" disabled="disabled" value="">By Appointment Date</option>
+    <option value="All">All</option>
+    <option value="Today">Today</option>
+    <option value="Yesterday">Yesterday</option>
+    <option value="LastWeek">Last Week</option>
+    <option value="LastMonth">Last Month</option>
+    <option value="Between">Between</option>
+    <option value="After">After</option>
+    <option value="Before">Before</option>
+  </select>
+
+  <div class="date-fields">
+    <ng-container *ngIf="activeDateFilter === 'Between'">
+      <div class="d-flex align-items-center flex-row" style="position: relative; bottom: 6px;">
+        <div class="d-flex flex-column mr-2 ml-2">
+          <label for="startDate" style="font-size: 14px;">Start Date:</label>
+          <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="startDate"
+            [(ngModel)]="startDate" [min]="minDate" (change)="onDateFilter('Between')" [max]="endDate || maxDate" />
+        </div>
+        <div class="d-flex flex-column">
+          <label for="endDate" style="font-size: 14px;">End Date:</label>
+          <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="endDate"
+            [(ngModel)]="endDate" (change)="onDateFilter('Between')" [min]="startDate || minDate" [max]="maxDate" />
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeDateFilter === 'After'">
+      <div style="position: relative; bottom: 6px;" class="ml-2">
+        <label for="afterDate" style="font-size: 14px;">Date After:</label>
+        <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="afterDate"
+          [(ngModel)]="afterDate" (change)="onDateFilter('After')" [min]="minDate" [max]="maxDate" />
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeDateFilter === 'Before'">
+      <div style="position: relative; bottom: 6px;" class="ml-2">
+        <label for="beforeDate" style="font-size: 14px;">Date Before:</label>
+        <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="beforeDate"
+          [(ngModel)]="beforeDate" (change)="onDateFilter('Before')" [min]="minDate" [max]="maxDate" />
+      </div>
+    </ng-container>
+  </div>
+</div>

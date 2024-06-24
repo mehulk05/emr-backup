@@ -1,0 +1,28 @@
+
+.chat-question-list {
+    margin-bottom: 2em;
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+.table-add-btn {
+    margin-left: 1em;
+}
+
+.table-add-btn .icon {
+    min-height: 31px;
+    border-radius: 6px;
+    padding: 6.5px 20px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #009EDE;
+    box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(59 130 246) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(64 68 82 / 8%) 0px 2px 5px 0px;
+}
+
+@media screen and (max-width:767px){
+    .table-add-btn{
+       margin-left: 0em;
+    }
+  }
+  

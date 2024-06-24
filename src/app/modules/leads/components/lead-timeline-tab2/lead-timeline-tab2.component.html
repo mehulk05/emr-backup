@@ -1,0 +1,67 @@
+<div class="timeline">
+  <ng-container *ngIf="showPreviewModal">
+    <app-preview-email-sms-template [modalData]="leadEmailData" [showModal]="showPreviewModal"
+      (modalClosed)="onCloseModal()"></app-preview-email-sms-template>
+  </ng-container>
+  <ng-container *ngIf="leadCount > 1">
+    <div class="flex justify-content-end align-items-center p-2">
+      <div class="flex justify-content-between align-items-center gap-3 mr-3 show-as-radio">
+        <label class="f-14 fw-400">Show Combined Timeline</label>
+        <p-inputSwitch (onChange)="switchTimeline($event)"></p-inputSwitch>
+      </div>
+    </div>
+  </ng-container>
+  <div class="wrapper">
+    <div class="center-line">
+      <a href="javascript:void(0)" class="scroll-icon"><i class="fas fa-caret-up"></i></a>
+    </div>
+
+    <ng-container *ngFor="let data of timelineData ;let i=index">
+      <div class="row" [ngClass]="i%2===0 ? 'row-1' : 'row-2'">
+        <section class="panel-blue">
+          <i class="icon fa fa-envelope"></i>
+          <div class="details">
+            <div class="flex justify-content-between align-items-center">
+              <div class="date-time">{{formatTODate(data.createdDateTime)}}, {{formatTime1(data.createdDateTime)| date :
+                'hh:mm a'}}</div>
+              <div class="type"> {{data.type}}</div>
+
+            </div>
+            <div class="title">{{data.name}}</div>
+            <div *ngIf="data.email" class="title">{{data.email}}</div>
+            <div *ngIf="data.phoneNumber" class="title">{{data.phoneNumber}}</div>
+
+            <div class="bottom">
+              <ng-container *ngIf="data.type !== 'TASK'">
+                <button class="save-color-btn" (click)="getEmail(data.id)">
+                  View Template
+                </button>
+              </ng-container>
+              <ng-container *ngIf="data.type === 'TASK'">
+                <button class="save-color-btn">
+                  <a routerLink="/tasks/{{data.contentId}}/edit"
+                    style="color: #fff; font-size: 14px;font-weight: 600;">View Details</a>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+
+        </section>
+      </div>
+    </ng-container>
+
+    <div class="row" [ngClass]="timelineData.length %2===0 ? 'row-1' : 'row-2'">
+      <section class="panel-blue">
+        <i class="icon fa fa-user"></i>
+        <div class="details">
+          <div class="flex justify-content-between align-items-center">
+            <div class="date-time">{{formatTimeService.formatTime(leadInfo?.createdDate)}}</div>
+            <div class="type"> Lead Created </div>
+
+          </div>
+          <div class="title">{{leadInfo?.firstName}} {{leadInfo?.lastName}}</div>
+        </div>
+      </section>
+    </div>
+
+  </div>

@@ -1,0 +1,110 @@
+.title{
+  margin-bottom: 2em;
+}
+.header {
+  min-height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(https://g99plus.b-cdn.net/g99%20landing%20pages/page1/header-bg.png);
+  background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+}
+
+.header-content-wrapper {
+  width: 100%;
+}
+
+.header-content {
+  max-width: 620px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+}
+
+.header-content .title {
+  font-size: 36px;
+  line-height: 54px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.header-content .description {
+  line-height: 180%;
+  margin-bottom: 65px;
+}
+
+.header-content .orange-btn {
+  padding: 10px;
+  background-color: #009EDE;
+  font-size: 16px;
+  font-weight: 600;
+  line-height:16px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+}
+
+.laptop-wrapper {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+iframe{
+  width: 100%;
+    height: 100%;
+    min-height: 550px;
+}
+.bigHeight iframe{
+  min-height: 800px;
+}
+
+.panel-body{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.code-config p{
+  font-size: 18px;
+}
+.code-config{
+  padding: 1em;
+}
+
+
+.border-box {
+  background: #f5f7fb;
+  border: 1px solid #c4c4c4;
+  border-radius: 8px;
+  padding: 10px 10px;
+  margin-top: 1em;
+  word-break: break-word;
+  margin-bottom: 1em;
+}
+
+.iframeurl{
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3c4257;
+}
+
+
+.buttons-wrapper{
+  display: flex;
+  column-gap: 10px;
+  row-gap: 10px;
+}
+
+
+.panel-blue
+{
+  margin-bottom: 3em;
+}

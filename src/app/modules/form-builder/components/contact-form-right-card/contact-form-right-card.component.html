@@ -1,0 +1,105 @@
+<div class="preview-card  code-new">
+  <div class="panel-blue" *ngIf="questionnaireId && questionnaire !== null && questionnaire.isPublic">
+    <div class="panel-header">
+      <h3>Website Integration</h3>
+    </div>
+
+    <div class="panel-body">
+      <div class="panel-card-content no-border">
+        <app-url-preview [iframeUrl]="iframeUrl" [previewUrl]="publicQuestionnaireUrl"></app-url-preview>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-blue" *ngIf="questionnaireId && questionnaire !== null && questionnaire.enableModernUi">
+    <div class="panel-header">
+      <h3>Modern UI Website Integration</h3>
+    </div>
+
+    <div class="panel-body">
+      <div class="panel-card-content no-border">
+        <app-url-preview [iframeUrl]="modernUiIframeUrl" [previewUrl]="modernUiUrl"></app-url-preview>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------------------------- Contact form css --------------------------- -->
+  <div class="css-card" *ngIf="questionnaireId">
+    <div class="panel-blue">
+      <div class="panel-header">
+        <h3>CSS</h3>
+      </div>
+
+      <div class="panel-body">
+        <div class="panel-card-content no-border">
+          <p>
+            You can add the css style to apply to this form.
+          </p>
+          <form [formGroup]="cssForm" (ngSubmit)="submitCssForm()" style="width: 100%;">
+
+            <div class="form-group">
+              <textarea formControlName="css" rows="7" class="css-form form-control"></textarea>
+            </div>
+
+            <div class="button-flex">
+              <button type="button" class="btn-small-new btn-save-new btn-xs-new" (click)="preview()">
+                <i class="fa fa-globe"></i>Preview</button>
+
+                <button class="btn-small-new btn-save-new btn-xs-new">
+                  <i class="fa fa-save"></i> Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- --------------------------- Script tag form --------------------------- -->
+  <div class="script-card" *ngIf="questionnaireId">
+    <div class="panel-blue">
+      <div class="panel-header">
+        <h3>Tracking code</h3>
+      </div>
+
+      <div class="panel-body">
+        <div class="panel-card-content no-border">
+          <p>
+            Add tracking information here.
+          </p>
+          <form [formGroup]="trackingCodeForm" (ngSubmit)="submitTrackingCodeForm()" style="width: 100%;">
+
+            <div class="form-group">
+              <label>
+                Scripts in Header.(*These scripts will be printed in the &lt;head&gt; section)
+              </label>
+              <textarea formControlName="googleAnalyticsGlobalCode" rows="7" class="css-form form-control"></textarea>
+
+            </div>
+
+            <div class="form-group">
+              <label>
+                Scripts in Body.(*These scripts will be printed in the  &lt;body&gt; section)
+                <textarea formControlName="googleAnalyticsGlobalCodeUrl" rows="7" class="css-form form-control"></textarea>
+
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                Scripts in thank you page.(*These scripts will be printed on thank you page upon form submission)
+              </label>
+              <textarea formControlName="trackCode" rows="7" class="css-form form-control"></textarea>
+
+            </div>
+
+
+            <div class="button-flex">
+                <button class="btn-small-new btn-save-new btn-xs-new">
+                  <i class="fa fa-save"></i> Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

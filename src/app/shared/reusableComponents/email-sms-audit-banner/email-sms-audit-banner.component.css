@@ -1,0 +1,29 @@
+.message{
+  background-color: rgba(221, 27, 0, 0.05);
+  border-radius: 8px;
+  color: #DD1B00;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 1em 10px ;
+  margin: 0px -4px 0 -10px;
+  margin-bottom: 1em;
+}
+
+.message p{
+  font-size: 13px;
+  color: #DD1B00;
+  margin-bottom: 0;
+  font-weight: 500;
+  font-style: italic;
+  padding: 5px;
+}
+
+
+.error-bg{
+  background-color: #f16a6a24;
+  border: 0.5px solid #f16a6a24;
+  border-radius: 16px;
+  padding: 1em;
+  color: #DD1B00;
+  font-weight: 400;
+}

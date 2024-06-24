@@ -1,0 +1,37 @@
+<div class="bg-white datatable-table" >
+  <div class="title">
+    <h3>Please complete the below questionnaires </h3>
+  </div>
+  <div class="panel-card">
+    <div class="box" *ngFor="let item of questionnaires">
+      <div class="item-wrapper">
+        <div class="label-item">
+          {{item.questionnaireName}}
+        </div>
+
+        <div class="action">
+          <a *ngIf="item?.questionnaireStatus!=='Submitted'" href="javascript:void(0)" (click)="editViewQuestionnaire(item)">
+            Submit Now  <i class="fa fa-edit"></i>
+          </a>
+
+          <a href="javascript:void(0)" *ngIf="item?.questionnaireStatus ==='Submitted'">
+            Completed
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p-dialog [header]="'Questionnaire Form'" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  (onHide)="hideModal()" [draggable]="false" [resizable]="false">
+
+  <!-- ----------------------------- Modal Body ------------------------------ -->
+
+  <div class="modal-body">
+    <iframe [src]="iframeUrl | safeUrl"></iframe>
+  </div>
+
+  </p-dialog>

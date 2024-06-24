@@ -1,0 +1,190 @@
+<!-- Pankaj : background-color class add -->
+<div class="bg-white new-ui">
+  <div class="page-wrapper">
+    <div class="main-section">
+      <form class="form" [formGroup]="vacationScheduleForm">
+        <div class="working-schedule-form">
+          <!-- pankaj : for responsive col-class added. -->
+          <div class="form-group col-lg-6 col-md-12 col-sm-12">
+            <div class="input-type3-wrapper">
+              <p class="input-type3-label">User</p>
+              <!-- pankaj : style - width added -->
+              <input [style]="{'width':'98%'}" type="email" readonly class="input-type2 custom-ipt"
+                formControlName="user" />
+            </div>
+          </div>
+          <div class="form-group col-lg-6 col-md-12 col-sm-12" [ngClass]="
+                scheduleFormControls.clinicId.invalid &&
+                (scheduleFormControls.clinicId.dirty || scheduleFormControls.clinicId.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+            <div class="input-type3-wrapper">
+              <p class="input-type3-label">Clinic <span class="error-red">*</span></p>
+              <!-- pankaj : style - width added -->
+              <p-dropdown [style]="{'width':'98%'}" optionLabel="name" optionValue="id"
+                [options]="clinicList" formControlName="clinicId" (onChange)="onChange($event)">
+              </p-dropdown>
+              <div class="error error-msg" *ngIf="
+                        scheduleFormControls.clinicId.invalid &&
+                          (submitted || scheduleFormControls.clinicId.dirty || scheduleFormControls.clinicId.touched)
+                        ">
+                <div *ngIf="scheduleFormControls.clinicId.errors.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Select a clinic
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <!-- pankaj : date form Array -->
+        <div formArrayName="dates">
+          <ng-container *ngFor="let date of dates.controls; let i = index">
+            <div class="blue-box working-schedule-form second-form"  [formGroupName]="i"  [ngClass]="(hasDateError[i] || timeErrorExists) ? 'error' : 'no-error'">
+
+            <div class="error-div">
+              <div class="error error-msg" *ngIf="date.value.time.length === 0">
+                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  Start Time and End Time is required for adding vacation schedule.
+              </div>
+
+              <div class="error error-msg" *ngIf="hasDateError[i]">
+                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  Start Date should not be greater than End Date for adding vacation schedule.
+              </div>
+
+              <div class="error error-msg" *ngIf="timeErrorExists">
+                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  Start Time should not be greater than End Time  for adding vacation schedule.
+              </div>
+            </div>
+
+            <!-- pankaj : remove VacationDiv -->
+            <div (click)="removeVacationDate(i)">
+              <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/icons/close_small.svg" alt="close icon"
+                class="close-icon">
+            </div>
+
+            <div class="row mx-0">
+              <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                <div class="input-type3-wrapper input-change">
+                  <p class="input-type3-label required">Date from <span>*</span></p>
+                  <!-- pankaj : style - width added -->
+                  <p-calendar  [showIcon]="true" inputId="navigators" (onSelect)="handleDateSelect($event, 'startDate', i)"
+                    [style]="{'width':'98%'}" formControlName="startDate">
+                  </p-calendar>
+                </div>
+              </div>
+
+
+
+
+              <!-- end date -->
+              <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                <div class="input-type3-wrapper input-change">
+                  <p class="input-type3-label required">Date to <span>*</span></p>
+                  <!-- pankaj : style - width added -->
+                  <p-calendar  [showIcon]="true" inputId="navigators" (onSelect)="handleDateSelect($event, 'endDate', i)"
+                    [style]="{'width':'98%'}" formControlName="endDate">
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- pankaj : for responsive change col-classes  && Add time button -->
+
+            <div class="form-group col-lg-6 col-md-12 col-sm-12" *ngIf="date?.value?.time.length === 0">
+              <div class="form-group">
+                <div class="button-flex">
+                  <button class="btn-save-new btn-small-new" (click)="addVacationTime(i)">
+                    + Add Time
+                  </button>
+
+                </div>
+              </div>
+            </div>
+
+
+        <!-- ----------------------------- Time array ------------------------------ -->
+            <div formArrayName="time" class="time-array">
+              <div class="row time-array-row" *ngFor="let slot of time(i).controls; let j = index" [formGroupName]="j" [ngClass]="timeError && timeError[i] && timeError[i][j] ? 'error-time' : 'no-error'">
+
+                <!-- ------------------------------ From time ------------------------------ -->
+                <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                  <div class="input-type3-wrapper input-change">
+                    <p class="input-type3-label required">Time from <span>*</span></p>
+                    <p-calendar [timeOnly]="true" hourFormat="12" (onSelect)="handleDateSelect($event, 'startTime', i, j)" formControlName="startTime" [style]="{'width':'98%'}">
+                    </p-calendar>
+
+
+                    <div class="error error-msg" *ngIf="slot.get('startTime').invalid && slot.get('startTime').touched">
+                      <div *ngIf="slot.get('startTime').errors.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Start Time is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+               <!-- ------------------------------- To Time ------------------------------- -->
+                <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                  <div class="input-type3-wrapper input-change">
+                    <p class="input-type3-label required">Time to <span>*</span></p>
+                    <p-calendar [timeOnly]="true" hourFormat="12" formControlName="endTime" (onSelect)="handleDateSelect($event, 'endTime', i, j)" [style]="{'width':'98%'}">
+                    </p-calendar>
+
+                    <div  class="error error-msg" *ngIf="slot.get('endTime').invalid && slot.get('endTime').touched">
+                    <div *ngIf="slot.get('endTime').errors.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> End Time is required
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+
+                <div (click)="removeVacationDate(i)">
+                  <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/icons/close_small.svg" alt="close icon"
+                    class="close-icon">
+                </div>
+                <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <div class="button-flex">
+                      <button class="btn-save-new btn-small-new" (click)="addVacationTime(i)">
+                        <span class="btn-text"> + Add Time</span>
+                      </button>
+                      <!-- pankaj : removeVacation Time -->
+                      <button class="btn-default-new btn-small-new" (click)="removeVacationTime(i,j)">
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </ng-container>
+
+        </div>
+
+
+        <!--pankaj :  Generate New DIV -->
+        <div class="add-new" (click)="addVacation()">
+          <div class="plus-wrapper">
+            <p class="plus">+</p>
+          </div>
+          <p class="normal theme-text add-new-text">ADD VACATION</p>
+        </div>
+
+        <!-- submit form data -->
+        <div class="button-flex">
+          <button class="btn-save-new btn-small-new" [disabled]="timeErrorExists || dateErrorExist || !vacationScheduleForm.valid" (click)="submitForm()">Save</button>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

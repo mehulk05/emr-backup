@@ -1,0 +1,77 @@
+<!-- <div class="card-wrapper">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Lead Detail</h3>
+    </div>
+
+    <div class="card-body">
+      <app-lead-detail-tab1></app-lead-detail-tab1>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Lead TimeLine</h3>
+    </div>
+
+    <div class="card-body">
+      <app-lead-timeline-tab2></app-lead-timeline-tab2>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Lead Tasks</h3>
+    </div>
+
+    <div class="card-body">
+      <app-lead-tasks-tab3 [leadId]="leadId"></app-lead-tasks-tab3>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Lead History</h3>
+    </div>
+
+    <div class="card-body">
+      <app-lead-hisory-tab4 [leadDetailObj]="leadDetailObj"></app-lead-hisory-tab4>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Lead Combined Timeline</h3>
+    </div>
+
+    <div class="card-body">
+      <app-lead-timeline-all-tab5  [email]="leadEmail" ></app-lead-timeline-all-tab5>
+    </div>
+  </div>
+</div> -->
+
+
+<p-accordion [multiple]="true" class="custom-accordion">
+  <p-accordionTab header="Lead Detail" [selected]="true" class="custom-tab">
+    <app-lead-detail-tab1></app-lead-detail-tab1>
+  </p-accordionTab>
+
+  <p-accordionTab header="Lead TimeLine" class="custom-tab">
+    <app-lead-timeline-tab2></app-lead-timeline-tab2>
+  </p-accordionTab>
+
+  <p-accordionTab header="Lead Tasks" class="custom-tab">
+    <app-lead-tasks-tab3 [leadId]="leadId"></app-lead-tasks-tab3>
+  </p-accordionTab>
+
+  <p-accordionTab header="Lead History" class="custom-tab">
+    <app-lead-hisory-tab4 [leadDetailObj]="leadDetailObj"></app-lead-hisory-tab4>
+  </p-accordionTab>
+
+  <p-accordionTab header="Lead Combined Timeline" class="custom-tab">
+    <app-lead-timeline-all-tab5 [email]="leadEmail"></app-lead-timeline-all-tab5>
+  </p-accordionTab>
+</p-accordion>
+

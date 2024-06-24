@@ -1,0 +1,123 @@
+<div class="d-flex flex-row-reverse button-container">
+  <button (click)="openModal()" class="btn-save-new btn-long-new">
+    <i class="fas fa-plus ms-text-secondary"></i>
+    Syndication Source
+  </button>
+</div>
+
+
+<div class="panel-blue" style="margin: 0px 25px;">
+  <div class="panel-header">
+    <h3>Syndication Report Page</h3>
+
+
+  </div>
+
+  <div class="panel-body pt-0" #panel>
+    <div class="report-dropdown" *ngIf="reportURLArray && reportURLArray.length>0">
+      <label>Locations</label>
+      <p-dropdown [options]="reportURLArray" [appendTo]="panel" [(ngModel)]="reportType" [filter]="true"
+        filterBy="reportName" (onChange)="onReportSelect($event)" placeholder="Select Locations"
+        optionLabel="reportName" optionValue="id">
+      </p-dropdown>
+    </div>
+    <div class="report-view" *ngIf="sReportUrl">
+      <iframe [src]="sReportUrl | safeUrl">
+
+      </iframe>
+    </div>
+
+    <div class="report-view error-mesage" *ngIf="showError">
+      <!-- <p>
+        Your reports are currently not configured. Please send an email to
+        <a href="mailto:support@growth99.com">support@growth99.com</a>
+        and request to configure Syndication Report for your business.
+      </p> -->
+
+      <p *ngIf="syndicationReportEmail; else notConfigured">
+        Your reports are currently not configured. Please send an email to
+        <a href="mailto:{{syndicationReportEmail}}">{{syndicationReportEmail}}</a>
+        and request to configure Syndication Report for your business.
+      </p>
+      <ng-template #notConfigured>
+        Your reports are currently not configured.
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    [header]="'Syndication Source'" [(visible)]="modalState" (onHide)="closeModal()" [closable]="true"
+    [contentStyle]="{paddingBottom:'5px'}" [resizable]="false" [draggable]="false">
+
+
+    <div class="modal-body">
+      <div class="image-cropper-wrapper row mx-0 m-2">
+        <div class="col-lg-12 col-md-12 p-0 m-0 ">
+          <form [formGroup]="form">
+            <div class="mt-1" formArrayName="inputFields" *ngFor="let input of inputFields.controls; let i = index">
+              <div [formGroupName]="i">
+                <div class="form-group row-flex scrollable">
+                  <div class="input-wrapper mb-3">
+                    <label>Location</label>
+                    <input formControlName="reportName" class="form-control input-type2 mt-1" type="text" required>
+                    <div class="error error-msg"
+                      *ngIf="input.get('reportName').touched || input.get('reportName').dirty">
+                      <div *ngIf="input.get('reportName').errors?.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Location is required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-wrapper mb-2">
+                    <label> Report URL</label>
+                    <input formControlName="reportUrl" class="form-control input-type2 mt-1" type="text" required>
+                    <div class="error error-msg" *ngIf="input.get('reportUrl').touched || input.get('reportUrl').dirty">
+                      <div *ngIf="input.get('reportUrl').errors?.required">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Report URL is required
+                      </div>
+
+                      <div *ngIf="input.get('reportUrl').errors?.pattern">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Report URL is invalid
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="btn-flex button-wrapper mt-4 d-flex flex-row-reverse">
+                    <button class="m-2" (click)="addInputFields()">
+                      <i class="fa fa-plus"></i>
+                    </button>
+
+                    <button class="delete m-2" (click)="removeInputFields(i)">
+                      <i class="fa fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="form-group">
+        <div class="button-flex ">
+          <!-- <div class="left-buttons"> -->
+          <button class="btn-save-new btn-small-new" [disabled]="form.invalid" (click)="submitForm()">Save</button>
+          <button class="btn-default-new ml" type="button" (click)="onCancelclick()">
+            Cancel
+          </button>
+        </div>
+        <!-- </div> -->
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+
+<ng-container>
+  <app-delete-warning [showModal]="showDeleteReportModal" (modalClosed)="onDeleteReportModalClose($event)"
+    [modalData]="showReportModalData"></app-delete-warning>
+</ng-container>

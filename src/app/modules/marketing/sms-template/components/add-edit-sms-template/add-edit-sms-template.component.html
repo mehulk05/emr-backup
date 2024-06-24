@@ -1,0 +1,299 @@
+<div class="blue-card bg-white box-shadow-light">
+  <!-- <div class="profile-header">
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="content-wrapper">
+      <div class="header-content">
+
+      </div>
+      <div class="header-img-wrapper">
+        <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/Profile%20Interface-bro%201@2x.png"
+          alt="illustration" class="header-img" />
+      </div>
+    </div>
+  </div> -->
+  <!-- <div class="bg-white datatable-table">
+    <div class="title">
+      <h3>{{title}}</h3>
+    </div>
+  </div> -->
+
+  <div class="add-edit-form pl-3 pt-3">
+    <div class="form form-type2">
+      <form [formGroup]="emailForm">
+        <div class="row mx-0">
+          <!-- -------------------------- Module feild --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>Module<span class="error-red">*</span></label>
+              <p-dropdown (onChange)="onModuleChange($event)" placeholder="Select Template For"
+                [options]="templateValues" optionValue="id" optionLabel="name" formControlName="templateFor">
+                <!-- <ng-template let-item pTemplate="templateValues">
+                  {{ item }}
+                </ng-template> -->
+              </p-dropdown>
+            </div>
+          </div>
+
+          <!-- --------------------------- Target feild --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" *ngIf="f.templateFor.value === 'Lead' ">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="leadTarget" formControlName="smsTarget">
+                <ng-template let-item pTemplate="leadTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+            </div>
+
+            <div class="col-lg-8 col-md-12 col-sm-12">
+              <div class="form-group" *ngIf="f.templateFor.value === 'Patient' ">
+                <label>Target<span class="error-red">*</span></label>
+                <p-dropdown placeholder="Select Target" [options]="patientTarget" formControlName="smsTarget">
+                  <ng-template let-item pTemplate="patientTarget">
+                    {{ item }}
+                  </ng-template>
+                </p-dropdown>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="f.templateFor.value === 'Appointment'">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="appointmentTarget" formControlName="smsTarget">
+                <ng-template let-item pTemplate="appointmentTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+            </div>
+
+            <div class="form-group" *ngIf=" f.templateFor.value === 'MassSMS' ">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="massSMSTarget" formControlName="smsTarget">
+                <ng-template let-item pTemplate="massSMSTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+            </div>
+            <div class="form-group" *ngIf=" f.templateFor.value === 'Form' ">
+              <label>Target<span class="error-red">*</span></label>
+              <p-dropdown placeholder="Select Target" [options]="reviewFormTarget" formControlName="smsTarget">
+                <ng-template let-item pTemplate="reviewFormTarget">
+                  {{ item }}
+                </ng-template>
+              </p-dropdown>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Name Feild ----------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.name.invalid && (f.name.dirty || f.name.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective />
+
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is required.
+                </div>
+                <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Is Custom --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group pb-0">
+              <div class="flex-sb show-as-radio">
+                <label>Is Custom?</label>
+                <p-inputSwitch formControlName="isCustom"></p-inputSwitch>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Lead Variable --------------------------- -->
+          <div class="pull-left-2" *ngIf="f.templateFor.value === 'Lead'">
+            <button class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let smsVariable of leadSmsVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Patient Variable --------------------------- -->
+          <div class="pull-left-2" *ngIf="f.templateFor.value === 'Patient'">
+            <button class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let smsVariable of patientSmsVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Appointment Variable --------------------------- -->
+          <div class="pull-left-2" *ngIf="f.templateFor.value === 'Appointment'">
+            <button class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let smsVariable of appointmentSMSVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Mass SMS Variable --------------------------- -->
+          <div class="pull-left-2" *ngIf="f.templateFor.value === 'MassSMS'">
+            <button class="btn-save-new btn-long-new f-14 mx-1 my-1"
+              *ngFor="let smsVariable of massSMSVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+
+          <!-- -------------------------- Body--------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12 mt-2">
+            <div class="btn-flex align-items-center mt-2">
+              <div class="label">
+                <label class="mt-2" for="body">
+                  Body <span class="error-red">*</span>
+                  <div class="tooltip-container">
+                      <span class="info-icon" (mouseenter)="showTooltip = true" (mouseleave)="showTooltip = false">
+                      <i class="fa fa-info-circle"></i>
+                    </span>  
+                    <div class="tooltip123" *ngIf="showTooltip">
+                      <h5>Note:</h5>
+                      <p><b>1.</b> Each message you send must clearly identify you as the sender, hence including the <b>Business Name </b> is critical in initial messages and must persist throughout the conversation.
+                        <br> 
+                        <br>
+                        <b>2.</b> The first message you send to an individual should include the following opt-out language: <b><i>“Reply STOP to unsubscribe”</i></b>  or an equivalent standard opt-out keyword for example <b><i>“Reply Stop to Opt-Out”</i></b>  
+                        <br>
+                        <br>
+                        <i>*Adhering to these guidelines is essential to maintaining a positive user experience and ensuring compliance with industry regulations. Please review and update your SMS template accordingly to avoid any disruptions.</i></p>
+                    </div> 
+                  </div>
+                </label>
+              </div>
+
+              <div class=" button-flex mr">
+                <button class="btn-small-new btn-save-new mr-0" (click)="openLibrary1()"
+                  *ngIf="f?.templateFor?.value === 'Lead' && emailTemplateId">
+                  Test Template
+                </button>
+                <app-ai-button class="ml-0" [showModal]="showAiModal" [message]="emailForm.value.body"
+                  [category]="category" [totalCharacterLength]="totalAiCharacterLength"
+                  (modalClosed)="aiModelClose($event)"></app-ai-button>
+              </div>
+            </div>
+
+
+            <textarea rows="4" cols="80" formControlName="body" (ngModelChange)="valueChange()" class="form-control"
+              #smsBody></textarea>
+            <div class="flex justify-content-between align-items-center mb-2">
+              <div class="character-length">
+                <span style="color: #b8902d">Total Characters: {{ totalCharacterLength }}</span>
+              </div>
+              <div class="segment-count">
+                <span style="color: #b8902d">Total segments: {{ numberOfSegments }}</span>
+              </div>
+            </div>
+            <div *ngIf="showSmsVariableMessage" class="mb-2">
+              <span style="color: #c51900">
+                Warning: Using variables might cause your messages to span across multiple segments and deliver in
+                parts,
+                using more of your quota (1 SMS per segment).
+              </span>
+            </div>
+            <div *ngIf="showEncodingMessage" class="">
+              <span style="color: #c51900">
+                Warning: You are using UNICODE characters. Using these characters will limit message bodies to 67
+                characters making you use more from your quota.
+              </span>
+            </div>
+
+            <!-- <ckeditor #myckeditor class="editor" id="body" [config]="config" formControlName="body" data=""></ckeditor> -->
+          </div>
+
+          <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button [disabled]="!emailForm.valid" (click)="OnSubmitForm()" class="btn-save-new btn-small-new">
+                  Save
+                </button>
+
+                <button type="button" (click)="returntoEmailList()" class="btn-default-new btn-small-new">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------- Test SMS Model -------------------------- -->
+
+<p-dialog class="custom-dialog custom-dialog-header" [modal]="true" [(visible)]="isShowTestModel"
+  [breakpoints]="{'1024px': '50vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '40vw'}" [baseZIndex]="10000"
+  [header]="'Send Test SMS'" widgetVar="testSMS" [draggable]="false" appendTo="body" (onHide)="cancelTestSms()">
+  <div class="custom-blue">
+    <div class="form form-type2">
+      <form [formGroup]="testEmailTemplateForm" class="login-box">
+        <div class="row mx-0">
+
+          <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+            <div class="form-group pt-3">
+              <label for="name">Choose Lead<span class="error-red">*</span></label>
+              <p-dropdown (onChange)="onModuleChange($event)" placeholder="Select Lead" formControlName="leadId"
+                optionLabel="firstName" [options]="rowData" optionValue="id" [style]="{'width':'100%'}">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+            <div class="form-group pt-3">
+              <label for="name"> Contact Number<span class="error-red">*</span></label>
+              <input type="tel" class="form-control popupinput" formControlName="contactNumber"
+                placeholder="Enter contact number to Receive SMS" />
+              <div class="error" *ngIf="
+              stf?.contactNumber?.invalid &&
+              (submitted ||
+                stf?.contactNumber?.dirty ||
+                stf?.contactNumber?.touched)
+            ">
+                <div *ngIf="stf?.contactNumber?.errors?.required">
+                  Phone is required.
+                </div>
+                <div *ngIf="stf?.contactNumber?.errors?.pattern">
+                  Please enter only 10 digits
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="button-flex pl-0">
+            <button [disabled]="!testEmailTemplateForm.valid" (click)="SubmitTestTemplate()" type="button"
+              class="btn-save-new btn-small-new">
+              Send
+            </button>
+            <button class="btn-default-new" type="button" (click)="onCancelClick()">
+              Cancel
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+<ng-container *ngIf="showAiModal">
+  <app-ai-content [showModal]="showAiModal" [message]="message" [category]="category"
+    (modalClosed)="aiModelClose($event)">
+  </app-ai-content>
+</ng-container>

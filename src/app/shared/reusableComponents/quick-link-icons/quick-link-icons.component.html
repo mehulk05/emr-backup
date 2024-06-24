@@ -1,0 +1,60 @@
+<div class="quick-link-icons">
+  <!-- <a tooltipPosition="top" *ngIf="reviewUrl" pTooltip="Smile Virtual" [href]="'https://app.smilevirtual.com/login'"
+    class="stat" target="_blank">
+    <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/icons/sm%20logo.png" />
+  </a> -->
+  <a *ngIf="isBookingUrl" tooltipPosition="top" pTooltip="Booking Appointment" [href]="clinicUrl" class="stat"
+    target="_blank">
+    <!-- <img src="https://g99plus.b-cdn.net/singlescript/Calendar.svg" /> -->
+    <i class="fa-calendar-check fas" aria-hidden="true"></i>
+  </a>
+
+  <a *ngIf="ischatBotUrl" tooltipPosition="top" pTooltip="Chatbot" [href]="chatBotUrl" class="stat" target="_blank">
+    <!-- <img src="https://g99plus.b-cdn.net/singlescript/chatbot.svg" /> -->
+    <i class="fa-robot fas" aria-hidden="true"></i>
+  </a>
+
+  <a *ngIf="myWebsiteUrl" tooltipPosition="top" pTooltip="Website URL" [href]="myWebsiteUrl" class="stat"
+    target="_blank">
+    <i class="icon-bg fa-laptop fas" aria-hidden="true"></i>
+    <!-- <img src="https://g99plus.b-cdn.net/singlescript/webstie.svg" /> -->
+  </a>
+
+
+  <a *ngIf="isproviderUrl && providerUrl && !hideProvider && isProviderBaseAppt" tooltipPosition="top"
+    pTooltip="Provider URL" [href]="providerUrl" class="stat" target="_blank">
+    <!-- <img src="https://g99plus.b-cdn.net/singlescript/provider.svg" /> -->
+    <i class="fa-solid fa-hospital-user fas"></i>
+  </a>
+
+  <a *ngIf="isVCUrl" tooltipPosition="top" pTooltip="Self Assessment" [href]="virtualConsultationUrl" class="stat"
+    target="_blank">
+    <!-- <img src="https://g99plus.b-cdn.net/singlescript/vc.svg" /> -->
+    <i class="fas fa-user-md" aria-hidden="true"></i>
+  </a>
+
+
+  <a *ngIf="isContactFormUrl" tooltipPosition="top" pTooltip="Contact Form"
+    [href]="urlObj?.contactUrl+'&source=quickLinks'" class="stat" target="_blank">
+    <i class="fa-edit fas" aria-hidden="true"></i>
+    <!-- <img src="https://g99plus.b-cdn.net/singlescript/form.svg" /> -->
+  </a>
+
+  <a tooltipPosition="top" *ngIf="reviewUrl" pTooltip="Review Reel" [href]="reviewUrl" class="stat" target="_blank">
+    <!-- <i class="fa fa-star-o"></i> -->
+    <!-- <i class="fa-solid fa-star" aria-hidden="true"></i> -->
+    <!-- <img src="/assets/images/star-solid.svg" /> -->
+    <i class="fa-duotone fas fa-star"></i>
+  </a>
+
+  <a tooltipPosition="top" pTooltip="Two Way Text" *ngIf="currentUserInfo?.roles === 'Admin'"
+    [routerLink]="notificationEnabled ? ['two-way-text', 'message-center'] : ['two-way-text']"
+    [queryParams]="notificationEnabled ? {source: 'quick-link', filter: 'Unread'} : {}"
+    class="position-relative pt-1 pr-1 two-way-text">
+    <i class=" fab fa-weixin" [ngClass]="notificationEnabled ? 'fa-comment' : 'fa-comment-slash'"
+      aria-hidden="true"></i>
+    <span class="notification-badge">{{notificationEnabled
+      ? unreadSmsCount : 0}}</span>
+  </a>
+
+</div>

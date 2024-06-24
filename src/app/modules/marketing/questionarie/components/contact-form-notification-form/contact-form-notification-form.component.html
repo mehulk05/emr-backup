@@ -1,0 +1,105 @@
+<div class="bg-white new-ui">
+  <div class="add-edit-form  ml-3 mr-2">
+    <div class="form form-type2">
+      <form [formGroup]="notificationForm">
+        <ul class="p-0">
+          <div class="form-group">
+            <label>Select Notification Type</label><span style="color: red;">*</span>
+            <select class="form-control" formControlName="notificationType" (change)="getNotificationType($event)">
+              <option value="">Select the Type</option>
+              <option value="EMAIL">EMAIL</option>
+              <option value="SMS">SMS</option>
+            </select>
+          </div>
+
+
+          <!-- <div class="form-group" *ngIf="this.notificationVal=== 'SMS'"
+            [ngClass]="f.phoneNumber.invalid && ((f.phoneNumber.dirty || f.phoneNumber.touched))?'has-error':''">
+            <div>
+              <label>Phone Number</label><span style="color: red;">*</span>
+              <input type="number" class="form-control" formControlName="phoneNumber">
+              <div class="error error-msg">
+                <div *ngIf="f.phoneNumber.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is required.
+                </div>
+                <div *ngIf="f.phoneNumber.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is invalid.
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="form-group" *ngIf="this.notificationVal=== 'SMS'"
+            [ngClass]="f.phoneNumber.invalid && ((f.phoneNumber.dirty || f.phoneNumber.touched))?'has-error':''">
+            <div>
+              <label>Phone Number</label><span style="color: red;">*</span>
+              <input type="text" class="form-control input-type2" formControlName="phoneNumber" maxlength="14"
+              minlength="10" appPhoneNumberFormat [phoneNumberControl]="$any(notificationForm.get('phoneNumber'))">
+              <div class="error error-msg">
+                <div *ngIf="f.phoneNumber.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is required.
+                </div>
+                <div *ngIf="f.phoneNumber.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+<!--          <div class="form-group" *ngIf="this.notificationVal === 'SMS'">-->
+<!--            <div>-->
+<!--              <label>Text Message</label>-->
+<!--              <textarea type="text" class="form-control" formControlName="messageText"></textarea>-->
+<!--            </div>-->
+<!--          </div>-->
+
+          <div class="form-group" *ngIf="this.notificationVal === 'EMAIL'"
+            [ngClass]="f.toEmailAddress.invalid && ((f.toEmailAddress.dirty || f.toEmailAddress.touched))?'has-error':''">
+            <div>
+              <label>To</label>
+              <input type="text" class="form-control" formControlName="toEmailAddress">
+              <div class="error error-msg">
+                <div *ngIf="f.toEmailAddress.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is required.
+                </div>
+                <div *ngIf="f.toEmailAddress.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div class="form-group" *ngIf="isEditNotification">
+            <div class="button-flex">
+              <button class="btn btn-save btn-regular" [disabled]="!notificationForm.valid"
+                (click)="updateNotificationDetail()">
+                <span class="btn-text">Save</span>
+              </button>
+
+              <button type="button" class="btn btn-cancel btn-regular" (click)="back()">
+                <span class="btn-text"> Cancel</span>
+              </button>
+            </div>
+          </div> -->
+
+
+          <div class="form-group">
+            <div class="button-flex">
+              <button class="btn-save-new btn-small-new" [disabled]="!notificationForm.valid"
+                (click)="saveNotification(isEditNotification)">
+                <span class="btn-text">Save</span>
+              </button>
+
+              <button type="button" class="btn-small-new btn-default-new ml-0" (click)="back()">
+                <span class="btn-text"> Cancel</span>
+              </button>
+            </div>
+          </div>
+
+
+        </ul>
+      </form>
+    </div>
+
+  </div>
+</div>

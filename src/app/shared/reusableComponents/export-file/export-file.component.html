@@ -1,0 +1,40 @@
+<div class="dialog-new-v1">
+  <p-dialog [header]="modalTitle" [(visible)]="showExportModal" [modal]="true"
+    [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '40vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false" (onHide)="hideModal()">
+
+    <!-- Modal body -->
+    <div class="modal-body">
+      <div class="body-section">
+        <p class="pb-20" *ngIf="modalDescription">{{modalDescription}}</p>
+
+        <div class="button-group pb-20">
+          <button *ngFor="let button of buttons; let i = index" class="save-btn-with-icon"
+          [ngClass]="{
+              'selected': i === selectedButtonIndex,
+              'first': i === 0,
+              'last': i === buttons.length - 1,
+              'in-between': i !== 0 && i !== buttons.length - 1
+            }"
+            (click)="selectButton(i, button)">
+            <span class="icon-btn">
+              <img [src]="button.icon" />
+            </span>
+            {{ button.label }}
+          </button>
+        </div>
+
+        <div class="pb-2 btn-flex" >
+          <button class="btn-save-new btn-small-new" [disabled]="!selectedButton" (click)="export()">
+            Export
+          </button>
+
+          <button class="btn-default-new btn-small-new" (click)="hideModal()">
+            Cancel
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </p-dialog>
+</div>

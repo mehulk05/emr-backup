@@ -1,0 +1,57 @@
+<div class="upgrade-container">
+  <div class="content-wrapper">
+    <div class="img">
+      <img src="./../../../../../assets/images/Two-way-Text-Dashboard.png" alt="Image" />
+    </div>
+    <div class="content-inner-wrapper">
+      <div class="separator-left"></div>
+      <div class="content">
+        <span class="title text">
+          <span> Power up your Customer Interactions with Two-way Text </span>
+        </span>
+        <span class="additional-content text">
+          <span>
+            Get access to a dedicated number to distinguish yourself from the
+            crowd and empower your application users to have meaningful, two-way
+            conversations with your customers
+          </span>
+        </span>
+        <span class="bullet-points text">
+          <ul>
+            <li>Seamless Communication</li>
+            <li>Improved Customer Engagement</li>
+            <li>Dedicated Business Number</li>
+            <li>AI Based Autoresponder</li>
+            <li>Mobile Notification Integration</li>
+            <li>Personalized Interactions</li>
+          </ul>
+        </span>
+        <div class="flex flex-wrap gap-2">
+          <button class="button-f" (click)="emitButtonClicked('upgrade')">
+            Upgrade Now
+          </button>
+          <button class="button-s" (click)="goToDemo()">View Demo</button>
+        </div>
+        <div *ngIf="!twoWayTextUpgradeRequest" class="disclaimer">
+          <p>
+            "Enhance your communication with Two-Way Text service starting at
+            just <span class="f-20 fw-400">$24.99*</span> per month!"
+          </p>
+
+          <p class="f-12 fw-300">
+            *One time set-up fee $99
+          </p>
+        </div>
+
+        <div *ngIf="twoWayTextUpgradeRequest" class="flex flex-column align-items-start">
+
+
+          <!-- <div class="upgrade-request-btns mt-2">
+            <span class="resend-request-btn mr-2" (click)="emitButtonClicked('resend-request')">Resend Request</span>
+            <span class="cancel-request-btn" (click)="emitButtonClicked('cancel-request')">Cancel Request</span>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<!-- <p-dialog class="custom-dialog" [header]="'Import Leads'" [(visible)]="showImportModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [closable]="false" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" (onHide)="hideModal()"> -->
+
+<p-dialog class="custom-dialog custom-dialog-header" [header]="'Import Leads'" [(visible)]="showImportModal"
+  [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" [closable]="false" (onHide)="hideModal()"
+  [style]="{ 'max-width': '1000px' }">
+  <ng-template pTemplate="header">
+    <div class="p-dialog-titlebar d-flex justify-content-between flex-row w-100">
+      <div class="header-left-section">
+        <span class="p-dialog-title">Import {{isLead ? 'Leads': 'Patients'}}</span>
+      </div>
+      <div *ngIf="isLead">
+        <a class="faq-link dialog-link ml-auto mr-0"
+          [href]="isLead ? 'https://support.growth99.com/portal/en/kb/articles/how-to-upload-leads-file-into-growth99-17-8-2022':'https://growth99.zohodesk.com/portal/en/kb/articles/how-to-import-patients-file-into-growth99-3-11-2022-2'"
+          target="_blank">FAQ Link</a>
+      </div>
+      <div *ngIf="isPatient">
+        <a class="faq-link dialog-link ml-auto mr-0"
+          href="https://support.growth99.com/portal/en/kb/articles/how-to-import-patients-file-into-growth99-3-11-2022-2"
+          target="_blank">FAQ Link</a>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <!-- Modal body -->
+  <div class="body-section">
+
+    <div class="file-import-container">
+      <div class="left-section">
+        <form class="form my-2">
+          <span class="right-section p-0">
+            <a [href]="'assets/Lead_List_format.xlsx'" class="link" *ngIf="isLead">Download sample file</a>
+            <a [href]="'assets/patient.xlsx'" class="link" *ngIf="!isLead">Download sample file</a>
+          </span>
+          <label>Select a file to Import</label>
+          <div class="row my-2">
+            <div class="col-md-12 p-0 m-0">
+              <div class="form-group">
+                <input type="file" accept=".xls,.xlsx" (change)="onFileChange($event)" style="display: none;"
+                  #fileInput />
+                <div class="input-dialog">
+                  <label *ngIf="fileName">{{fileName}}</label>
+                  <button class="btn-save-new btn-small-new select-btn mb" (click)="fileInput.click()">Select</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+
+
+    <div *ngIf="isLead">
+      <label>What do you want to do with the records in the file?</label><span style="color: red;">*</span>
+      <select class="form-control selectRecord input-box mt-1" name="recordType" [(ngModel)]="recordType">
+        <option value="1">Merge all the old lead details with the new ones</option>
+        <option value="2">Replace all the old lead details with the new ones</option>
+        <option value="3">Keep the old details only and don't update them with the new details</option>
+      </select>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="input-wrapper mt-2">
+      <div class="form-group">
+        <div class="button-order">
+          <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal"
+            (click)="hideModal('upload')">Upload</button>
+          <button type="button" class="btn-default-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

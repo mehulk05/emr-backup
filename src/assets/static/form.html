@@ -1,0 +1,1796 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Growth99+</title>
+
+  <!-- <base href="/" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="cache-control" content="no-cache" />
+
+  <link rel="icon" type="image/x-icon" href="https://g99plus.b-cdn.net/AEMR/assets/img/growth99_icon.png" />
+
+  <script src="./js/jquery.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> -->
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+  <script src="./js/jquery-ui.js"></script>
+  <link rel="stylesheet" href="./libraryCss/jquery.css" />
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css"  rel="preload"  as="style" onload="this.onload=null;this.rel='stylesheet'"> -->
+  <link rel="stylesheet" href="./libraryCss/inputTel.css" />
+  <!-- <script async src="./js/inputTel.js"></script> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js" async></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    }
+
+    .input-field.file-type-input {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-field.file-type-input label {
+      position: absolute;
+      /* padding-top: 5px; */
+      left: 14em;
+      color: #757575;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    }
+
+    #formWrapper {
+      padding: 20px;
+    }
+
+    .app-row {
+      margin: 15px 0 0 0;
+    }
+
+    .app-row .label {
+      display: block;
+      margin: 0 0 5px;
+      font-weight: 300;
+    }
+
+    .app-row button {
+      position: relative;
+      z-index: 9999999;
+    }
+
+    input,
+    textarea,
+    select {
+      display: block;
+      width: calc(100% - 1.8rem);
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      /* border: 1px solid #ced4da; */
+      border-radius: .25rem;
+      transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+      outline: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+      box-shadow: rgb(0 59 111) 0px 0px 0px 0rem;
+      font-weight: 400;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      width: auto;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      text-decoration: none;
+      outline: 0;
+      /*border: 0px;*/
+      border: none !important;
+    }
+
+    input[type="checkbox"]:focus {
+      box-shadow: none !important;
+      outline: 0 !important;
+
+    }
+
+    .consent-form {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .btn-submit {
+      background-color: rgb(0, 59, 111);
+      border: rgb(0, 59, 111);
+      color: rgb(255, 255, 255);
+      border-radius: 30px;
+      height: 45px;
+      padding: 0 30px;
+      cursor: pointer;
+      outline: 0;
+      border: none;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+      font-weight: 400;
+      border-radius: 8px;
+    }
+
+    .input,
+    textarea {
+      border: 1px solid;
+
+    }
+
+    .required {
+      color: red;
+    }
+
+    .overlay {
+      display:block;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      background: transparent
+        /*  url("loader.gif") center no-repeat */
+    }
+
+
+    /* Turn off scrollbar when body element has the loading class */
+
+    body.loading {
+      overflow: hidden;
+    }
+
+    /* Make spinner image visible when body element has the loading class */
+/* 
+    body.loading .overlay {
+      display: block;
+    } */
+
+    #header-subtitle {
+      font-size: 15px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    }
+
+    p#header-subtitle {
+      white-space: pre-wrap;
+      line-height: 20px;
+    }
+
+    #thankyou {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      height: 80vh;
+    }
+
+    input.radio {
+      display: inline-block;
+      max-width: 15px;
+    }
+
+    button.disabled {
+      pointer-events: none;
+      opacity: 0.9
+    }
+
+    .grecaptcha-badge {
+      visibility: hidden;
+    }
+
+    .date {
+      background-image: url(https://g99plus.b-cdn.net/AA%20new%20g99%20app/icons/calendar-custom.svg);
+      background-repeat: no-repeat;
+      background-position: right;
+      background-position-x: 99%;
+      box-shadow: none !important;
+      border: 1px solid;
+    }
+
+    .dropdown select {
+      width: calc(100% - 0.3rem);
+      border: 1px solid;
+      padding-left: 8px;
+    }
+
+    .app-row.form-button {
+      display: flex;
+      justify-content: center;
+    }
+
+    img#preview {
+      max-width: 80%;
+      display: block;
+      padding: 1em;
+    }
+
+    .img-wrapper {
+      position: relative;
+    }
+
+    #clearBtn {
+      display: block;
+      top: 3em;
+      right: 2em;
+      border: 2px solid black;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      font-weight: 700;
+    }
+
+
+    /* <!-- ---------------------------- fileloadercss ---------------------------- --> */
+    .loader {
+      border: 10px solid #f3f3f3;
+      border-top: 9px solid #3498db;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+      /* position: absolute; */
+      right: 0;
+      top: -41px;
+    }
+
+    .preview {
+      max-width: 100%;
+      width: 300px;
+      padding: 1em;
+    }
+
+    .preview * {
+      max-width: 100%;
+    }
+
+
+    #clearBtn {
+      cursor: pointer;
+    }
+
+    #ui-datepicker-div {
+      z-index: 9999999 !important;
+    }
+
+    .placeholder-color {
+      color: #757575 !important;
+      /* Adjust the color as needed */
+    }
+
+    .placeholder-color option {
+      color: #495057 !important
+        /* Adjust the color as needed */
+    }
+
+    .iti {
+      width: 100%;
+    }
+
+    .iti input.phone-input {
+      width: calc(100% - 0.2rem) !important;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media screen and (max-width:550px) {
+      #ui-datepicker-div {
+        margin-left: 0 !important;
+        z-index: 9999999 !important;
+      }
+
+      .input-field.file-type-input label {
+        display: none !important;
+      }
+
+      .ui-icon-circle-triangle-e {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body class="loading">
+
+  <div id="formWrapper"></div>
+  <div id="thankyou">
+    <div class="thanks">
+
+      <div class="thanks-content">
+        <div style="text-align:center;">
+          <h1 id="thankyouh1content" style="text-align: center;">Thank You!</h1>
+          <p id="thankyoupcontent" style="text-align: center;">Your form has been submitted successfully.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <p style="margin-top: 100px; margin-left: 40%;">Processing...</p>
+  </div>
+
+
+  <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+
+
+  <script>
+ 
+    var isMandatoryConsentEnabled = false;
+    var isMandatoryConsentEnabledChecked = true;
+    var mandatoryConsentText = '';
+    var trackkingUrlonFormSubmit = document.referrer
+    var questionarieDataFromAPI = {};
+    isFormOnLandingPage = false;
+    isFormOnWebsite = false
+    let originUrl = ""
+    LpName = ""
+    var displayIdsLoadingIndicator = []
+    if (trackkingUrlonFormSubmit.includes("clinical-doc")) {
+      trackkingUrlonFormSubmit = window.location.href
+    }
+
+    // Below code is for trackking the url of form from where it is being submitted
+    // =============================================================================
+    if (window.addEventListener) {
+      window.addEventListener("message", handleMessage);
+    } else {
+      window.attachEvent("onmessage", handleMessage);
+    }
+
+
+    function handleMessage(e) {
+      // var receivedData = JSON.parse(event.data);
+    let receivedData;
+    
+    // Check if event.data is a string and needs to be parsed
+    if (typeof event.data === 'string') {
+        try {
+            receivedData = JSON.parse(event.data);
+        } catch (error) {
+            console.error('Failed to parse JSON:', error);
+            return;
+        }
+    } else {
+      console.log('cookie event frm form', event.data);
+        // If event.data is already an object
+        receivedData = event.data;
+    }
+    
+    console.log(receivedData);
+      if(receivedData && receivedData.trackOrigin){
+        console.log(receivedData)
+        originUrl = receivedData.originUrl
+      }
+      if (e && typeof (e.data) === 'string' && e.data.startsWith("http")) {
+        trackkingUrlonFormSubmit = e.data
+        if (trackkingUrlonFormSubmit.includes("website")) {
+          isFormOnWebsite = true
+        }
+
+        else if ((trackkingUrlonFormSubmit.includes("portal.growthemr") || trackkingUrlonFormSubmit.includes("portal.growth99")) && !lpid) {
+          let lp = trackkingUrlonFormSubmit.split("/")
+          lp = lp[lp.length - 1]
+          LpName = lp
+          isFormOnLandingPage = true
+        }
+      }
+    }
+    // if(localStorage.getItem("trackingUrl")){
+    //   trackkingUrlonFormSubmit = localStorage.getItem("trackingUrl")
+    //   setTimeout(()=>{
+    //     localStorage.removeItem("trackingUrl");
+    //   },500000)
+    // }
+    // ==============================================================================
+    var bid, fid, lpid, aptId, trackingCode, redirect = false,
+      redirectUrl, fc = false, redirectUrlvc, submitButtonName, sourceIP, sourceLatitude, sourceLongitude,
+      thankyouPageredirect = false,
+      thankyouPageredirectVC = false, thankYouPageMessageContactForm,
+      configureThankYouMessageInContactForm = false,
+      ck = null,
+      gcaptchaKey = null,
+      divlist = [],
+      questions;
+    var buttoncss;
+    var dentalTextComposer;
+    var isOnlyDentalSpecialization = false;
+    let phoneNumberMap = {};
+    parent.postMessage("closeChat", "*");
+
+    $(function () {
+      var variables = getUrlVars();
+
+      if (Object.keys(variables).includes('source')) {
+        source = variables.source
+        if (source === 'quickLinks') {
+          trackkingUrlonFormSubmit = window.location.href;
+        }
+        else {
+          isFormOnLandingPage = true
+        }
+        // isFormOnLandingPage = true
+      }
+      if (Object.keys(variables).includes('lpName')) {
+        LpName = variables.lpName
+      }
+      bid = variables['bid'];
+      fid = variables['fid'];
+      lpid = variables['lpid'];
+      aptId = variables['aptId']
+      patientId = variables['patientId']
+      pqid = variables['pqid']
+      submitButtonName = variables['buttonText']
+      try {
+        if (typeof variables['fc'] !== "undefined") {
+          fc = variables['fc'];
+          ck = variables['ck'];
+        }
+      } catch (e) { }
+      getBusiness();
+
+      try {
+        if ('redirect' in variables) {
+          if (variables['redirect'] === 'true') {
+            if ('redirectUrl' in variables) {
+              redirectUrl = variables['redirectUrl'];
+              redirect = true;
+            } else if (fc) {
+              var data = localStorage.getItem(ck);
+              if (data != null) {
+                var json = JSON.parse(data);
+                redirectUrl = json.redirectUrl;
+                redirect = true;
+              }
+            }
+          }
+        }
+      } catch ($e) {
+      }
+    });
+
+    function getUrlVars() {
+      var vars = [],
+        hash;
+      var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+      for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+      }
+      return vars;
+    }
+
+    function getBusiness() {
+      console.log("INSIDE BUSINESS")
+      $.ajax({
+        url: getApiUrl() + "/api/public/businesses/" + bid,
+        method: 'GET',
+        headers: {
+          'X-TenantID': '' + bid
+        },
+        success: function (data, textStatus) {
+
+          if (!data.deleted) {
+            loadForm();
+            if (data.dentalSpecializationOnly && !data.otherSpecialization) {
+              isOnlyDentalSpecialization = data.dentalSpecializationOnly;
+              dentalTextComposer = "Enter your contact information to instantly receive your customized self-assessment!\nAll of your information will be kept private and only shared with your Dental provider";
+            }
+          } else {
+            alert("The Business is disabled.");
+          }
+
+        }
+      });
+    }
+
+    function getRedirectUrl() {
+      var hostname = window.location.hostname;
+      if (hostname.includes("app.growth99.com")) {
+        console.log("4")
+        return "https://app.growth99.com";
+      } else if (hostname.includes("devemr.growthemr.com")) {
+        console.log("2")
+        return "https://devemr.growthemr.com";
+      } else if (hostname.includes("localhost")) {
+        console.log("512")
+        return "http://localhost:4200";
+      } else {
+        console.log("6")
+        return "https://devemr.growthemr.com";
+      }
+    }
+
+    function loadForm() {
+      var retryCount = 0; // Initialize retry count
+
+      $.ajax({
+        url: getApiUrl() + "/api/public/questionnaire/" + fid,
+        method: 'GET',
+        headers: {
+          'X-TenantID': '' + bid
+        },
+        success: function (data, textStatus) {
+          questionarieDataFromAPI = data
+
+          if (data && data.enableModernUi && !fc && !(isFormOnLandingPage || lpid) && !aptId) {
+            var url = getRedirectUrl() + "/public/v2/form/" + bid + "/" + fid;
+            var params = window.location.href.slice(window.location.href.indexOf('?'));
+            if (params) {
+              url += params;
+            }
+            window.location.href = url;
+          } else {
+      
+            createForm(data);
+          }
+          overlayElement=document.getElementById("overlay");
+          overlayElement.style.display='none';
+          console.log("form api fethed");
+          const style = document.createElement('style');
+          style.innerHTML = `
+          .ui-icon {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            display: inline-block;
+            position: relative;
+          }
+
+          .ui-datepicker-next .ui-icon-circle-triangle-e {
+            border-left: 10px solid black;
+          }
+
+          .ui-datepicker-prev .ui-icon-circle-triangle-w {
+            border-right: 10px solid black;
+          }
+  `;
+          document.head.appendChild(style);
+        },
+        error: function (error) {
+          $("body").removeClass("loading");
+          // alert("Form you looking for not found.");
+          retryCount++; // Increment retry count
+          if (retryCount < 2) { // Maximum 2 retries
+            // Retry the AJAX request after 3 seconds
+            setTimeout(function () {
+              fetchData();
+            }, 3000);
+          } else {
+            // If maximum retries reached, show alert
+            alert("Form you are looking for not found.");
+          }
+        }
+      });
+
+      if (lpid) {
+        $.ajax({
+          url: getApiUrl() + "/api/public/landingpage/" + lpid,
+          method: 'GET',
+          headers: {
+            'X-TenantID': '' + bid
+          },
+          success: function (data, textStatus) {
+            // $("#landingPage").html(data.landingPageTemplate);
+            // document.title = data.name;
+            buttoncss = data.buttonCSS;
+            LpName = data.name;
+
+            if (buttoncss != null) {
+              $('<style>').text(buttoncss).appendTo(document.head);
+
+            }
+          }
+        });
+      }
+    }
+
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+      sourceLatitude = position.coords.latitude;
+      sourceLongitude = position.coords.longitude;
+      // alert("Latitude:- "+ latitude);
+      // alert("Longitude:- "+ longitude);
+    }
+
+    function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          document.getElementById("location").innerHTML = "User denied the request for Geolocation.";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          document.getElementById("location").innerHTML = "Location information is unavailable.";
+          break;
+        case error.TIMEOUT:
+          document.getElementById("location").innerHTML = "The request to get user location timed out.";
+          break;
+        case error.UNKNOWN_ERROR:
+          document.getElementById("location").innerHTML = "An unknown error occurred.";
+          break;
+      }
+    }
+
+    function createForm(data) {
+      // overlayElement=document.getElementById("overlay");
+      // overlayElement.style.display="none";
+
+
+      $("#thankyou").css("color", data.titleColor)
+      if (data.css && data.css != null) {
+        $('<style>').text(data.css).appendTo(document.head);
+      }
+
+
+      if (data.thankYouPageUrl) {
+        thankyouPageredirect = true;
+        // thankyouPageredirectVC = true
+        redirect = true;
+        redirectUrl = data.thankYouPageUrl;
+        redirectUrlvc = data.thankYouPageUrl;
+      }
+
+      if (data.thankYouPageUrlVC) {
+        thankyouPageredirectVC = true;
+        redirect = true;
+        redirectUrlvc = data.thankYouPageUrlVC;
+      }
+
+      if (data.configureThankYouMessageInContactForm) {
+        configureThankYouMessageInContactForm = true;
+        thankYouPageMessageContactForm = data.thankYouPageMessageContactForm;
+      }
+
+      isMandatoryConsentEnabled = data?.consentLeadForm;
+      mandatoryConsentText = data?.consentLeadTextForm;
+      isMandatoryConsentEnabledChecked = data?.consentCheckboxEnabled;
+      if (data.googleAnalyticsGlobalCodeUrl != null && data.googleAnalyticsGlobalCodeUrl != '') {
+        // addScriptToBody(data.googleAnalyticsGlobalCodeUrl)
+        var str = data.googleAnalyticsGlobalCodeUrl;
+        str = str.replace(/<script>/g, '');
+        str = str.replace(/<\/script>/g, '');
+
+        var s = document.createElement('script');
+        s.textContent = data.googleAnalyticsGlobalCodeUrl;
+        const body = document.getElementsByTagName('body')[0];
+        const firstChild = body.firstChild;
+        body.insertBefore(s, firstChild);
+      }
+      // document.body.appendChild(s);
+
+
+
+      if (data.googleAnalyticsGlobalCode != null && data.googleAnalyticsGlobalCode != '') {
+        var str = data.googleAnalyticsGlobalCode;
+        str = str.replace(/<script>/g, '');
+        str = str.replace(/<\/script>/g, '');
+        var s1 = document.createElement('script');
+        s1.textContent = str;
+        document.head.appendChild(s1);
+
+
+      }
+
+      if (data.landingPageTrackCode != null && data.landingPageTrackCode != '') {
+        var str1 = data.landingPageTrackCode;
+        str1 = str1.replace(/<script>/g, '');
+        str1 = str1.replace(/<\/script>/g, '');
+        trackingCode = str1;
+
+      }
+
+      var captcha = document.createElement('script');
+      captcha.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=' + gcaptchaKey);
+      captcha.async = true;
+      document.head.appendChild(captcha);
+
+      // var captcha = document.createElement('script');
+      // captcha.setAttribute( 'src', 'https://www.google.com/recaptcha/enterprise.js?render=6Le3l0kcAAAAAJDmjw3d_bY6SJyOkPyuVvY5Je6z' );
+      // document.head.appendChild(captcha);
+
+      var hideFieldTitle = false;
+      if (data.hideFieldTitle && data.hideFieldTitle != null) {
+        hideFieldTitle = data.hideFieldTitle;
+      }
+
+      var titleColor = "inherit";
+      if (data.titleColor != null) {
+        titleColor = data.titleColor;
+      }
+      var showTitle = true;
+      if (data.showTitle != null) {
+        showTitle = data.showTitle;
+      }
+      var disp = (showTitle) ? 'block' : 'none';
+      var style = " style='margin: 0 0 15px;font-weight:normal;color:" + titleColor + ";display:" + disp + "' ";
+      var style1 = "font-weight: normal;    font-size: 14px; margin: 0px 12px 10px;";
+      var showCustomContent = false;
+      if (data.showTextForComposer != null) {
+        showCustomContent = data.showTextForComposer
+      }
+
+      $("#formWrapper")
+        .append('<h3 class="title"' + style + '>' + data.questionnaireName + '</h3>');
+      // if(showCustomContent){
+      //     $("#formWrapper")
+      // .append('<p ' + style1 + '>' + data.textForComposer + '</p>');
+      // }
+      if (fc && showCustomContent && !isOnlyDentalSpecialization) {
+        $("#formWrapper")
+          .append('<p id="header-subtitle" style="font-weight: normal; margin: 0px 12px 10px;">' + data.textForComposer + '</p>');
+      }
+      else if (fc && showCustomContent && isOnlyDentalSpecialization) {
+        $("#formWrapper")
+          .append('<p id="header-subtitle" style="font-weight: normal; margin: 0px 12px 10px;">' + dentalTextComposer + '</p>');
+      }
+      else {
+        $("#formWrapper")
+          .append('<p id="header-subtitle" style="font-weight: normal; margin: 0px 12px 10px;">' + data.textForComposer + '</p>');
+      }
+
+
+      $("#formWrapper").append('<form action="#" method="POST"  id="formId"  target="_parent">');
+      questions = data.patientQuestionAnswers;
+      var patientQuestionAnswers = data.patientQuestionAnswers;
+      for (var i = 0; i < patientQuestionAnswers.length; i++) {
+        var question = patientQuestionAnswers[i];
+        createInputElement(question, data, hideFieldTitle);
+      }
+
+      // $("#formId").append("<div class='app-row'><div class='g-recaptcha' data-sitekey='"+ gcaptchaKey+"'></div></div>");
+      // $("#formId").append("<div class='app-row'><div class='g-recaptcha' data-sitekey='6LfRa0YcAAAAAD4QpRYICfXWRnMVVZBVinq3Vaq2'></div></div>");
+      if (isMandatoryConsentEnabled) {
+       if(isMandatoryConsentEnabledChecked) {
+              $("#formId").append(" <div class='checkbox consent-form'> <div><input type='checkbox' checked onchange = validateConsentCheckBox(this) class='pre-checked-input' style='display:inline-block; max-width: 20px;'/> <label>" + mandatoryConsentText + " <span style='color: red;>*</span></label></div>");
+        } else {
+                $("#formId").append(" <div class='checkbox consent-form'> <div><input type='checkbox'  onchange = validateConsentCheckBox(this) class='pre-checked-input' style='display:inline-block; max-width: 20px;'/> <label>" + mandatoryConsentText + " <span style='color: red;>*</span></label></div>");
+        }
+        $("#formId").append("<div class='checkbox-consent-mendatory-form' style='display:none;color: red;margin-top: 7px;font-size: 12px;'>Please select the consent to continue</div></div>");
+      }
+
+
+      createButton(data);
+
+      var inputBoxShadowColor = "#003B6F";
+      if (data.inputBoxShadowColor != null) {
+        inputBoxShadowColor = data.inputBoxShadowColor;
+      }
+      $("#formId input, #formId textarea, #formId select").focusin(function () {
+        $(this).css('box-shadow', " 0 0 0 0.05rem " + inputBoxShadowColor);
+      }).focusout(function () {
+        $(this).css('box-shadow', " 0 0 0 0rem " + inputBoxShadowColor);
+      });
+
+      setTimeout(() => {
+        $("body").removeClass("loading");
+      }, 1500)
+
+      $("#formId").submit(function (event) {
+        event.preventDefault();
+        hasCheckboxError = false;
+        let hasPhoneError = false;
+        requiredCheckBoxCount = 0
+        if ($('.checkbox').length) {
+          for (var i = 0; i < questions.length; i++) {
+            if (questions[i].questionType === "Multiple_Selection_Text" && questions[i].required === true && !questions[i].showDropDown && (questions[i].allowMultipleSelection || questions[i].preSelectCheckbox)) {
+              requiredCheckBoxCount = requiredCheckBoxCount + 1
+              if ($('.checkbox :checkbox[name="' + questions[i].questionId + '"]:checked').length === 0) {
+                $('.checkbox' + questions[i].questionId).css("display", "block")
+                hasCheckboxError = true;
+                // $('html, body').animate({
+                //   scrollTop: $('.checkbox' + questions[i].questionId).offset().top
+                // }, 200);
+                // return false
+
+
+              }
+              else {
+                $('.checkbox' + questions[i].questionId).css("display", "none")
+              }
+            } else if (questions[i].questionType === "Phone_Number") {
+              const question = questions[i];
+              if ((question.required || $("#q_" + question.questionId).val()) && !phoneNumberMap[question.questionId].isValidNumber()) {
+                $('#v_' + question.questionId).css("display", "block");
+                hasPhoneError = true;
+              } else {
+                $('#v_' + question.questionId).css("display", "none");
+              }
+            }
+          }
+
+          if (isMandatoryConsentEnabled && !isMandatoryConsentEnabledChecked) {
+            $('.checkbox-consent-mendatory-form').css("display", "block")
+            hasCheckboxError = true;
+          }
+          else {
+            $('.checkbox-consent-mendatory-form').css("display", "none")
+          }
+        }
+
+        if (hasCheckboxError || hasPhoneError) {
+          event.preventDefault();
+          return;
+        }
+
+        $('.app-row button').addClass("disabled");
+        $('.app-row button').attr("disabled", true);
+
+        setTimeout(() => {
+          $('.app-row button').removeClass("disabled");
+          $('.app-row button').attr("disabled", false);
+        }, 4000)
+
+
+        for (var i = 0; i < divlist.length; i++) {
+          var element = document.getElementById(divlist[i]);
+          if (element) {
+            element.style.display = "none";
+          }
+        }
+        event.preventDefault();
+        var flag = false;
+        for (var i = 0; i < questions.length; i++) {
+          if (questions[i].questionType != "Yes_No" &&
+            questions[i].questionType != "Multiple_Selection_Text" &&
+            questions[i].validationMessage != null &&
+            questions[i].questionType != "Date" &&
+            questions[i].questionType != "File" &&
+            questions[i].validate &&
+            (questions[i].hidden === null || questions[i].hidden === false)) {
+
+            divlist.push("v_" + questions[i].questionId);
+            var x;
+            var element = document.getElementById("q_" + questions[i].questionId);
+            if (element) {
+              x = element.value;
+            }
+            var regex = questions[i].regex;
+            if (regex != null && !x.match(regex) && regex != 'Other') {
+              // alert(questions[i].validationMessage );
+              if (questions[i].validationMessage != null)
+                document.getElementById("v_" + questions[i].questionId).style.display = "block";
+              // event.preventDefault();
+              flag = true;
+              // return false;
+            }
+          }
+        }
+
+        let imageLoading = false;
+        displayIdsLoadingIndicator.forEach(data => {
+          if (document.getElementById(data).style.display === 'block') {
+            imageLoading = true;
+            flag = true;
+          }
+        })
+
+
+
+        if (imageLoading) {
+          alert("File uploading is under progress and please submit once after the file is uploaded");
+        }
+
+        if (flag) {
+          return false;
+        }
+
+        // if(!grecaptcha.enterprise.getResponse()){
+        //      alert("Please prove that you are not a Robot");
+        //     return false;
+        // }
+
+
+        // if (!grecaptcha.enterprise.getResponse()) {
+        //     alert("Please prove that you are not a Robot");
+        //     return false;
+        // }
+
+        // if(!grecaptcha.enterprise.getResponse()){
+        //      alert("Please prove that you are not a Robot");
+        //     // event.preventDefault();
+        //     return false;
+        // }
+
+
+        $("body").addClass("loading");
+
+        var formData = $("#formId").serializeArray();
+        var keys = Object.keys(formData);
+        var patientQuestionAnswers = [];
+        var captcharesponse = "";
+        let formQuestionData;
+
+        //  <!-- ----------------------------------------------------------------------- -->
+        //  <!--                    Below if else needs to be fixed X                    -->
+        //  <!-- ----------------------------------------------------------------------- -->
+        if (questionarieDataFromAPI && questionarieDataFromAPI?.patientQuestionAnswers) {
+          formQuestionData = questionarieDataFromAPI?.patientQuestionAnswers
+        }
+        else {
+          formQuestionData = questionarieDataFromAPI
+        }
+        const demoFormData = {
+          customAnswers: {}
+        };
+        let mappedData = formQuestionData.map(question => {
+
+          var _value = "";
+          if (fc) {
+            if (question != null) {
+              var preFillData = questionHasPreFillData(question);
+              if (preFillData != null) {
+                _value = preFillData;
+                question.answerText = _value;
+                return question;
+              }
+            }
+          }
+          let updatedformData = formData.filter(data => data.name === question.questionId.toString());
+          if (updatedformData.length > 0) {
+            question.answerText = updatedformData.map(data => data.value).join(",");
+          }
+          if (question.questionType === 'Phone_Number' && phoneNumberMap[question.questionId].isValidNumber()) {
+            let phoneNumber = phoneNumberMap[question.questionId].getNumber(intlTelInputUtils.numberFormat.E164);
+            const dialCode = phoneNumberMap[question.questionId].getSelectedCountryData().dialCode;
+            phoneNumber = phoneNumber.substring(phoneNumber.indexOf(dialCode) + dialCode.length);
+            question.answerText = phoneNumber;
+          }
+          // code for prefill data for calendly
+          const emailArray = ['email', 'email id', 'email address']
+          if (question.questionName?.toLowerCase() === 'first name') {
+            demoFormData['name'] = question.answerText;
+          } else if (question.questionName?.toLowerCase() === 'last name') {
+            demoFormData['name'] = demoFormData['name'] + " " + question.answerText;
+          } else if (emailArray.includes(question.questionName?.toLowerCase())) {
+            demoFormData['email'] = question.answerText;
+          } else if (question.questionName?.toLowerCase() === 'phone number') {
+            demoFormData['customAnswers']['a1'] = '1' + question.answerText;
+          }
+          return question;
+        });
+        if (window.parent) {
+          window.parent.postMessage({
+            demoFormData: JSON.stringify(demoFormData)
+          }, "*")
+        }
+        patientQuestionAnswers = mappedData;
+
+        // formQuestionData.forEach((data, key) => {
+
+        //   var _value = formData[key].value;
+
+        //   if (fc) {
+        //     var question = getQuestion(formData[key].name);
+        //     if (question != null) {
+        //       var preFillData = questionHasPreFillData(question);
+        //       if (preFillData != null) {
+        //         _value = preFillData;
+        //       }
+        //     }
+        //   }
+        //   // const qid = questionarieDataFromAPI.patientQuestionAnswers
+        //   let existing = patientQuestionAnswers.filter(ans => ans.questionId === formData[key].name);
+        //   // for checkbox we have multiple key
+
+        //   // if (existing.length > 0) {
+        //   //   existing[0].answerText = existing[0].answerText + "," + _value;
+        //   //   existing[0].questionName = data?.questionName
+        //   //   existing[0].questionType = data?.questionType
+        //   //   existing[0].patientQuestionChoices = data?.patientQuestionChoices
+        //   // } else {
+        //     patientQuestionAnswers.push({
+        //       'questionId': formData[key].name,
+        //       'answerText': _value,
+        //       'questionType': data?.questionType,
+        //       'questionName': data?.questionName,
+        //       'patientQuestionChoices': data?.patientQuestionChoices
+        //     });
+
+        //   // }
+        // });
+
+        // grecaptcha.enterprise.ready(function () {
+        //             grecaptcha.enterprise.execute("6Le3l0kcAAAAAJDmjw3d_bY6SJyOkPyuVvY5Je6z",{action: 'LOGIN'}).then(function (token) {
+        //                 // formData[key].value = token
+        //                 captcharesponse= token;
+        //             });
+        //         });
+
+        grecaptcha.ready(function () {
+          grecaptcha.execute(gcaptchaKey, {
+            action: 'submit'
+          }).then(function (token) {
+            // formData[key].value = token
+            captcharesponse = token;
+          });
+        });
+
+        fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+            sourceIP = data.ip;
+            // alert('Your IP address is ' + data.ip);
+          })
+          .catch(error => {
+            console.error('Error fetching IP address:', error);
+          });
+
+        // getLocation();
+        setTimeout(
+          function () {
+            var source = "Form";
+            if (fc) {
+              source = "Self Assessment";
+            }
+            else if (isFormOnLandingPage || lpid) {
+              source = "Landing Page"
+            }
+            const modifiedUrl = trackkingUrlonFormSubmit.replace(/token=.*?(?=&|$)/, '');
+
+            if (aptId) {
+              var formReq = {
+                sourceUrl: modifiedUrl,
+                questionnaireId: fid,
+                patientQuestionAnswers: patientQuestionAnswers,
+                questionnaireName: '',
+                id: pqid,
+                patientId: patientId,
+                sourceIP: sourceIP,
+                sourceLatitude: sourceLatitude,
+                sourceLongitude: sourceLongitude,
+                originUrl: originUrl
+              }
+              $.ajax({
+                url: getApiUrl() + '/api/public/patient/questionnaire',
+                method: 'PUT',
+                data: JSON.stringify(formReq),
+                contentType: 'application/json',
+                headers: {
+                  'X-TenantID': '' + bid
+                },
+                success: function (response, statusText) {
+                  console.log(response)
+                  parent.postMessage({ id: fid, message: 'questionarie' }, "*");
+
+                },
+                error: function (error) {
+                  console.log(error)
+                  $("body").removeClass("loading");
+                  alert("Unable to submit form. Please try again later.");
+                }
+              })
+            }
+            else {
+              // patientQuestionAnswers.forEach(question => {
+              //   // if the questionniare does not contain a gender field assign the gender as unisex
+              //   if (question.questionName === "Gender" && question.answerText.trim() === "") {
+              //     // else continue
+              //     question.answerText = "Unisex";
+              //   }
+              // });
+              var formReq = {
+                sourceUrl: modifiedUrl,
+                source: source,
+                landingPageName: LpName,
+                questionnaireId: fid,
+                landingPageId: lpid,
+                gcaptcharesponse: captcharesponse,
+                patientQuestionAnswers: patientQuestionAnswers,
+                sourceIP: sourceIP,
+                sourceLatitude: sourceLatitude,
+                sourceLongitude: sourceLongitude,
+                originUrl: originUrl
+              }
+              $.ajax({
+                url: getApiUrl() + '/api/public/questionnaire/' + fid,
+                method: 'POST',
+                data: JSON.stringify(formReq),
+                contentType: 'application/json',
+                headers: {
+                  'X-TenantID': '' + bid
+                },
+                success: function (response, statusText) {
+                  handleRedirect();
+                },
+                error: function (error) {
+                  console.log(error);
+                  $("body").removeClass("loading");
+                  alert("Unable to submit form. Please try again later.");
+                }
+              })
+            }
+
+          }, 2000);
+      });
+    }
+
+    function handleRedirect() {
+      var s2 = document.createElement('script');
+      s2.textContent = trackingCode;
+      document.head.appendChild(s2);
+      var isVc = false;
+      if (document.referrer.includes("composer.html")) {
+        isVc = true
+      }
+      if (thankyouPageredirect && !isVc) {
+        try {
+          if (document.referrer.includes("composer.html")) {
+            //If form is submited from Symptom composer it should not reload page
+            // it should show thank you page inside iframe without refresh
+            // window.location = redirectUrl
+            window.top.location.href = redirectUrlvc;
+            //   ================  End of if condition ============================ //
+          } else {
+            if (form_iniFrame()) {
+              window.top.location.href = redirectUrl;
+            } else {
+              window.top.location.href = redirectUrl;
+            }
+          }
+
+        } catch (e) {
+          window.top.location.href = redirectUrl;
+        }
+
+      } else if (thankyouPageredirectVC && isVc) {
+        try {
+          if (document.referrer.includes("composer.html")) {
+            //If form is submited from Symptom composer it should not reload page
+            // it should show thank you page inside iframe without refresh
+            // window.location = redirectUrl
+            window.top.location.href = redirectUrlvc;
+            //   ================  End of if condition ============================ //
+          } else {
+            if (form_iniFrame()) {
+              window.top.location.href = redirectUrl;
+            } else {
+              window.top.location.href = redirectUrl;
+            }
+          }
+
+        } catch (e) {
+          window.top.location.href = redirectUrl;
+        }
+
+      } else if (configureThankYouMessageInContactForm && !isVc) {
+        $("body").removeClass("loading");
+        // alert("Form submitted successfully.");
+        $("#formId").trigger('reset');
+        $("#formWrapper").css("display", "none")
+        $("#thankyouh1content").css("display", "none")
+        $('#thankyoupcontent').html(thankYouPageMessageContactForm)
+        $("#thankyou").css("display", "flex")
+      } else {
+
+        $("body").removeClass("loading");
+        // alert("Form submitted successfully.");
+        $("#formId").trigger('reset');
+        $("#formWrapper").css("display", "none")
+        $("#thankyou").css("display", "flex")
+     
+      }
+    }
+
+    function createButton(data) {
+      var buttonBackgroundColor = "#003B6F";
+      var buttonForegroundColor = "#FFF";
+      let params = decodeURI(window.location.href)
+        .replace('?', '')
+        .split('&')
+        .map(param => param.split('='))
+        .reduce((values, [key, value]) => {
+          values[key] = value
+          return values
+        }, {})
+      if (params.color && params.bgColor) {
+        buttonBackgroundColor = params.bgColor
+        buttonForegroundColor = params.color
+        $("p#header-subtitle").css("color", params.bgColor)
+      } else {
+        if (data.buttonBackgroundColor != null) {
+          buttonBackgroundColor = data.buttonBackgroundColor;
+        }
+
+        if (data.buttonForegroundColor != null) {
+          buttonForegroundColor = data.buttonForegroundColor;
+        }
+        if (buttonForegroundColor === buttonBackgroundColor) {
+          buttonForegroundColor = "#FFF";
+        }
+        $("p#header-subtitle").css("color", buttonBackgroundColor)
+      }
+
+
+      var style = " style='background:" + buttonBackgroundColor + "; color:" + buttonForegroundColor + "'";
+      var submitButtonText = "Submit";
+      if (data.submitButtonText != null && data.submitButtonText != '') {
+        submitButtonText = data.submitButtonText;
+      }
+
+      if (submitButtonName != null) {
+        submitButtonText = submitButtonName.replace(/%20/g, " ");
+      }
+
+      $("#formId").append("<div class='app-row form-button'>" +
+        "<button type='submit' class='btn-submit btn-background btn-foreground btn-border' " + style + ">" + submitButtonText + "</button>" +
+        "</div>");
+    }
+
+
+
+    function previewImage(input) {
+
+      acceptable_types = ["application/pdf", "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+
+      if (input.files.length < 1) {
+        return;
+      }
+
+      var pattern = /image-*/;
+      if (!input.files[0].type.match(pattern) && input.files[0].type != 'application/pdf' && !acceptable_types.includes(input.files[0].type)) {
+        alert('Invalid format only supports images, pdf and excel');
+        document.getElementsByClassName("fileInput_" + input.name)[0].value = "";
+        return;
+      }
+
+
+      var file = input.files[0]
+      var formData = new FormData();
+      formData.append("file", file);
+      qid = input.name
+
+      document.getElementById("fileInputLoader_" + qid).style.display = "block";
+
+      var parent = document.querySelector('.file-type-input');
+      var label = parent.querySelector('label');
+      label.style.display = 'none';
+      displayIdsLoadingIndicator.push("fileInputLoader_" + qid);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", getApiUrl() + '/api/public/form-submission/' + fid + '/question/' + qid + '/uploadfile');
+      xhr.setRequestHeader("X-TenantID", bid);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+
+          // <!-- -------------------------- Logiv for preview -------------------------- -->
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var preview = document.querySelector(".preview_" + qid);
+            if (file.type.startsWith("image/")) {
+              preview.innerHTML = "<img src='" + e.target.result + "' />";
+            } else if (file.type.startsWith("application/pdf")) {
+              preview.innerHTML = "<embed src='" + e.target.result + "' type='application/pdf' />";
+            } else if (file.type.startsWith("application/vnd.ms-excel")) {
+              preview.innerHTML = "<object data='" + e.target.result + "' type='application/vnd.ms-excel'></object>";
+            } else {
+              preview.innerHTML = "Preview not available for this file type.";
+            }
+            document.getElementsByClassName("clearBtn_" + qid)[0].style.display = "block";
+
+            document.getElementById("fileInputLoader_" + qid).style.display = "none";
+
+            // document.getElementById("fileInputLoader").style.display = "none";
+            // document.getElementById("clearBtn").style.display = "block";
+
+            var responseJson = JSON.parse(xhr.responseText);
+            if (questionarieDataFromAPI?.patientQuestionAnswers) {
+              questionarieDataFromAPI?.patientQuestionAnswers.forEach(question => {
+                console.log(Number(question.questionId) === Number(qid));
+                if (Number(question.questionId) === Number(qid)) {
+                  question.answerText = responseJson.location
+                }
+              });
+            } else {
+              questionarieDataFromAPI?.forEach(question => {
+                if (Number(question.questionId) === Number(qid)) {
+                  question.answerText = responseJson.location
+                }
+              });
+            }
+
+
+          }
+          reader.readAsDataURL(file);
+
+        } else {
+          console.error("Error uploading file.");
+          document.getElementById("fileInputLoader_" + qid).style.display = "none";
+          document.getElementsByClassName("clearBtn_" + qid)[0].style.display = "block";
+
+          document.querySelector(".preview_" + qid).innerHTML = "<p style='color: red'>An error occurred while uploading the file. Please try again. </p>";
+        }
+      };
+      xhr.send(formData);
+    }
+
+
+
+    function clearPreview(input) {
+      document.getElementsByClassName("fileInput_" + input)[0].value = "";
+      var parent = document.querySelector('.file-type-input');
+      var label = parent.querySelector('label');
+      label.style.display = 'block';
+      document.querySelector(".preview_" + input).innerHTML = "";
+      document.getElementsByClassName("clearBtn_" + input)[0].style.display = "none";
+    }
+
+    function createInputElement(question, data, hideFieldTitle) {
+
+      // required
+      var req = "";
+      var reqLabel = "";
+      if (question.required) {
+        req = "required='true'";
+        reqLabel = "<span class='required'>*</span>";
+      }
+
+      date_format = 'mm/dd/yy'
+      if (question.questionType === "Date") {
+        if (question.regex === '^(0?[1-9]|[12][0-9]|3[01])[-\/](0?[1-9]|1[012])[-\/]((?:19|20|21)[0-9][0-9])$') {
+          date_format = 'dd/mm/yy'
+        } else if (question.regex === '^(0?[1-9]|1[012])[-\/](0?[1-9]|[12][0-9]|3[01])[-\/]((?:19|20|21)[0-9][0-9])$') {
+          date_format = 'mm/dd/yy'
+        } else if (question.regex === '^((?:19|20|21)[0-9][0-9])[-\/](0?[1-9]|1[012])[-\/](0?[1-9]|[12][0-9]|3[01])$') {
+          date_format = 'yy/mm/dd'
+        }
+      }
+
+      var hiddenFieldTitleText = "";
+      if (!hideFieldTitle) {
+        hiddenFieldTitleText = " style='display:none' ";
+      }
+
+      // hidden
+      var hidden = "";
+      if (question.hidden != null && question.hidden === true) {
+        hidden = " style='display:none' "
+      }
+
+      var inputBoxShadowColor = "#003B6F";
+      if (data.inputBoxShadowColor != null) {
+        inputBoxShadowColor = data.inputBoxShadowColor;
+      }
+      var inputStyle = ""; // " style='box-shadow: 0 0 0 0.05rem " + inputBoxShadowColor + "' ";
+
+      if (question.questionType === "Input") {
+        const emailArray = ['email', 'email id', 'email address']
+        let placeholder = question.questionName
+        if (question.questionName && emailArray.includes(question.questionName.toLowerCase())) {
+          placeholder = 'Email Address'
+        }
+
+        var h =
+          "<div class='app-row type-input' " + hidden + ">" +
+          "<label class='label' " + hiddenFieldTitleText + ">" + placeholder + reqLabel + "</label>" +
+          "<div class='input-field'>" +
+          "<input   " + inputStyle + " type='text' class='input input-border' data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" +
+          question.questionId + "' name='" + question.questionId + "' placeholder='" + placeholder + "' " + req +
+          "oninput='validateForm()'/>" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;font-size: 12px;' id='v_" + question.questionId + "' >" +
+          "<span>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+        document.querySelector("#q_" + question.questionId).setAttribute('placeholder', placeholder)
+      }
+
+      else if (question.questionType === "File") {
+
+        var h =
+          "<div class='app-row type-input' " + hidden + ">" +
+          "<label class='label' " + hiddenFieldTitleText + ">" + question.questionName + reqLabel + "</label>" +
+          "<div class='input-field file-type-input'>" +
+          "<label> ( " + question.questionName + " )</label>" +
+          "<input id='fileInput'  " + inputStyle + " type='file' class='input input-border fileInput_" + question.questionId + "' data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" +
+          question.questionId + "' name='" + question.questionId + "' placeholder='" + question.questionName + "' " + req +
+          "onchange='previewImage(this)' />" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;font-size: 12px;' id='v_" + question.questionId + "' >" +
+          "<span>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>" +
+          `
+          <div id="clearBtn" class="clearBtn_${question.questionId}" onclick="clearPreview(${question.questionId})" style="display: none; margin-top : 10px; cursor: pointer; text-align: center"><div style="margin-top:5px">X</div></div>
+          <div class="preview preview_${question.questionId}"></div>
+            <div id="fileInputLoader_${question.questionId}" style="display:none;">
+  <div class="loader"></div>
+</div>
+          </div>`;
+        $("#formId").append(h);
+
+      }
+      else if (question.questionType === "Text") {
+        const placeholder = question.questionName && question.questionName.toLowerCase() === 'email' ? 'Email Address' : question.questionName;
+
+        var h =
+          "<div class='app-row type-text' " + hidden + ">" +
+          "<label class='label'" + hiddenFieldTitleText + ">" + question.questionName + reqLabel + "</label>" +
+          "<div>" +
+          "<textarea " + inputStyle + " data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" + question.questionId + "' name='" + question.questionId + "' placeholder='" + escapeHtml(placeholder) + "' " + req + "></textarea>" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;font-size: 12px;' id='v_" + question.questionId + "' >" +
+          "<span>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+
+      } else if (question.questionType === "Yes_No") {
+
+        var h =
+          "<div class='app-row type-boolean' " + hidden + ">" +
+          "<label class='label'>" + question.questionName + reqLabel + "</label>" +
+          "<div>" +
+          "<input onchange= 'validateRadio(this)' type='radio' value='Yes' class='radio' " + inputStyle + " data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" + question.questionId + "' name='" + question.questionId + "' " + req + "> Yes" +
+          "&nbsp;&nbsp;<input onchange= 'validateRadio(this)' type='radio' value='No' class='radio' " + inputStyle + " data-type='" + question.questionType + "' id='q_" + question.questionId + "' name='" + question.questionId + "'> No" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;font-size: 12px;' id='v_" + question.questionId + "' >" +
+          "<span>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+
+      }
+      else if (question.questionType === "Date") {
+        var h =
+          "<div class='app-row type-boolean' " + hidden + ">" +
+          "<label class='label'>" + question.questionName + reqLabel + "</label>" +
+          "<div style='position:relative'>" +
+          "<input type='text'  onblur = 'getProductqty(this)' class='date' autocomplete='off' onkeydown='return false;'  " + inputStyle + " data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" + question.questionId + "' name='" + question.questionId + "' " + req +
+          "oninput='validateForm()' />" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;font-size: 12px;' id='v_" + question.questionId + "' >" +
+          "<span>" + question.validationMessage + "</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+        $(".date").datepicker({
+          changeYear: true,
+          dateFormat: date_format,
+          yearRange: '1940:2030',
+          beforeShow: function (textbox, instance) {
+            instance.dpDiv.css({
+              marginTop: (-textbox.offsetHeight) + 'px',
+              marginLeft: '130px',
+            });
+          }
+        });
+
+      }
+
+      else if (question.questionType === "Multiple_Selection_Text") {
+        let prechecked = false
+        let element = ""
+        let precheckedClass = ""
+        var qt = (question.allowMultipleSelection) ? "checkbox" : "radio";
+        if (!question.allowMultipleSelection && question.showDropDown) {
+          qt = "dropdown"
+        }
+        if (!question.showDropDown && question.preSelectCheckbox) {
+          qt = "checkbox"
+          prechecked = true
+          element = "checked" + " class='pre-checked-input'"
+          precheckedClass = "pre-checked-label"
+        }
+        var h =
+          "<div class='app-row type-multi  " + precheckedClass + "'" + hidden + ">" +
+          "<label class='label' >" + question.questionName + reqLabel + "</label>";
+
+        if (qt === "radio") {
+          for (var i = 0; i < question.patientQuestionChoices.length; i++) {
+            question.patientQuestionChoices[i].choiceName = question.patientQuestionChoices[i].choiceName.replace("'", "&#39;");
+            let qid = question.questionId + "_" + i;
+            h += "<div class='radio'>" +
+              "<input  onchange= 'validateRadio(this)'" + inputStyle + " type='" + qt + "' class=''  " +
+              " data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" + qid + "' name='" + question.questionId + "'" +
+              " value='" + question.patientQuestionChoices[i].choiceName + "'" +
+              "' placeholder='" + question.questionName + "' " + req +
+              "' choiceId='" + question.patientQuestionChoices[i].choiceId + "' " +
+              " style='display:inline-block; max-width: 20px;' />" +
+              question.patientQuestionChoices[i].choiceName +
+              "</div>";
+
+          }
+        }
+        else if (qt === "checkbox") {
+          h += "<div " + req + ">";
+          for (var i = 0; i < question.patientQuestionChoices.length; i++) {
+            question.patientQuestionChoices[i].choiceName = question.patientQuestionChoices[i].choiceName.replace("'", "&#39;");
+            let qid = question.questionId + "_" + i;
+            h += "<div class='checkbox'>" +
+              "<input  onchange= 'validateCheckBox(this)'" + inputStyle + " type='" + qt + "' " + element +
+              " data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" + qid + "' name='" + question.questionId + "'" +
+              " value='" + question.patientQuestionChoices[i].choiceName + "'" +
+              "' placeholder='" + question.questionName + "' " +
+              "' choiceId='" + question.patientQuestionChoices[i].choiceId + "' " +
+              " style='display:inline-block; max-width: 20px;' />" +
+              question.patientQuestionChoices[i].choiceName +
+              "</div>";
+          }
+          h += "<div class='error-checkbox checkbox" + question.questionId + "' style='display:none;color: red;margin-top: 7px;font-size: 12px;' >Please select the option to continue</div>"
+        }
+        else if (qt === "dropdown") {
+          var isRequired = question.required;
+          h += "<div " + req + ">";
+          h += "<div class='dropdown'><select class='placeholder-color' id='q_" + question.questionId + "' name='" + question.questionId + "'";
+
+          // Add the 'required' attribute conditionally
+          if (isRequired) {
+            h += " required";
+          }
+
+          h += " onchange='handleDropdownChange(this)'>";
+          h += "<option value='' disabled selected>" + question.questionName + "</option>"
+          for (var i = 0; i < question.patientQuestionChoices.length; i++) {
+            question.patientQuestionChoices[i].choiceName = question.patientQuestionChoices[i].choiceName.replace("'", "&#39;");
+            let qid = question.questionId + "_" + i;
+            h += "<option value='" + question.patientQuestionChoices[i].choiceName + "'>" +
+              question.patientQuestionChoices[i].choiceName + "</option>"
+
+          }
+          h += "</select></div>";
+        }
+
+        h += "</div>";
+
+        $("#formId").append(h);
+
+      } else if (question.questionType === "Phone_Number") {
+        const placeholder = 'Phone Number';
+        const questionId = question.questionId;
+        var h =
+          "<div class='app-row type-input' " + hidden + ">" +
+          "<label class='label' " + hiddenFieldTitleText + ">" + placeholder + reqLabel + "</label>" +
+          "<div class='input-field'>" +
+          "<input   " + inputStyle + " type='text' class='input input-border phone-input' data-type='" + question.questionType + "' data-type1='" + question.questionName + "' id='q_" +
+          question.questionId + "' name='" + question.questionId + "' " + req +
+          " oninput='validatePhoneNumber(this)'/>" +
+          "</div>" +
+          "<div style='display:none;color: red;margin-top: 7px;font-size: 12px;' id='v_" + question.questionId + "' >" +
+          "<span>Invalid Phone Number.</span>" +
+          "</div>" +
+          "</div>";
+        $("#formId").append(h);
+        const input = document.querySelector("#q_" + questionId);
+        const iti = window.intlTelInput(input, {
+          formatOnDisplay: true,
+          separateDialCode: true,
+          utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+        });
+        input.addEventListener('countrychange', function (e) {
+          if (e.currentTarget.value) {
+            $(e.currentTarget).trigger('input');
+          }
+        })
+        phoneNumberMap[questionId] = iti;
+      }
+    }
+
+    function handleDropdownChange(selectElement) {
+      if (selectElement.value === '') {
+        selectElement.classList.add('placeholder-color'); // Add the class
+      } else {
+        selectElement.classList.remove('placeholder-color'); // Remove the class
+      }
+    }
+
+    function escapeHtml(placeholder) {
+      return placeholder.replace(/[&<"'>]/g, function (text) {
+        switch (text) {
+          case '&':
+            return '&amp;';
+          case '<':
+            return '&lt;';
+          case '>':
+            return '&gt;';
+          case '"':
+            return '&quot;';
+          case "'":
+            return '&#039;';
+          default:
+            return text;
+        }
+      });
+    }
+
+    function getQuestion(questionId) {
+      for (var i = 0; i < questions.length; i++) {
+        if (questions[i].questionId === parseInt(questionId)) {
+          return questions[i];
+        }
+      }
+      return null; // not the case
+    }
+
+    function questionHasPreFillData(question) {
+      var data = localStorage.getItem(ck);
+      if (data != null) {
+        var json = JSON.parse(data);
+        var preFillData = json.preFillData;
+        if (question.questionName in preFillData) {
+          return preFillData[question.questionName];
+        }
+      }
+
+      return null;
+    }
+
+    function getApiUrl() {
+      var hostname = window.location.hostname;
+      console.log('ank',hostname)
+      // const reCaptchaKey = "6Le4KZgcAAAAACzeRnurL7ZsHiI6lypvvfZL_Hu4";
+      const reCaptchaKey = "6LfWEkwhAAAAAN6xg27w8u0MZZg0QCR_P_9LWj-_";
+      if (hostname.includes("prod-app.growth99.com")) {
+        gcaptchaKey = reCaptchaKey;
+        return "https://api.growth99.com";
+      } else if (hostname.includes("devemr.growthemr.com")) {
+        gcaptchaKey = reCaptchaKey;
+        return "https://api.growthemr.com";
+      } else if (hostname.includes("localhost")) {
+        gcaptchaKey = reCaptchaKey;
+
+        //  return "https://api.growth99.com";
+        return "https://api.growthemr.com";  
+
+        //  return "http://localhost:8080";
+      } else {
+        gcaptchaKey = reCaptchaKey;
+        return "https://api.growth99.com";
+        // return "http://localhost:8080";
+      }
+    }
+
+    function form_iniFrame() {
+      try {
+        if (window.self !== window.top) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        return false;
+      }
+
+    }
+
+    function validateForm() {
+      for (var i = 0; i < divlist.length; i++) {
+        var element = document.getElementById(divlist[i]);
+        if (element) {
+          element.style.display = "none";
+        }
+      }
+
+      divlist = [];
+      for (var i = 0; i < questions.length; i++) {
+        if (questions[i].questionType != "Yes_No" &&
+          questions[i].questionType != "Multiple_Selection_Text" &&
+          questions[i].questionType != "Date" &&
+          questions[i].questionType != "File" &&
+          questions[i].validationMessage != null &&
+          questions[i].validate) {
+          divlist.push("v_" + questions[i].questionId);
+          var x;
+          // var x = document.getElementById("q_" + questions[i].questionId).value;
+          var element = document.getElementById("q_" + questions[i].questionId);
+          if (element) {
+            x = element.value;
+          }
+          var regex = questions[i].regex;
+          if (regex != null && !x.match(regex) && regex != 'Other' && x != '') {
+            // alert(questions[i].validationMessage );
+            if (questions[i].validationMessage != null)
+              document.getElementById("v_" + questions[i].questionId).style.display = "block";
+          }
+        }
+      }
+    }
+
+    function getProductqty(input) {
+      setTimeout(() => {
+        let qid = input.name
+        let obj = questions.find(x => x.questionId === qid);
+
+      }, 500)
+    }
+
+    function validateRadio(input, q) {
+      let selected = input.checked;
+      const question_type = input.getAttribute("data-type");
+      let qid = input.name
+      let obj;
+      if (question_type === 'Multiple_Selection_Text') {
+        validateCheckBox(input);
+      }
+
+      else if (question_type === 'Yes_No') {
+        questions.forEach(question => {
+          if (question.questionId === qid) {
+            obj = question
+            obj.answerText = selected
+          }
+        });
+      }
+    }
+
+    function validateConsentCheckBox(input) {
+      isMandatoryConsentEnabledChecked = input.checked;
+    }
+
+    function validateCheckBox(input) {
+      let choiceId = input.getAttribute("choiceid");
+      let selected = input.checked;
+      let qid = input.name
+      let obj;
+      questions.forEach(question => {
+        if (question.questionId === qid) {
+          obj = question
+          question.patientQuestionChoices.forEach(choice => {
+            if (choice.choiceId === choiceId) {
+              choice.selected = selected;
+            }
+          });
+        }
+      });
+      questionarieDataFromAPI = questions
+
+      // let obj = questions.find(x => x.questionId === qid);
+      if (obj.required) {
+        if ($('.checkbox').length) {
+          if ($('.checkbox :checkbox:checked').length === 0) {
+            $('.error-checkbox.checkbox' + qid).css("display", "block")
+            $('html, body').animate({
+              scrollTop: $(".error-checkbox").offset().top
+            }, 200);
+            return false
+          }
+          else {
+            $('.error-checkbox').css("display", "none")
+          }
+        }
+      }
+
+    }
+
+    function validatePhoneNumber(input) {
+      const qid = input.getAttribute('name');
+      if (input.value && !phoneNumberMap[qid].isValidNumber()) {
+        $('#v_' + qid).css("display", "block");
+      } else {
+        $("#v_" + qid).css("display", "none");
+        input.value = phoneNumberMap[qid].getNumber(intlTelInputUtils.numberFormat.NATIONAL);
+      }
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,245 @@
+.serviceName {
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.service-details {
+  overflow: hidden;
+  border: 3px solid rgb(243, 244, 246, 0.7);
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+.service-details {
+  padding: 20px 20px 10px;
+  margin-bottom: 10px;
+}
+
+.service-details .img {
+  padding-right: 20px;
+  position: relative;
+  float: left;
+}
+
+.arrows {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+.service-details .text {
+  float: left;
+  width: 70%;
+}
+
+.service-details p {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  line-height: 18px;
+  margin: 0;
+  color: #262628;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.service-details p.bold {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px
+}
+
+.book-btn-right {
+  float: right;
+  position: relative;
+  top: 50%;
+  padding-top: 20px;
+}
+
+.book-btn-right button {
+  font-weight: bold;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  color: #262628;
+  margin: 0;
+}
+
+.title {
+  color: #262628;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.title h1 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  margin: 0;
+}
+
+.book-btn-right button {
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.radio-btn {
+  padding-top: 10px;
+}
+
+.radio-btn>input[type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+  position: absolute;
+  height: 18px;
+  width: 19px;
+  /* top: 1px; */
+  margin-top: 6px;
+  margin-left: 0px;
+  z-index: 5;
+  opacity: 0;
+}
+
+.section-detail {
+  min-height: 225px;
+}
+
+.service-details .bold-text {
+  font-weight: bold;
+  padding-top: 15px;
+}
+
+.service-details .bold-text span {
+  color: #262628;
+}
+
+.service-details .description1 p {
+  line-height: 23px;
+}
+
+.service-details .description1 a {
+  font-weight: bold;
+}
+
+@media screen and (max-width:540px) {
+  .service-details .text {
+      width: 87%;
+      padding-right: 10px;
+      padding-top: 20px;
+  }
+  .radio-btn {
+      padding-top: 25px;
+  }
+  .section-detail {
+      min-height: 320px;
+  }
+}
+
+#circle,
+#circle .segment {
+  border-color: lightgray;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+  box-sizing: border-box;
+  height: 60px;
+  position: relative;
+  width: 60px;
+}
+
+#circle .segment {
+  -webkit-clip-path: inset(0 0 0 24px);
+  /*content: ''; EDIT: not needed */
+  left: -5px;
+  position: absolute;
+  top: -5px;
+}
+
+#circle .segment:nth-child(1) {
+  border-color: #d6d6d6;
+  -webkit-clip-path: inset(-0px 0px 0 0);
+}
+
+#circle .segment:nth-child(2) {
+  border-color: #003B6F;
+  transform: rotate(60deg);
+}
+
+.font-arrow {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.arrows {
+  position: absolute;
+  top: -10px;
+  left: 18px;
+}
+
+.e-checkbox-wrapper .e-frame.e-check,
+.e-css.e-checkbox-wrapper .e-frame.e-check {
+  background-color: unset;
+  color: currentColor;
+}
+
+.e-checkbox-wrapper .e-check::before,
+.e-css.e-checkbox-wrapper .e-check::before {
+  color: currentColor;
+}
+
+.e-checkbox-wrapper .e-frame,
+.e-css.e-checkbox-wrapper .e-frame {
+  height: 20px;
+  margin-top: -1px;
+}
+
+.service-img img {
+  max-width: 80px;
+}
+
+.service-img img {
+  border-radius: 50%;
+  border: 3px solid;
+}
+
+
+@media screen and (max-width:550px) {
+  .service-details .img {
+      display: none
+  }
+
+  .service-details p{
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width:400px) {
+  .book-btn-right button {
+      padding: 8px 16px;
+      min-width: 100px;
+  }
+}
+
+
+.e-checkbox-wrapper .e-frame.e-check,
+.e-css.e-checkbox-wrapper .e-frame.e-check {
+  background-color: unset;
+  color: currentColor;
+}
+
+.e-checkbox-wrapper .e-check::before,
+.e-css.e-checkbox-wrapper .e-check::before {
+  color: currentColor;
+}
+
+.e-checkbox-wrapper .e-frame,
+.e-css.e-checkbox-wrapper .e-frame {
+  height: 20px;
+  margin-top: -1px;
+}

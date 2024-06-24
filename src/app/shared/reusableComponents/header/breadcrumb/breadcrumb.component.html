@@ -1,0 +1,19 @@
+<ol class="breadcrumb">
+  <li *ngFor="let breadcrumb of breadcrumbs;let i = index">
+    <ng-container *ngIf="breadcrumbs.length-1=== i;">
+      <span >
+        {{ breadcrumb.label }}
+      </span>
+    </ng-container>
+    <ng-container *ngIf="breadcrumbs.length-1 !== i;">
+      <span [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">
+        {{ breadcrumb.label }}
+      </span>
+    </ng-container>
+
+  </li>
+</ol>
+
+<!-- <p class="normal theme-text">My Profile</p>
+<i class="fa fa-chevron-right right-arrow-icon"></i>
+<p class="normal">Vacation Schedule</p> -->

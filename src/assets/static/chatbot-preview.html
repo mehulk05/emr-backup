@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Growth99+</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="https://g99plus.b-cdn.net/AEMR/assets/img/growth99_icon.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            height: 100vh;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="pt-4">
+            <h1>This is the preview page for Chatbot</h1>
+            <p>Please click on the bottom right corner. Your Chatbot is available.</p>
+        </div>
+
+    </div>
+
+    <div id="chatbot"></div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script>
+        var bid, fid, redirect = false;
+
+        $(function() {
+            // var domain = window.location.hostname
+            var domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+            console.log(domain);
+            var variables = getUrlVars();
+            bid = variables['bid'];
+            fid = variables['fid'];
+
+            var cssUrl = 'https://api.growthemr.com' + "/api/public/chatconfigs/css?bid=" + bid;
+            let chatUrl = domain + "/business/" + bid + "/chat";
+            console.log(chatUrl);
+            var chatEmbededCode = '<link rel="stylesheet" href="' + cssUrl + '">' +
+                '<div id="emr-chat-div" data-url="' + chatUrl + '" style="bottom: 0; position: fixed; margin: 1em; right: 0; z-index: 998;"></div>' +
+                '<script src="' + domain + '/assets/js/emr-chat.js"><\/script>';
+
+            console.log(chatEmbededCode)
+            $("#chatbot")
+                .append('<div  class="title">' + chatEmbededCode + '</div>');
+            try {
+                if (typeof variables['fc'] !== "undefined") {
+                    fc = variables['fc'];
+                    ck = variables['ck'];
+                }
+            } catch (e) {}
+            console.log(bid)
+        });
+
+
+        function getUrlVars() {
+            var vars = [],
+                hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+    </script>
+</body>
+
+</html>

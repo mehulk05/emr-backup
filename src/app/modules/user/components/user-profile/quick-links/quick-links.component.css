@@ -1,0 +1,36 @@
+.link-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 2em;
+}
+
+.left-icon {
+  margin-right: 12px;
+}
+
+.stat {
+  width: 42px;
+  height: 42px;
+  background: #D8E2F6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.stat .fa,
+.stat .fas {
+  color: #2656C9;
+}
+
+
+.link-wrapper a {
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.quick-links {
+  padding-bottom: 2em;
+}

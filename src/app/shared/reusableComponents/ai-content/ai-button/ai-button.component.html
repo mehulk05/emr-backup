@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="flex-end" style="margin-bottom: 5px;">
+      <button type="button" class="btn-save-new btn-small-new f-14"
+        (click)="generatedAlContent()">
+        <i class="fa fa-lightbulb-o"></i> AI Assist</button>
+    </div>
+</div>
+
+
+<ng-container *ngIf="showModal">
+    <app-ai-content [showModal]="showModal" [message]="message" [category]="category" [totalCharacterLength]="totalCharacterLength" (modalClosed)="aiModelClose($event)">
+    </app-ai-content>
+</ng-container>

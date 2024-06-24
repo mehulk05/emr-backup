@@ -1,0 +1,24 @@
+<p-dialog [header]="'Preview'" [(visible)]="showModal" [modal]="true"
+[breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}"
+[baseZIndex]="10000"
+    [draggable]="false" [resizable]="false" (onHide)="hideModal()">
+
+    <!-- Modal body -->
+    <div class="body-section">
+        <img class="img-fluid cropped-img" [src]="filePath | safeUrl" *ngIf="isImage(type)">
+
+        <video controls *ngIf="filePath && isVideo(type)" width="320" height="240">
+            <source [src]="filePath">
+        </video>
+
+        <iframe [src]="filePath | safeUrl" style="height:500px;width:68vw" frameborder="0" *ngIf="filePath && isPDF(type)"></iframe>
+
+    </div>
+
+    <!-- Modal footer -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>

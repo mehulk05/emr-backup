@@ -1,0 +1,40 @@
+<div class="panel-blue">
+  <div class="panel-header">
+    <div class="panel-title">
+      Subdomain Config
+    </div>
+  </div>
+    <div class="panel-body">
+        <div class="add-edit-form">
+          <form [formGroup]="subdomainForm" (ngSubmit)="submitForm()">
+            <div class="form form-type2">
+              <div class="form-group"
+                [ngClass]="f.subDomainName.invalid && ((f.subDomainName.dirty || f.subDomainName.touched))?'has-error':''">
+                <label>Subdomain Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="subDomainName"
+                style="width: 50%;"
+                  appErrorStylingDirective >
+                <div class="error error-msg">
+                  <div *ngIf="f.subDomainName.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> SubDomain Name is required.
+                  </div>
+                  <div *ngIf="f.subDomainName.errors?.pattern">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> subDomainName is invalid.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <div class="button-flex">
+                    <button class="btn-save-new btn-small-new" [disabled]="!subdomainForm.valid">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+
+<div class="bg-white datatable-table">
+  <div class="title"><h3>Fill Questionnaire</h3></div>
+  <div class="add-edit-form">
+    <div class="form form-type2">
+      <form [formGroup]="patientQuestionnaireForm" (ngSubmit)="submitForm()" class="needs-validation">
+        <input type="hidden" formControlName="id" />
+
+
+        <div formArrayName="patientQuestionAnswers">
+          <div *ngFor="let pqa of patientQuestionAnswers.controls; let i=index" [formGroupName]="i" class="row">
+              <div class="col-md-12 form-group" *ngIf="!pqa.value.hidden">
+                  <div class="" *ngIf="!(pqa.value.questionType === 'Multiple_Selection_Text' && !pqa.value.allowMultipleSelection && !pqa.value.showDropDown && pqa.value.preSelectCheckbox)">
+                      <label >{{ pqa.value.questionName }}</label>
+                      <span *ngIf="pqa.value.required" style="color:red">*</span>
+                  </div>
+
+                  <div [ngSwitch]="pqa.value.questionType" class="">
+                      <div *ngSwitchCase="'Text'">
+                          <textarea class="form-control" type="text" id="{{ 'true' + i}}" formControlName="answerText"></textarea>
+                      </div>
+
+                      <div *ngSwitchCase="'Input'">
+                          <input class="form-control" type="text" id="{{ 'true' + i}}"    (blur)="OnInputChange(pqa,i)"  formControlName="answerText">
+                      </div>
+
+                      <div class="input-field" *ngSwitchCase="'File'">
+                        <input id="{{ 'true' + i}}" formControlName="answerText" type="file" (change)="onFileChangeEvent($event, i)" class="input input-border" data-type="File" data-type1="Test file upload" name="78708" placeholder="Test file upload"  accept="image/jpeg,image/png,image/gif,.pdf, .xls, .xlsx" style="box-shadow: rgb(0, 59, 111) 0px 0px 0px 0rem;">
+                      </div>
+
+                      <div *ngSwitchCase="'Phone_Number'">
+                        <input class="form-control" type="phone number" id="{{ 'true' + i}}" (change)="validatePhone(pqa)" formControlName="answerText">
+                      </div>
+                      
+                      <div *ngSwitchCase="'Date'">
+                        <span class="date-time">
+
+                          <input class="form-control" type="date" id="{{ 'true' + i}}"    (change)="OnInputChange(pqa,i)"  formControlName="answerText">
+                          <input type="text" class="form-control custom-input-date" [placeholder]="renderPlaceHolderForDate(contactFormQuestions[i].regex)" readonly [value]="pqa.value.answerText">
+                        </span>
+                        <!-- {{pqa.invalid}} - {{this.patientQuestionAnswers.controls[i].invalid }} -->
+
+                    </div>
+
+
+                      <div *ngSwitchCase="'Yes_No'">
+                          <div class="">
+                              <label>
+                                  <input type="radio" [value]="true" id="{{ 'true' + i}}"
+                                      formControlName="answer">
+                                  <i class="ms-checkbox-check"></i>
+                              </label>&nbsp;
+                              <span> Yes</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <label>
+                                  <input type="radio" [value]="false" id="{{ 'false' + i}}"
+                                      formControlName="answer">
+                                  <i class="ms-checkbox-check"></i>
+                              </label>&nbsp;
+                              <span> No</span>
+                          </div>
+                      </div>
+
+                      <div *ngSwitchCase="'Multiple_Selection_Text'">
+                        <ng-container *ngIf="pqa.value.allowMultipleSelection">
+                          <ng-container *ngFor="let checkbox of pqa.value.patientQuestionChoices;let j=index">
+                            <div class="vertical-options">
+                                <input type="checkbox" [value]="checkbox.choiceName" (change)="onChange($event,i,j,pqa)" [checked]="checkbox.selected" id="{{ 'true' + i}}" formControlName="answerText">
+                                <span> {{checkbox.choiceName}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="multiChoiceValidationMessage[i]">
+                            <span class="123 error manual-lead-err" style="color:red">
+                             <Thead></Thead> {{ pqa.value.questionName }} field is required.
+                            </span>
+                          </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="!pqa.value.allowMultipleSelection && pqa.value.showDropDown && !pqa.value.preSelectCheckbox">
+                            <select formControlName="answerText">
+                              <ng-container *ngFor="let checbox of pqa.value.patientQuestionChoices;let j=index">
+                              <option [value]="checbox.choiceName">{{checbox.choiceName}}</option>
+                              </ng-container>
+                            </select>
+
+                            <ng-container *ngIf="multiChoiceValidationMessage[i]">
+                              <span class="123 error manual-lead-err" style="color:red">
+                               <Thead></Thead> {{ pqa.value.questionName }} field is required.
+                              </span>
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="!pqa.value.allowMultipleSelection && !pqa.value.showDropDown && pqa.value.preSelectCheckbox">
+                            <div class="" *ngIf="(pqa.value.questionType === 'Multiple_Selection_Text' && !pqa.value.allowMultipleSelection && !pqa.value.showDropDown) && pqa.value.preSelectCheckbox && !pqa.value.patientQuestionChoices?.length">
+                                <input type="checkbox" [value] ="pqa.value.preSelectCheckbox"  [checked]="pqa.value.preSelectCheckbox" formControlName="answerText">&nbsp;
+                                <label >{{ pqa.value.questionName }}</label>
+                                <span *ngIf="pqa.value.required" style="color:red">*</span>
+                            </div>
+                            <div *ngIf="(pqa.value.questionType === 'Multiple_Selection_Text' && !pqa.value.allowMultipleSelection && !pqa.value.showDropDown) && pqa.value.preSelectCheckbox && pqa.value.patientQuestionChoices?.length">
+                             <label >{{ pqa.value.questionName }}</label>
+                             <span *ngIf="pqa.value.required" style="color:red">*</span>
+                             <ng-container *ngFor="let checkbox of pqa.value.patientQuestionChoices;let j=index">
+                              <div class="vertical-options">
+                              <input type="checkbox" [value]="checkbox.choiceName" [checked]="checkbox.choiceName" formControlName="answerText">
+                              <span> {{checkbox.choiceName}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                              </div>
+                             </ng-container>
+                            </div>
+                            <ng-container *ngIf="multiChoiceValidationMessage[i]">
+                              <span class="123 error manual-lead-err" style="color:red">
+                               <Thead></Thead> {{ pqa.value.questionName }} field is required.
+                              </span>
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="!pqa.value.allowMultipleSelection && !pqa.value.showDropDown && !pqa.value.preSelectCheckbox">
+                          <ng-container *ngFor="let checkbox of pqa.value.patientQuestionChoices; let j=index">
+                            <div class="vertical-options">
+                              <input type="checkbox" [value]="checkbox.choiceName" (change)="onChangeSingleSelection($event, i, j, pqa)" [checked]="checkbox.selected" id="{{ 'true' + i }}" formControlName="answerText">
+                              <span> {{ checkbox.choiceName }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="multiChoiceValidationMessage[i]">
+                            <span class="123 error manual-lead-err" style="color:red">
+                              <Thead></Thead> {{ pqa.value.questionName }} field is required.
+                            </span>
+                          </ng-container>
+                        </ng-container>                        
+                    </div>
+                  </div>
+
+                  <ng-container *ngIf="pqa.value.questionType !== 'Multiple_Selection_Text' ">
+                    <span class="error manual-lead-err" style="color:red" *ngIf="formRequired(pqa) && (pqa.get('answerText').touched || pqa.get('answerText').dirty)">
+                      The {{pqa.value.questionName}} field is required.
+                  </span>
+                  </ng-container>
+
+<!-- 
+                  <span class="error manual-lead-err" style="color:red" *ngIf="!formRequired(pqa) && (pqa.get('answerText').touched || pqa.get('answerText').dirty) && validateInput(pqa)">
+                    Please input valid details for {{pqa.value.questionName}}
+                </span>
+
+                  <span class="error manual-lead-err" style="color:red" *ngIf="!formRequired(pqa) && pqa.value.questionName === 'Email' && ( (pqa.get('answerText').touched || pqa.get('answerText').dirty ) && validateEmail(pqa))">
+                      Please Input a valid email!
+                  </span>
+
+                  <span class="error manual-lead-err" style="color:red" *ngIf="!formRequired(pqa) && pqa.value.questionName === 'Phone Number' && ( (pqa.get('answerText').touched || pqa.get('answerText').dirty ) && validatePhone(pqa))">
+                      Please enter a valid 10 digit number without any spacing or special characters
+                  </span> -->
+
+                  <span class="error manual-lead-err" style="color:red" *ngIf="!formRequired(pqa) && validateRegex(pqa, i)">
+                    {{getRegexValidatedErrorMessage(pqa, i)}}
+                  </span>
+
+              </div>
+          </div>
+      </div>
+      <div class="btn-main button-flex" *ngIf="patientQuestionAnswers?.controls.length>0">
+          <button class="btn-save-new btn-small-new" [disabled]="!patientQuestionnaireForm.valid || isLeadFormPhoneValid || isLeadFormEmailValid">
+            <span class="btn-text">Save</span>
+          </button>
+          <button type="button" (click)="backToDashboard()" class="btn-small-new btn-default-new">
+            <span class="btn-text"> Cancel</span>
+          </button>
+      </div>
+    </form>
+
+    </div>
+  </div>
+</div>

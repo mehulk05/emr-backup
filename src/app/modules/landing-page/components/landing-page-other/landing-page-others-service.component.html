@@ -1,0 +1,53 @@
+<div class="new-ui">
+<div class="task-header">
+    <div class="search-box">
+        <div class="search">
+            <i class="fa fa-search"></i>
+            <input type="text" class="form-control searchbox" [(ngModel)]="landingPageFilter" (keyup.enter)="searchPage()"
+                placeholder="Search here">
+        </div>
+        <div class="filter">
+            <p-dropdown [options]="tagsResponse" optionLabel="name" (onChange)="ontagChange($event)" optionValue="id" [style]="{'minWidth':'220px'}"  (onClear)="resetTag()" [showClear]="true" [(ngModel)]="leadTagFilter" #dropdown [filter]="true"
+            placeholder="Select Tag" class="dropdown">
+          </p-dropdown>
+          </div>
+    </div> 
+</div>
+
+
+<div class="row" style="margin-top: 20px !important;">
+    <div class="col-lg-4 col-md-4 col-sm-12"
+        *ngFor="let landingPage of landingPages">
+        <div class="wrapper">
+            <div class="overlay-wrapper" (click)="handleChange(landingPage)">
+                <div class="bg-img">
+                    <iframe
+                        [src]="previwThumbnailLink +'bid='+loggedInUser.businessId+'&lpid='+landingPage?.data[0]?.landingPage.id | safeUrl"></iframe>
+                </div>
+                <div class="overlay">
+                    <div class="button-flex">
+                        <button class="btn-save-new btn-xs-new" >Select</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <div class="img bg-img" [style.background]="'url(' +landingPage?.landingPageImage+ ')' "></div> -->
+
+
+
+            <div class="page-body">
+                <div class="heading-title">
+                    <div class="flex-layout">
+                        <p> {{ landingPage.serviceName}}</p>
+                    </div>
+                    <div class="flex-layout">
+                        <p> No of templates: {{ landingPage.count}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>

@@ -1,0 +1,248 @@
+<div class="left-card">
+  <div class="lead-info-card">
+    <div class="lead-info-header">
+      <div class="lead-status" *ngIf="!isPatientStatusEditMode">
+        <app-custom-status-box [options]="statusOptions" [selected]="patient_status" [colorMapping]="leadStatusColorObj"
+          (onSelectedValue)="onSelectedValue($event)"></app-custom-status-box>
+      </div>
+    </div>
+
+    <div class="lead-info-content">
+      <div class="info-wrapper my-2">
+        <div class="info-key f-16 fw-500" *ngIf="patientData?.firstName">
+          <label>First Name</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.firstName}}
+          </span>
+        </div>
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.lastName">
+          <label>Last Name</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.lastName}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.email">
+          <label>Email Address</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.email}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.phone">
+          <label>Phone Number</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.phone}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.gender">
+          <label>Gender</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.gender}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.dateOfBirth">
+          <label>Date of Birth</label>
+          <div class="info-value f-12">
+            <span>{{ formatTimeService.formatDate(patientData?.dateOfBirth)}}
+            </span>
+          </div>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.addressLine1 || patientData?.addressLine2">
+          <label>Address</label>
+        </div>
+        <div class="info-value f-12">
+          {{ patientData?.addressLine1 }} {{ patientData?.addressLine2 }}
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.city">
+          <label>City</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.city}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.state">
+          <label>State</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.state}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.zipcode">
+          <label>Zipcode</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.zipcode}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.country">
+          <label>Country</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{patientData?.country}}
+          </span>
+        </div>
+
+        <div class="info-key f-16 fw-500 mt-2" *ngIf="patientData?.notes">
+          <label>Notes</label>
+        </div>
+        <div class="info-value f-12">
+          <span>{{ patientData?.notes }}</span>
+        </div>
+        <div class="footer-btn">
+          <button class="blue-btn" (click)="downloadAsPDF1()">
+            <p class="light-txt">Export To PDF</p>
+          </button>
+
+          <button type="button" class="transparent-btn" style="width: 85px; background-color: #F8FAFE;"
+            (click)="openEditModal()">
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3">
+
+      <div class="info-wrapper mb-2">
+        <form [formGroup]="leadStatusForm">
+          <div class="lead-info-header info-key f-16 fw-500 mt-2" style="height: 40px">Tags
+            <button type="button" class="blue-btn" (click)="openAddTagTemplateModal()">
+              <i style="color: white; padding-right: 3px;" class="fa fa-plus"></i>
+              <p class="light-txt">Add Tag</p>
+            </button>
+          </div>
+          <div class="form-group custom-form-group  pt-2">
+            <div class="flex-1">
+              <p-multiSelect [resetFilterOnHide]="true"  [options]="tags" defaultLabel="Select Patient Tag"
+                optionLabel="name" formControlName="tagId" [maxSelectedLabels]="2"
+                [style]="{ width: '100%', height: '30px', borderRadius:'5px' }"
+                selectedItemsLabel="{0} Patient Tags Selected" optionValue="id" (onChange)="onTagSelect($event)"
+                [(ngModel)]="selectedTag">
+              </p-multiSelect>
+            </div>
+            <span class="save-icon" [ngClass]="{ 'disabled-save-icon': selectedTag.length === 0 }" (click)="selectedTag.length !== 0 && updateLeadTag()">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="Save_Disk_Icon">
+                  <g id="Group 416">
+                    <path id="Rectangle 1763"
+                      d="M0 0H27C27.7956 0 28.5587 0.31607 29.1213 0.87868C29.6839 1.44129 30 2.20435 30 3V27C30 27.7956 29.6839 28.5587 29.1213 29.1213C28.5587 29.6839 27.7956 30 27 30H0V0Z"
+                      fill="#2656C9" />
+                    <path id="save_FILL0_wght300_GRAD0_opsz48"
+                      d="M23.4997 10.018V22.258C23.5017 22.4528 23.4638 22.6459 23.3883 22.8255C23.3128 23.005 23.2013 23.1672 23.0607 23.302C22.9259 23.4426 22.7637 23.5541 22.5841 23.6296C22.4046 23.7051 22.2115 23.743 22.0167 23.741H7.50067C7.3059 23.743 7.11278 23.7051 6.93323 23.6296C6.75367 23.5541 6.59149 23.4426 6.45668 23.302C6.3159 23.1673 6.20423 23.0051 6.12855 22.8256C6.05288 22.646 6.0148 22.4529 6.01668 22.258V7.74202C6.01467 7.54724 6.05258 7.35413 6.12808 7.17458C6.20358 6.99502 6.31508 6.83282 6.45567 6.69801C6.59048 6.55742 6.75266 6.44594 6.93222 6.37044C7.11178 6.29493 7.3049 6.25698 7.49968 6.25899H19.7387L23.4997 10.018ZM22.3327 10.544L19.2137 7.425H7.50067C7.45877 7.42361 7.41702 7.43082 7.37799 7.44612C7.33896 7.46142 7.30347 7.48449 7.27368 7.51399C7.24418 7.54378 7.22107 7.57927 7.20576 7.6183C7.19046 7.65733 7.18328 7.69908 7.18468 7.74098V22.258C7.18328 22.2999 7.19046 22.3417 7.20576 22.3807C7.22107 22.4197 7.24418 22.4552 7.27368 22.485C7.30347 22.5145 7.33896 22.5376 7.37799 22.5529C7.41702 22.5682 7.45877 22.5754 7.50067 22.574H22.0167C22.0586 22.5754 22.1003 22.5682 22.1394 22.5529C22.1784 22.5376 22.2139 22.5145 22.2437 22.485C22.2732 22.4552 22.2963 22.4197 22.3116 22.3807C22.3269 22.3417 22.3341 22.2999 22.3327 22.258V10.544ZM14.7527 20.319C15.0514 20.3237 15.3479 20.2675 15.6242 20.1539C15.9005 20.0402 16.1507 19.8715 16.3597 19.658C16.575 19.4516 16.7455 19.2029 16.8604 18.9276C16.9754 18.6523 17.0323 18.3563 17.0277 18.058C17.0324 17.7593 16.9762 17.4628 16.8626 17.1865C16.7489 16.9102 16.5802 16.66 16.3667 16.451C16.1601 16.2358 15.9115 16.0656 15.6362 15.9508C15.3609 15.8361 15.0649 15.7793 14.7667 15.784C14.468 15.7793 14.1714 15.8355 13.8952 15.9491C13.6189 16.0628 13.3686 16.2315 13.1597 16.445C12.9444 16.6515 12.7739 16.9001 12.659 17.1754C12.5441 17.4507 12.4871 17.7467 12.4917 18.045C12.487 18.3437 12.5432 18.6402 12.6568 18.9165C12.7704 19.1928 12.9392 19.443 13.1527 19.652C13.3592 19.8673 13.6078 20.0377 13.8831 20.1527C14.1584 20.2676 14.4544 20.3246 14.7527 20.32V20.319ZM8.85268 12.375H17.2527V9.09401H8.85268V12.375Z"
+                      fill="white" />
+                  </g>
+                </g>
+              </svg>
+            </span>
+          </div>
+        </form>
+      </div>
+      
+      <div class="appointment-section mt-3">
+        <span class="lead-status-name ml-3">Upcoming Appointments</span>
+        <button class="new-btnn" (click)="addAppointment()">
+          <i style="color: white; padding-right: 5px;" class="fa fa-plus"></i>
+          <a class="light-txt">New</a>
+        </button>
+      </div>
+
+      <div class="lead-info-footer mt-1">
+        <div *ngIf="appointments.length === 0">
+          <p class="no-data mt-8">
+            No upcoming appointments to display here
+          </p>
+        </div>
+        <div *ngFor="let item of appointments" class="appointment-item">
+          <div class="appointment-content">
+            <div class="appointment-date-time">
+              <div class="date">{{ formatTimeService.formatDate(item.appointmentDate) }}</div>
+              <div class="time">{{ formatTimeService.gettimeFromDate(item.appointmentDate) }}</div>
+            </div>
+            <div class="vertical-line mr-2 ml-1"></div>
+            <div class="patient-info">
+              <div class="patient-name">{{ item.providerName }}</div>
+              <div class="service-name">{{ item.service[0]?.serviceName }}</div>
+            </div>
+            <button class="edit-btn" (click)="EditAppointment(item.id)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-edit-patient-modal *ngIf="showEditModal" [showModal]="showEditModal" [modalData]="patientId"
+    (modalClosed)="onEditModalClosed($event)"></app-edit-patient-modal>
+
+  <ng-container *ngIf="showAddAppointment">
+    <app-book-appointment [showImportModal]="showAddAppointment" [patientData]="patientData" [businessId]="businessId"
+      (afterAppointmentCreated)="afterAppointmentCreated($event)"></app-book-appointment>
+  </ng-container>
+
+  <ng-container *ngIf="showTagTemplateModal">
+    <div class="dialog-new">
+      <p-dialog [modal]="true" [style]="{width: '50vw'}" [header]="'Add Tag'" [(visible)]="showTagTemplateModal">
+        <div class="blue-card">
+          <div class="bg-white panel-blue">
+            <form [formGroup]="patientTagForm">
+              <div class="add-edit-form">
+                <div class="form form-type2">
+                  <div class="row mx-0">
+                    <!-- ----------------------------- Name Feild ----------------------------- -->
+                    <div class="col-lg-8 col-md-12 col-sm-12">
+                      <div class="form-group"
+                        [ngClass]="f.name.invalid && (f.name.dirty || f.name.touched)? 'has-error': ''">
+                        <label>Name<span class="error-red">*</span></label>
+                        <input type="text" class="form-control input-type2" formControlName="name"
+                          (input)="onLabelAdd($event)" appErrorStylingDirective />
+                        <div *ngIf="duplicateLabel" class="error-duplicate">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                          Tag with this name already present.
+                        </div>
+                        <div class="error error-msg">
+                          <div *ngIf="f.name.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is
+                            required
+                          </div>
+                          <div *ngIf="f.name.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is invalid
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- --------------------------- buttons section --------------------------- -->
+                    <div class="col-lg-8 col-md-12 col-sm-12 mt-2">
+                      <div class="form-group">
+                        <div class="button-flex">
+                          <button [disabled]="!patientTagForm.valid || f.name.value.trim().length===0" (click)="submitForm()"
+                            class="btn-save-new btn-small-new">
+                            <span class="btn-text">Save</span>
+                          </button>
+
+                          <button type="button" class="btn-small-new btn-default-new ml-0" data-dismiss="modal"
+                            (click)="hideAddTagModal()">
+                            <span class="btn-text"> Cancel</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </p-dialog>
+    </div>
+  </ng-container>

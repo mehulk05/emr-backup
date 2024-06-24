@@ -1,0 +1,251 @@
+<section class="msger" [ngClass]="fromLeadPage ? 'lead-message-chat' : ''">
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                   Below will be usedd form leads page                   -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="msger-header" [ngClass]="fromLeadPage ? 'show css-from-leads-page' : 'hidden'">
+    <div class="search-box-container" [ngClass]="showSearch ? 'show-search' : ''">
+      <div *ngIf="searchCount !== 0" class="search-arrow-container">
+        <div class="search-arrows">
+          <div class="search-arrow search-arrow-up" (click)="searchTextNext()">
+            <svg width="12" height="6" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="Search_Arrow_Icon">
+                <path id="Path 88" d="M1.38184 1.5L8.00098 8.11902L14.6199 1.5" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+            </svg>
+          </div>
+          <div class="search-arrow search-arrow-down" (click)="searchTextPrev()">
+            <svg width="12" height="6" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <use href="#Search_Arrow_Icon"></use>
+            </svg>
+          </div>
+        </div>
+        <div class="search-counter-box">
+          <span>{{ currentSearchIndex }}</span>
+          <span>of</span>
+          <span>{{ searchCount }}</span>
+        </div>
+      </div>
+      <div class="search-container" [ngClass]="showSearch ? 'show' : 'hidden'">
+        <i class="pi pi-search" aria-hidden="true"></i>
+        <input style="background-color: #F8FAFE ;" type="text" class="form-control input-type2"
+          placeholder="Search Keyword" name="chatSearchText" [(ngModel)]="chatSearchText"
+          (input)="filterChat($event)" />
+      </div>
+    </div>
+    <div class="chat-status-container" [ngClass]="chatStatus">
+      <div class="chat-status-icon hidden" (click)="toggleChatStatusDropDown()">
+        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path id="Path 88" d="M1.38184 1.5L8.00098 8.11902L14.6199 1.5" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="chat-status-dropdown shadow" [class.dropdown-open]="isChatStatusDropDownOpen">
+        <div class="chat-status chat-status-open" (click)="setChatStatus('OPEN')">
+          <span> Open </span>
+        </div>
+        <div class="chat-status chat-status-close" (click)="setChatStatus('CLOSE')">
+          <span> Close </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                  Below will be used form two way text                   -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="msger-header" *ngIf="!fromLeadPage">
+    <div class="search-box-container">
+      <div *ngIf="searchCount !== 0" class="search-arrow-container">
+        <div class="search-arrows">
+          <div class="search-arrow search-arrow-up" (click)="searchTextNext()">
+            <svg width="12" height="6" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="Search_Arrow_Icon">
+                <path id="Path 88" d="M1.38184 1.5L8.00098 8.11902L14.6199 1.5" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+            </svg>
+          </div>
+          <div class="search-arrow search-arrow-down" (click)="searchTextPrev()">
+            <svg width="12" height="6" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <use href="#Search_Arrow_Icon"></use>
+            </svg>
+          </div>
+        </div>
+        <div class="search-counter-box">
+          <span>{{ currentSearchIndex }}</span>
+          <span>of</span>
+          <span>{{ searchCount }}</span>
+        </div>
+      </div>
+      <div class="search-container">
+        <i class="pi pi-search" aria-hidden="true"></i>
+        <input style="background-color: #F8FAFE ;" type="text" class="form-control input-type2"
+          placeholder="Search Keyword" name="chatSearchText" [(ngModel)]="chatSearchText"
+          (input)="filterChat($event)" />
+      </div>
+    </div>
+    <div class="chat-status-container" [class.disabled]="!sourceId || sourceId === -1" [ngClass]="chatStatus">
+      <div class="chat-status-icon" (click)="toggleChatStatusDropDown()">
+        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path id="Path 88" d="M1.38184 1.5L8.00098 8.11902L14.6199 1.5" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="chat-status-dropdown shadow" tabindex="-1" #chatStatusDropdown (blur)="chatStatusBlurDropDown($event)"
+        [class.dropdown-open]="isChatStatusDropDownOpen">
+        <div class="chat-status chat-status-open" (click)="setChatStatus('OPEN')">
+          <span> Open </span>
+        </div>
+        <div class="chat-status chat-status-close" (click)="setChatStatus('CLOSE')">
+          <span> Close </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="msger-chat">
+    <div class="two-way-text-info p-1" *ngIf="!isTwilioEnabled && businessNumber">
+      <p class="color-red">
+        Your messages are been sent through the default number
+        {{ businessNumber }}</p>
+      <p><a [routerLink]="['/two-way-text']">Click here</a> to activate two-way text & start receiving incoming
+        messages.</p>
+    </div>
+    <div class="msger-chat-inner-pannel" #chatInnerPanel>
+      <ng-container *ngIf="filteredChatRows && filteredChatRows.length > 0; else noChat">
+        <ng-container *ngFor="let row of filteredChatRows; let i = index">
+          <div class="msg-date-wrapper" *ngIf="row.type === 'date'">
+            <span class="msg-date">
+              {{ row.value }}
+            </span>
+          </div>
+
+          <!-- --------------------------- Phone no banner --------------------------- -->
+          <div *ngFor="let changeBanner of changeBanners">
+            <div class="msg-date-wrapper" *ngIf="changeBanner.index === i && changeBanner.from">
+              <!-- Your banner content here -->
+              <div class="msg-date">
+                Phone number changed from {{ changeBanner.from }} to {{ changeBanner.to }}
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ------------------------ Phone no banner ends ------------------------- -->
+
+          <div class="msg-panel" *ngIf="row.type === 'message'" [ngClass]="
+              row.value?.direction === 'outgoing' ? 'right-msg' : 'left-msg'
+            ">
+            <div class="msg-bubble panel-blue panel-border">
+              <div class="msg-info panel-title flex justify-content-between align-items-center">
+                <div class="msg-info-name">
+                  <ng-container *ngIf="row.value?.direction === 'outgoing'; else leadFullNameBlock">
+                    <span class="vertical-align-middle">
+                      {{ businessName }}
+                    </span>
+                    <span *ngIf="isTwilioEnabled" class="f-12 fw-500">
+                      &nbsp;({{ businessNumber }})
+                    </span>
+                  </ng-container>
+                  <ng-template #leadFullNameBlock>
+                    <span class="vertical-align-middle">
+                      {{ leadFullName }}
+                    </span>
+                    <span *ngIf="leadPhoneNumber" class="f-12 fw-500">
+                      &nbsp;({{ row.value?.sourceId ?leadPhoneNumber : leadFullName }})
+                    </span>
+                  </ng-template>
+                </div>
+                <div class="">
+                  <span
+                    *ngIf="row.value?.direction === 'outgoing' && (row.value?.deliverStatus === 'FAILED' || row.value?.deliverStatus === 'undelivered') && row.value?.errorMessage"
+                    tooltipPosition="top" [pTooltip]="row.value?.errorMessage" class="error-tooltip">
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="panel-body msg-panel-body">
+                <div class="msg-text" [innerHtml]="row.value?.message | ucs2ToUtf8 | safeHtml"></div>
+              </div>
+              <div class="msg-info-time">
+                {{ row.value?.createdDateTime | date: 'shortTime' }}
+              </div>
+            </div>
+          </div>
+
+
+
+        </ng-container>
+      </ng-container>
+      <ng-template #noChat>
+        <div class="no-data">
+          <ng-container *ngIf="!isLoading">
+            <p class="">
+              No SMS to display here
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="isLoading">
+            <app-loader [text]="'Loading...'"></app-loader>
+          </ng-container>
+        </div>
+      </ng-template>
+    </div>
+    <div class="msger-footer my-2 px-3">
+      <div class="tab-wrapper" [class.disabled]="!fromLeadPage && (!sourceId || sourceId === -1)">
+        <span class="message-tab f-14 fw-500" [class.active]="activeTab === 'Message'">Message</span>
+        <span class="tabplates-tab f-14 fw-500" [class.active]="activeTab === 'Templates'"
+          (click)="showTemplates()">Templates</span>
+      </div>
+      <div class="footer-input-container">
+        <div class="w-100">
+          <div class="input-wrapper">
+            <textarea type="text" name="messageBody" id="msg-body" class="form-control message-body"
+              [(ngModel)]="messageBody" (ngModelChange)="messageBodyChanged()" rows="4"
+              (keydown.enter)="onKeydown($event)" placeholder="Type here..."></textarea>
+            <div class="ai-wrapper">
+              <ng-container *ngIf="!loading">
+                <div (click)="showAIDialog()">
+                  AI Assist
+                </div>
+              </ng-container>
+              <ng-container *ngIf="loading">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">AI sync Loading...</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="w-100 press-enter-text">
+            Press
+            <strong>Enter ↵</strong>
+            to Send or
+            <strong>Shift ⇧</strong> + <strong>Enter ↵</strong> to
+            make a line break
+          </div>
+        </div>
+        <div class="w-100 d-flex justify-content-between align-items-center">
+          <div>
+            <button type="button" class="btn-save-new btn-small-new message-send-btn mx-0"
+              [disabled]="messageBody?.trim().length === 0" (click)="sendSmsCustom()">
+              Send
+            </button>
+          </div>
+          <div>
+            <p>Number of Segments: {{ numberOfSegemnts }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-container *ngIf="showAiModal">
+  <app-ai-content [showModal]="showAiModal" [message]="messageBody" [category]="category"
+    [totalCharacterLength]="totalCharacterLength" (modalClosed)="aiModelClose($event)">
+  </app-ai-content>
+</ng-container>

@@ -1,0 +1,244 @@
+<div class="blue-card bg-white new-ui tab-view pt-3 pl-1">
+  <div class="row">
+    <div class="col-xl-9 col-lg-12 col-md-12">
+      <div class="panel-container row">
+        <div class="left-panel col-sm-4 col-md-4 p-0">
+          <div class="chat-status-filter-container ml-3 mr-1 mt-3">
+            <div>
+              <button *ngIf="source === 'smsAudit'" type="button" class="btn-save-new btn-small-new btn-go-back"
+                (click)="onBackPressed()">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="flex gap-1">
+              <button type="button" class="btn-filter" [class.active]="chatStatusFilter === 'OPEN'"
+                (click)="toggleChatStatusFilter('OPEN')">
+                Open
+              </button>
+              <button type="button" class="btn-filter" [class.active]="chatStatusFilter === 'CLOSE'"
+                (click)="toggleChatStatusFilter('CLOSE')">
+                Closed
+              </button>
+            </div>
+          </div>
+          <div class="search-container ml-3 mr-1 mt-3">
+            <i class="pi pi-search" aria-hidden="true"></i>
+            <input [(ngModel)]="searchText" type="text" class="form-control input-type2" placeholder="Search Name or Number"
+              (input)="filterAuditLogsList($event)" (keydown.enter)="onSearchEnter($event)" />
+          </div>
+          <div class="panel-list-header ml-3 mr-1 mt-2 px-1">
+            <div class="tab-wrapper">
+              <span class="message-tab f-14 fw-500" [class.active]="msgReadStatus === 'All'"
+                (click)="toggleMsgReadStatusFilter('All')">All ({{chatStatusFilter === 'OPEN' ? allCount :
+                closedCount}})</span>
+              <span class="tabplates-tab f-14 fw-500" [class.active]="msgReadStatus === 'Unread'"
+                (click)="toggleMsgReadStatusFilter('Unread')">Unread ({{ chatStatusFilter === 'OPEN' ? unreadCount :
+                closedUnreadCount}})</span>
+            </div>
+            <div class="chat-filter-wrapper">
+              <span class="filter-icon" [class.active]="
+                  sourceTypeFilter || sourceNameFilter || sourceAgeFilter
+                " (click)="toggleChatFilterMenu()">
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="Group 447" opacity="0.5">
+                    <path id="Line 70" d="M14.5 1.75H1.5" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" />
+                    <path id="Line 71" d="M14.5 6.75H5.5" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" />
+                    <path id="Line 72" d="M14.5 11.75H10.5" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" />
+                  </g>
+                </svg>
+              </span>
+              <div class="filter-dropdown-wrapper shadow" tabindex="-1" #filterDropDown
+                (blur)="filterDropDownBlur($event)" [class.dropdown-open]="chatFilterMenuVisible">
+                <ul>
+                  <li class="chat-filter-topmenu">
+                    <span class="filter-menu-text"> Type </span>
+                    <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path id="Filter arrow" fill-rule="evenodd" clip-rule="evenodd"
+                          d="M0.231686 0.231211C0.304955 0.157917 0.391945 0.0997765 0.487688 0.0601091C0.583431 0.0204418 0.686051 2.47955e-05 0.789686 2.47955e-05C0.893321 2.47955e-05 0.995941 0.0204418 1.09168 0.0601091C1.18743 0.0997765 1.27442 0.157917 1.34769 0.231211L5.55869 4.44221C5.63198 4.51548 5.69012 4.60247 5.72979 4.69821C5.76945 4.79396 5.78987 4.89658 5.78987 5.00021C5.78987 5.10385 5.76945 5.20647 5.72979 5.30221C5.69012 5.39795 5.63198 5.48494 5.55869 5.55821L1.34869 9.76921C1.20056 9.91733 0.999664 10.0005 0.790186 10.0005C0.580708 10.0005 0.37981 9.91733 0.231686 9.76921C0.0835627 9.62109 0.000347865 9.42019 0.000347863 9.21071C0.000347862 9.00123 0.0835627 8.80033 0.231686 8.65221L3.88369 5.00021L0.231686 1.34821C0.158243 1.27492 0.0999756 1.18787 0.0602196 1.09204C0.0204637 0.9962 0 0.893465 0 0.789711C0 0.685957 0.0204637 0.583221 0.0602196 0.487386C0.0999756 0.391551 0.158243 0.304498 0.231686 0.231211Z"
+                          fill="#333333" />
+                      </svg></span>
+                    <ul class="chat-filter-submenu shadow">
+                      <li class="filter-menu-text" [class.active]="sourceTypeFilter === 'Lead'"
+                        (click)="toggleSourceTypeFilter('Lead')">
+                        Lead
+                        <span class="remove-filter-icon">
+                          <svg width="12" height="12" viewBox="0 0 27 27" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="Remove_Icon">
+                              <path id="Ellipse 28" opacity="0.246"
+                                d="M13.5 27C20.9558 27 27 20.9558 27 13.5C27 6.04416 20.9558 0 13.5 0C6.04416 0 0 6.04416 0 13.5C0 20.9558 6.04416 27 13.5 27Z"
+                                fill="currentColor" />
+                              <g id="Group 320">
+                                <path id="Line 62" d="M7 7L20 20" stroke="black" />
+                                <path id="Line 63" d="M20 7L7 20" stroke="black" />
+                              </g>
+                            </g>
+                          </svg>
+                        </span>
+                      </li>
+                      <li class="filter-menu-text" [class.active]="sourceTypeFilter === 'Patient'"
+                        (click)="toggleSourceTypeFilter('Patient')">
+                        Patient
+                        <span class="remove-filter-icon">
+                          <svg width="12" height="12" viewBox="0 0 27 27" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#Remove_Icon"></use>
+                          </svg>
+                        </span>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="chat-filter-topmenu">
+                    <span class="filter-menu-text"> Source </span>
+                    <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#Filter arrow"></use>
+                      </svg></span>
+                    <ul class="chat-filter-submenu shadow">
+                      <ng-container *ngFor="let source of sourceList">
+                        <li class="filter-menu-text" [class.active]="sourceNameFilter === source"
+                          (click)="toggleSourceNameFilter(source)">
+                          {{source}}
+                          <span class="remove-filter-icon">
+                            <svg width="12" height="12" viewBox="0 0 27 27" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <use href="#Remove_Icon"></use>
+                            </svg>
+                          </span>
+                        </li>
+                      </ng-container>
+                      <li class="filter-menu-text" [class.active]="sourceNameFilter === 'Other'"
+                        (click)="toggleSourceNameFilter('Other')">
+                        Other
+                        <span class="remove-filter-icon">
+                          <svg width="12" height="12" viewBox="0 0 27 27" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#Remove_Icon"></use>
+                          </svg>
+                        </span>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="chat-filter-topmenu">
+                    <span class="filter-menu-text"> Age </span>
+                    <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#Filter arrow"></use>
+                      </svg></span>
+                    <ul class="chat-filter-submenu shadow">
+                      <li class="filter-menu-text" [class.active]="sourceAgeFilter === '0-5'"
+                        (click)="toggleLeadAgeFilter('0-5')">
+                        0-5 Days
+                        <span class="remove-filter-icon">
+                          <svg width="12" height="12" viewBox="0 0 27 27" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#Remove_Icon"></use>
+                          </svg>
+                        </span>
+                      </li>
+                      <li class="filter-menu-text" [class.active]="sourceAgeFilter === '5-10'"
+                        (click)="toggleLeadAgeFilter('5-10')">
+                        5-10 Days
+                        <span class="remove-filter-icon">
+                          <svg width="12" height="12" viewBox="0 0 27 27" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#Remove_Icon"></use>
+                          </svg>
+                        </span>
+                      </li>
+                      <li class="filter-menu-text" [class.active]="sourceAgeFilter === '10-15'"
+                        (click)="toggleLeadAgeFilter('10-15')">
+                        10-15 Days
+                        <span class="remove-filter-icon">
+                          <svg width="12" height="12" viewBox="0 0 27 27" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <use href="#Remove_Icon"></use>
+                          </svg>
+                        </span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel-list-wrapper">
+            <ng-container *ngFor="let auditLog of filteredAuditLogsList; let i = index">
+              <div class="panel-list-content px-3 py-2" [class.active]="auditLog.sourceId === sourceId">
+                <div class="panel-content-info pb-2">
+                  <div class="info-header">
+                    <div class="flex align-items-center gap-2">
+                      <div class="info-name f-16 fw-500" (click)="changeSelectedLogIndex(i)">
+                        <span> {{ auditLog.leadFullName }} </span>
+                      </div>
+                      <button *ngIf="!auditLog.leadFound" (click)="addAsLead(auditLog)"
+                        class="add-lead-btn action-btn savebtn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="panel-time f-12" [class.highlight]="!auditLog.lastMessageRead">
+                      {{ auditLog.lastMessageDate | customDateFormatter }}
+                    </div>
+                  </div>
+                  <div class="info-header">
+                    <div class="info-status f-12">
+                      <span> {{ auditLog.leadStatus }} </span>
+                    </div>
+                    <div class="info-unread-count f-12" *ngIf="!auditLog.lastMessageRead">
+                      <span class="notification-badge"> {{ auditLog | unreadSmsCount }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container
+              *ngIf="msgReadStatus === 'All' && chatStatusFilter === 'OPEN' && totalNumberOfChats > auditLogsList?.length && !searchText">
+              <div class="flex justify-content-center align-items-center p-3">
+                <button class="btn-save-new btn-small-new" (click)="loadNextPage()">
+                  Load More
+                  <span><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="right-panel col-sm-8 col-md-8 p-0">
+          <app-two-way-text-chat [chat]="auditLogsList[selectedLogIndex]?.auditLogs"
+            [sourceId]="auditLogsList[selectedLogIndex]?.sourceId"
+            [chatStatus]="auditLogsList[selectedLogIndex]?.leadChatStatus"
+            [leadFullName]="auditLogsList[selectedLogIndex]?.leadFullName"
+            [communication]="auditLogsList[selectedLogIndex]?.communication"
+            [leadPhoneNumber]="auditLogsList[selectedLogIndex]?.sourcePhoneNumber" [businessName]="businessName"
+            [businessNumber]="businessNumber" [isTwilioEnabled]="isTwilioEnabled"
+            [enableTwoWayAiAutoSuggestion]="enableTwoWayAiAutoSuggestion" (sendCustomSms)="sendCustomSms($event)"
+            (showTemplatesDialog)="showHideTemplatesDialog($event)" [messageBody]="messageBody"
+            (chatStatusChange)="chatStatusChange($event)"></app-two-way-text-chat>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-12 col-md-12">
+      <ng-container
+        *ngIf="selectedLogIndex !== null && selectedLogIndex !== undefined && selectedLogIndex !== -1 && auditLogsList[selectedLogIndex]?.sourceId !== null">
+        <div class="panel-blue lead-info mb-0">
+          <ng-container *ngIf="module === 'Lead'; else patientInfo">
+            <app-lead-info-card [leadId]="auditLogsList[selectedLogIndex]?.sourceId"></app-lead-info-card>
+          </ng-container>
+          <ng-template #patientInfo>
+            <app-patient-info-card [patientId]="auditLogsList[selectedLogIndex]?.sourceId"></app-patient-info-card>
+          </ng-template>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="showTemplatesModal">
+  <app-templates-modal [moduleName]="'SMS'" [showModal]="showTemplatesModal" [templates]="smsTemplates"
+    (hideTemplateModal)="showHideTemplatesDialog($event)"
+    (templateSelected)="templateSelected($event)"></app-templates-modal>
+</ng-container>
+
+<!-----------------------------------Add Lead-------------------------------------------->
+<ng-container *ngIf="showAddLeadModal">
+  <app-add-leads [modalData]="modalData" [showModal]="showAddLeadModal" (modalClosed)="onAddLeadCloseModal($event)">
+  </app-add-leads>
+</ng-container>

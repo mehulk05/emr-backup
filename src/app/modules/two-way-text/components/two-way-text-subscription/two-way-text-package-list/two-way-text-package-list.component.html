@@ -1,0 +1,28 @@
+<div class="package-list-container">
+  <div class="package-cards-container">
+    <ng-container *ngFor="let package of packageList">
+      <div class="package-card" [class.selected]="selectedPackageId === package.id" (click)="selectPackage(package.id)">
+        <div class="package-card-header">
+          <div class="package-card-title">
+            <span class="pname">{{ package.name }}</span>
+          </div>
+          <div class="package-card-price">
+            <span class="package-card-amount">${{ package.amount }}</span><br />{{ package.amountDescription }}
+          </div>
+        </div>
+        <div class="package-card-footer">
+          <span>{{ package.description }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="action-buttons flex justify-content-center">
+
+    <button class="btn-default-new btn-long-new" (click)="buttonClicked('cancel')">
+      Go Back
+    </button>
+    <button class="btn-save-new" [disabled]="!selectedPackageId" (click)="buttonClicked('next')">
+      Proceed
+    </button>
+  </div>
+</div>

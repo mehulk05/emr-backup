@@ -1,0 +1,418 @@
+<div class="blue-card questionarie-class">
+
+  <form [formGroup]="questionnaireForm">
+    <div class="add-edit-form tab-view">
+      <div class="form form-type2">
+        <div class="row mx-0">
+          <div class="col-lg-8 col-md-12 col-sm-12" style="padding-left: 15px;">
+            <div class="panel-blue">
+
+              <div class="panel-inner-wrapper">
+
+                <div class="flex-row-new flex-md-col-new">
+                  <!-- ----------------------------- Name Feild ----------------------------- -->
+                  <div class="input-wrapper">
+                    <div class="form-group"
+                      [ngClass]="f.name.invalid && (f.name.dirty || f.name.touched) ? 'has-error': '' ">
+                      <label>Questionnaire Name<span class="error-red">*</span></label>
+                      <input type="text" class="form-control input-type2" formControlName="name"
+                        appErrorStylingDirective />
+
+                      <div class="error error-msg">
+                        <div *ngIf="f.name.errors?.whitespace">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                          Name cannot be empty or whitespace only.
+                        </div>
+                        <div *ngIf="f.name.errors?.pattern">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                          Questionnaire Name is invalid
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <!-- -------------------------- Submit button text --------------------------- -->
+
+                  <div class="input-wrapper form-group">
+                    <label for="">Button text<span class="error-red">*</span></label>
+
+                    <input type="text" class="form-control input-type2" formControlName="submitButtonText"
+                      appErrorStylingDirective />
+
+                  </div>
+                </div>
+
+                <!-- -------------------------- Make form Public --------------------------- -->
+                <div class="checkbox-wrapper">
+                  <div class="input-wrapper">
+                    <input type="checkbox" formControlName="isPublic" id="isPublic" appErrorStylingDirective>&nbsp;
+                    <label for="isPublic">Accept Responses to the Form</label>
+
+                  </div>
+
+                  <div class="input-wrapper">
+                    <input type="checkbox" formControlName="enableModernUi" id="enableModernUi"
+                      appErrorStylingDirective>&nbsp;
+                    <label class="pb-0" for="enableModernUi">Enable Modern UI</label>
+                    <br />
+                  </div>
+                  <div class="muted-text modern-ui-info">
+                    <span class="f-14">(Modern UI gives your form a background image of your choice, new question types,
+                      and shows only one question per page for enhanced visibility.)</span>
+                  </div>
+
+                  <div *ngIf="f?.enableModernUi.value" class="input-wrapper">
+                    <input type="checkbox" formControlName="showLogo" id="showLogo" appErrorStylingDirective>&nbsp;
+                    <label for="showLogo">Show Business Logo on every page?</label>
+                  </div>
+
+                  <!-- -------------------------- Show the title of this Form --------------------------- -->
+                  <div class="input-wrapper">
+                    <input type="checkbox" formControlName="showTitle" id="showTitle" appErrorStylingDirective>&nbsp;
+                    <label for="showTitle">Show the title of this Form</label>
+                  </div>
+
+                  <!-- -------------------------- Show the title of the Fields --------------------------- -->
+                  <div class="input-wrapper">
+                    <input type="checkbox" formControlName="hideFieldTitle" id="hideFieldTitle"
+                      appErrorStylingDirective>&nbsp;
+                    <label for="hideFieldTitle">Show the title of the Fields</label>
+
+                  </div>
+
+                  <!-- --------------------------  Is Custom    --------------------------- -->
+                  <!-- <div class="input-wrapper">
+                    <input type="checkbox" formControlName="isCustom" id="isCustom" appErrorStylingDirective>&nbsp;
+                    <label for="isCustom"> Is Custom </label>
+
+                  </div> -->
+
+                  <!-- -------------------------- Make this lead generation form
+                    *ngIf="!disableLeadFormCheckBox && pageType !== reviewFormType" --------------------------- -->
+                  <!-- <div class="input-wrapper">
+                    <input type="checkbox" formControlName="isLeadForm" id="isLeadForm" appErrorStylingDirective (change)="onChangeLeadCaptureForn($event)">&nbsp;
+                    <label for="isLeadForm">Make this lead generation form </label>
+
+                  </div> -->
+
+                  <div *ngIf="!disableLeadFormCheckBox && pageType !== reviewFormType" class="input-wrapper">
+                    <input type="checkbox" formControlName="isLeadForm" id="isLeadForm" appErrorStylingDirective
+                      (change)="onChangeLeadCaptureForn($event)">&nbsp;
+                    <label for="isLeadForm">Make this lead generation form </label>
+                  </div>
+
+                  <!-- -------------------------- Show Custom Content on Composer Lead Form? --------------------------- -->
+                  <div class="input-wrapper" *ngIf="isLeadCaptureForm">
+                    <input type="checkbox" (change)="onChangeVirtualConsent($event)"
+                      formControlName="showTextForComposer" id="showTextForComposer" appErrorStylingDirective>&nbsp;
+                    <label for="showTextForComposer">Show Custom Content on Self Assessment Lead Form?</label>
+
+                  </div>
+                  <div *ngIf="isLeadCaptureForm && isVirualConsultLeadForm" class="input-wrapper form-group">
+                    <textarea id="swiper1" autofocus #inputBox1 formControlName="textForComposer"
+                      class="form-control text-edit-input"></textarea>
+
+                  </div>
+
+
+                  <div class="input-wrapper" *ngIf="configureConsentForm">
+                    <input type="checkbox" formControlName="consentCheckboxEnabled" id="consentCheckboxEnabled"
+                      appErrorStylingDirective>&nbsp;
+                    <label for="consentCheckboxEnabled">Enable to make the consent checked by default.</label>
+                  </div>
+
+                  <!-- -------------------------- Show Custom Content on Composer Lead Form? --------------------------- -->
+                  <div class="input-wrapper">
+                    <!-- <div class="input-wrapper ck-wrapper-new" *ngIf="pageType !== reviewFormType">
+                    <input type="checkbox" formControlName="showTextForComposer" id="showTextForComposer"
+                      appErrorStylingDirective>&nbsp;
+                    <label for="showTextForComposer">Show Custom Content on Virtual Consultation Lead Form?</label> -->
+                  </div>
+                  <!-- <div *ngIf="isLeadCaptureForm" class="input-wrapper form-group">
+                    <textarea id="swiper1" autofocus #inputBox1 formControlName="textForComposer"
+                      class="form-control text-edit-input"></textarea>
+
+                  </div> -->
+
+                </div>
+
+
+
+                <!-- -------------------------- Thank you page redirect URL --------------------------- -->
+                <div class="input-wrapper ck-wrapper-new">
+                  <input type="checkbox" (change)="onChangeshowThankYouPageUrlLinkInContactForm($event)"
+                    id="showThankYouPageUrlLinkInContactForm" formControlName="showThankYouPageUrlLinkInContactForm"
+                    appErrorStylingDirective>&nbsp;
+                  <label for="showThankYouPageUrlLinkInContactForm">Show Thank you page URL In contact Form?</label>
+
+                </div>
+
+                <div *ngIf="showThankYouPageUrlLinkInContactForm" class="input-wrapper form-group">
+                  <label for="">Thank you page redirect URL</label>
+
+                  <input type="text" class="form-control input-type2" formControlName="thankYouPageUrl"
+                    appErrorStylingDirective />
+
+                </div>
+
+                <!-- -------------------------- Thank you page redirect URL In VC --------------------------- -->
+                <div *ngIf="isLeadCaptureForm" class="input-wrapper ck-wrapper-new">
+                  <input type="checkbox" (change)="onChangeshowThankYouPageUrlLinkInVC($event)"
+                    id="showThankYouPageUrlLinkInVC" formControlName="showThankYouPageUrlLinkInVC"
+                    appErrorStylingDirective>&nbsp;
+                  <label for="showThankYouPageUrlLinkInVC">Show Thank you page URL In Self Assessment?</label>
+
+                </div>
+
+                <div *ngIf="isLeadCaptureForm && showThankYouPageUrlLinkInVC" class="input-wrapper form-group">
+                  <label for="">Thank you page redirect URL</label>
+
+                  <input type="text" class="form-control input-type2" formControlName="thankYouPageUrlVC"
+                    appErrorStylingDirective />
+
+                </div>
+
+                <!-- -------------------------- Thank you page redirect URL In Landing Page --------------------------- -->
+                <div *ngIf="isLeadCaptureForm" class="input-wrapper ck-wrapper-new">
+                  <input type="checkbox" (change)="onChangeshowThankYouPageUrlLinkInLandingPage($event)"
+                    id="showThankYouPageUrlLinkInLandingPage" formControlName="showThankYouPageUrlLinkInLandingPage"
+                    appErrorStylingDirective>&nbsp;
+                  <label for="showThankYouPageUrlLinkInLandingPage">Show Thank you page URL In Landing Page?</label>
+
+                </div>
+
+                <div *ngIf="isLeadCaptureForm && showThankYouPageUrlLinkInLandingPage" class="input-wrapper form-group">
+                  <label for="">Thank you page redirect URL</label>
+
+                  <input type="text" class="form-control input-type2" formControlName="thankYouPageUrlLandingPage"
+                    appErrorStylingDirective />
+
+                </div>
+
+                <!-- -------------------------- Thank you page Message  --------------------------- -->
+                <div class="input-wrapper ck-wrapper-new">
+                  <input type="checkbox" (change)="onChangeconfigureThankYouMessageInContactForm($event)"
+                    formControlName="configureThankYouMessageInContactForm" id="configureThankYouMessageInContactForm"
+                    appErrorStylingDirective>&nbsp;
+                  <label for="configureThankYouMessageInContactForm">Configure Thank you page message In contact
+                    Form?</label>
+
+                </div>
+
+                <div *ngIf="configureThankYouMessageInContactForm" class="input-wrapper form-group">
+                  <!-- <label for="">Thank you page redirect URL</label> -->
+
+                  <input type="text" class="form-control input-type2" formControlName="thankYouPageMessageContactForm"
+                    appErrorStylingDirective />
+
+                </div>
+
+                <div class="input-wrapper ck-wrapper-new" *ngIf="isLeadForm">
+                  <input type="checkbox" (change)="onChangeconfigureConsent($event)" formControlName="consentLeadForm"
+                    id="consentLeadForm" appErrorStylingDirective>&nbsp;
+                  <label for="consentLeadForm">Add consent to the form?</label>
+                </div>
+
+                <div *ngIf="isLeadForm && configureConsentForm" class="input-wrapper form-group">
+                  <input type="text" class="form-control input-type2" formControlName="consentLeadTextForm"
+                    appErrorStylingDirective />
+
+                </div>
+
+
+
+                <!-- -------------------------- Thank you page redirect URL In LandingPage --------------------------- -->
+                <div *ngIf="isLeadCaptureForm" class="input-wrapper ck-wrapper-new">
+                  <input type="checkbox" (change)="onChangeconfigureThankYouMessageInLandingPage($event)"
+                    formControlName="configureThankYouMessageInLandingPage" id="configureThankYouMessageInLandingPage"
+                    appErrorStylingDirective>&nbsp;
+                  <label for="configureThankYouMessageInLandingPage">Configure Thank you page message In Landing
+                    Page?</label>
+
+                </div>
+
+                <div *ngIf="isLeadCaptureForm && configureThankYouMessageInLandingPage"
+                  class="input-wrapper form-group">
+
+                  <input type="text" class="form-control input-type2" formControlName="thankYouPageMessageLandingPage"
+                    appErrorStylingDirective />
+
+                </div>
+
+                <!-- -------------------------- Thank you page redirect URL In VC --------------------------- -->
+                <div *ngIf="isLeadCaptureForm" class="input-wrapper ck-wrapper-new">
+                  <input type="checkbox" (change)="onChangeconfigureThankYouMessageInVC($event)"
+                    formControlName="configureThankYouMessageInVC" id="configureThankYouMessageInVC"
+                    appErrorStylingDirective>&nbsp;
+                  <label for="configureThankYouMessageInVC">Configure Thank you page message In Self Assessment?</label>
+
+                </div>
+
+                <div *ngIf="isLeadCaptureForm && configureThankYouMessageInVC" class="input-wrapper form-group">
+
+                  <input type="text" class="form-control input-type2" formControlName="thankYouPageMessageVC"
+                    appErrorStylingDirective />
+
+                </div>
+                <!-- </div> -->
+
+
+                <div class="panel-blue my-4" *ngIf="f?.enableModernUi.value">
+                  <div class="panel-header">
+                    <h3>Title</h3>
+                  </div>
+
+                  <div class="panel-body">
+                    <div class="img-box-wrapper">
+                      <div class="row">
+                        <label>Background Image</label>
+                      </div>
+                      <div class="row">
+                        <div class="img-wrapper row">
+                          <ng-container *ngFor="let image of backgroundImages; let i = index">
+                            <div *ngIf="image && getImageUrl(image);else filePicker"
+                              class="col-lg-4 col-md-6 col-sm-12">
+                              <div class="image-container shadow"
+                                [ngClass]="f?.backgroundImage.value?.index===image.index ? 'selected' : ''">
+                                <div class="img">
+                                  <img [src]="getImageUrl(image)" #logoImg (load)="loadImg($event)">
+                                  <input type="file" #myFileInput class="form-control d-none" id="file-input-{{i}}"
+                                    (change)="fileChangeEvent($event, image.index)" accept="image/*" />
+                                  <div class="img-btns p-2">
+                                    <div>
+                                      <input type="radio" name="backgroundImage" formControlName="backgroundImage"
+                                        [value]="image" [checked]="f?.backgroundImage.value?.index===image.index">
+                                    </div>
+                                    <div>
+                                      <label for="file-input-{{i}}">
+                                        <div class="edit-icon">
+                                          <span>
+                                            <i class="fa fa-pencil"></i>
+                                          </span>
+                                        </div>
+                                      </label>
+                                      <label class="ml-1" for="" (click)="deleteBackgroundImage(i)">
+                                        <div class="delete-icon">
+                                          <span>
+                                            <i class="fa fa-trash"></i>
+                                          </span>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                            <ng-template #filePicker>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="image-container shadow file-picker">
+                                  <input type="file" #myFileInput class="form-control d-none" id="file-input-{{i}}"
+                                    (change)="fileChangeEvent($event, i)" accept="image/*" />
+
+                                  <label class="add-image" for="file-input-{{i}}">
+                                    <span>
+                                      <i class="fa fa-plus"></i>
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+
+                            </ng-template>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="row img-warning" *ngIf="showImgWarning">
+                        <span class="warning">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                          Please upload the image with the width and height at least 1200px *
+                          675px.<br> If dimensions will be less than specified
+                          pixels it will result in distortion of background image on form page.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- --------------------------- buttons section --------------------------- -->
+                <div class="input-wrapper mt-2">
+                  <div class="form-group">
+                    <div class="button-flex">
+                      <button [disabled]="!questionnaireForm.valid" (click)="submitForm()"
+                        class="btn-save-new btn-small-new">
+                        Save
+                      </button>
+
+                      <button type="button" (click)="back()" class="btn-small-new btn-default-new">
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="panel-blue" *ngIf="questionnaireId">
+              <div class="panel-inner-wrapper">
+                <div *ngIf="questionnaireId">
+                  <app-questionarie-builder [questionnaireId]="questionnaireId" [buisnessId]="businessId"
+                    [enabledModernUi]="enabledModernUi" [isLeadCaptureForm]="isLeadCaptureForm"
+                    [isLeadForm]="isLeadForm"></app-questionarie-builder>
+                </div>
+              </div>
+            </div> -->
+
+          </div>
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="righ-card">
+              <app-contact-form-right-card [questionnaireId]="questionnaireId" [questionnaire]="questionnaire"
+                [cssFormResponse]="cssFormResponse" [publicQuestionnaireUrl]="publicQuestionnaireUrl"
+                [modernUiIframeUrl]="modernUiIframeUrl" [modernUiUrl]="modernUiUrl"
+                [iframeUrl]="iframeUrl"></app-contact-form-right-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Image upload modal                            -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    [header]="backgroundImages[currentImageChangeIndex] ? 'Edit Background Image' : 'Add Background Image'"
+    [(visible)]="showModalForImage" (onHide)="cancelImageUpload()">
+
+    <!-- ---------------------------- image cropper ---------------------------- -->
+    <div class="modal-body">
+      <div class="image-cropper-wrapper row mx-0">
+        <div class="col-lg-6 col-md-6">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [containWithinAspectRatio]="false"
+            [cropperMinWidth]="1200" [aspectRatio]="16 / 9" [maintainAspectRatio]="true" [onlyScaleDown]="true"
+            [roundCropper]="false" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+          </image-cropper>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <img [src]="croppedImage" class="img-responsive" />
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ------------------------- Image cropper ends -------------------------- -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveImage()">
+          <i [ngClass]="isImageUploading? 'pi-spin pi-spinner' : 'pi-check'" class="pi"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancelImageUpload()">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

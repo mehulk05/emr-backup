@@ -1,0 +1,143 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-text h4 {
+  color: #333;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  margin-top: 3.5rem;
+  padding: 0 30px;
+}
+
+.steps-container .steps {
+  display: flex;
+  width: 75%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.steps .circle {
+  position: relative;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background-color: #d3ddf4;
+  transition: all 200ms ease;
+  transition-delay: 0s;
+}
+
+.steps .circle .step-heading {
+  position: absolute;
+  top: calc(-100% - 14px);
+  left: -50%;
+  color: #333;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+
+.step-heading2 {
+  left: -25px;
+  position: absolute;
+  color: gray;
+  font-size: 15px;
+  top: 20px;
+  width: 200px;
+}
+
+.steps .circle.active {
+  transition-delay: 100ms;
+  background-color: #2656c9;
+}
+
+.steps .progress-bar {
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #d3ddf4;
+  z-index: -1;
+}
+
+.progress-bar .indicator {
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background: #4070f4;
+  transition: all 300ms ease;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.subscription-form {
+  max-width: 75%;
+  padding: 0 18px;
+  margin: 0 auto;
+}
+
+td button {
+  background-color: whitesmoke;
+  color: gray;
+}
+
+td button:hover {
+  background-color: #2656c9;
+  color: white
+}
+
+.tableFixHead {
+  overflow: auto;
+  height: 300px;
+}
+
+.p-dialog-header {
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+}
+
+.p-dialog-footer {
+  border-bottom-left-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+}
+
+.tableFixHead thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px 16px;
+}
+
+th {
+  background: #eee;
+}

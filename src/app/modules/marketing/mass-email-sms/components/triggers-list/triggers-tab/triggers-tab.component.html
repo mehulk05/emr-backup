@@ -1,0 +1,37 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <ng-container>
+      <p-tabPanel header="Lead Triggers">
+        <app-leads-triggers-list *ngIf="isDataLoaded" (emitTriggerEvent)="OnTriggerEvent($event)"
+          [triggers]="leadTriggers"></app-leads-triggers-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Patient Trigger">
+        <app-appointment-triggers-list (emitTriggerEvent)="OnTriggerEvent($event)" *ngIf="isDataLoaded"
+          [triggerName]="'Patient'" [triggers]="patientTriggers"></app-appointment-triggers-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Appointment Triggers">
+        <app-appointment-triggers-list (emitTriggerEvent)="OnTriggerEvent($event)" *ngIf="isDataLoaded"
+          [triggerName]="'Appointment'" [triggers]="appointmentTriggers"></app-appointment-triggers-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Review Forms Triggers">
+        <app-appointment-triggers-list (emitTriggerEvent)="OnTriggerEvent($event)" *ngIf="isDataLoaded"
+          [triggerName]="'Forms'" [triggers]="reviewFormsTriggers"></app-appointment-triggers-list>
+      </p-tabPanel>
+    </ng-container>
+  </p-tabView>
+</div>
+
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [modalMessage]="modalMessage" [showModal]="showModal"
+    (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>
+
+<ng-container *ngIf="showSideBar">
+  <p-sidebar [(visible)]="showSideBar" position="right" styleClass="p-sidebar-sm">
+    <app-trigger-audit [source]="source" [auditTriggerId]="auditTriggerId"></app-trigger-audit>
+  </p-sidebar>
+</ng-container>

@@ -1,0 +1,181 @@
+<div class="section-detail">
+  <div class="bookapt-title">
+    <div class="title">
+      <h1 [ngStyle]="titleStyle">ENTER YOUR INFORMATION</h1>
+    </div>
+  </div>
+
+  <form class="form" [formGroup]="patientForm" class="login-box">
+    <div class="row" style="padding: 5px;">
+      <div class="col-md-12 col-12 mt-1">
+        <div class="form-group">
+          <input (focus)="focusFunction(2)" (blur)="focus=false;updateUserDetailsByEmail()" type="text"
+            formControlName="email" class="form-control" placeholder="Email Address">
+          <div class="error" *ngIf="f.email.invalid && (submitted || (f.email.dirty || f.email.touched))">
+            <div *ngIf="f.email.errors.required">
+              Email address is required.
+            </div>
+            <div *ngIf="f.email.errors.pattern">
+              Please Input a valid email address!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-12 mt-1" *ngIf="isNewUser">
+        <div class="form-group">
+          <input (focus)="focusFunction(0)" (blur)="focus=false" type="text" formControlName="firstName"
+            class="form-control" placeholder="First Name">
+          <div class="error" *ngIf="f.firstName.invalid && (submitted || (f.firstName.dirty || f.firstName.touched))">
+            <div *ngIf="f.firstName.errors.required">
+              First name is required.
+            </div>
+            <div *ngIf="f.firstName.errors.pattern">
+              Please check your First Name
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-12 mt-1" *ngIf="isNewUser">
+        <div class="form-group">
+          <input (focus)="focusFunction(1)" (blur)="focus=false" type="text" formControlName="lastName"
+            class="form-control" placeholder="Last Name">
+          <div class="error" *ngIf="f.lastName.invalid && (submitted || (f.lastName.dirty || f.lastName.touched))">
+            <div *ngIf="f.lastName.errors.required">
+              Last name is required.
+            </div>
+            <div *ngIf="f.lastName.errors.pattern">
+              Please check your Last Name
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding: 5px;" *ngIf="isNewUser">
+      <div class="col-md-12 col-12 mt-1">
+        <div class="form-group">
+          <input (focus)="focusFunction(3)" (blur)="focus=false" type="text" formControlName="phone"
+            class="form-control" placeholder="Phone Number">
+          <div class="error" *ngIf="f.phone.invalid && (submitted || (f.phone.dirty || f.phone.touched))">
+            <div *ngIf="f.phone.errors.required">
+              Phone is required.
+            </div>
+            <div *ngIf="f.phone.errors.pattern">
+              Please enter a valid 10 digit number without any spacing or special characters
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row" style="padding: 5px;">
+      <div class="col-md-12 mt-1">
+        <div class="form-group">
+          <textarea (focus)="focusFunction(4)" (blur)="focus=false" rows="3" cols="80" formControlName="notes"
+            class="form-control" placeholder="{{notesLabel}}"></textarea>
+
+             <div class="error" *ngIf="f.notes.invalid && (submitted || (f.notes.dirty || f.notes.touched))">
+            <div *ngIf="f.notes.errors.required">
+             This field is required.
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-12 mt-1">
+        <div class="form-group">
+          <label for="" style="margin-left: 15px;">Appointment Type</label>
+          <div class="row" style="margin-left: 10px;">
+            <!--<div class="col-sm" *ngIf="isEnabledInPersonConsulatation()">-->
+              <!--<input style="width:15px" type="radio" value="InPerson"-->
+                     <!--formControlName="appointmentType"><span>In person</span>-->
+            <!--</div>-->
+            <!--<div class="col-sm" *ngIf="isEnabledVirtualConsulatation()">-->
+              <!--<input style="width:15px" type="radio" value="Virtual"-->
+                <!--formControlName="appointmentType"><span>Virtual</span>-->
+            <!--</div>-->
+
+            <div class="col-sm" *ngIf="isEnabledInPersonConsulatation()">
+              <input style="width:15px" type="radio" value="InPerson" formControlName="appointmentType"><span>In person</span>
+            </div>
+            <div class="col-sm" *ngIf="isEnabledVirtualConsulatation()">
+              <input style="width:15px" type="radio" value="Virtual" formControlName="appointmentType"><span>Virtual</span>
+            </div>
+
+            <div class="col-sm">
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="isShowPayButton || preBookingOnly" class="bookapt-title">
+      <div class="title">
+        <h1 [ngStyle]="titleStyle">SELECT PAYMENT METHOD</h1>
+      </div>
+    </div>
+
+    <div *ngIf="(preBookingOnly) && !isAppointmentSuccess" class="desc payment-title">
+      <p [ngStyle]="titleStyle">
+        Choose to pay online now. ( This is deposit amount only )
+      </p>
+    </div>
+
+    <div *ngIf="hidePayLaterOnly() &&(!preBookingOnly && isShowPayButton && !isAppointmentSuccess)" class="desc payment-title">
+      <p [ngStyle]="titleStyle">
+        Choose to pay online now or at the desk later.
+      </p>
+    </div>
+    <div *ngIf="!hidePayLaterOnly() && (!preBookingOnly && isShowPayButton && !isAppointmentSuccess)" class="desc payment-title">
+      <p [ngStyle]="titleStyle">
+        Choose to pay online now.
+      </p>
+    </div>
+
+    <div class="book-btn-right" *ngIf="!isAppointmentSuccess" [ngClass]="patientForm.valid ? 'enable' : 'disable'">
+      <div [ngClass]="(isShowPayButton && !isAppointmentSuccess) ? '' : 'singleButton'">
+
+        <div class="pay-btn">
+        <button  [ngStyle]="btnStyle" type="button" *ngIf="!userId"
+            class="btn btn-dark pay enable" (click)="goBack()">Back
+            </button>&nbsp;
+            </div>
+
+        <div class="pay-btn">
+          <button *ngIf="(preBookingOnly) && !isAppointmentSuccess" [ngStyle]="btnStyle" type="button"
+            class="btn btn-dark pay" (click)="submitForm(true)">Pay
+            Deposit</button>&nbsp;
+            <button *ngIf="(!preBookingOnly && isShowPayButton) && !isAppointmentSuccess" [ngStyle]="btnStyle" type="button"
+            class="btn btn-dark pay" (click)="submitForm(true)">Pay
+            Now</button>&nbsp;
+        </div>
+        <div class="pay-btn">
+          <button *ngIf="hidePayLaterOnly() && (!preBookingOnly && isShowPayButton && !isAppointmentSuccess)" [ngStyle]="btnStyle" type="button"
+            class="btn btn-dark pay" (click)="submitForm(false)">Pay
+            Later</button>
+          <button *ngIf="(!isShowPayButton && !preBookingOnly ) && !isAppointmentSuccess" [ngStyle]="btnStyle" type="button"
+            class="btn btn-dark pay" (click)="submitForm(false)">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!preBookingOnly && completed && isAppointmentSuccess" class="desc">
+      <p [ngStyle]="titleStyle">
+        Your appointment is completed you can pay later at desk.
+      </p>
+    </div>
+
+    <div class="payment-method" [ngClass]="patientForm.valid ? 'enable' : 'disable'">
+      <app-payment-information *ngIf="isAppointmentSuccess && isPayNow" [booking]="booking"
+        (onPaymentSuccess)="onHandleRedirect()" (onPaymentCancel)="onPaymentCancel()">
+      </app-payment-information>
+    </div>
+  </form>
+</div>

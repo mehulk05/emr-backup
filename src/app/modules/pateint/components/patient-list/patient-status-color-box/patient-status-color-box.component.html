@@ -1,0 +1,26 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                      BELOW DIV IF FOR LEAD STATUS                       -->
+<!-- ----------------------------------------------------------------------- -->
+<ng-container *ngIf="field === 'status'">
+  <span class="leadStatus">
+    <button class="btn lead-color-btn" [ngClass]="leadStatusClass[leadStatus]"></button>
+    <span class="click-edit allow-inline-edit lead-status-text">
+      {{leadStatus}}
+    </span>
+  </span>
+</ng-container>
+
+
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      BELOW DIV IS FOR LEAD Source                       -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- <ng-container *ngIf="field === 'source'">
+  <span class="leadStatus leadSource">
+    <button class="btn lead-color-btn" [ngClass]="leadSourceClass[leadStatus]"></button>
+    <span class="lead-status-text">
+      {{leadStatus}}
+    </span>
+  </span>
+</ng-container> -->

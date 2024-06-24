@@ -1,0 +1,22 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <ng-container >
+      <p-tabPanel header="Lead Templates">
+        <app-sms-template-list *ngIf="isDataLoaded" (emitTableEvent)="onEventFromTable($event)" [rowData]="leadTemplates"></app-sms-template-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Patient Templates">
+        <app-sms-template-list (emitTableEvent)="onEventFromTable($event)" *ngIf="isDataLoaded" [rowData]="patientSMSTemplates"></app-sms-template-list>
+      </p-tabPanel>
+      
+      <p-tabPanel header="Appointment Templates">
+        <app-sms-template-list (emitTableEvent)="onEventFromTable($event)" *ngIf="isDataLoaded" [rowData]="appontmentTemplates"></app-sms-template-list>
+      </p-tabPanel>
+
+       
+      <p-tabPanel header="Mass SMS Templates">
+        <app-sms-template-list (emitTableEvent)="onEventFromTable($event)" *ngIf="isDataLoaded" [rowData]="massSMSTemplates"></app-sms-template-list>
+      </p-tabPanel>
+    </ng-container>
+  </p-tabView>
+</div>

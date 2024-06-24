@@ -1,1 +1,556 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';
+@import './assets/static/css/date-picker.css';
+
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(./assets/fonts/material_icon/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.cdk-overlay-container {
+  z-index: 1107;
+}
+
+@import '~ngx-toastr/toastr';
+
+* {
+  box-sizing: border-box;
+}
+
+table,
+tr,
+td,
+th,
+div,
+input,
+textarea,
+button,
+label,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Ubuntu"; */
+  font-family: 'Work Sans', sans-serif;
+}
+
+p {
+  font-weight: 500;
+}
+
+body,
+button,
+html,
+input {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.bg-gray .right-sidebar {
+  margin-left: 1em;
+  height: 100%;
+
+}
+
+.box-shadow-light {
+  box-shadow: 0px 4px 90px rgba(163, 171, 185, 0.24);
+  border-radius: 8px;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.graymedium {
+  color: #3C4257;
+}
+
+.input-color input,
+.input-color {
+  color: #3C4257;
+}
+
+.bg-gray {
+  background-color: #F5F7FB;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.header-section {
+  position: sticky;
+  top: 0px;
+  z-index: 55;
+}
+
+/* --------------------------used in Change password ------------------------- */
+
+.input-type2 {
+  background: #F5F7FB;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  border-radius: 8px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-type2 label {
+  font-size: 14px;
+  line-height: 15px;
+  letter-spacing: 0.008em;
+  color: #333;
+  padding-bottom: 10px;
+}
+
+.form-type2 .form-group.has-error textarea,
+.form-type2 .form-group.has-error input {
+  background: rgba(255, 64, 64, 0.2);
+  border: 1px solid #FF4040;
+}
+
+.form-type2 .form-group .has-success {
+  background: rgba(199, 239, 255, 0.2);
+  border: 1px solid #009EDE;
+}
+
+.form-type2 .form-group .error {
+  display: none;
+}
+
+.form-type2 .form-group.has-error .error {
+  display: block;
+}
+
+.btn-regular {
+  min-height: 31px;
+  border-radius: 6px;
+  padding: 0px 20px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+
+}
+
+.btn-regular span {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+
+.btn-regular:active .btn-text {
+  transform: translateY(-2px);
+}
+
+.btn-regular:focus,
+.btn-regular:hover {
+  color: #fff;
+  box-shadow: none;
+}
+
+.btn-regular:disabled {
+  cursor: not-allowed;
+}
+
+.btn-save {
+  background: #009EDE;
+  box-shadow: 0 0 0 0 #0000, 0 0 0 0 #0000, 0 1px 1px 0 #0000001f, 0 0 0 1px #009EDE, 0 0 0 0 #0000, 0 0 0 0 #0000, 0 2px 5px 0 #40445214;
+}
+
+.btn-save:disabled,
+.btn-save:active,
+.btn-save:focus,
+.btn-save:hover {
+  background: #009EDE !important;
+  border: none !important;
+}
+
+.btn-cancel:active,
+.btn-cancel:focus,
+.btn-cancel:hover,
+.btn-cancel {
+  background: #bdc0c4 !important;
+  border: none !important;
+}
+
+
+
+.btn-delete {
+  background: red;
+}
+
+.btn-delete:hover,
+.btn-delete:active,
+.btn-delete:focus,
+.btn-delete:disabled {
+  background: red !important;
+}
+
+.button-flex .btn-regular:nth-child(1) {
+  margin-right: 1em;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                              login signup css                              */
+
+
+/* -------------------------------------------------------------------------- */
+
+.login-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background-image: url('https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/Grey%20background%20shape.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.login-geometric-bg {
+  width: 100%;
+  position: absolute;
+  top: 33vh;
+  z-index: 1;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+p.normal {
+  font-size: 14px;
+  line-height: 16px;
+  color: #3c4257;
+  font-weight: 500;
+}
+
+p.small-size {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+p.blue-text {
+  color: #009EDE;
+}
+
+.blue-box {
+  padding: 30px 20px;
+  background-color: #c7efff33;
+  border: 1px solid #009EDE;
+  border-radius: 4px;
+}
+
+.blue-btn {
+  background-color: #009EDE;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.link {
+  font-size: 14px;
+  line-height: 16px;
+  color: #009EDE;
+  text-decoration: none;
+}
+
+.error,
+.error div {
+  color: red;
+  font-size: 13px;
+  padding-top: 5px;
+  font-weight: 500;
+}
+
+.input-color .form-control {
+  font-size: 16px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Modal Css                                 */
+/* -------------------------------------------------------------------------- */
+.p-dialog .p-dialog-header {
+  background-color: #009EDE !important;
+}
+
+.p-dialog .p-dialog-header span,
+.p-dialog .p-dialog-header p,
+.p-dialog .p-dialog-header h3,
+.p-dialog .p-dialog-header h4,
+.p-dialog .p-dialog-header h5,
+.p-dialog .p-dialog-header h2 {
+  color: #fff !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  border-radius: 50% !important;
+  border: 2px solid #ffff !important;
+  color: #fff !important;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                             grape js custom css                            */
+/* -------------------------------------------------------------------------- */
+
+.gjs-four-color-h:hover {
+  color: #2656c9 !important;
+}
+
+.gjs-two-color {
+  color: dimgray !important;
+}
+
+.gjs-one-bg {
+  background-color: #e9f0fa !important;
+}
+
+.gjs-pn-btn,
+#gjs-sm-add {
+  color: #150202 !important;
+}
+
+/* Please add this code to corresponsding css file where its required */
+/* .gjs-block-category .gjs-title,
+.gjs-layer-title {
+  background-color: #2656c9 !important;
+  color: white !important;
+} */
+
+.error-red {
+  color: red;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                            filter button colors                            */
+/* -------------------------------------------------------------------------- */
+.btn-blue:hover,
+.btn-blue {
+  color: #109bc7 !important;
+  border-color: #109bc7 !important;
+}
+
+.btn-yellow:hover,
+.btn-yellow {
+  color: #FFD600 !important;
+  border-color: #FFD600 !important;
+}
+
+.btn-gray:hover,
+.btn-gray {
+  color: gray !important;
+  border-color: gray !important;
+}
+
+.btn-green:hover,
+.btn-green {
+  color: #01b700 !important;
+  border-color: #01b700 !important;
+}
+
+.btn-check:focus+.btn,
+.btn:focus {
+  box-shadow: none;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.p-dialog-content p img {
+  max-width: 75% !important;
+  height: auto !important;
+  margin: 0 auto;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.e-schedule .e-vertical-view .e-work-cells.e-disable-dates {
+  background-color: rgba(0, 0, 0, .08);
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                 button css                                 */
+/* -------------------------------------------------------------------------- */
+button.btn-custom-button.btn:focus,
+button.btn-custom-button.btn:hover,
+button.btn-custom-button,
+.btn-reset:focus,
+.btn-reset:hover,
+.dropdown-color-btn:focus,
+.dropdown-color-btn:hover,
+.btn1:focus,
+.btn1:hover,
+button.btn.btn-common.btn-common,
+button.btn.btn-common.btn-common:hover,
+button.btn.btn-common.btn-common:focus,
+button.btn.profile-button.btn-common:hover,
+button.btn.profile-button.btn-common:focus {
+  color: #fff !important;
+  border: #009ede !important;
+  background-color: #009ede !important;
+}
+
+
+button.btn.btn-info.btn-overview:hover,
+button.btn.btn-info.btn-overview:focus {
+  background-color: #fff !important;
+  color: #009ede !important;
+}
+
+
+button.btn.btn-primary.btn-primary-border,
+button.btn.btn-primary.btn-primary-border:hover,
+button.btn.btn-primary.btn-primary-border:focus {
+  background-color: #fff;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                calendar  css                               */
+/* -------------------------------------------------------------------------- */
+
+.cal-disabled {
+  background-color: #eee;
+  pointer-events: none;
+}
+
+.cal-disabled .cal-day-number {
+  opacity: 0.1;
+}
+
+.cal-selected {
+  background-color: #07be6e;
+  border-color: #07be6e;
+}
+
+.cal-selected .cal-day-number {
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+.cal-month-view .cal-cell-row .cal-cell.cal-selected:hover {
+  background-color: #07be6e;
+}
+
+.cke_panel,
+.cke_dialog_container {
+  z-index: 999999 !important;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                              Email Editor css                              */
+/* -------------------------------------------------------------------------- */
+.note-modal-content {
+  padding-bottom: 2em;
+}
+
+.owl-item.center {
+  z-index: 5;
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.owl-item {
+  opacity: 0.5;
+}
+
+.file-upload-button {
+  cursor: pointer !important;
+}
+
+
+.menu-selection {
+  list-style: none;
+  list-style-type: none;
+}
+
+.menu-selection .drag-preview {
+  display: flex;
+  align-items: center;
+  padding-top: 25px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+
+.menu-selection .drag-preview .menu-text {
+  flex: 1;
+}
+
+.menu-selection .drag-preview button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #888888;
+  transition: color 0.3s ease;
+}

@@ -1,0 +1,58 @@
+<div class="new-ui">
+<div class="task-header">
+  <div class="search-box">
+
+    <div class="search">
+      <i class="fa fa-search"></i>
+
+      <input type="text" class="form-control" [(ngModel)]="landingPageFilter" (keyup.enter)="searchPage()"  placeholder="Search here">
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button type="submit" (click)="addLandingPage()" class="save-color-btn"><i class="fa fa-plus"></i><span
+        class="desktop-only"> Landing Page</span></button>
+  </div>
+</div>
+
+<!------------------------------->
+<div class="website-list">
+  <div class="instructions">
+    <div class="panel-blue blue-box">
+      <div class="website-config">
+        <p class="title1">
+          Your website URL is <a class="link" href="{{websiteLink}}" target="_blank">{{websiteLink}}</a>
+        </p>
+
+        <p class="title1">
+          Your Landing page public library URL is  <a class="link" href="{{landingPageLibraryLink}}" target="_blank">{{landingPageLibraryLink}}</a>
+        </p>
+        <!-- <p class="title1">
+          To configure your website please follow below steps.
+        </p>
+
+        <p class="desc">
+          Step 1. Add cname entry in to your DNS. <br>
+          Step 2.Add target and value as below.
+        </p> -->
+
+        <p class="preview">
+          <a class="link" href="{{websiteLink}}" target="_blank">
+            Preview my default website</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-component">
+    <app-landing-page-grid (emitPageEvent)="onEventFromTable($event)" [bid]="bid" [defaultTemplates]="defaultTemplates" [link]="link"
+    [previwThumbnailLink]="previwThumbnailLink" [websiteLink]="websiteLink" [landingPageLibraryLink]="landingPageLibraryLink"
+    [isEditDisabled]="isEditDisabled" [isDeleteDisabled]="isDeleteDisabled"></app-landing-page-grid>
+  </div>
+</div>
+</div>
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]=null
+      (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>

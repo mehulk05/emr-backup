@@ -1,0 +1,106 @@
+
+<div class="bg-white datatable-table new-ui">
+  <!-- <div class="title page-title-new">
+      <h3>SMS Templates
+      </h3>
+  </div> -->
+  <div class="table-list">
+      <p-table #dt1 responsiveLayout="stack" [value]="rowData" [reorderableColumns]=true [columns]="selectedColumns" [paginator]="true"
+          [rows]="10" [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="globalFilterColumn">
+          <ng-template pTemplate="caption">
+              <div class="flex">
+                  <p-multiSelect [resetFilterOnHide]="true"  [options]="columns" [(ngModel)]="selectedColumns" optionLabel="header"
+                      selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}" placeholder="Choose Columns">
+                  </p-multiSelect>
+                  <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i>
+                      <div class="table-button">
+                          <input pInputText class="search-table" type="text"
+                              (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                              placeholder="Search keyword" />
+                          <div class="table-btn-wrapper" (click)="createeSmsTemplate()">
+                            <button class="btn-save-new btn-small-new">
+                              <i class="fa fa-plus"></i>
+                              Create Template
+                            </button>
+
+                          </div>
+                      </div>
+
+                  </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+              <tr>
+                  <ng-container *ngFor="let col of columns">
+                      <th [pSortableColumn]="col.field">
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field"></p-sortIcon>
+                      </th>
+                  </ng-container>
+              </tr>
+          </ng-template>
+          <!-- <ng-template pTemplate="body" let-data> -->
+          <ng-template pTemplate="body" let-data let-columns="columns">
+              <tr class="mobile-special" [ngClass]="disabled(data)">
+                  <ng-container *ngFor="let col of columns">
+                      <td>
+                          <ng-container [ngSwitch]="col.field">
+                              <ng-container *ngSwitchCase="'actions'">
+                                <span  *ngIf="!data?.disabled">
+                                  <span class="p-column-title">{{col.header}}</span>
+                                  <a href="javascript:void(0)" (click)="editTemplate(data.id)"><i
+                                          class="fas fa-edit ms-text-primary"></i></a>
+                                  <!-- <a href="javascript:void(0)" (click)="deletePatient(data)"><i
+                                          class="far fa-trash-alt ms-text-danger"></i></a> -->
+                                </span>          
+                              </ng-container>
+                              <ng-container *ngSwitchCase="'createdAt'">
+                                <span class="click-edit" (click)="editTemplate(data.id)">
+                                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatTime( data[col.field])}}
+                                </span>
+                              </ng-container>
+
+                              <ng-container *ngSwitchCase="'Clone'">
+                                &nbsp;
+                                <button class="btn-save-new btn-long-new" (click)="cloneSMS(data.id)"  *ngIf="!data?.disabled">
+                                  Clone
+                                </button>
+                              </ng-container>
+
+                              <ng-container [ngSwitch]="col.field">
+                                <ng-container *ngSwitchCase="'disabled'">
+                                  <div class="show-as-radio">
+                                    <p-inputSwitch [trueValue]="data[col.field] === true"
+                                    (onChange)="deactiveSms(data)"></p-inputSwitch>
+                                  </div>
+              
+                                </ng-container>
+                              </ng-container>
+
+                              <ng-container *ngSwitchCase="'updatedAt'">
+                                <span class="click-edit" (click)="editTemplate(data.id)">
+                                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatTime( data[col.field])}}
+                                </span>
+                              </ng-container>
+
+                              <ng-container *ngSwitchCase="'templateFor'">
+                                <span class="click-edit" (click)="editTemplate(data.id)">
+                                    <span class="p-column-title">{{col.header}}</span> {{ getTemplateValue( data[col.field])}}
+                                </span>
+                              </ng-container>
+
+                              <ng-container *ngSwitchDefault>
+                                <span class="click-edit" (click)="editTemplate(data.id)" *ngIf="col.field !== 'disabled'">
+                                    <span class="p-column-title">{{col.header}}</span> {{data[col.field] ? data[col.field] : '-'}}
+                                </span>
+                              </ng-container>
+                          </ng-container>
+                      </td>
+                  </ng-container>
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>
+</div>

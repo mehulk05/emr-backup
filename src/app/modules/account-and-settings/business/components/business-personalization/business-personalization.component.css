@@ -1,0 +1,90 @@
+.theme-preview {
+  margin-top: 5em !important;
+}
+
+.ms-panel-body li {
+  list-style-type: none;
+}
+
+.avtar-img.text-center {
+  margin-top: -50px;
+}
+
+button.button-theme {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 18px;
+  border: unset !important;
+  height: 40px;
+  width: 32px;
+}
+
+.color-label {
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+}
+
+.panel-body {
+  padding: 1em 2em;
+}
+
+
+
+.color-buttons.title-personalization {
+  margin-bottom: 2em;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 0;
+}
+
+.sketcher-card label {
+  padding-left: 10px;
+}
+
+.color-sketcher {
+  display: flex;
+  column-gap: 1em;
+}
+
+.sketcher-card {
+  padding: 1em;
+  margin: 0 auto;
+  box-shadow: 0 0 2rem 0 rgb(41 48 66 / 20%);
+  border-radius: 5px;
+}
+
+::ng-deep .sketch-picker {
+  box-shadow: none !important;
+}
+
+.right-card .panel-body {
+  padding: 1em 1em;
+}
+
+@media screen and (max-width:991px) {
+
+  .left-card,
+  .right-card {
+    padding: 0 !important;
+  }
+
+  .panel-body {
+    padding: 1em 1em;
+  }
+}
+
+
+
+@media screen and (max-width:550px) {
+  .color-sketcher {
+    flex-direction: column;
+  }
+
+  .sketcher-card {
+    margin-bottom: 2em;
+  }
+}

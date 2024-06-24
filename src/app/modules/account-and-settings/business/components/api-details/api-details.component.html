@@ -1,0 +1,507 @@
+<div class="bg-white">
+  <div class="title">
+    <h3>
+      <label for="link" class="f-16 fw-500">API Details
+        <a data-bs-toggle="tooltip" data-bs-placement="top"
+        href="https://support.growth99.com/portal/en/kb/articles/how-to-get-g99-api-details-and-how-to-use-it" target="_blank"
+        > <i class="fa fa-info-circle"></i></a>
+      </label>
+    </h3>
+  </div>
+  <div class="row mx-0">
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <div class="content">
+        <!-- <div>In this article, we will discuss how to get G99+ API details and how to use it in order to get your&nbsp;data being funneled into Growth99+.&nbsp;</div> -->
+        <div>Here all the Api endpoints are secured. So, in order to access the API details, you need API token, and to get the token, it should to go through the below process.</div>
+        <div>You can directly copy our <b>API Token</b> and use it in any API and you will get the results.</div>
+      </div>
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>
+            Authentication
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-card-content">
+
+            <!-- --------------------------------- one --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Endpoint:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  {{baseUlr}}/api/refreshToken
+
+                </p>
+              </div>
+            </div>
+
+            <!-- --------------------------------- two --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Method:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  POST
+
+                </p>
+              </div>
+            </div>
+
+            <!-- ------------------------------ Paramtetr ------------------------------ -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Parameters:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  refreshToken (get from the right side of the screen)
+                </p>
+              </div>
+            </div>
+
+
+            <!-- ------------------------------ curl req ------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Curl Request:
+                </p>
+              </div>
+
+              <div class="right">
+                <pre>
+                 {{curlAuth}}
+                </pre>
+
+              </div>
+            </div>
+            <div style="margin-top: 10px; margin-bottom: 10px;">
+              You can use above "Curl Request:". You need to replace refreshToken and the content type should be "application/json". Once you do that you will receive a response like below; you will get all the access, token, expiry and all.
+            </div>
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Response:
+                </p>
+              </div>
+
+              <div class="right">
+                <pre>
+                 {{loginResponse}}
+                </pre>
+
+              </div>
+            </div>
+            <ul>
+              <li>In the authorization header, provide the "idToken" received from Authentication api call</li>
+              <li>In most cases, the 'idToken' tokens expire in 12 hour. Until then, the 'idToken' has unlimited usage. Once the 'idToken' expires then need to call auth api (/api/refreshToken) process again to get a new token . </li>
+              <li>Use this 'idToken' for your subsequent API calls.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="title">
+        <h3 class="f-16 fw-500">
+          API Integration
+        </h3>
+      </div>
+
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>
+            Post a lead submission data
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-card-content">
+
+            <!-- --------------------------------- one --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Endpoint:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  {{baseUlr}}/api/manual/leadsubmission
+
+                </p>
+              </div>
+            </div>
+
+            <!-- --------------------------------- two --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Method:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  POST
+
+                </p>
+              </div>
+            </div>
+
+            <!-- ------------------------------ Paramtetr ------------------------------ -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Parameters:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  firstName <br>
+                  lastName <br>
+                  email <br>
+                  phoneNumber <br>
+
+                </p>
+              </div>
+            </div>
+
+            <!-- ------------------------------ curl req ------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Curl Request:
+                </p>
+              </div>
+
+              <div class="right">
+                <pre>
+                 {{curlFormPost}}
+                  <br>
+                  <br>
+                 <div>
+                  x-tenantid is the business Id <br>
+                  ID_TOKEN_HERE is Id token get from Authentication flow
+                </div>
+                </pre>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>
+             Get Forms List
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-card-content">
+
+            <!-- --------------------------------- one --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Endpoint:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  {{baseUlr}}/api/v1/questionnaire
+
+                </p>
+              </div>
+            </div>
+
+            <!-- --------------------------------- two --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Method:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  GET
+
+                </p>
+              </div>
+            </div>
+
+            <!-- ------------------------------ curl req ------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Curl Request:
+                </p>
+              </div>
+
+              <div class="right">
+                <pre>
+                  curl --request GET --url '{{baseUlr}}/api/v1/questionnaire' --header 'Authorization: bearer ID_TOKEN_HERE' --header 'x-tenantid: {{encrptBusinessId}}'
+                </pre>
+              </div>
+            </div>
+
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Response:
+                </p>
+              </div>
+
+              <div class="right">
+                <pre>
+                 {{formListRes}}
+                </pre>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ----------------------------- Second box ------------------------------ -->
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>
+            Get a Forms Data
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-card-content">
+
+            <!-- --------------------------------- one --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Endpoint:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  {{baseUlr}}/api/questionnaire/:formId
+
+                </p>
+              </div>
+            </div>
+
+            <!-- --------------------------------- two --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Method:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  GET
+
+                </p>
+              </div>
+            </div>
+
+            <!-- ------------------------------ Paramtetr ------------------------------ -->
+            <!-- <div class="parent">
+              <div class="left">
+                <p>
+                  Parameters:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  fromDate - From date in yyyy-mm-dd <br>
+                  toDate - To date in yyyy-mm-dd
+
+                </p>
+              </div>
+            </div> -->
+
+            <!-- ------------------------------ curl req ------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Curl Request:
+                </p>
+              </div>
+
+              <div class="right">
+                <p class="mb-2">
+                  If you want to get a form from the form list or if you want to get anything related to a particular form, you need to pass the form ID.
+                   You need to replace :formId with id for which you want to
+                  fetch the data. you can get form Ids form the api request "Get Forms Data API" or go to menu form builder -> you will see 'id' in the table list
+                </p>
+                <pre>
+                  curl --request GET --url '{{baseUlr}}/api/questionnaire/:formId' --header 'Authorization: bearer ID_TOKEN_HERE'  --header 'x-tenantid: {{encrptBusinessId}}'
+                </pre>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>
+             Get Appointments List
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-card-content">
+
+            <!-- --------------------------------- one --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Endpoint:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  {{baseUlr}}/api/v1/appointments/filter?clinicId=&providerId=0&serviceId=0
+                </p>
+              </div>
+            </div>
+
+            <!-- --------------------------------- two --------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Method:
+                </p>
+              </div>
+
+              <div class="right">
+                <p>
+                  GET
+
+                </p>
+              </div>
+            </div>
+
+            <!-- ------------------------------ curl req ------------------------------- -->
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Curl Request:
+                </p>
+              </div>
+
+              <div class="right">
+                <pre>
+                  curl --request GET --url '{{baseUlr}}/api/v1/appointments/filter?clinicId=&providerId=0&serviceId=0' --header 'Authorization: bearer ID_TOKEN_HERE' --header 'x-tenantid: {{encrptBusinessId}}'
+                </pre>
+              </div>
+            </div>
+
+            <div class="parent">
+              <div class="left">
+                <p>
+                  Response:
+                </p>
+              </div>
+
+              <div class="right">
+                <pre>
+                 {{appointmentListRes}}
+                </pre>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="panel-blue">
+        <div class="panel-header">
+          <h3>API Refresh Token</h3>
+        </div>
+
+        <div class="panel-body">
+          <div class="panel-card-content no-border">
+            <span>Token will expire in 12 hours</span>
+
+            <div class="preview-card">
+              <div class="border-box" *ngIf="authKey">
+                <div class="iframeurl">{{authKey}}</div>
+              </div>
+
+              <div class="button-flex">
+
+                <div class="button-flex">
+                  <button type="button" *ngIf="authKey" class="btn btn-primary-border btn-small" (click)="copyApiKey()">
+                    <i class="fa fa-copy"></i>Copy</button>
+
+                </div>
+
+              </div>
+              <div style="margin-top: 30px;">
+                <b>OAuth Refresh Tokens</b>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" style="margin-left: 10px;"
+                href="https://support.growth99.com/portal/en/kb/articles/why-oauth-refresh-token-is-superior-to-static-api-keys-enhancing-security-and-user-experience" target="_blank"
+                > <i class="fa fa-info-circle"></i></a>
+                <div>All {{agencyName}} API's need to be authenticated using an OAuth token.</div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="panel-card-content no-border">
+            <span>Refresh Token will used for generating new token</span>
+
+            <div class="preview-card">
+              <div class="border-box" *ngIf="refreshKey">
+                <div class="iframeurl">{{refreshKey}}</div>
+              </div>
+
+              <div class="button-flex">
+
+                <div class="button-flex">
+                  <button type="button" *ngIf="refreshKey" class="btn btn-primary-border btn-small" (click)="copyRefreshKey()">
+                    <i class="fa fa-copy"></i>Copy</button>
+
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

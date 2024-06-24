@@ -1,0 +1,114 @@
+
+<div class="bg-white datatable-table new-ui border-table under-tab">
+  <!-- <div class="title">
+    <h3>Appointment</h3>
+  </div> -->
+  <div class="table-list">
+    <p-table #dt1 responsiveLayout="stack" [reorderableColumns]=true sortField="createdAt" [sortOrder]="-1" [value]="rowData" [columns]="selectedColumns" [paginator]="true" [rows]="10"
+      [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="globalFilterColumn">
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <p-multiSelect [resetFilterOnHide]="true"  [options]="columns" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}" placeholder="Choose Columns"></p-multiSelect>
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <div class="table-button">
+              <input pInputText class="search-table" type="text"
+                (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+              <!-- <div class="table-btn-wrapper">
+                <span class="icon"> <i class="fa fa-plus"></i> <a href="javascript:void(0);">Patient</a></span>
+              </div> -->
+            </div>
+
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <th [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </ng-container>
+        </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="body" let-data> -->
+      <ng-template pTemplate="body" let-data let-columns="columns">
+        <tr class="mobile-special">
+          <div class="bh-header">
+            <div class="completed" [ngClass]="data.appointmentConfirmationStatus==='Pending'?'incompleted':'completed'">
+              <p class="small-size">{{data.appointmentConfirmationStatus}}</p>
+            </div>
+            <div class="paid" [ngClass]="data.paymentStatus==='Unpaid'?'unpaid':'paid'">
+              <p class="small-size">{{data.paymentStatus}}</p>
+            </div>
+          </div>
+          <ng-container *ngFor="let col of columns">
+            <td>
+              <ng-container [ngSwitch]="col.field">
+                <ng-container *ngSwitchCase="'patientFirstname'">
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ ( data[col.field]+ " " + data["patientLastName"]
+                    )}}
+                  </span>
+                </ng-container>
+                <!-- <ng-container *ngSwitchCase="'serviceList'">
+
+                  <span class="p-column-title">{{col.header}}</span>
+                  <span *ngFor="let bookedService of data.serviceList">{{bookedService.serviceName}}
+                  </span>
+                </ng-container> -->
+                <ng-container *ngSwitchCase="'paymentStatus'">
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ formatWord(data[col.field])}}
+                  </span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'appointmentDate'">
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatBookingHistoryTime(
+                    data[col.field])}}
+                  </span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'createdAt'">
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatTime( data[col.field])}}
+                  </span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'actions'">
+                  <span class="p-column-title">{{col.header}}</span>
+                  <span class="action-btn">
+                    <a href="javascript:void(0)" (click)="editAppointment(data.id)"><i
+                      class="fas fa-edit ms-text-primary"></i></a>
+                  <a href="javascript:void(0)" (click)="deleteAppointmentModal(data)"><i
+                      class="far fa-trash-alt ms-text-danger"></i></a>
+                  <a [routerLink]="['/appointment/', data.id, 'meeting']" *ngIf="data?.appointmentType === 'Virtual' && data?.providerName?.length > 0"><i
+                      class="fas fa-video ms-text-secondary"></i></a>
+                  <a *ngIf="data?.paymentStatus !== 'Paid'" [routerLink]="['/appointment', data.id, 'payment']"
+                    routerLinkActive="router-link-active"><i class="fas fa-dollar-sign ms-text-secondary"></i></a>
+                  </span>
+
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                  <span class="click-edit" (click)="editAppointment(data.id)">
+                    <span class="p-column-title">{{col.header}}</span> {{data[col.field]}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-container>
+
+        </tr>
+
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]=null (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>

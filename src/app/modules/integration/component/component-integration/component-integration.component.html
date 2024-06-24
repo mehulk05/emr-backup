@@ -1,0 +1,215 @@
+<div class="bg-white datatable-table">
+  <!-- <div class="title">
+    <h3>Component Integration</h3>
+  </div> -->
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                        Contact form integration                         -->
+  <!-- ----------------------------------------------------------------------- -->
+
+  <div class="panel-blue">
+    <div class="panel-header">
+      <div class="panel-title">
+        <h3>Contact Form </h3>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="header">
+        <div class="header-content-wrapper row mx-0">
+
+
+          <div class="col-md-6 px-0">
+            <div class="iframe">
+              <iframe [src]="componentIntegrationObj?.contactFormUrl | safeUrl"></iframe>
+            </div>
+          </div>
+
+          <div class="col-md-6 d-flex align-items-center">
+            <div class="header-content">
+
+              <h1 class="title"><span>Contact Form Integration</span>
+              </h1>
+
+              <div class="code-config">
+                <div class="code-title">
+                  <p>Integration Code </p>
+                </div>
+
+                <div class="preview-card">
+                  <div class="border-box">
+                    <div class="iframeurl">{{componentIntegrationObj?.contactFormCode}}</div>
+                  </div>
+                </div>
+
+
+
+                <div class="buttons-wrapper">
+                  <!-- <button class="orange-btn">Start Saving</button> -->
+                  <button (click)="configure('contactForm')" class="orange-btn">Configure</button>
+                  <button (click)="copyCode(componentIntegrationObj?.contactFormCode)" data-toggle="modal" class="orange-btn">Copy</button>
+                  <button (click)="previewUrl(componentIntegrationObj?.contactFormUrl)" data-toggle="modal" class="orange-btn">Preview</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                          Virtual consultation                           -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="panel-blue">
+    <div class="panel-header">
+      <div class="panel-title">
+        <h3>Self Assessment</h3>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="header">
+        <div class="header-content-wrapper row mx-0">
+          <div class="col-md-6 d-flex align-items-center">
+            <div class="header-content">
+
+              <h1 class="title"><span>Self Assessment Integration</span>
+              </h1>
+
+              <div class="code-config">
+                <div class="code-title">
+                  <p>Integration Code</p>
+                </div>
+
+                <div class="preview-card">
+                  <div class="border-box">
+                    <div class="iframeurl">{{componentIntegrationObj?.vcCode}}</div>
+                  </div>
+                </div>
+
+
+
+                <div class="buttons-wrapper">
+                  <!-- <button class="orange-btn">Start Saving</button> -->
+                  <button  (click)="configure('vc')" class="orange-btn">Configure</button>
+                  <button (click)="copyCode(componentIntegrationObj?.vcCode)" data-toggle="modal" class="orange-btn">Copy</button>
+                  <button (click)="previewUrl(componentIntegrationObj?.vcurl )" class="orange-btn">Preview</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 px-0">
+            <div class="iframe" class="bigHeight">
+              <iframe [src]="componentIntegrationObj?.vcurl | safeUrl"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                           Chatbot Intergation                           -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="panel-blue">
+    <div class="panel-header">
+      <div class="panel-title">
+        <h3>Chatbot </h3>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="header">
+        <div class="header-content-wrapper row mx-0">
+
+
+          <div class="col-md-6 px-0">
+            <div class="iframe">
+              <iframe [src]="componentIntegrationObj?.chatbotUrl | safeUrl"></iframe>
+            </div>
+          </div>
+
+          <div class="col-md-6 d-flex align-items-center">
+            <div class="header-content">
+
+              <h1 class="title"><span>Chatbot Integration</span>
+              </h1>
+
+              <div class="code-config">
+                <div class="code-title">
+                  <p>Integration Code </p>
+                </div>
+
+                <div class="preview-card">
+                  <div class="border-box">
+                    <div class="iframeurl">{{componentIntegrationObj?.chatbotCode}}</div>
+                  </div>
+                </div>
+
+
+
+                <div class="buttons-wrapper">
+                  <!-- <button class="orange-btn">Start Saving</button> -->
+                  <button (click)="configure('chatbot')" class="orange-btn">Configure</button>
+                  <button (click)="copyCode(componentIntegrationObj?.chatbotCode)" class="orange-btn">Copy</button>
+                  <button (click)="previewUrl(this.chatbotUrl)" class="orange-btn">Preview</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                         Appointment integration                         -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="panel-blue">
+    <div class="panel-header">
+      <div class="panel-title">
+        <h3>Appointment </h3>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="header">
+        <div class="header-content-wrapper row mx-0">
+          <div class="col-md-6 d-flex align-items-center">
+            <div class="header-content">
+
+              <h1 class="title"><span>Appointment Integration</span>
+              </h1>
+
+              <div class="code-config">
+                <div class="code-title">
+                  <p>Integration Code </p>
+                </div>
+
+                <div class="preview-card">
+                  <div class="border-box">
+                    <div class="iframeurl">{{componentIntegrationObj?.appointmentUrl}}</div>
+                  </div>
+                </div>
+
+
+
+                <div class="buttons-wrapper">
+                  <!-- <button class="orange-btn">Start Saving</button> -->
+                  <button (click)="configure('appointment')" class="orange-btn">Configure</button>
+                  <button (click)="copyCode(componentIntegrationObj?.appointmentUrl)"  data-toggle="modal" class="orange-btn">Copy</button>
+                  <button (click)="previewUrl(componentIntegrationObj?.appointmentUrl)"  data-toggle="modal" class="orange-btn">Preview</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 px-0">
+            <div class="iframe">
+              <iframe [src]="componentIntegrationObj?.appointmentUrl | safeUrl"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

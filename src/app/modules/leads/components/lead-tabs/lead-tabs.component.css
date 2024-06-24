@@ -1,0 +1,3 @@
+.lead-page-tab ::ng-deep .p-tabview-panels{
+  padding-right: 0 !important;
+}

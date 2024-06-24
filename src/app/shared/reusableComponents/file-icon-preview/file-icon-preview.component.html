@@ -1,0 +1,56 @@
+<ng-container *ngIf="fileTypeService.isImage(data)">
+    <ng-container *ngIf="isIntegrated('image'); else imageIcon">
+        <img [src]="data.location || data.url" alt="Image preview" style="max-width: 100%;">
+    </ng-container>
+    <ng-template #imageIcon>
+        <i style="font-size: 30px;" class="far fa-image file-color"></i>
+    </ng-template>
+</ng-container>
+
+<ng-container *ngIf="fileTypeService.isPDF(data)">
+    <ng-container *ngIf="isIntegrated('pdf'); else pdfIcon">
+        <embed style="height: 80vh; width: 100%;" [src]="sanitizeUrl(data.url)" type="application/pdf" class="pdf-preview" />
+    </ng-container>
+    <ng-template #pdfIcon>
+        <i style="font-size: 30px;" class="far fa-file-pdf file-color"></i>
+    </ng-template>
+</ng-container>
+
+   
+<ng-container *ngIf="fileTypeService.isExcel(data)">
+    <ng-container *ngIf="isIntegrated('excel'); else excelIcon">
+        <embed style="height: 80vh; width: 100%;" [src]="sanitizeUrl(data.url)" type="application/vnd.ms-excel" class="excel-preview" />
+    </ng-container>
+    <ng-template #excelIcon>
+        <i style="font-size: 30px;" class="far fa-file-excel file-color"></i>
+    </ng-template>
+</ng-container>
+
+    <ng-container *ngIf="fileTypeService.isZip(data)">
+        <i style="font-size: 30px;" class="far fa-file-archive file-color"></i>
+    </ng-container>
+
+    <ng-container *ngIf="fileTypeService.isVideo(data)">
+        <ng-container *ngIf="isIntegrated('video'); else videoIcon">
+            <div style="width: 100%;">
+                <video controls style="width: 100%;">
+                    <source [src]="data.url || data.location" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        
+        </ng-container>
+        <ng-template #videoIcon>
+            <i style="font-size: 30px;" class="far fa-file-video file-color"></i>
+        </ng-template>
+    </ng-container>
+
+    <ng-container *ngIf="fileTypeService.isDoc(data)">
+        <i style="font-size: 30px;" class="far fa-file-word file-color"></i>
+    </ng-container>
+    <ng-container *ngIf="fileTypeService.isPpt(data)">
+        <i style="font-size: 30px;" class="far fa-file-powerpoint"></i>
+    </ng-container>
+    <ng-container *ngIf="fileTypeService.isFolder(data)">
+        <i style="font-size: 30px;" class="far fa-folder"></i>
+    </ng-container>

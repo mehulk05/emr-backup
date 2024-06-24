@@ -1,0 +1,10 @@
+label{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea{
+  font-size: 14px !important;
+  font-weight: 500;
+}

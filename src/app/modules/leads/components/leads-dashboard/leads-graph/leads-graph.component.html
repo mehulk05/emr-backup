@@ -1,0 +1,216 @@
+<!-- ------------------------ leads by month graph ------------------------- -->
+<div class="bg-light lead-detail-report" style="margin-top: 15px;">
+    <!-- <p>{{leadsData|json}}</p>
+    <p>{{yearsList|json}}</p>
+    <p>{{seletedFilterYearValue|json}}</p>
+    <p>{{monthlyData|json}}</p> -->
+    <!-- <button (click)="formatLeadDataByMonth(this.leadsData?.leadByMonthCount)">click me</button> -->
+    <div class="container-fluid">
+        <div class="card chartItem">
+            <div class="head-select">
+                <h5 class="chart-title">By Month</h5>
+                <select #sourceSelect [(ngModel)]="seletedFilterYearValue" (change)="onYearSelect()" class="form-select"
+                    aria-label=".form-select-sm example">
+                    <ng-container *ngFor="let year of yearsList">
+                        <option [value]="year">{{year}}</option>
+                    </ng-container>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-sm-12">
+                    <canvas style="padding-left: 15px;padding-right: 15px;" baseChart width="200" height="100"
+                        [datasets]="LeadsDataLineChart.lineChartData" [labels]="LeadsDataLineChart.lineChartLabels"
+                        [options]="SplineDataChart.splineChartOptions" [colors]="SplineDataChart.splineChartColors"
+                        [legend]="SplineDataChart.splineChartLegend"
+                        [chartType]="SplineDataChart.splineChartType"></canvas>
+                </div>
+                <div class="col-lg-3 col-sm-12 d-flex flex-row align-items-start">
+
+
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Total Leads ({{ bySourceTotalCount || 0}})
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let source of leadsData?.leadBySource; let i  = index">
+                                <tr *ngIf="('' + source.year) === seletedFilterYearValue" style="cursor: pointer;">
+                                    <td>
+                                        <button class="btn lead-color-btn"
+                                            [style.background-color]="backgroundColor[i]"></button>
+                                        {{source.source|titlecase}}
+                                        ({{source.count}})
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- --------------------------- leads by source --------------------------- -->
+    <div class="leads-graph mt-4 mb-2">
+        <div class="row" style="margin: 0px 10px !important;">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="card chartItem p-0 m-0 line-chart">
+                    <h5 class="chart-title">
+                        By Status
+                    </h5>
+                    <div class="row" style="height: 300px; ">
+
+                        <div class="item">
+                            <div class="floatTxtWrap">
+                                <h3>{{ byStatusTotalCount || 0}}</h3>
+                                <p>Total Leads</p>
+                            </div>
+                            <canvas style="height: 280px; width: 300px;" #mycanvas baseChart
+                                [data]="LeadBStatusPieChart.pieChartPercentageVal"
+                                [labels]="LeadBStatusPieChart.pieChartLabels"
+                                [type]="LeadBStatusPieChart.pieChartType"
+                                [options]="LeadBStatusPieChart.pieChartOptions"
+                                [plugins]="LeadBStatusPieChart.pieChartPlugins"
+                                [colors]="LeadBStatusPieChart.pieChartColors"
+                                [legend]="LeadBStatusPieChart.pieChartLegend">
+                            </canvas>
+                        </div>
+                    </div>
+
+                    <div class="row" style="height: 190px; padding-top: 30px;">
+                        <div class="col-offset-2 col-4 d-flex flex-column">
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn" [style.background-color]="leadByStatusColors['NEW']">
+                                </button>
+                                <p>New({{ statusCounts['NEW'] || 0 }})</p>
+                            </span>
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn"
+                                    [style.background-color]="leadByStatusColors['COLD']">
+                                </button>
+                                <p>Cold({{ statusCounts['COLD'] || 0 }})</p>
+                            </span>
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn"
+                                    [style.background-color]="leadByStatusColors['WARM']">
+                                </button>
+                                <p>Warm({{ statusCounts['WARM'] || 0 }})</p>
+                            </span>
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn"
+                                    [style.background-color]="leadByStatusColors['JUNK']">
+                                </button>
+                                <p>Junk({{ statusCounts['JUNK'] || 0 }})</p>
+                            </span>
+                        </div>
+                        <div class="col-offset-1 col-4 d-flex flex-column">
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn" [style.background-color]="leadByStatusColors['HOT']">
+                                </button>
+                                <p>Hot({{ statusCounts['HOT'] || 0 }})</p>
+                            </span>
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn" [style.background-color]="leadByStatusColors['WON']">
+                                </button>
+                                <p>Won({{ statusCounts['WON'] || 0 }})</p>
+                            </span>
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn"
+                                    [style.background-color]="leadByStatusColors['DEAD']">
+                                </button>
+                                <p>Dead({{ statusCounts['DEAD'] || 0 }})</p>
+                            </span>
+                            <span class="color-label-wrap">
+                                <button class="btn lead-color-btn"
+                                    [style.background-color]="leadByStatusColors['PENDING']">
+                                </button>
+                                <p>Pending({{ statusCounts['PENDING'] || 0 }})</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="leads-graph">
+                    <div class="leads-table-wrapper">
+                        <div class="row mx-0 ">
+                            <div class="col-lg-12 col-md-12 col-sm-12 p-0 m-0">
+                                <div class="card chartItem p-0 m-0 line-chart">
+                                    <h5 class="chart-title">By Tags</h5>
+                                    <div class="item">
+                                        <canvas baseChart id="rightlinechart"
+                                            [datasets]="LeadByTagLineChart.lineChartData"
+                                            [labels]="LeadByTagLineChart.lineChartLabels"
+                                            [type]="LeadByTagLineChart.lineChartType"
+                                            [options]="LeadByTagLineChart.lineChartOptions"
+                                            [colors]="LeadByTagLineChart.lineChartColors"
+                                            [legend]="LeadByTagLineChart.lineChartLegend">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------ leads by Tags ------------------------- -->
+    <!-- <div class="leads-graph m-2 mt-4">
+        <div class="leads-table-wrapper">
+            <div class="row mx-0">
+                <div class="col-lg-12 col-md-12 col-sm-12 p-0 m-0">
+                    <div class="card chartItem line-chart">
+                        <h5 class="chart-title">
+                            By Tag
+                        </h5>
+                      <div class="item">
+                                        <canvas style="height: 455px;" baseChart
+                                            [datasets]="LeadbySourceLineChart.lineChartData"
+                                            [labels]="LeadbySourceLineChart.lineChartLabels"
+                                            [chartType]="LeadbySourceLineChart.lineChartType"
+                                            [options]="LeadbySourceLineChart.lineChartOptions"
+                                            [colors]="LeadbySourceLineChart.lineChartColors"
+                                            [legend]="LeadbySourceLineChart.lineChartLegend">
+                                        </canvas>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- ------------------------ leads by Landingpage graph ------------------------- -->
+    <div class="leads-graph" style="margin: 24px 12px !important;">
+        <div class="leads-table-wrapper">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 p-0 m-0 mb-4">
+                    <div class="card chartItem line-chart">
+                        <h5 class="chart-title">
+                            Landing Page
+                        </h5>
+                        <div class="item">
+                            <canvas baseChart [datasets]="LeadsBYLandingPageLineChart.lineChartData"
+                                [labels]="LeadsBYLandingPageLineChart.lineChartLabels"
+                                [type]="LeadsBYLandingPageLineChart.lineChartType"
+                                [options]="LeadsBYLandingPageLineChart.lineChartOptions"
+                                [colors]="LeadsBYLandingPageLineChart.lineChartColors"
+                                [legend]="LeadsBYLandingPageLineChart.lineChartLegend">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

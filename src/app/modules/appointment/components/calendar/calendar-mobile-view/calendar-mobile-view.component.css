@@ -1,0 +1,84 @@
+.appointment-events{
+  width: 100%;
+  padding: 1em;
+}
+::ng-deep .p-calendar{
+  width: 100%;
+}
+::ng-deep .p-datepicker-inline,
+.p-datepicker-inline{
+  width: 100% !important;
+  border-radius: 12px;
+  background-color: #fff;
+
+}
+::ng-deep .p-tabview .p-tabview-panels,
+.p-tabview .p-tabview-panels,
+.calendar-mobile{
+  background: #EDF0F4;
+}
+
+::ng-deep .p-tabview .p-tabview-panels{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.add-btn{
+  margin: 2em 1em;
+    display: flex;
+    justify-content: flex-end;
+}
+/* -------------------------- appointment card css -------------------------- */
+
+.appointment-card {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+
+.appointment-card .wrapper {
+  border-left: 8px solid #009EDE;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 18px 22px;
+}
+
+.appointment-card .blue-border {
+  width: 8px;
+  height: 100%;
+  background-color: #009EDE;
+}
+
+.appointment-card .details .name {
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #263238;
+}
+
+.appointment-card .details .time-slot {
+  color: #7F7F7F;
+}
+
+.appointment-card .date-container {
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #009EDE;
+}
+.date-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.edit-icon,
+.details .time-slot{
+  margin-top: 1em;
+}
+
+/* ------------------------ appointment card css end ------------------------ */

@@ -1,0 +1,116 @@
+<div class="conatainer">
+    <div class="table-list new-ui">
+      <p-table #dt1 responsiveLayout="stack" sortField="id" [sortOrder]="-1" [reorderableColumns]=true [value]="rowData"
+        [columns]="selectedColumns" [rows]="paginatorConfig.noOfRecord" [showCurrentPageReport]="true"
+        [globalFilterFields]="globalFilterColumn">
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <!-- ---------------------- Column visibility starts ----------------------- -->
+            <p-multiSelect [resetFilterOnHide]="true" [options]="columns" [(ngModel)]="selectedColumns"
+              optionLabel="header" selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}"
+              placeholder="Choose Columns">
+            </p-multiSelect>
+  
+            <span class="p-input-icon-left ml-3">
+              <!-- <i class="pi pi-search"></i> -->
+              <input pInputText class="search-table" [(ngModel)]="pageSearchFilter" (keyup.enter)="searchPage()"
+                placeholder="Search here">
+            </span>
+  
+
+  
+            <span class="p-input-icon-left ml-auto">
+              <span class="p-input-icon-left">
+                <div class="table-button" style="margin-top: 4px;">
+                  <div class="table-btn-wrapper" style="cursor: pointer;">
+                    <button class="btn-save-new btn-small-new" (click)="addFolder()">
+                      <i class="fa fa-plus"></i> Add Folders
+                    </button>
+                  </div>
+                </div>
+              </span>
+  
+            </span>
+          </div>
+        </ng-template>
+  
+        <!-- ---------------------------- Table starts ----------------------------- -->
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <ng-container *ngFor="let col of columns">
+              <th *ngIf="col.field !== 'actions' && col.field !== 'location' " [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th *ngIf="col.field === 'actions'">
+                {{col.header}}
+              </th>
+              <th *ngIf="col.field === 'location'">
+                {{col.header}}
+              </th>
+            </ng-container>
+          </tr>
+        </ng-template>
+  
+        <!-- -------------------------- Table body starts -------------------------- -->
+        <ng-template pTemplate="body" let-data let-columns="columns">
+          <tr class="mobile-special">
+            <ng-container *ngFor="let col of columns">
+              <td>
+                <ng-container [ngSwitch]="col.field">
+             
+  
+  
+                  <ng-container *ngSwitchCase="'createdBy'">
+                    <p *ngIf="data?.createdBy">By {{data.createdBy.firstName || '-'}}</p>
+                  </ng-container>
+  
+  
+  
+                  <ng-container *ngSwitchCase="'createdAt'">
+                    <p> On {{ data.updatedAt ?
+                      (data.createdAt | date:'medium') : (data?.createdAt | date:'medium')}}
+                    </p>
+                  </ng-container>
+  
+
+  
+                  <ng-container *ngSwitchDefault>
+                    <span class="click-edit">
+                      <span class="p-column-title">{{col.header}}</span> {{data[col.field] ?? '-'}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'actions'">
+                    <span class="p-column-title">{{col.header}}</span>
+  
+                    <button class="btn-invisible" mat-icon-button [matMenuTriggerFor]="menu"
+                      aria-label="Example icon-button with a menu">
+                      <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                    <mat-menu #menu="matMenu">
+                      <button (click)="editPage(data.id)" mat-menu-item>Edit</button>
+                      <button (click)="viewFiles(data.id)" mat-menu-item>View Files</button>
+                      <button (click)="deleteTrash(data.id)" mat-menu-item>Delete</button>
+                    </mat-menu>
+  
+                  </ng-container>
+                </ng-container>
+              </td>
+            </ng-container>
+          </tr>
+  
+        </ng-template>
+      </p-table>
+    </div>
+  
+  </div>
+  
+  <!-- -------------------------- custom paginator --------------------------- -->
+  <p-paginator [rows]="paginatorConfig.noOfRecord" [totalRecords]="totalDataCount" (onPageChange)="paginate($event)"
+    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="paginatorConfig.recordArray" #patientPaginator></p-paginator>
+  
+
+
+<ng-container *ngIf="showAddFolderModal">
+    <app-add-folder [showAddFolderModal]="showAddFolderModal" [data]="rowData" (afterModalClose)="onAddFolderModalClose($event)"></app-add-folder>
+</ng-container>

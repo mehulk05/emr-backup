@@ -1,0 +1,258 @@
+<div class="blue-card bg-white box-shadow-light">
+    <div class="card">
+        <div class="add-edit-form">
+            <div class="form form-type2">
+                <form [formGroup]="websitePageForm">
+                    <div class="row mx-0">
+                        <div class="col-lg-12">
+                            <div class="form-group"
+                                [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+                                <label>Name<span class="error-red">*</span></label>
+                                <input type="text" class="form-control input-type2" formControlName="name" />
+                                <div class="error error-msg">
+                                    <div *ngIf="f.name.touched && f.name.errors?.required">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Name is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12" *ngIf="id">
+                            <div class="form-group">
+                                <label for="link"> Form Link</label>
+                                <div class="">
+                                    <a style="cursor: pointer;" class="preview-link" title="Click to preview"
+                                        (click)="previewLink()">{{link}}</a>
+                                    <a href="javascript:void(0)" (click)="copyLink()" class="ml-3 copy-icon align2">Copy
+                                        Link</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Scripts in Header.
+                                    <span>(*These scripts will be printed in the
+                                        &lt;head&gt;
+                                        section)</span>
+                                </label>
+                                <textarea rows="3" cols="80" class="form-control textarea"
+                                    formControlName="googleAnalyticsGlobalCode"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Scripts in Body.
+                                    <span>(*These scripts will be printed in the
+                                        &lt;body&gt;
+                                        section)</span>
+                                </label>
+                                <textarea rows="3" cols="80" class="form-control textarea"
+                                    formControlName="googleAnalyticsGlobalCodeUrl"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Scripts in thank you page
+                                    <span>(*These scripts will be printed on thank you
+                                        page upon form
+                                        submission)</span>
+                                </label>
+                                <textarea rows="3" cols="80" class="form-control textarea"
+                                    formControlName="landingPageTrackCode"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Iframe css</label>
+                                <textarea rows="3" cols="80" class="form-control textarea"
+                                    formControlName="iframeCSS"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Custom css</label>
+                                <textarea rows="3" cols="80" class="form-control textarea"
+                                    formControlName="buttonCSS"></textarea>
+                            </div>
+                        </div>
+
+                        <!------------------------>
+                        <div class="col-sm-12">
+                            <div class="current-theme">
+                                <label>Current Theme is :&nbsp; </label>
+                                <p *ngIf="!backgroundColor">Default</p>
+                                <button *ngIf="backgroundColor" class="button-theme"
+                                    [ngStyle]="{'background-color':backgroundColor}"> </button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="flex-sp">
+                                <label for="name">Select Your Custom Theme</label>
+                                <p class="reset" *ngIf="backgroundColor" (click)="resetTheme()">Reset Theme
+                                </p>
+                            </div>
+                            <div class="theme-slect" (click)="selectTheme('red','#fff','red')">
+                                <input type="radio" id="red" class="color-s" value="1" name="fruit" />
+                                <label for="red">
+                                    <div class="choices" style="background-color: red;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#D0021B','#fff','#D0021B')">
+                                <input type="radio" id="orange" class="color-s" value="2" name="fruit" />
+                                <label for="orange">
+                                    <div class="choices" style="background-color:#D0021B;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#F5A623','#fff','#F5A623')">
+                                <input type="radio" id="or-yellow" class="color-s" value="2" name="fruit" />
+                                <label for="or-yellow">
+                                    <div class="choices" style="background-color:#F5A623;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#F8E71C','#fff','#F8E71C')">
+                                <input type="radio" id="yellow" class="color-s" value="2" name="fruit" />
+                                <label for="yellow">
+                                    <div class="choices" style="background-color:#F8E71C;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#8B572A','#fff','#8B572A')">
+                                <input type="radio" id="brown" class="color-s" value="2" name="fruit" />
+                                <label for="brown">
+                                    <div class="choices" style="background-color:#8B572A;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#7ED321','#fff','#7ED321')">
+                                <input type="radio" id="green" class="color-s" value="2" name="fruit" />
+                                <label for="green">
+                                    <div class="choices" style="background-color:#7ED321;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#417505','#fff','#417505')">
+                                <input type="radio" id="darkgreen" class="color-s" value="2" name="fruit" />
+                                <label for="darkgreen">
+                                    <div class="choices" style="background-color:#417505;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#BD10E0','#fff','#BD10E0')">
+                                <input type="radio" id="purple" class="color-s" value="2" name="fruit" />
+                                <label for="purple">
+                                    <div class="choices" style="background-color:#BD10E0;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#9013FE','#fff','#9013FE')">
+                                <input type="radio" id="lanvendra" class="color-s" value="2" name="fruit" />
+                                <label for="lanvendra">
+                                    <div class="choices" style="background-color:#9013FE;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#4A90E2','#fff','#4A90E2')">
+                                <input type="radio" id="blue" class="color-s" value="2" name="fruit" />
+                                <label for="blue">
+                                    <div class="choices" style="background-color:#4A90E2;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#50E3C2','#000000','#000000')">
+                                <input type="radio" id="seablue" class="color-s" value="2" name="fruit" />
+                                <label for="seablue">
+                                    <div class="choices" style="background-color:#50E3C2;color: #000000;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#B8E986','#000000','#000000')">
+                                <input type="radio" id="seagreen" class="color-s" value="2" name="fruit" />
+                                <label for="seagreen">
+                                    <div class="choices" style="background-color:#B8E986;color: #000000;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('deepskyblue','#fff','deepskyblue')">
+                                <input type="radio" id="deepskyblue" class="color-s" value="2" name="fruit" />
+                                <label for="deepskyblue">
+                                    <div class="choices" style="background-color:deepskyblue;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('dodgerblue','#fff','dodgerblue')">
+                                <input type="radio" id="dodgerblue" class="color-s" value="2" name="fruit" />
+                                <label for="dodgerblue">
+                                    <div class="choices" style="background-color:dodgerblue;color: #fff;"> </div>
+                                </label>
+                            </div>
+
+                            <div class="theme-slect" (click)="selectTheme('#000','#fff','#000')">
+                                <input type="radio" id="black" class="color-s" value="2" name="fruit" />
+                                <label for="black">
+                                    <div class="choices" style="background-color:#000;color: #fff;"> </div>
+                                </label>
+                            </div>
+                        </div>
+                        <!------------------------->
+
+                        <div class="col-sm-12">
+                            <div class="popup">
+                                <input type="checkbox" class="mr-3" formControlName="showPopupOnPageLoad" />
+                                <label for="link"> Show popup on page Load </label>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="popup">
+                                <input type="checkbox" class="mr-3" formControlName="isCustom" />
+                                <label for="link"> Is Custom </label>
+                            </div>
+                        </div>
+                        <!--------------------------------editors--------------------------------------->
+                        <div class="old-editor" *ngIf=" editorValue === 'newEditor' ">
+                            <p>If you want to try old Editor please click on <span
+                                    style="color: #007bff; cursor: pointer;" (click)="changeEditor('newEditor')">Try
+                                    Old Editor</span>
+                            </p><br>
+                            <app-new-editor [landingTemplateValue]="templateVal" (getEditorValue)="onGetEditor($event)">
+                            </app-new-editor>
+                        </div>
+                        <div class="old-editor" *ngIf=" editorValue === 'oldEditor' ">
+                            <p>If you want to try New Editor please click on <span
+                                    style="color: #007bff; cursor: pointer;" (click)="changeEditor('oldEditor')">Try New
+                                    Editor</span> </p><br>
+                            <app-old-editor [landingTemplateValue]="templateVal"
+                                (oldEditorValHtml)="onGetOldEditor($event)">
+                            </app-old-editor>
+                            <!-- <app-html-editor #htmlEditor [projectData]="editorProjectData"
+                                [htmlTemplateValue]="templateVal" [showSaveCancelButton]="false"></app-html-editor> -->
+                            <!----------------------------------editors--------------------------------------------->
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!----------------------------Button--------------------------------->
+            <div class="footer">
+                <button class="save-color-btn" type="button" (click)="onFormSubmit()">
+                    Save
+                </button>
+
+                <button class="save-border-btn" type="button" (click)="back()">
+                    Cancel
+                </button>
+            </div>
+            <!----------------------------Button--------------------------------->
+        </div>
+    </div>
+</div>

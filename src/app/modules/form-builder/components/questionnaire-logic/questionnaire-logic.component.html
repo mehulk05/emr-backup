@@ -1,0 +1,45 @@
+<div class="blue-card new-ui">
+    <div class="tab-view pl-3 pt-3">
+        <fieldset [disabled]="questionnaire && !questionnaire.enableModernUi">
+            <div class="flex justify-content-between px-2 mx-1">
+                <div class="logic-info-header">
+                    <span class="f-14" [class.visible]="questionnaire && !questionnaire.enableModernUi">
+                        Note: The Logic-based question flow will only work if Modern UI is enabled. Please make
+                        sure Modern
+                        UI is enabled in the configuration.
+                    </span>
+                </div>
+                <div *ngIf="conditions?.length"
+                    class="add-condition-wrapper flex justify-content-end align-items-center">
+                    <button class="btn-save-new btn-small-new" type="button" (click)="addCondition()">
+                        <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        &nbsp;Add Condition
+                    </button>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <ng-container *ngIf="conditions && conditions.length > 0; else noConditions">
+                    <div class="col-12 px-0">
+                        <div class="row">
+                            <ng-container *ngFor="let condition of conditions; let i=index">
+                                <div class="col-sm-12 col-md-6 col-lg-4">
+                                    <app-add-edit-logic [condition]="condition" [questions]="questions" [index]="i"
+                                        (buttonEvent)="handleButtonEvent($event)"></app-add-edit-logic>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #noConditions>
+                    <div class="no-conditions col-12">
+                        <h4>No conditions added for this Questionnaire yet.</h4>
+                        <button class="btn-save-new btn-small-new" type="button" (click)="addCondition()">
+                            <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            &nbsp;Add Condition
+                        </button>
+                    </div>
+                </ng-template>
+            </div>
+        </fieldset>
+    </div>
+</div>

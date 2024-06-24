@@ -1,0 +1,229 @@
+<div class="new-ui bg-white datatable-table">
+    <div class="header">
+        <h4>Campaign Activity Report</h4>
+    </div>
+    <div class="cards-wrapper border-6">
+        <div class="row bg-light py-3 cards-container">
+            <div class="col-md-9">
+                <div class="d-flex h-100 justify-content-start">
+                    <div class="mr-3 ml-1 flex justify-content-center align-items-center bg-white border-6">
+                        <div class="row" style="height: 150px; ">
+                            <div class="item position-relative">
+                                <div class="floatTxtWrap">
+                                    <h3 class="mb-0">{{ totalCount }}</h3>
+                                    <p>SMS Sent</p>
+                                </div>
+                                <canvas style="height: 150px; width: 150px;" #mycanvas baseChart
+                                    [data]="SMSStatusPieChart.pieChartPercentageVal"
+                                    [labels]="SMSStatusPieChart.pieChartLabels"
+                                    [type]="SMSStatusPieChart.pieChartType"
+                                    [options]="SMSStatusPieChart.pieChartOptions"
+                                    [plugins]="SMSStatusPieChart.pieChartPlugins"
+                                    [legend]="SMSStatusPieChart.pieChartLegend">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white px-3 py-4 flex flex-1 align-items-start justify-content-start border-6">
+                        <div class="campain-info pl-2 pr-4 border-right">
+                            <div class="campaign-info-heading blue-heading">
+                                Campaign Details
+                            </div>
+                            <div class="campain-info-subheading">
+                                {{ triggerName }}
+                            </div>
+                            <div class="campain-data" style="white-space: nowrap;">
+                                {{formatTimeService.formatTime(scheduledDateTime) | date: 'medium' }}
+                            </div>
+                        </div>
+                        <div class="campain-info pl-4 pr-2 no-overflow">
+                            <div class="campaign-info-heading blue-heading">
+                                Message Details
+                            </div>
+                            <div class="campain-info-subheading flex justify-content-between align-items-center">
+                                <div>
+                                    {{templateName}}
+                                </div>
+                                <div *ngIf="segments" class="text-segments">
+                                    No. of Segments : {{ segments }}
+                                </div>
+                            </div>
+                            <div class="campain-data">
+                                {{templateContent}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 pl-0 pr-3">
+                <div class="stats-cards-container">
+                    <div class="">
+                        <div class="card border-0">
+                            <div class="card-body py-2">
+                                <div class="card-blue-heading">
+                                    Delivered
+                                </div>
+                                <div class="card-stats">
+                                    <div class="card-stats-number">
+                                        {{ deliveredCount }}
+                                    </div>
+                                    <div class="card-stats-percent delivered">
+                                        {{ ((deliveredCount / totalCount) * 100) | number:'1.1-2' }} %
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="card border-0">
+                            <div class="card-body py-2">
+                                <div class="card-blue-heading">
+                                    Undelivered
+                                </div>
+                                <div class="card-stats">
+                                    <div class="card-stats-number">
+                                        {{ undeliveredCount }}
+                                    </div>
+                                    <div class="card-stats-percent undelivered">
+                                        {{ ((undeliveredCount / totalCount) * 100) | number:'1.1-2' }} %
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="card border-0">
+                            <div class="card-body py-2">
+                                <div class="card-blue-heading">
+                                    Queued
+                                </div>
+                                <div class="card-stats">
+                                    <div class="card-stats-number">
+                                        {{ queuedCount }}
+                                    </div>
+                                    <div class="card-stats-percent queued">
+                                        {{ ((queuedCount / totalCount) * 100) | number:'1.1-2' }} %
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="card border-0">
+                            <div class="card-body py-2">
+                                <div class="card-blue-heading">
+                                    Failed
+                                </div>
+                                <div class="card-stats">
+                                    <div class="card-stats-number">
+                                        {{ failedCount }}
+                                    </div>
+                                    <div class="card-stats-percent failed">
+                                        {{ ((failedCount / totalCount) * 100) | number:'1.1-2' }} %
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-list">
+        <p-table #dt1 responsiveLayout="stack" [value]="rowData" [reorderableColumns]=true sortField="id"
+            [sortOrder]="-1" [columns]="selectedColumns" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="globalFilterColumn">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <div class="">
+                        <p-multiSelect [resetFilterOnHide]="true" [options]="columns" [(ngModel)]="selectedColumns"
+                            optionLabel="header" selectedItemsLabel="{0} Columns"
+                            [style]="{ minWidth: '120px', height: '100%' }" placeholder="Choose Columns">
+                        </p-multiSelect>
+                    </div>
+                    <div class="ml-2" style="min-width: 200px;">
+                        <p-columnFilter field="deliverStatus" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
+                                    placeholder="Filter by Status" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i>
+                            <div class="table-button">
+                                <input pInputText class="search-table" type="text"
+                                    (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                    placeholder="Search keyword" />
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <ng-container *ngFor="let col of columns">
+                        <th [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="body" let-data> -->
+            <ng-template pTemplate="body" let-data let-columns="columns">
+                <tr class="mobile-special">
+                    <ng-container *ngFor="let col of columns">
+                        <td>
+                            <ng-container [ngSwitch]="col.field">
+                                <ng-container *ngSwitchCase="'deliverStatus'">
+                                    <div class="execution-status" [ngClass]="data['deliverStatus']">
+                                        <span>
+                                            {{ data['deliverStatus'] | titlecase }}
+                                        </span>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'deliverDate'">
+                                    <span class="p-column-title">{{col.header}}</span>
+                                    <span *ngIf="data.deliverStatus === 'delivered'">
+                                        {{ !data[col.field] ? '-' :
+                                        formatTimeService.formatTimeWithoutTimezone(data[col.field]) | date:'medium'
+                                        }}</span>
+                                    <span
+                                        *ngIf="data.deliverStatus === 'undelivered' || data.deliverStatus === 'failed'">
+                                        <a *ngIf="data.errorMessage" href="javascript:void(0)"
+                                            (click)="showErrorReason(data.errorMessage)"><u>View Reason</u></a>
+                                        <span *ngIf="!data.errorMessage">-</span>
+                                    </span>
+                                    <span *ngIf="data.deliverStatus === 'queued'">NA</span>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'actions'">
+                                    <span class="p-column-title">{{ col.header }}</span>
+                                    <span
+                                        *ngIf="data.deliverStatus === 'undelivered' && data.resendAgain  || data.deliverStatus === 'failed' && data.resendAgain"
+                                        class="cursor-pointer" (click)="retryMessage(data.id, data.label)"><i
+                                            class="fas fa-redo" aria-hidden="true"></i></span>
+                                </ng-container>
+                                <ng-container *ngSwitchDefault>
+                                    <span class="p-column-title">{{col.header}}</span> {{data[col.field]
+                                    ? data[col.field] : '-'}}
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<ng-container *ngIf="showPreviewModal">
+    <app-preview-audit-template [modalData]="body" [showModal]="showPreviewModal"
+        (modalClosed)="onCloseModal()"></app-preview-audit-template>
+</ng-container>

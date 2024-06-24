@@ -1,0 +1,20 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Designer">
+      <app-add-edit-questionarie *ngIf="source === 'designer'"></app-add-edit-questionarie>
+    </p-tabPanel>
+    <p-tabPanel header="Notification">
+      <app-contact-form-notification-table [questionnaireId]="questionnaireId" *ngIf="source === 'notification'"></app-contact-form-notification-table>
+    </p-tabPanel>
+    <p-tabPanel header="Configuration">
+      <app-add-edit-configuration *ngIf="source === 'configuration'"></app-add-edit-configuration>
+    </p-tabPanel>
+    <p-tabPanel header="Submission">
+      <app-questionnaire-submission-list [questionnaireId]="questionnaireId" *ngIf="source === 'submission'"></app-questionnaire-submission-list>
+    </p-tabPanel>
+    <!-- <p-tabPanel header="Business Account">
+      <app-business-form-integration *ngIf="source === 'business'"></app-business-form-integration>
+    </p-tabPanel> -->
+  </p-tabView>
+
+</div>

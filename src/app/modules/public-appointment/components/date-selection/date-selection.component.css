@@ -1,0 +1,388 @@
+.serviceName {
+  overflow: hidden;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.book-btn-right {
+  float: right;
+  position: relative;
+  top: 50%;
+  padding-top: 20px;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  color: #262628;
+  margin: 0;
+}
+
+.calender-title p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.title h1 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  margin: 0;
+}
+
+
+.book-btn-right button {
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.section-detail {
+  min-height: 225px;
+}
+
+.calender-btn {
+  display: block;
+  text-align: right;
+  font-family: 'Montserrat', sans-serif;
+  padding-right: 10%;
+}
+
+:host /deep/ .cal-month-view .cal-header .cal-cell {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  color: #262628;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+:host /deep/ .cal-month-view .cal-days .cal-cell-row:not(:last-child),
+:host /deep/ .cal-disabled {
+  border: none;
+  background: none;
+  max-height: 60px;
+  /* width: 60px; */
+  min-height: 100%;
+  border-radius: 16px;
+}
+
+.cal-month-view .cal-days{
+  border-color: transparent;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell:not(:last-child){
+  border: none;
+
+}
+:host /deep/ .cal-month-view .cal-cell-top {
+  text-align: center;
+  /* margin-left: 6px; */
+  padding-top: 15px;
+}
+
+:host /deep/ .cal-month-view .cal-day-number {
+  float: none;
+  margin-bottom: 10px;
+  margin: auto;
+  text-align: center;
+}
+
+:host /deep/ .cal-month-view .cal-day-number,
+:host /deep/ .cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  color: #262628;
+  font-size: 18px;
+  font-weight: 400;
+  opacity: 1;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
+  opacity: 0.7;
+}
+
+:host /deep/ .cal-month-view .cal-cell-top {
+  min-height: 60px;
+}
+
+:host /deep/ .cal-month-view .cal-cell-row .cal-cell:hover,
+:host /deep/ .cal-month-view .cal-days {
+  background-color: transparent;
+}
+
+:host /deep/ .cal-month-view .cal-cell-row .cal-cell.cal-selected:hover,
+:host /deep/ .cal-selected {
+  background-color: var(--button-background-color);
+  color: var(--button-foreground-color);
+  max-height: 60px;
+  min-height: 100%;
+  border-radius: 16px;
+}
+
+:host /deep/ .cal-month-view .cal-cell-row .cal-cell.cal-selected:focus,
+:host /deep/ .cal-selected:focus {
+  background-color: var(--button-background-color);
+  color: var(--button-foreground-color);
+  outline-style: none;
+  box-shadow: none;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell.cal-today.cal-selected{
+  background-color: var(--button-background-color) !important;
+  color: var(--button-foreground-color) !important;
+}
+
+
+
+:host /deep/ .cal-disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell.cal-today {
+  pointer-events: all !important;
+  background-color: transparent !important;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  color: #A5B3BF;
+  text-decoration: underline;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.service-border {
+  border: 3px solid #F3F4F6;
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 30px 30px 20px;
+}
+
+.service-border .btn-light {
+  border: none;
+  padding: 3px 8px;
+  background: #ffff !important;
+}
+
+.service-details .img {
+  position: relative;
+  margin: 0 auto;
+  height: 80px;
+  width: 80px;
+}
+
+.service-details {
+  margin-bottom: 20px;
+}
+
+.service-details .img img {
+  height: 80px;
+  width: 80px;
+}
+
+.arrows {
+  position: absolute;
+  top: 15px;
+  left: 5px;
+}
+
+button.time-button {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-size: 17.4079px;
+  line-height: 22px;
+}
+
+.arrows button:focus,
+.arrows button:hover,
+.arrows button:active {
+  border: none;
+  background: transparent;
+  outline: none;
+  /* font-size:18px; */
+}
+
+
+
+button.time-button {
+  border: none;
+  background: transparent;
+  outline: none;
+  -webkit-appearance: none !important
+}
+
+button.time-button.btn-avail {
+  font-weight: 700;
+  color: var(--button-background-color);
+}
+.book-btn-right button {
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+:host /deep/ .cal-disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell.cal-today {
+  pointer-events: all !important;
+  cursor: pointer;
+  max-height: 60px;
+  overflow: hidden;
+  border-radius: 16px;
+  min-height: unset;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell span.cal-day-number {
+  cursor: pointer;
+}
+
+:host /deep/ .cal-month-view .cal-disabled span.cal-day-number {
+  cursor: not-allowed;
+  color: grey !important;
+  pointer-events: none;
+}
+
+:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  pointer-events: all !important;
+  cursor: pointer
+}
+
+p.dateTime {
+  margin-top: 10px;
+}
+
+@media screen and (min-width:1200px) and (max-width:1400px) {
+  .serviceName {
+      width: 100%;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .service-details .text {
+      width: 87%;
+      padding-right: 10px;
+      padding-top: 20px;
+  }
+  .radio-btn {
+      padding-top: 25px;
+  }
+  .section-detail {
+      min-height: 320px;
+  }
+  .serviceName {
+      width: 100%;
+  }
+   :host /deep/ .cal-month-view .cal-day-number,
+   :host /deep/ .cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+      font-size: 14px;
+  }
+  .service-border {
+      padding: 30px 5px 15px;
+  }
+
+  .sm-col-6 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
+  }
+}
+
+#circle,
+#circle .segment {
+  border-color: lightgray;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+  box-sizing: border-box;
+  height: 80px;
+  position: relative;
+  width: 80px;
+}
+
+#circle .segment {
+  -webkit-clip-path: inset(0 0 0 24px);
+  /*content: ''; EDIT: not needed */
+  left: -5px;
+  position: absolute;
+  top: -5px;
+}
+
+#circle .segment:nth-child(1) {
+  border-color: #d6d6d6;
+  -webkit-clip-path: inset(-0px 0px 0 0);
+}
+
+#circle .segment:nth-child(2) {
+  border-color:  var(--button-background-color);
+  transform: rotate(60deg);
+}
+
+.cal-day-selected,
+.cal-day-selected:hover {
+  background-color: black !important;
+}
+
+.noTime {
+  padding: 50px 20px;
+  margin: 0 auto;
+  text-transform: capitalize !important;
+}
+
+.noTime h3 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  margin: 0;
+}
+
+.noTime p {
+  text-transform: initial;
+}
+
+@media screen and (max-width:400px) {
+  .book-btn-right button {
+      padding: 8px 16px;
+      min-width: 100px;
+  }
+}
+
+h1 {
+  color: var(--title-color);
+  text-transform: uppercase;
+}
+
+.book-btn-right button {
+  background-color: var(--button-background-color);
+  color: var(--button-foreground-color);
+  border: var(--button-background-color);
+  text-transform: uppercase;
+}
+.bookapt-title h1, .bookapt-title .dateTime,
+.title h6 ,
+.service-border p{
+  color: var(--button-background-color);
+}

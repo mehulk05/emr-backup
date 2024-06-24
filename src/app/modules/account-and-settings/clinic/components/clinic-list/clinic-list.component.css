@@ -1,0 +1,11 @@
+.table-btn-wrapper .icon i {
+    color: #fff;
+}
+.icon {
+    font-size: 14px!important;
+    min-width: 100px !important;
+    padding: 8px 14px !important;
+}
+.datatable-table .table-button .table-btn-wrapper {
+    margin-left: 1px;
+}

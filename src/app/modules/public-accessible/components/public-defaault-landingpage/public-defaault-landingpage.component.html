@@ -1,0 +1,16 @@
+<div class="task-header">
+  <div class="search-box">
+
+    <div class="search">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control" [(ngModel)]="landingPageFilter" (keyup.enter)="searchPage()"  placeholder="Search here">
+    </div>
+  </div>
+</div>
+
+<!------------------------------->
+<div class="website-list">
+
+  <app-landing-page-grid (emitPageEvent)="onEventFromTable($event)" [bid]="bid" [defaultTemplates]="defaultTemplates" [isPublic]="true"  [link]="link"
+  [previwThumbnailLink]="previwThumbnailLink" [isDeleteDisabled]="true" [isEditDisabled]="true" [websiteLink]="websiteLink" ></app-landing-page-grid>
+</div>

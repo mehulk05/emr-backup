@@ -1,0 +1,50 @@
+.add-section {
+  text-align: center;
+  margin: 20px 0;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  background-color: hsla(0, 0%, 100%, 0.5);
+  outline: 1px dashed rgba(170, 170, 170, 0.7);
+  outline-offset: -2px;
+}
+
+.select-preset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.select-preset__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  max-width: 650px;
+}
+
+.select-preset__list .preset {
+  cursor: pointer;
+  flex-basis: 90px;
+}
+
+.select-preset__list .preset svg {
+  width: 100%;
+  height: auto;
+}
+
+.select-preset__list .preset rect {
+  fill: #d5d8dc;
+  transition: all 0.3s;
+}
+
+.select-preset__list .preset:hover rect {
+  fill: #515962;
+}
+
+.select-preset__list .preset path {
+  fill: #fff;
+}

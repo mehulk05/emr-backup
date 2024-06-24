@@ -1,0 +1,89 @@
+.btn-save{
+    margin-top: 10px;
+}
+
+.table {
+    width: 100%;
+}
+
+
+td { 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    word-wrap: break-word;
+}
+.form-group{
+    margin-bottom: 15px;
+    
+}
+
+.form-group label{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+/* Style for the overall container */
+.chartItem {
+    margin: 0px;
+    padding: 0 !important;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f8f9fa; /* Light background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for table header */
+.table thead th {
+    background-color: #D8E2F6 !important; /* Header background color */
+    color: #000; /* Header text color */
+    font-weight: 500;
+    font-size: 14px;
+    padding: 15px;
+    text-align: left;
+}
+
+/* Style for table rows */
+.table tbody tr {
+    border-bottom: 1px solid #dee2e6; /* Bottom border for each row */
+}
+
+/* Style for odd rows */
+.table tbody tr:nth-child(odd) {
+    background-color: #fff; /* Alternate row background color */
+}
+
+/* Style for even rows */
+.table tbody tr:nth-child(even) {
+    background-color: #d8e2f64d  !important; /* Alternate row background color */
+}
+
+/* Style for table cells */
+.table td {
+    padding: 8px;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+/* Style for loader */
+.loader {
+    display: none; /* Assuming you want to hide the loader initially */
+}
+
+
+
+
+.table-pagination{
+    display: flex;
+    justify-content: center;
+
+}
+
+.table-pagination ::ng-deep ul{
+    padding-left: 0 !important;
+}

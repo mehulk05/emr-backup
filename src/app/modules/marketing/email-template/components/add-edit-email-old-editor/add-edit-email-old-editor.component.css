@@ -1,0 +1,36 @@
+.form-group {
+  margin-bottom: 30px;
+}
+.flex-sb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.button-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 15px;
+  margin-right: -15px;
+}
+.old-editor p a {
+  color: #009EDE;
+}
+
+a {
+  cursor: pointer;
+  color: #009EDE;
+}
+
+a:hover {
+  cursor: pointer;
+  color: #009EDE;
+}
+
+.selector {
+	color: black;
+}
+
+.selector:hover {
+	color: #009EDE;
+}

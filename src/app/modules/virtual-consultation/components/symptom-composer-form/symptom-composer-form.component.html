@@ -1,0 +1,79 @@
+<div class="composer-modal">
+  <div class="composer-modal-body">
+    <form [formGroup]="symptomForm" (ngSubmit)="onSubmit()">
+
+      <!-- ------------------- Show Symptoms for selected part ------------------- -->
+      <div formArrayName="symptoms">
+        <div class="symptomsName">
+          <ul class="symptomitem">
+            <li *ngFor="let symptom of symptoms.controls; let i=index" formGroupName="{{i}}">
+              <div class="row mx-0">
+                <div class="col-lg-5 col-md-5">
+                  <input type="text" value="{{symptom.value.name}}" (input)="symptomNameChange($event,i)"
+                    class="form-control" placeholder="Symptom Name" [disabled]="!symptom.value.isEdit">
+                </div>
+                <div class="col-lg-5 col-md-5">
+                  <p-multiSelect [resetFilterOnHide]="true"  [virtualScroll]="true" appendTo="body" [disabled]="!symptom.value.isEdit" [options]="services" formControlName="serviceIds"
+                    (onChange)="serviceLinkChange($event, i)" optionLabel="name" optionValue="value" display="chip" [style]="{'top': '-120'}">
+                  </p-multiSelect>
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                  <div class="btn-wrapper">
+                    <button *ngIf="!symptom.value.isEdit" class="btn deletebtn" (click)="editSymptom(i)"
+                      style="margin-right: 5px !important;"><i class="fas fa-pencil-alt ms-text-primary"></i></button>
+                    <button *ngIf="symptom.value.isEdit" class="btn deletebtn" (click)="cancelEdit(i)"
+                      style="margin-right: 5px !important;"><i class="fa fa-close"></i></button>
+                    <button *ngIf="symptom.value.isEdit" class="btn deletebtn" (click)="updateSymptom(i)"
+                      style="margin-right: 5px !important;"><i class="fas fa-save"></i></button>
+                    <button class="btn deletebtn" (click)="removeSymptom(i)"> <i class="fas fa-trash-alt"></i></button>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- --------------------- Add more symptoms formArray --------------------- -->
+      <div class="add-symptoms-section">
+        <div class="add-symptoms-title">
+          <p class="title">
+            Add More Symptom
+          </p>
+        </div>
+        <div formArrayName="newSymptomForm">
+          <div class="symptomsName">
+            <ul class="symptomitem">
+              <li >
+                <div class="row mx-0">
+                  <div class="col-lg-5 col-md-5">
+                    <input type="text" formControlName="name" (input)="onSymptomAdd($event)"
+                      class="form-control" placeholder="Symptom Name">
+                      <div class="error">
+                        <div class="" *ngIf="duplicateSymtom">
+                          Symptom with this name already present.
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-5 col-md-5">
+                    <p-multiSelect [resetFilterOnHide]="true"  [style]="{'top': '-129'}" [virtualScroll]="true" appendTo="body"  [options]="services" formControlName="serviceIds" optionLabel="name" optionValue="value" display="chip">
+                    </p-multiSelect>
+                  </div>
+
+                  <div class="col-lg-2 col-md-2">
+                    <div class="btn-wrapper">
+                      <button  class="btn deletebtn" [disabled]="disableAddButton" (click)="addSymptom()"
+                        style="margin-right: 5px !important;"><i class="fa fa-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

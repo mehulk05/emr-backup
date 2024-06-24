@@ -1,0 +1,110 @@
+.table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.table-controls  *{
+  font-size: 14px;font-weight: 500;
+}
+.control-group {
+  display: flex;
+  align-items: center;
+}
+
+.control-group label {
+  margin-right: 10px;
+}
+
+.add-column-btn {
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table-container {
+  position: relative;
+  overflow: auto;
+}
+
+.table-container  input{
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+.table-container th{
+  font-size: 12px;
+  font-weight: 500;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+thead tr th {
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+}
+
+tbody tr td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.row-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-row-btn, .remove-row-btn {
+  margin-left: 0px;
+  margin-right: 5px;
+  padding: 0px 7px;
+  font-size: 14px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-row-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.add-row-btn:hover {
+  background-color: #3e8e41;
+}
+
+.remove-row-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.remove-row-btn:hover {
+  background-color: #d32f2f;
+}
+
+.card-wrapper{
+  margin-top: 2em;
+}
+
+
+.large-input {
+  width: 100%;
+  box-sizing: border-box;
+}

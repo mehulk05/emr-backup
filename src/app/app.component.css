@@ -1,0 +1,87 @@
+.shift-right {
+  padding-left: 250px;
+  transition: padding-left .35s ease-in-out, left .35s ease-in-out, padding-right .35s ease-in-out, right .35s ease-in-out;
+}
+
+.left-sidebar {
+  position: fixed;
+  overflow: hidden;
+  overflow-y: auto;
+  height: calc(100vh - 50px);
+  background-color: #fff;
+  direction: ltr;
+  transition: margin-left .35s ease-in-out, left .35s ease-in-out, margin-right .35s ease-in-out, right .35s ease-in-out;
+  background: #F8FAFE;
+  top:0;
+}
+
+.right-section {
+  /* background-color: #F5F7FB; */
+  /* padding-bottom: 0.5em; */
+}
+
+.hidesidebar {
+  padding-bottom: 0;
+}
+
+.left-sidebar::-webkit-scrollbar {
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+
+/* Optional: show position indicator in red */
+
+.main-container.sidebarCollapse .left-sidebar {
+  margin-left: -269px;
+}
+
+.main-container.sidebarCollapse .shift-right {
+  padding-left: 0;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.route-section {
+  background-color: #fff;
+  /* padding-left: 30px;
+  padding-right: 30px; */
+  /* padding-top: 30px; */
+}
+
+@media screen and (max-width: 768px) {
+  .shift-right {
+    padding-left: 65px !important;
+  }
+
+  .route-section {
+    padding: 0 !important;
+  }
+
+  .left-sidebar {
+    position: fixed;
+    left: 0;
+    z-index: 99;
+  }
+}
+
+.new-warning-panel {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8A0101;
+  background-color: #FEE5E5;
+  padding: 1em;
+  text-align: center;
+  margin: 0;
+  border-radius: 0 !important;
+}
+
+
+.left-sidebar.banner-show {
+  height: calc(100vh - 42px);
+}

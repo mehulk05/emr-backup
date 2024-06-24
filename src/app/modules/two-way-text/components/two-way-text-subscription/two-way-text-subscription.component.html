@@ -1,0 +1,322 @@
+<ng-container *ngIf="currentIndex === -1; else subscriptionScreen">
+  <app-two-way-text-upgrade [twoWayTextUpgradeRequest]="twoWayTextUpgradeRequest"
+    (buttonClicked)="handleButtonClicked($event)"></app-two-way-text-upgrade>
+</ng-container>
+<ng-template #subscriptionScreen>
+  <div class="container new-ui p-4">
+    <div class="w-100 d-flex justify-content-between">
+      <div (click)="prevStep()" style="cursor: pointer;">
+        <ng-container *ngIf="!a2pUpgrade?.isPaymentComplete && currentIndex <= 1">
+          <svg width="30px" height="30px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#6688d9">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path fill="#6688d9" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path>
+              <path fill="#6688d9"
+                d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z">
+              </path>
+            </g>
+          </svg>
+        </ng-container>
+      </div>
+      <button class="btn-default-new btn-small-new btn-size" (click)="goToDemo()">View Demo</button>
+    </div>
+    <div class="header-text text-center">
+      <h4>Two-Way Text Setup</h4>
+    </div>
+    <div class="steps-container">
+      <div class="steps">
+        <span class="circle" [class.active]="currentIndex >= 0" (click)="clickProgressDot(0)">
+          <div *ngIf="currentIndex >= 0" style="position: relative; top: -7px;left: -2px;">
+            <svg fill="#76c83f" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 490.05 490.05" xml:space="preserve"
+              stroke="#76c83f">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <g>
+                  <g>
+                    <path
+                      d="M418.275,418.275c95.7-95.7,95.7-250.8,0-346.5s-250.8-95.7-346.5,0s-95.7,250.8,0,346.5S322.675,513.975,418.275,418.275 z M157.175,207.575l55.1,55.1l120.7-120.6l42.7,42.7l-120.6,120.6l-42.8,42.7l-42.7-42.7l-55.1-55.1L157.175,207.575z">
+                    </path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span class="step-heading" style="left:-15px">Step 1</span>
+          <div style="left: -45px;" class="step-heading2">Choose Number</div>
+        </span>
+        <span class="circle" [class.active]="currentIndex >= 1">
+          <div *ngIf="currentIndex >= 1" style="position: relative; top: -7px;left: -2px;">
+            <ng-container *ngIf="a2pUpgrade?.isPaymentComplete">
+              <svg fill="#76c83f" height="20px" width="20px" version="1.1" id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 490.05 490.05" xml:space="preserve" stroke="#76c83f">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g>
+                    <g>
+                      <path
+                        d="M418.275,418.275c95.7-95.7,95.7-250.8,0-346.5s-250.8-95.7-346.5,0s-95.7,250.8,0,346.5S322.675,513.975,418.275,418.275 z M157.175,207.575l55.1,55.1l120.7-120.6l42.7,42.7l-120.6,120.6l-42.8,42.7l-42.7-42.7l-55.1-55.1L157.175,207.575z">
+                      </path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </ng-container>
+          </div>
+          <span class="step-heading" style="left:-22px">Step 2</span>
+          <div class="step-heading2">Payment</div>
+        </span>
+        <span class="circle" [class.active]="currentIndex >= 2">
+          <div *ngIf="currentIndex >= 2" style="position: relative; top: -7px;left: -2px; cursor:pointer;">
+            <ng-container *ngIf="a2pUpgrade?.address1">
+              <svg fill="#76c83f" height="20px" width="20px" version="1.1" id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 490.05 490.05" xml:space="preserve" stroke="#76c83f">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g>
+                    <g>
+                      <path
+                        d="M418.275,418.275c95.7-95.7,95.7-250.8,0-346.5s-250.8-95.7-346.5,0s-95.7,250.8,0,346.5S322.675,513.975,418.275,418.275 z M157.175,207.575l55.1,55.1l120.7-120.6l42.7,42.7l-120.6,120.6l-42.8,42.7l-42.7-42.7l-55.1-55.1L157.175,207.575z">
+                      </path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </ng-container>
+          </div>
+          <span class="step-heading" style="left: -20px">Step 3</span>
+          <div class="step-heading2">Fill Form</div>
+        </span>
+
+
+        <div class="progress-bar">
+          <span class="indicator" #progressIndicator></span>
+        </div>
+      </div>
+    </div>
+    <div class="content-container">
+
+
+      <ng-container *ngIf="currentIndex === 0">
+        <div class="d-flex justify-content-evenly align-items-center">
+          <div class="bg-white m-5">
+            <div class="text-center mx-3">
+
+
+              <div class="d-flex justify-content-evenly align-items-center flex-row p-3 pb-0">
+                <div class="d-flex justify-content-evenly align-items-center flex-column p-2 pb-0">
+                  <label class="p-2">Enter your Preferred Area Code<span class="error-red">*</span></label>
+                  <input class="form-control input-type2" type="text" (keyup)="changeAreaCode($event)"
+                    [(ngModel)]="geoCode" />
+
+                </div>
+
+                <div class="mt-5">
+                  -or-
+                </div>
+                <div class="d-flex justify-content-evenly align-items-center flex-column p-2 pb-0">
+
+                  <label class="p-2">Enter the digits of your choice<span class="error-red">*</span></label>
+                  <input class="form-control input-type2" type="text" (keyup)="changeDigitChoice($event)"
+                    [(ngModel)]="searchDigits" />
+                </div>
+              </div>
+
+              <div class="row py-0">
+                <div class="col-6 pt-0">
+                  <span *ngIf="errGeo" class="error py-0">Please enter 3 digit numeric
+                    value</span>
+                </div>
+                <div class="col-6 pt-0">
+                  <span *ngIf="errDigit" class="error py-0">Please enter a numeric value</span>
+                </div>
+              </div>
+
+
+              <div>
+                <button class="btn-save-new btn-long-new" [disabled]="!searchDigits && !geoCode || errGeo || errDigit"
+                  (click)="findAvailableNos()">Find Numbers</button>
+              </div>
+
+
+              <ng-container *ngIf="availableTwilioNumbersToBuy.length>0">
+                <p style="font-size: 20px;margin: 20px 0px;font-weight: 500;">List of available numbers</p>
+                <div class="m-1 tableFixHead">
+                  <table style="width: 100%;" class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Phone Number</th>
+                        <th>Locality</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let availableNo of availableTwilioNumbersToBuy">
+                        <td>{{availableNo?.phoneNumber}}</td>
+                        <td>{{availableNo?.locality}}</td>
+                        <td><button class="btn-save-new btn-long-new" (click)="savePhoneChoice(availableNo)">
+                            Buy
+                          </button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngIf="currentIndex === 1">
+        <ng-container *ngIf="!a2pUpgrade?.isPaymentComplete">
+          <stripe-payment [type]="'onetime'" (afteronPaymentSuccess)="afteronPaymentSuccess($event)"
+            (afteronPaymentCancel)="buttonClickedForPackageList($event)">
+          </stripe-payment>
+        </ng-container>
+        <ng-container *ngIf="a2pUpgrade?.isPaymentComplete">
+          <div class="package-list py-4">
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="bg-white m-5">
+                <div class="mb-4 text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="75" height="75" fill="green"
+                    class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                      d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                  </svg>
+
+                  <h4 style="color: #008000; margin-top:15px;">Payment Successful!</h4>
+                  <p style="color: gray; margin-top:12px; font-size: 12px;">Transaction ID : {{a2pUpgrade?.paymentId}}
+                  </p>
+                </div>
+                <div class="text-center mx-3">
+
+                  <button class="btn btn-outline-success mt-2" (click)="nextAndStayOnForm('None')">Continue</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+
+
+
+
+
+      <ng-container *ngIf="currentIndex === 2">
+        <ng-container *ngIf="a2pUpgrade?.fileUrl === 'None'">
+          <div class="subscription-form">
+            <app-two-way-text-subscription-form
+              (buttonClickedEvent)="buttonClickedForPackageList($event)"></app-two-way-text-subscription-form>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="a2pUpgrade?.address1">
+          <div class="package-list py-4">
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="bg-white m-5">
+                <div class="mb-4 text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="75" height="75" fill="green"
+                    class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                      d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                  </svg>
+
+                  <h4 style="color: #008000; margin-top:15px;">You are all set!</h4>
+                </div>
+                <div class="text-center mx-3">
+
+                  <div class="m-1">
+                    <h5>Thank you for registering for Two-way text.</h5>
+                  </div>
+                  <div class="m-5">
+                    <p>
+                      Your request is being processed. Once processing is successful, this page will auto-refresh and
+                      you will be able to enjoy all the benefits of two-way text. The current turnaround time for
+                      activation is around 2 weeks.
+                    </p>
+                  </div>
+                  <div class="m-5">
+                    <p>For questions or clarifications
+                      related to this service, please contact</p>
+                    <a href="mailto:customerexperience@growth99.com">customerexperience&#64;growth99.com</a>
+                  </div>
+                  <div class="m-5">
+                    <!-- <p style="color:red;font-size:12px">Note - You have only been charged for the set-up fee.
+                      The monthly recurring payment of $24.99 will be automatically activated on your card post
+                      activation
+                      of the two-way text service.</p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+
+
+
+
+      <ng-container *ngIf="currentIndex === 10">
+        <div class="package-list py-4">
+
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="bg-white m-5">
+              <div class="mb-4 text-center">
+                <svg width="107px" height="107px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+                  fill="#eb5027" stroke="#eb5027">
+
+                  <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                  <g id="SVGRepo_iconCarrier">
+                    <title>cross-circle</title>
+                    <desc>Created with Sketch Beta.</desc>
+                    <defs> </defs>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                      <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-568.000000, -1087.000000)"
+                        fill="#eb5027">
+                        <path
+                          d="M584,1117 C576.268,1117 570,1110.73 570,1103 C570,1095.27 576.268,1089 584,1089 C591.732,1089 598,1095.27 598,1103 C598,1110.73 591.732,1117 584,1117 L584,1117 Z M584,1087 C575.163,1087 568,1094.16 568,1103 C568,1111.84 575.163,1119 584,1119 C592.837,1119 600,1111.84 600,1103 C600,1094.16 592.837,1087 584,1087 L584,1087 Z M589.717,1097.28 C589.323,1096.89 588.686,1096.89 588.292,1097.28 L583.994,1101.58 L579.758,1097.34 C579.367,1096.95 578.733,1096.95 578.344,1097.34 C577.953,1097.73 577.953,1098.37 578.344,1098.76 L582.58,1102.99 L578.314,1107.26 C577.921,1107.65 577.921,1108.29 578.314,1108.69 C578.708,1109.08 579.346,1109.08 579.74,1108.69 L584.006,1104.42 L588.242,1108.66 C588.633,1109.05 589.267,1109.05 589.657,1108.66 C590.048,1108.27 590.048,1107.63 589.657,1107.24 L585.42,1103.01 L589.717,1098.71 C590.11,1098.31 590.11,1097.68 589.717,1097.28 L589.717,1097.28 Z"
+                          id="cross-circle" sketch:type="MSShapeGroup"> </path>
+                      </g>
+                    </g>
+                  </g>
+
+                </svg>
+              </div>
+              <div class="text-center mx-3">
+
+                <div class="m-1">
+                  <h5 style="color: #ec3411;">Payment Failed!</h5>
+                </div>
+                <div *ngIf="paymentErrorMessage">
+                  <p style="color: #ec1111;; margin-top:12px; font-size: 12px;">Reason : {{ paymentErrorMessage }}
+                </div>
+                <div class="m-3">
+                  Your payment has failed.
+                </div>
+
+                <button class="btn btn-outline-success mt-2" (click)="retry()">Retry Payment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+
+    </div>
+  </div>
+</ng-template>

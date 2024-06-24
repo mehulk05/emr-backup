@@ -1,0 +1,24 @@
+<div class="hover-class row mx-2 my-0 p-2" [ngStyle]="{ 'background-color': showButton?'#f0f0f5':''}"
+    (mouseover)="showButton = true" (mouseleave)="showButton = false">
+    <div class="col-8 m-0 p-0">
+        <p [ngClass]="showButton?'rowTxtBold':'rowTxt'">{{package.name}}</p>
+    </div>
+    <div class="col-2 p-0 d-flex align-items-start" *ngIf="showButton&&package?.cost">
+        <button (click)="submitBuy(package)" type="button" class="buyBtn">
+            <p class="btnTxt">Buy Now</p>
+        </button>
+    </div>
+    <div [ngClass]="showButton&&package?.cost?'col-2 ':'col-4'"
+        class="col-2 m-0 p-0 d-flex align-items-end justify-content-end">
+        <p *ngIf="package?.cost; else contactus" [ngClass]="showButton?'rowCostTxtBold':'rowCostTxt'">${{package.cost}}
+        </p>
+        <ng-template #contactus>
+            <p *ngIf="package?.goto==='free';else goto" class="rowCostTxt">{{package?.goto}}</p>
+            <ng-template #goto>
+                <a class="rightTxt" href="mailto:support@growth99.com">{{package?.goto}}</a>
+            </ng-template>
+
+        </ng-template>
+    </div>
+    <hr *ngIf="package?.cost||package?.goto==='free'" class="m-0 p-0">
+</div>

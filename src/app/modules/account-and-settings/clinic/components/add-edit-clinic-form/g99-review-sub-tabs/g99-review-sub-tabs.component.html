@@ -1,0 +1,26 @@
+<div class="blue-card bg-white box-shadow-light">
+    <div class="card">
+        <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+            <p-tabPanel header="Configuration" *ngIf="clinicId">
+                <app-g99-clinic-review-config *ngIf="selectedSource==='Configuration'" [clinicData]="clinicData"
+                    [clinicId]="clinicId"></app-g99-clinic-review-config>
+            </p-tabPanel>
+            <p-tabPanel header="Reports/Schedule Report" *ngIf="clinicId && enableReportTabs">
+                <app-g99-clinic-review-report *ngIf="selectedSource==='Reports'" [clinicData]="clinicData"
+                    [clinicId]="clinicId"></app-g99-clinic-review-report>
+            </p-tabPanel>
+            <!-- <p-tabPanel header="Schedule Report" *ngIf="clinicId && enableReportTabs">
+                <app-g99-review-settings *ngIf="selectedSource==='Settings'" [clinicData]="clinicData"
+                    [clinicId]="clinicId"></app-g99-review-settings>
+            </p-tabPanel> -->
+            <p-tabPanel header="Edit Reviews" *ngIf="clinicId && enableReportTabs">
+                <app-g99-clinic-reviews-edit *ngIf="selectedSource==='Edit_Reviews'" [clinicData]="clinicData"
+                    [clinicId]="clinicId"></app-g99-clinic-reviews-edit>
+            </p-tabPanel>
+            <p-tabPanel header="QR Code Generator" *ngIf="clinicId">
+                <app-g99-review-qrcode *ngIf="selectedSource==='g99reviewQrcode'" [clinicData]="clinicData"
+                    [clinicId]="clinicId"></app-g99-review-qrcode>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

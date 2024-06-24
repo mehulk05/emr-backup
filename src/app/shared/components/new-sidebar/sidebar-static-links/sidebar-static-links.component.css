@@ -1,0 +1,90 @@
+.nav-link{
+  font-size: 14px;
+  font-weight: 00;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #767B85;
+}
+
+
+
+.toggleSidebar .nav-link .hideText {
+  display: none;
+}
+
+.toggleSidebar .nav-link .icon-bg {
+  font-size: 18px;
+  padding: 6px 0;
+  color: #000;
+  max-width: 20px;
+}
+
+
+ 
+svg{
+  max-width: 20px;
+  fill: #767b85;
+}
+
+.nav-link svg:hover,
+.toggleSidebar .nav-link svg{
+  fill: #000;
+}
+
+.menu-text{
+  margin-left: 10px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+
+::ng-deep .p-overlaypanel.sidebar_overlay {
+  left: 62px !important;
+  transform: translateY(-42px) !important;
+  box-shadow: none !important;
+  border: 1px solid lightgray !important;
+}
+
+::ng-deep .p-overlaypanel.sidebar_overlay .p-overlaypanel-content {
+  margin-top: 0px !important;
+  padding: 1px 1px 8px 1px !important;
+  border-radius: 20px !important;
+}
+
+
+::ng-deep .p-overlaypanel.sidebar_overlay::before {
+  content:none !important;
+}
+::ng-deep .p-overlaypanel.sidebar_overlay::after {
+  content:none !important;
+}
+
+.static-link{
+  padding-top: 10px;
+  border-top: 1px solid gainsboro;
+  margin-top: 10px;
+}
+
+.nav-link:hover{
+  color: #333;
+}
+
+.nav-link{
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+  position: relative;
+}
+
+.badge{
+  font-size: 10px;
+  padding: 3px 7px;
+  font-weight: 500;
+  position: absolute;
+  right: 17px;
+  text-transform: capitalize;
+  top: 8px;
+}
+
+.badge.new{
+  background: #6bee17;
+}

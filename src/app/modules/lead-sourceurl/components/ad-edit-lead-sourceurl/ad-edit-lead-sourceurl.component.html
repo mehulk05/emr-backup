@@ -1,0 +1,62 @@
+<div class="blue-card">
+    <div class="bg-white new-ui">
+      <form [formGroup]="leadSourceUrlForm">
+        <div class="add-edit-form">
+          <div class="title ml-3">
+            <h3 *ngIf="!id">Create Lead Source URL</h3>
+            <h3 *ngIf="id">Edit Lead Source URL</h3>
+          </div>
+          <div class="form form-type2">
+            <div class="row mx-0">
+              <!-- ----------------------------- Name Feild ----------------------------- -->
+              <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="form-group" [ngClass]="
+                  f.sourceUrl.invalid && (f.sourceUrl.dirty || f.sourceUrl.touched)
+                    ? 'has-error'
+                    : ''
+                ">
+                  <label>Source URL<span class="error-red">*</span></label>
+                  <input type="text" class="form-control input-type2" formControlName="sourceUrl"
+                    appErrorStylingDirective />
+                  <!-- <div *ngIf="duplicateLabel" class="error-duplicate">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Tag with this name already present.
+                  </div> -->
+                  <div class="error error-msg">
+                    <div *ngIf="f.sourceUrl.errors?.required">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>URL is
+                      required
+                    </div>
+                    <div *ngIf="f.sourceUrl.errors?.pattern">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>URL is
+  invalid                  </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!-- --------------------------- buttons section --------------------------- -->
+              <div class="col-lg-8 col-md-12 col-sm-12 mt-2
+              ">
+                <div class="form-group">
+                  <div class="button-flex">
+                    <button [disabled]="!leadSourceUrlForm.valid" (click)="submitForm()" class="btn-small-new btn-save-new mr-0">
+                      <span class="btn-text">Save</span>
+                    </button>
+
+                    <button type="button" (click)="goBack()" class="btn-default-new btn-small-new" style="min-height: 37px;">
+                      <span class="btn-text"> Cancel</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ------------------------- div class row ends -------------------------- -->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>

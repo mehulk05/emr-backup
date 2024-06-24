@@ -1,0 +1,81 @@
+
+
+<ng-container *ngIf="!showRoleSelection">
+
+  <div class="row mx-0" *ngIf="groupMenuList.length > 0 || menuList.length > 0">
+    <div class="col-lg-6 col-md-6 col-sm-12 panel-card">
+      <!-- ----------------------------- Headermenu ------------------------------ -->
+      <div class="menu-container">
+        <div *ngFor="let defaultMenu of headerMenuList" class="panel-card-content">
+          <app-menu-item [menu]="defaultMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+
+
+          <!-- Header group menu -->
+          <div *ngFor="let groupMenu of defaultMenu.groupItems" class="panel-card-content">
+            <app-menu-item [menu]="groupMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+
+            <div class="menu-container" *ngIf="groupMenu.items.length > 0">
+              <!-- Header group menu -> child items -->
+              <div *ngFor="let menuItems of groupMenu.items" class="panel-card-content">
+                <app-menu-item [menu]="menuItems" (addToMenu)="addToMenu($event)"></app-menu-item>
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <!-- Header child item -->
+          <div *ngFor="let childMenu of defaultMenu.items" class="panel-card-content">
+            <app-menu-item [menu]="childMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <!-- ----------------------------- Group menu ------------------------------ -->
+      <div class="menu-container">
+        <div *ngFor="let defaultMenu of groupMenuList" class="panel-card-content">
+          <app-menu-item [menu]="defaultMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+
+          <!-- Group menu -> child items -->
+          <div *ngFor="let item of defaultMenu.items" class="panel-card-content">
+            <app-menu-item [menu]="item" (addToMenu)="addToMenu($event)"></app-menu-item>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- -------------------------------- MMenu -------------------------------- -->
+      <div class="menu-container">
+        <div *ngFor="let defaultMenu of menuList" class="panel-card-content">
+          <app-menu-item [menu]="defaultMenu" (addToMenu)="addToMenu($event)"></app-menu-item>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 panel-card">
+
+      <div class="panel-card-content">
+        <div class="btn-flex">
+          <button class="btn-small-new btn-save-new" (click)="submitRoles()">Save Role</button>
+        </div>
+        <ng-container cdkDropListGroup>
+
+          <div id="menu-1" cdkDropList [cdkDropListData]="menus" (cdkDropListDropped)="dropMenu($event)"
+            [cdkDropListConnectedTo]="menusIds">
+
+            <ng-container *ngFor="let menu of menus">
+              <app-custom-role-single-menu (deleteMenu)="removeMenu($event)" (dropMenu)="dropMenu($event)"
+                (moveUp)="moveUp($event)" (moveDown)="moveDown($event)" [menu]="menu" [menus]="menus"
+                [menusIds]="menusIds"></app-custom-role-single-menu>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,229 @@
+<div class="container-fluid">
+  <div class="main1">
+    <div class="row" *ngIf="services">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+        <div class="left-div1">
+          <div class="center">
+            <div class="image-logo">
+
+              <div *ngIf="logoUrl && logoUrl !== null; else default" class="mb-4" style="text-align: center;">
+                <img class="clinicLogo" src="{{logoUrl}}" />
+              </div>
+              <ng-template #default style="text-align: center;">
+                <img class="text-center ms-logo-img-link"
+                  src="https://g99plus.b-cdn.net/AEMR/assets/img/profileDefault.png" style="max-width:200px" />
+              </ng-template>
+              <div class="title">
+                <h1 [ngStyle]="{'color':titleColor}">{{clinic?.name}}</h1>
+              </div>
+            </div>
+
+            <div class="book-apt" *ngIf="showBookAppointmentButton">
+              <div class="book-apt-btn">
+                <button class="book btn"
+                  [ngStyle]="{'background-color': buttonBackgroundColor ,'color': buttonForegroundColor ,'border':buttonBackgroundColor }">
+                  <span *ngIf="!landingPageId">
+                    <!-- <a [ngStyle]="{'color': buttonForegroundColor ,'border':backgroundColor}"
+                                          [routerLink]="['/ap-booking/business/',businessId,clinicId,'','','book','appointment']">BOOK
+                                          APPOINTMENT</a> -->
+
+                    <a [ngStyle]="{'color': buttonForegroundColor ,'border':buttonBackgroundColor}"
+                      [routerLink]="['/ap-booking/business/']" [queryParams]="{b: businessId,c:clinicId}"> BOOK
+                      APPOINTMENT</a>
+                  </span>
+
+                  <span *ngIf="landingPageId">
+                    <!-- <a [ngStyle]="{'color': buttonForegroundColor ,'border':backgroundColor}"
+                                          [routerLink]="['/ap-booking/business/',businessId,clinicId,'','','book','appointment']">BOOK
+                                          APPOINTMENT</a> -->
+
+                    <a [ngStyle]="{'color': buttonForegroundColor ,'border':buttonBackgroundColor}"
+                      [routerLink]="['/ap-booking/business/']"
+                      [queryParams]="{b: businessId,c:clinicId,lpid:landingPageId}"> BOOK
+                      APPOINTMENT</a>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="description">
+              <p>{{clinic?.about}}</p>
+            </div>
+
+            <div class="location">
+              <div class="title">
+                <span [ngStyle]="{'color':titleColor}">LOCATIONS</span>
+              </div>
+
+
+              <div class="maps">
+                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                  <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                </agm-map>
+              </div>
+
+              <div class="map-desc" *ngIf="clinic?.address !== 'null'">
+                <div class="location-img">
+                  <a [href]="'https://maps.google.com/maps?&amp;q='+ clinic?.address" target="_blank">
+                    <i [ngStyle]="titleStyle" class="fas fa-map-marker-alt"></i> &nbsp;{{clinic?.address}}
+                  </a>
+
+                </div>
+
+              </div>
+            </div>
+
+            <div class="social-media">
+              <div class="title" [ngStyle]="{'color':titleColor}">
+                STAY IN TOUCH
+              </div>
+              <div class="icons" *ngIf="clinic?.twitter || clinic?.facebook || clinic?.instagram">
+
+                <a tooltip="twitter" *ngIf="clinic?.twitter" [attr.href]="clinic?.twitter ||   this.currentUrl"
+                  target="_blank"> <i [ngStyle]="activeLinkStyle" class="fab fa-twitter"></i></a>
+                <a tooltip="facebook" *ngIf="clinic?.facebook" [attr.href]="clinic?.facebook ||   this.currentUrl"
+                  target="_blank"> <i [ngStyle]="activeLinkStyle" class="fab fa-facebook"></i></a>
+                <a tooltip="instagram" *ngIf="clinic?.instagram" [attr.href]="clinic?.instagram || this.currentUrl"
+                  target="_blank"> <i [ngStyle]="activeLinkStyle" class="fab fa-instagram"></i></a>
+
+              </div>
+              <div class="contact-detial" *ngIf="clinic?.contactNumber || clinic?.notificationEmail">
+                <p *ngIf="clinic?.contactNumber">{{getUsformattedPhoneNumber(clinic?.contactNumber)}}</p>
+                <p *ngIf="clinic?.notificationEmail">{{clinic?.notificationEmail}}</p>
+              </div>
+            </div>
+
+            <div class="gift" *ngIf="clinic?.giftCardUrl && clinic?.giftCardUrl!=='' ">
+              <div class="gift-text">
+                <div class="title">
+                  <h1 [ngStyle]="{ 'color':titleColor}">GIFT CARD</h1>
+                </div>
+                <div class="desc">
+                  {{clinic?.giftCardDetail}}
+                </div>
+
+                <div class="buy-btn btn-gift">
+                  <button class="btn"
+                    [ngStyle]="{ 'background-color': buttonBackgroundColor , 'color': buttonForegroundColor , 'border':buttonBackgroundColor }">
+                    <span>
+                      <a [ngStyle]="{ 'color':buttonForegroundColor}" target="_blank"
+                        [attr.href]="clinic?.giftCardUrl">BUY NOW</a>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+        <div class="right-div1">
+          <div class="center">
+            <div class="bookapt-title">
+              <div class="title">
+                <h1 [ngStyle]="{ 'color':titleColor}">BOOK APPOINTMENT</h1>
+              </div>
+            </div>
+
+            <div class="service">
+              <p><a [ngStyle]="toggleFlag==='service' ? activeLinkStyle: null"
+                  [ngClass]="toggleFlag==='service' ? 'active': ''"
+                  (click)="toggleServiceProvider( 'service')">Services</a></p>
+
+            </div>
+
+            <div class="serviceName">
+              <ng-container *ngIf="toggleFlag==='service'">
+              <ng-container *ngIf="clinic?.showCategoriesOnAppointmentBookingPage">
+                <app-service-accordian [services]="services"  [buttonBackgroundColor]="buttonBackgroundColor"
+                [activeLinkStyle]="activeLinkStyle" [titleColor]="titleColor" [currency]="currency"
+                [buttonForegroundColor]="btnTextStyle.color" [showRadio]="false"  (selectedServiceIdCheck)="onSelectService($event)"></app-service-accordian>
+              </ng-container>
+
+
+              <ng-container *ngIf="!clinic?.showCategoriesOnAppointmentBookingPage">
+                <app-service-by-list [services]="services" [buttonForegroundColor]="btnTextStyle.color"
+                [activeLinkStyle]="activeLinkStyle" [titleColor]="titleColor" [currency]="currency"
+                [buttonBackgroundColor]="buttonBackgroundColor"  [showRadio]="false"  (selectedServiceIdCheck)="onSelectService($event)"></app-service-by-list>
+              </ng-container>
+              </ng-container>
+              <ng-container *ngIf="toggleFlag==='providers'">
+                <div class="service-details" *ngFor="let service of providers;let i=index">
+                  <div class="img" *ngIf="service.profileImageUrl">
+                    <!-- <img src={{service.profileImageUrl}} [ngStyle]="{ 'border-color':activeLinkStyle.color}" class="cirlc"> -->
+                    <img src={{service.profileImageUrl}} [ngStyle]="{ 'border-color':'transparent'}" class="cirlc">
+                  </div>
+
+                  <div class="img" *ngIf="!service.profileImageUrl && service.id!==0">
+
+                    <div id="circle">
+                      <div class="segment"></div>
+                      <div [ngStyle]="{ 'border-color':activeLinkStyle.color}" class="segment"></div>
+                    </div>
+
+                    <div class="arrows">
+                      <span [ngStyle]="activeLinkStyle" class="font-arrow">&#187;</span>
+                    </div>
+                  </div>
+
+                  <ng-container *ngIf="service?.id===0">
+                    <app-any-provider-image [activeLinkStyle]="activeLinkStyle" [provider]="service"
+                      [providerList]="providers"></app-any-provider-image>
+                  </ng-container>
+
+                  <div class="text">
+                    <p [ngStyle]="{ 'color':titleColor}" class="bold"
+                      [ngClass]="service.designation? 'no-margin' : 'padd-top'">{{service.firstName | uppercase}}
+                      {{service.lastName | uppercase}} </p>
+                    <div class="description1" *ngIf="service.designation">
+
+                      <p class="no-sow" *ngIf="!showMore">
+                        {{ service.designation | slice :0:100}} <span
+                          *ngIf=" !showMore && (service.designation.length)> 70">...
+                          <a [ngStyle]="activeLinkStyle" href="javascript:;" *ngIf="!showMore"
+                            (click)="setShowMore(true,i)">[Show More]</a> </span>
+                      </p>
+
+                      <p class="no-sow1" *ngIf="showMore && i!== selectedIndex">
+                        {{ service.designation | slice :0:100}} <span
+                          *ngIf=" showMore && (service.designation.length) > 70">...
+                          <a [ngStyle]="activeLinkStyle" href="javascript:;" *ngIf="showMore"
+                            (click)="setShowMore(true,i)">[Show More]</a> </span> </p>
+
+                      <p class="sow" *ngIf="showMore && selectedIndex ===i">{{ service.designation }}
+                        <a [ngStyle]="activeLinkStyle" href="javascript:;" *ngIf="showMore"
+                          (click)="setShowMore(false,i)">[Show Less]</a>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="book-btn-right">
+                    <button class="btn"
+                      [ngStyle]="{'background-color': buttonBackgroundColor ,'color': buttonForegroundColor ,'border':buttonBackgroundColor }">
+                      <span *ngIf="!landingPageId">
+                        <a [ngStyle]="{'color':buttonForegroundColor}" [routerLink]="[ '/ap-booking/business/']"
+                          [queryParams]="{b: businessId,c:clinicId,providerId:providers[i].id}">Book</a>
+
+                        <!-- <a [ngStyle]="{'color':buttonForegroundColor}"
+                                              [routerLink]="[ '/ap-booking/business/',businessId,clinicId,service.id, '', 'book', 'appointment']">Book</a> -->
+                      </span>
+
+                      <span *ngIf="landingPageId">
+                        <a [ngStyle]="{'color':buttonForegroundColor}" [routerLink]="[ '/ap-booking/business/']"
+                          [queryParams]="{b: businessId,c:clinicId,providerId:providers[i].id,lpid:landingPageId}">Book</a>
+
+                        <!-- <a [ngStyle]="{'color':buttonForegroundColor}"
+                                              [routerLink]="[ '/ap-booking/business/',businessId,clinicId,service.id, '', 'book', 'appointment']">Book</a> -->
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

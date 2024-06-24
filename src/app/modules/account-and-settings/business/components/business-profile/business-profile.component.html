@@ -1,0 +1,326 @@
+<div class="business-profile add-edit-form">
+  <form [formGroup]="businessForm" (ngSubmit)="submitForm()">
+
+    <div class="row mx-0">
+      <div class="col-lg-6 col-md-12 col-sm-12" style="padding-top: 15px;">
+
+        <div class="card-content">
+          <div class="panel-blue">
+            <div class="panel-header">
+              <div class="panel-title">
+                Business Details
+              </div>
+            </div>
+
+            <div class="panel-body pl-1 py-0 pr-1">
+              <div class="row mx-0">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="image-circle">
+                        <div class="img" *ngIf="!logoUrl">
+                          <input type="file" #myFileInput class="form-control d-none" id="file-input"
+                            (change)="fileChangeEvent($event)" accept="image/*" />
+                          <label for="file-input">
+                            <button class="btn-save-new btn-small-new"
+                              onclick="document.getElementById('file-input').click()">Upload Logo</button>
+                          </label>
+                        </div>
+                        <div class="img" *ngIf="logoUrl">
+                          <img [src]="logoUrl" #logoImg (load)="loadImg($event)">
+                          <input type="file" #myFileInput class="form-control d-none" id="file-input"
+                            (change)="fileChangeEvent($event)" accept="image/*" />
+                          <label for="file-input">
+                            <div class="edit-icon">
+                              <span>
+                                <i class="fa fa-pencil"></i>
+                              </span>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-8">
+                      <div class="img-warning" *ngIf="true">
+                        <span class="wraning">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                          Please upload the image with the width and height less than 256px *
+                          256px.<br> If dimensions will be more than specified
+                          pixels it will result in distortion of logo on Landing page.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+              </div>
+
+              <div class="row m-0">
+                <div class="col-12 left-card">
+                  <div class="add-edit-form p-1">
+                    <div class="form form-type2">
+                      <div class="form-group"
+                        [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+                        <label>Business Name<span class="error-duplicate">*</span></label>
+                        <input type="text" (input)="onLabelAdd($event)" maxlength="80" class="form-control input-type2"
+                          formControlName="name" appErrorStylingDirective>
+                        <div *ngIf="duplicateLabel" class="error-duplicate">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                          Business with this name already present.
+                        </div>
+                        <div>
+                          <div class="note">
+                            *Note- Business name needs to be less than 80 characters. We use this name in automated
+                            SMS/Emails hence to avoid longer SMS we limit business name to 80 characters.
+                          </div>
+                        </div>
+                        <div class="error error-msg">
+                          <div *ngIf="f.name.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Name is required.
+                          </div>
+                          <div *ngIf="f.name.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Name is invalid.
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group"
+                        [ngClass]="f.subDomainName.invalid && ((f.subDomainName.dirty || f.subDomainName.touched))?'has-error':''">
+                        <label>Subdomain Name<span class="error-duplicate">*</span></label>
+                        <input type="text" class="form-control input-type2" formControlName="subDomainName"
+                          appErrorStylingDirective>
+                        <div class="error error-msg">
+                          <div *ngIf="f.subDomainName.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> SubDomain Name is required.
+                          </div>
+                          <div *ngIf="f.subDomainName.errors?.pattern">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> subDomainName is invalid.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-blue mt-4">
+          <div class="panel-header">
+            <div class="panel-title">
+              Configuration
+            </div>
+          </div>
+          <div class="panel-body pl-2 pr-1">
+            <div class="add-edit-form p-1">
+              <div class="form form-type2">
+                <div class="form-group  p-0 m-0">
+                  <div class="inline-checkbox">
+                    <app-custom-checkbox1 label="Show pop-up of notes on patient details" for="showNotesPopupOnLeadLoad"
+                      [control]="$any(businessForm.get('showNotesPopupOnLeadLoad'))"></app-custom-checkbox1>
+
+                  </div>
+                </div>
+
+                <div class="form-group  p-0 m-0">
+                  <div class="inline-checkbox">
+                    <app-custom-checkbox label="Show patient details on single page"
+                      (valueChange)="onCheckboxValueChanged($event, 'showPatientDetailsOnSinglePage')"
+                      for="showPatientDetailsOnSinglePage"
+                      [control]="$any(businessForm.get('showPatientDetailsOnSinglePage'))"></app-custom-checkbox>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card-content">
+          <div class="panel-blue mt-4">
+            <div class="panel-header">
+              <div class="panel-title">
+                Refund Policy
+              </div>
+            </div>
+
+            <div class="panel-body pl-1 py-0 pr-1">
+              <div class="add-edit-form pl-0 pb-0">
+                <div class="row">
+                  <div class="col-lg-12 col-md-8 mb-3">
+                    <div class="form-group">
+                      <div class="popup">
+                        <app-custom-checkbox label="Is payment refundable?"
+                          (valueChange)="onCheckboxValueChangedd($event, 'paymentRefundable')" for="paymentRefundable"
+                          [control]="$any(businessForm.get('paymentRefundable'))"></app-custom-checkbox>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="">How many hours before appointment time, payment can be
+                        refunded for canceled appointments?</label>
+                      <br />
+                      <input type="number" onwheel="return false;" (keydown.arrowup)="(false)"
+                        (keydown.arrowdown)="(false)" formControlName="paymentRefundableBeforeHours"
+                        class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="">
+                        What Percentage of paid amount you want to refund for canceled appointments?
+                        <span class="error-red">*</span>
+                      </label>
+                      <br />
+                      <input type="number" onwheel="return false;" (keydown.arrowup)="(false)"
+                        (keydown.arrowdown)="(false)" style="width: 50%;display: inline-block!important;"
+                        formControlName="refundablePaymentPercentage" class="form-control">
+                      <span style="width: 50%;margin-left: 5px;">%</span>
+                      <div class="error error-msg">
+                        <div *ngIf="businessForm.controls.refundablePaymentPercentage.errors?.required">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Refund Percentage is required.
+                        </div>
+                        <div
+                          *ngIf="businessForm.controls.refundablePaymentPercentage.errors?.min || businessForm.controls.refundablePaymentPercentage.errors?.max">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Refundable percentage should
+                          be
+                          in
+                          between 0 and 100.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="error-bg" for=""> Note
+                        <span>
+                          (If the appointment is canceled before the mentioned hours of appointment time, it will
+                          refund
+                          the
+                          mentioned percentage of paid amount.)
+                        </span>
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-12 col-sm-12" style="padding-top: 15px;">
+        <div class="panel-blue">
+          <div class="panel-header">
+            <div class="panel-title">
+              Tracking Details
+            </div>
+          </div>
+          <div class="panel-body p-0">
+            <div id="trackingCode" class="add-edit-form" style="padding: 0 12px">
+              <div class="row">
+
+                <div class="col-md-12 form-group px-0">
+                  <label for="name" style="padding: 0 0 16px 0;"><span>Scripts in Header.</span> <span
+                      style="font-size: 0.8rem">(*These scripts
+                      will
+                      be
+                      printed in the
+                      &lt;head&gt; section)</span></label>
+                  <div class="input-group">
+                    <textarea type="text" rows="4" class="form-control w-50"
+                      formControlName="googleAnalyticsGlobalCode">
+                    </textarea>
+                  </div>
+                </div>
+
+                <div class="col-md-12 form-group px-0">
+                  <label style="padding-bottom: 16px;" for=" name"><span>Scripts in body.</span> <span
+                      style="font-size: 0.8rem">(*These scripts will
+                      be
+                      printed in the
+                      &lt;body&gt; section)</span></label>
+                  <div class="input-group">
+                    <textarea type="text" rows="4" class="form-control w-50"
+                      formControlName="googleAnalyticsGlobalCodeUrl">
+                    </textarea>
+                  </div>
+                </div>
+
+                <div class="col-md-12 form-group p-0">
+                  <label style="padding-bottom: 16px;" for=" name"><span>Scripts in thank you page.</span> <span
+                      style="font-size: 0.8rem">(*These
+                      scripts
+                      will be printed on thank you
+                      page upon form submission)</span></label>
+
+                  <div class="input-group">
+                    <textarea type="text" rows="4" class="form-control w-50"
+                      formControlName="landingPageTrackCode"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-8 mb-3">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-row m-3">
+      <div class="col-md-12 form-group">
+        <button type="submit" [disabled]="!businessForm.valid" class="btn-save-new btn-small-new">Save</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Image upload modal                            -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="editTitleModal dialog-new-v1">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    header="Edit Business Logo" [(visible)]="showModalForImage" (onHide)="cancelImageUpload()">
+
+    <!-- ---------------------------- image cropper ---------------------------- -->
+    <div class="modal-body leftalign">
+      <div class="image-cropper-wrapper row mx-0">
+        <div class="col-lg-6 col-md-6">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [cropperMinWidth]="128"
+             [onlyScaleDown]="false"  [maintainAspectRatio]="false" [imageQuality]="100"
+             [aspectRatio]="4 / 3" [roundCropper]="false" (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <img [src]="croppedImage" class="img-responsive" />
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ------------------------- Image cropper ends -------------------------- -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section d-flex justify-content-start">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveImage()">
+          <i [ngClass]="isImageUploading? 'pi-spin pi-spinner' : 'pi-check'" class="pi"></i> Save</button>
+        <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="cancelImageUpload()">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+
+<!-- -------------------------- import file --------------------------- -->
+<ng-container *ngIf="showImportModal">
+  <app-import-file [showImportModal]="showImportModal" [modalImportMessage]=null
+    (modalImportClosed)="onCloseImportFileModal($event)"></app-import-file>
+</ng-container>

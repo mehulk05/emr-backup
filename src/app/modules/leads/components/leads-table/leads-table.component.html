@@ -1,0 +1,673 @@
+<!-- <div class="lead-filter">
+  <app-lead-filter (leadFilter)="onLeadFilterSelection($event)" [totalDataCount]="totalDataCount"></app-lead-filter>
+</div> -->
+
+<div class="bg-white datatable-table new-ui">
+  <div class="table-list">
+    <p-table #dt1 responsiveLayout="stack" [reorderableColumns]=true sortField="appointmentCreatedDate" [sortOrder]="-1"
+      [value]="rowData" [columns]="selectedColumns" [(selection)]="selectedRows"
+      [globalFilterFields]="globalFilterColumn">
+      <ng-template pTemplate="caption">
+        <div class="caption-header flex align-items-center py-2">
+          <div class="dropdown-wrap">
+            <p-multiSelect [resetFilterOnHide]="true" [options]="columns" [(ngModel)]="selectedColumns"
+              optionLabel="header" selectedItemsLabel="{0} Columns" placeholder="Choose Columns"
+              [style]="{minWidth: '120px'}"></p-multiSelect>
+
+            <select style="width: 170px; margin: 0px 0px 0px 10px; cursor: pointer;" #sourceSelect
+              [(ngModel)]="sourceFilterValue" (change)="onSourceSelect(sourceSelect.value)" class="form-select"
+              aria-label=".form-select-sm example">
+              <option selected="true" disabled="disabled" value="">By Source</option>
+              <option value="">All</option>
+              <option value="Landing Page">Landing Page</option>
+              <option value="ChatBot">Chatbot</option>
+              <option value="Self Assessment">Self Assessment</option>
+              <option value="Form">Form</option>
+              <option value="Manual">Manual</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Smile Virtual">Smile Virtual</option>
+              <option value="review form">Review Form</option>
+            </select>
+
+            <select style="width: 130px;margin: 0px 0px 0px 10px;cursor: pointer;" [(ngModel)]="statusFilter"
+              #statusSelect (change)="onStatusSelect(statusSelect.value)" class="form-select"
+              aria-label=".form-select-sm example">
+              <option selected="true" disabled="disabled" value="">By Status</option>
+              <option value="">All</option>
+              <option value="NEW">New</option>
+              <option value="JUNK">Junk</option>
+              <option value="COLD">Cold</option>
+              <option value="WARM">Warm</option>
+              <option value="HOT">Hot</option>
+              <option value="PENDING">Pending</option>
+              <option value="WON">Won</option>
+              <option value="DEAD">Dead</option>
+            </select>
+
+
+            <!-- <select style="width: 130px;margin: 0px 0px 0px 10px;cursor: pointer;" [(ngModel)]="leadTagFilter"
+              (ngModelChange)="onLeadtagChange($event)" class="form-select" aria-label=".form-select-sm example">
+              <option [ngValue]=null [disabled]="true">By Tag</option>
+              <option value="">All</option>
+              <option *ngFor="let tag of leadTagsResponse" [ngValue]="tag">{{tag.name}}</option>
+            </select> -->
+
+            <p-multiSelect [resetFilterOnHide]="true" [options]="leadTagsResponse"
+              [(ngModel)]="leadTagFilter" (onChange)="onLeadtagChangeForMultiSelect($event)" optionLabel="name" optionValue="id"
+              [style]="{minWidth: '120px'}" placeholder="Select Tag">
+            </p-multiSelect>
+
+            <!-- Filter by date -->
+
+            <select style="width: 130px;margin: 0px 0px 0px 10px;cursor: pointer;" [(ngModel)]="activeDateFilter"
+              class="form-select" #Dateselect (change)="onDateFilter(Dateselect.value)">
+              <option selected="true" disabled="disabled" value="">By Date</option>
+              <option value="All">All</option>
+              <option value="Today">Today</option>
+              <option value="Yesterday">Yesterday</option>
+              <option value="LastWeek">Last Week</option>
+              <option value="LastMonth">Last Month</option>
+              <option value="Between">Between</option>
+              <option value="After">After</option>
+              <option value="Before">Before</option>
+            </select>
+
+            <div class="date-fields">
+              <ng-container *ngIf="activeDateFilter === 'Between'">
+                <div class="d-flex align-items-center flex-row" style="position: relative; bottom: 8px;">
+                  <div class="d-flex flex-column mr-2 ml-2">
+                    <label for="startDate" style="font-size: 14px;margin-top: 10px;">Start Date:</label>
+                    <input style="font-size: 12px; width: 130px;" type="date" class="form-control" id="startDate"
+                      [(ngModel)]="startDate" [min]="minDate" (change)="onDateFilter('Between')"
+                      [max]="endDate || maxDate" />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <label for="endDate" style="font-size: 14px;margin-top: 10px;">End Date:</label>
+                    <input style="font-size: 12px; width: 130px;" type="date" class="form-control" id="endDate"
+                      [(ngModel)]="endDate" (change)="onDateFilter('Between')" [min]="startDate || minDate"
+                      [max]="maxDate" />
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="activeDateFilter === 'After'">
+                <div style="position: relative; bottom: 13px;" class="ml-2">
+                  <label for="afterDate" style="font-size: 14px;margin-top: 10px;">Date After:</label>
+                  <input style="font-size: 12px; width: 130px;" type="date" class="form-control" id="afterDate"
+                    [(ngModel)]="afterDate" (change)="onDateFilter('After')" [min]="minDate" [max]="maxDate" />
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="activeDateFilter === 'Before'">
+                <div style="position: relative; bottom: 13px;" class="ml-2">
+                  <label for="beforeDate" style="font-size: 14px;margin-top: 10px;">Date Before:</label>
+                  <input style="font-size: 12px; width: 130px;" type="date" class="form-control" id="beforeDate"
+                    [(ngModel)]="beforeDate" (change)="onDateFilter('Before')" [min]="minDate" [max]="maxDate" />
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <span class="p-input-icon-left">
+            <i class="pi pi-search search-icon"></i>
+            <div class="table-button">
+              <input pInputText class="search-table" type="text" (keyup.enter)="searchLead()"
+                [(ngModel)]="searchedValue" placeholder="Search" />
+            </div>
+            <span class="cross-icon" (click)="resetSearchh()" *ngIf="searchedValue && searchedValue.length>0">
+              <i class="pi pi-times"></i>
+            </span>
+          </span>
+        </div>
+
+
+        <!-- <div class="flex row pmzero">
+          <div class="col-2">
+            <p-multiSelect [resetFilterOnHide]=" true" [options]="columns" [(ngModel)]="selectedColumns"
+              optionLabel="header" selectedItemsLabel="{0} Columns" [style]="{minWidth: '100%'}"
+              placeholder="Choose Columns">
+            </p-multiSelect>
+          </div>
+
+          <div class="col-1"><button style="width: 100%;" (click)="clearFilters()" type="button"
+              class="btn btn-outline-secondary align-self-center" data-bs-toggle="button">All</button>
+          </div>
+
+          <div class="col-2">
+            <select #sourceSelect [(ngModel)]="sourceFilterValue" (change)="onSourceSelect(sourceSelect.value)"
+              class="form-select" aria-label=".form-select-sm example">
+              <option selected="true" disabled="disabled" value="">Lead by Source</option>
+              <option value="Landing Page">Landing Page</option>
+              <option value="Chatbot">Chatbot</option>
+              <option value="Virtual-Consultation">Virtual-Consultation</option>
+              <option value="Form">Form</option>
+              <option value="Manual">Manual</option>
+              <option value="Facebook">Facebook</option>
+            </select>
+          </div>
+          <div class="col-2">
+            <select [(ngModel)]="statusFilter" #statusSelect (change)="onStatusSelect(statusSelect.value)"
+              class="form-select" aria-label=".form-select-sm example">
+              <option selected="true" disabled="disabled" value="">Lead by Status</option>
+              <option value="NEW">New</option>
+              <option value="COLD">Cold</option>
+              <option value="WARM">Warm</option>
+              <option value="HOT">Hot</option>
+              <option value="WON">Won</option>
+              <option value="DEAD">Dead</option>
+            </select>
+          </div>
+
+          <div class="col-2">
+            <select [(ngModel)]="leadTagFilter" (ngModelChange)="onLeadtagChange($event)" class="form-select"
+              aria-label=".form-select-sm example">
+              <option [ngValue]=null [disabled]="true">Select Lead Tag</option>
+              <option *ngFor="let tag of leadTagsResponse" [ngValue]="tag">{{tag.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-3">
+            <span class="p-input-icon-left ml-auto flex-1">
+              <i class="pi pi-search"></i>
+              <div class="table-button">
+                <input pInputText class="search-table" type="text" (keyup.enter)="searchLead()"
+                  [(ngModel)]="searchedValue" placeholder="Search" />
+              </div>
+              <span class="cross-icon" (click)="resetSearchh()" *ngIf="searchedValue && searchedValue.length>0">
+                <i class="pi pi-times"></i>
+              </span>
+            </span>
+          </div>
+        </div> -->
+
+
+
+        <ng-container *ngIf="selectedRows && selectedRows.length > 0">
+          <div class="caption-footer d-flex justify-content-between align-items-center p-2">
+            <div class="row-selection">
+              <span class="rows-selected-text">
+                {{ selectedRows.length }} Items Selected
+              </span>
+              <span class="unselect-all-btn" (click)="unselectTriggers()">
+                Unselect All
+              </span>
+            </div>
+            <div class="selection-btn-wrapper">
+
+              <div class="dropdown d-flex align-items-center">
+                <span class="button deleted-btn" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M20 8.25V18C20 21 18.21 22 16 22H8C5.79 22 4 21 4 18V8.25C4 5 5.79 4.25 8 4.25C8 4.87 8.24997 5.43 8.65997 5.84C9.06997 6.25 9.63 6.5 10.25 6.5H13.75C14.99 6.5 16 5.49 16 4.25C18.21 4.25 20 5 20 8.25Z"
+                      stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M16 4.25C16 5.49 14.99 6.5 13.75 6.5H10.25C9.63 6.5 9.06997 6.25 8.65997 5.84C8.24997 5.43 8 4.87 8 4.25C8 3.01 9.01 2 10.25 2H13.75C14.37 2 14.93 2.25 15.34 2.66C15.75 3.07 16 3.63 16 4.25Z"
+                      stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8 13H12" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M8 17H16" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                  Update Status</span>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" (click)="updateLeadStatus('NEW')">New</a>
+                  <a class="dropdown-item" (click)="updateLeadStatus('JUNK')">Junk</a>
+                  <a class="dropdown-item" (click)="updateLeadStatus('COLD')">Cold</a>
+                  <a class="dropdown-item" (click)="updateLeadStatus('WARM')">Warm</a>
+                  <a class="dropdown-item" (click)="updateLeadStatus('HOT')">Hot</a>
+                  <a class="dropdown-item" (click)="updateLeadStatus('PENDING')">Pending</a>
+                  <a class="dropdown-item" (click)="updateLeadStatus('WON')">Won</a>
+                  <a class="dropdown-item" (click)="updateLeadStatus('DEAD')">Dead</a>
+                </div>
+              </div>
+
+              <span class="button deleted-btn" (click)="addLeadTags()">
+                <span>
+                  <svg width="20" height="30" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C22 6.34315 22 8.22876 22 12V14C22 17.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V12Z"
+                      stroke="#1C274C" stroke-width="1.5" />
+                    <path d="M18 16L16 16M16 16L14 16M16 16L16 14M16 16L16 18" stroke="#1C274C" stroke-width="1.5"
+                      stroke-linecap="round" />
+                    <path d="M7 4V2.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M17 4V2.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M2.5 9H21.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </span>
+                Add Tags
+              </span>
+
+              <span *ngIf="isSmileVirtualBusiness" class="button deleted-btn" (click)="openOnboardedLeadModal()">
+                <span>
+                  <svg width="20" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M13.6 11.5799V14.3099C13.6 16.5899 12.69 17.4999 10.41 17.4999H7.69C5.42 17.4999 4.5 16.5899 4.5 14.3099V11.5799C4.5 9.3099 5.41 8.3999 7.69 8.3999H10.42C12.69 8.3999 13.6 9.3099 13.6 11.5799Z"
+                      stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M17.5 7.68V10.41C17.5 12.69 16.59 13.6 14.31 13.6H13.6V11.58C13.6 9.31 12.69 8.4 10.41 8.4H8.39999V7.68C8.39999 5.4 9.30999 4.5 11.59 4.5H14.32C16.59 4.5 17.5 5.41 17.5 7.68Z"
+                      stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21 14C21 17.87 17.87 21 14 21L15.05 19.25" stroke="#292D32" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M1 8C1 4.13 4.13 1 8 1L6.95 2.75" stroke="#292D32" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                Onboarded
+              </span>
+
+              <span class="button deleted-btn" (click)="openConvertLeadModal()">
+                <span>
+                  <svg width="20" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M13.6 11.5799V14.3099C13.6 16.5899 12.69 17.4999 10.41 17.4999H7.69C5.42 17.4999 4.5 16.5899 4.5 14.3099V11.5799C4.5 9.3099 5.41 8.3999 7.69 8.3999H10.42C12.69 8.3999 13.6 9.3099 13.6 11.5799Z"
+                      stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M17.5 7.68V10.41C17.5 12.69 16.59 13.6 14.31 13.6H13.6V11.58C13.6 9.31 12.69 8.4 10.41 8.4H8.39999V7.68C8.39999 5.4 9.30999 4.5 11.59 4.5H14.32C16.59 4.5 17.5 5.41 17.5 7.68Z"
+                      stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21 14C21 17.87 17.87 21 14 21L15.05 19.25" stroke="#292D32" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M1 8C1 4.13 4.13 1 8 1L6.95 2.75" stroke="#292D32" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                Convert
+              </span>
+
+
+              <span class="button export-btn" (click)="openExportFile()">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none">
+                    <path
+                      d="M17.1 6.9705C17.1 13.0455 15.0665 15.0705 8.99999 15.0705C2.9335 15.0705 0.899994 13.0455 0.899994 6.9705"
+                      stroke="#333333" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8.99908 1.20343V10.6975" stroke="#333333" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M6.93878 2.93005L8.99894 0.92948L10.8524 2.78291" stroke="#333333" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                  Export
+                </span>
+              </span>
+              <span *ngIf="showDeleteButton" class="button deleted-btn" (click)="deleteAllSelectedTemplateModal(false)">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path
+                      d="M17.5 5.60833C17.4833 5.60833 17.4583 5.60833 17.4333 5.60833C13.025 5.16667 8.62501 5 4.26667 5.44167L2.56667 5.60833C2.21667 5.64167 1.90834 5.39167 1.87501 5.04167C1.84167 4.69167 2.09167 4.39167 2.43334 4.35833L4.13334 4.19167C8.56667 3.74167 13.0583 3.91667 17.5583 4.35833C17.9 4.39167 18.15 4.7 18.1167 5.04167C18.0917 5.36667 17.8167 5.60833 17.5 5.60833Z"
+                      fill="#333333" />
+                    <path
+                      d="M7.08334 4.76666C7.05 4.76666 7.01667 4.76666 6.975 4.75832C6.64167 4.69999 6.40834 4.37499 6.46667 4.04166L6.65 2.94999C6.78334 2.14999 6.96667 1.04166 8.90834 1.04166H11.0917C13.0417 1.04166 13.225 2.19166 13.35 2.95832L13.5333 4.04166C13.5917 4.38332 13.3583 4.70832 13.025 4.75832C12.6833 4.81666 12.3583 4.58332 12.3083 4.24999L12.125 3.16666C12.0083 2.44166 11.9833 2.29999 11.1 2.29999H8.91667C8.03334 2.29999 8.01667 2.41666 7.89167 3.15832L7.7 4.24166C7.65 4.54999 7.38334 4.76666 7.08334 4.76666Z"
+                      fill="#333333" />
+                    <path
+                      d="M12.675 18.9583H7.325C4.41666 18.9583 4.3 17.35 4.20833 16.05L3.66666 7.65833C3.64166 7.31667 3.90833 7.01667 4.25 6.99167C4.6 6.975 4.89166 7.23334 4.91666 7.575L5.45833 15.9667C5.55 17.2333 5.58333 17.7083 7.325 17.7083H12.675C14.425 17.7083 14.4583 17.2333 14.5417 15.9667L15.0833 7.575C15.1083 7.23334 15.4083 6.975 15.75 6.99167C16.0917 7.01667 16.3583 7.30833 16.3333 7.65833L15.7917 16.05C15.7 17.35 15.5833 18.9583 12.675 18.9583Z"
+                      fill="#333333" />
+                    <path
+                      d="M11.3833 14.375H8.60834C8.26667 14.375 7.98334 14.0917 7.98334 13.75C7.98334 13.4083 8.26667 13.125 8.60834 13.125H11.3833C11.725 13.125 12.0083 13.4083 12.0083 13.75C12.0083 14.0917 11.725 14.375 11.3833 14.375Z"
+                      fill="#333333" />
+                    <path
+                      d="M12.0833 11.0417H7.91667C7.57501 11.0417 7.29167 10.7583 7.29167 10.4167C7.29167 10.075 7.57501 9.79166 7.91667 9.79166H12.0833C12.425 9.79166 12.7083 10.075 12.7083 10.4167C12.7083 10.7583 12.425 11.0417 12.0833 11.0417Z"
+                      fill="#333333" />
+                  </svg>
+                </span>
+                Delete
+              </span>
+            </div>
+          </div>
+        </ng-container>
+
+      </ng-template>
+
+
+
+      <ng-template pTemplate="header" let-columns>
+        <tr class="head">
+          <ng-container *ngFor="let col of columns">
+            <ng-container *ngIf="col.field === 'Checkbox'; else headers">
+              <th>
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+            </ng-container>
+            <ng-template #headers>
+              <th [pSortableColumn]="col.field">
+                {{ col.header }}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+            </ng-template>
+          </ng-container>
+        </tr>
+      </ng-template>
+
+      <!-- -------------------------- Table body starts -------------------------- -->
+      <ng-template pTemplate="body" let-data let-columns="columns" let-rowIndex="rowIndex">
+        <tr class="mobile-special">
+          <ng-container *ngFor="let col of columns">
+            <td>
+              <ng-container [ngSwitch]="col.field">
+                <span>
+
+                  <ng-container *ngSwitchCase="'Checkbox'">
+                    <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'createdAt'">
+                    <span (click)="editLeads(data.id, data.Email)">
+                      <span class="p-column-title">{{col.header}}</span> {{ formatTimeService.formatTime(
+                      data[col.field])}}
+                    </span>
+
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'sourceUrl'">
+                    <a style="color: rgb(55, 55, 239);" [href]="data[col.field]">{{data[col.field]}}</a>
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'fullName'">
+                    <span class="p-column-title">{{col.header}}</span>
+
+                    <!-- -------------------- Inline edit for fullName starts --------------------- -->
+                    <span (click)="editLeads(data.id, data.Email)" class="allow-inline-edit"
+                      *ngIf="!checkInlineEditCondition(rowIndex, col.field)"
+                      (dblclick)="onDoubleClick(col.field, rowIndex, data)"> <span
+                        class="p-column-title">{{col.header}}</span>
+                      {{ data[col.field] ?? "-"}}</span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                      Inline input field for fullName                       -->
+                    <!-- ----------------------------------------------------------------------- -->
+
+                    <span *ngIf="checkInlineEditCondition(rowIndex, col.field)">
+
+                      <input (blur)="onEditInlineLead()" #inputFeild (change)="validateInput()" class="form-control"
+                        placeholder="Name" [(ngModel)]="inlineEditLeadObj.name" #name="ngModel"
+                        [ngClass]="name.invalid && (name.dirty || name.touched)?'form-control is-invalid':'form-control'"
+                        required>
+
+                      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error">
+                        <div *ngIf="name.errors?.required">
+                          Name is required.
+                        </div>
+
+                      </div>
+                    </span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                       Inline input for fullName end                        -->
+                    <!-- ----------------------------------------------------------------------- -->
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'Email'">
+                    <!-- -------------------- Inline edit for email starts --------------------- -->
+                    <span (click)="editLeads(data.id, data.Email)" class="allow-inline-edit"
+                      *ngIf="!checkInlineEditCondition(rowIndex, col.field)"
+                      (dblclick)="onDoubleClick(col.field, rowIndex, data)"> <span
+                        class="p-column-title">{{col.header}}</span>
+                      {{ data[col.field] ?? "-"}}</span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                      Inline input field for email                       -->
+                    <!-- ----------------------------------------------------------------------- -->
+                    <span *ngIf="checkInlineEditCondition(rowIndex, col.field)">
+
+                      <input (blur)="onEditInlineLead()" #inputFeild (change)="validateInput()" class="form-control"
+                        placeholder="email" [(ngModel)]="inlineEditLeadObj.email" #email="ngModel"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        [ngClass]="email.invalid && (email.dirty || email.touched)?'form-control is-invalid':'form-control'"
+                        required>
+
+                      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                        <div *ngIf="email.errors?.required">
+                          Email address is required.
+                        </div>
+                        <div *ngIf="email.errors?.pattern">This is not a valid Email address!</div>
+                      </div>
+                    </span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                       Inline input for email end                        -->
+                    <!-- ----------------------------------------------------------------------- -->
+
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'Phone Number'">
+
+                    <span class="p-column-title">{{col.header}}</span>
+
+                    <!-- -------------------- Inline edit for Phone starts --------------------- -->
+                    <span (click)="editLeads(data.id, data.Email)" class="allow-inline-edit"
+                      *ngIf="!checkInlineEditCondition(rowIndex, col.field)"
+                      (dblclick)="onDoubleClick(col.field, rowIndex, data)"> <span
+                        class="p-column-title">{{col.header}}</span>
+                      {{ data[col.field] ?? "-"}}</span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                      Inline input field for Phone                       -->
+                    <!-- ----------------------------------------------------------------------- -->
+                    <span *ngIf="checkInlineEditCondition(rowIndex, col.field)">
+                      <input (blur)="onEditInlineLead()" #inputFeild (change)="validateInput()" class="form-control"
+                        placeholder="phoneNumber" [(ngModel)]="inlineEditLeadObj.phoneNumber" #phoneNumber="ngModel"
+                        pattern="^[1-9][0-9]{9}$"
+                        [ngClass]="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)?'form-control is-invalid':'form-control'"
+                        required>
+
+                      <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="error">
+                        <div *ngIf="phoneNumber.errors?.required">
+                          Phone Number is required.
+                        </div>
+                        <div *ngIf="phoneNumber.errors?.pattern">This is not a valid Phone Number!</div>
+                      </div>
+                    </span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                       Inline input for Phone end                        -->
+                    <!-- ----------------------------------------------------------------------- -->
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'amount'">
+                    <span class="p-column-title">{{col.header}}</span>
+
+
+                    <!-- -------------------- Inline edit for Amount starts --------------------- -->
+                    <span (click)="editLeads(data.id, data.Email)" class="allow-inline-edit"
+                      *ngIf="!checkInlineEditCondition(rowIndex, col.field)"
+                      (dblclick)="onDoubleClick(col.field, rowIndex, data)"> <span
+                        class="p-column-title">{{col.header}}</span>
+                      {{ data[col.field] && data[col.field]!=="" ? '$ '+data[col.field] :"-"}}</span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                      Inline input field for Amount                       -->
+                    <!-- ----------------------------------------------------------------------- -->
+                    <span *ngIf="checkInlineEditCondition(rowIndex, col.field)">
+                      <input (blur)="onEditInlineLead()" #inputFeild (change)="validateInput()" class="form-control"
+                        placeholder="Amount" [(ngModel)]="inlineEditLeadObj.amount" #amount="ngModel" pattern="[0-9]+"
+                        [ngClass]="amount.invalid && (amount.dirty || amount.touched)?'form-control is-invalid':'form-control'"
+                        required>
+
+                      <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="error">
+                        <div *ngIf="amount.errors?.required">
+                          Amount is required.
+                        </div>
+                        <div *ngIf="amount.errors?.pattern">This is not a valid Amount!</div>
+                      </div>
+                    </span>
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                       Inline input for Amount end                        -->
+                    <!-- ----------------------------------------------------------------------- -->
+                  </ng-container>
+
+                  <!-- -------------------------- Lead status feild -------------------------- -->
+                  <ng-container *ngSwitchCase="'leadStatus'">
+                    <span (click)="editLeads(data.id, data.Email)" class="allow-inline-edit"
+                      *ngIf="!checkInlineEditCondition(rowIndex, col.field)"
+                      (dblclick)="onDoubleClick(col.field, rowIndex, data)">
+                      <span class="p-column-title">{{col.header}}
+                      </span>
+                      <app-lead-status-color-box [field]='"status"' [leadStatus]='data[col.field]'>
+                      </app-lead-status-color-box>
+                    </span>
+
+                    <span *ngIf="checkInlineEditCondition(rowIndex, col.field)">
+                      <select (blur)="onEditInlineLead()" (ngModelChange)="validateInput()" #inputFeild
+                        class="form-control" placeholder="amount" [(ngModel)]="inlineEditLeadObj.leadStatus">
+                        <option *ngFor="let status of LEADSTATUS" [ngValue]="status">{{status}}</option>
+
+                      </select>
+                    </span>
+                  </ng-container>
+
+                  <!-- -------------------------- Landing page name -------------------------- -->
+
+                  <ng-container *ngSwitchCase="'landingPage'">
+                    <span class="p-column-title">{{col.header}}</span> {{ data[col.field] |
+                    removeSpecialCharFromLpName}}
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'leadSource'">
+                    <span class="lead-table-source" (click)="editLeads(data.id, data.Email)">
+                      <p>{{data[col.field]}}</p>
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngSwitchDefault>
+                    <span (click)="editLeads(data.id, data.Email)">
+                      <span class="p-column-title">{{col.header}}</span> {{data[col.field] ?? '-'}}
+                    </span>
+
+                  </ng-container>
+                </span>
+
+                <ng-container *ngSwitchCase="'actions'">
+                  <span class="p-column-title">{{ col.header }}</span>
+                  <button class="btn-invisible" mat-icon-button [matMenuTriggerFor]="menu"
+                    aria-label="Example icon-button with a menu">
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i> </button>
+                  <mat-menu #menu="matMenu">
+                    <button (click)="editLeads(data.id, data.Email)" mat-menu-item>View Details</button>
+                    <button (click)="inlineEdit(data);" mat-menu-item>Edit</button>
+                    <span *ngIf="showDeleteButton"> <button (click)="deleteTemplateModal(data, true);"
+                        mat-menu-item>Delete</button></span>
+                  </mat-menu>
+
+
+
+                  <!-- <div class="actions-wrapper">
+                    <div class="action-btn-vertical">
+                      <span class="actions-btn" (click)="toggleDropdown(data.id)">...</span>
+                    </div>
+                    <div class="dropdown-wrapper shadow" [class.dropdown-open]="activeDropDownId === data.id">
+                      <ul>
+                        <li class="topmenu" (click)="editLeads(data.id, data.Email)">
+                          <span class="menu-text"> View Details </span>
+                        </li>
+                        <li class="topmenu" (click)="inlineEdit(data);">
+                          <span class="menu-text"> Edit </span>
+                        </li>
+                        <li class="topmenu" (click)="deleteTemplateModal(data, true);">
+                          <span class="menu-text"> Delete </span>
+                        </li>
+
+                      </ul>
+                    </div>
+                  </div> -->
+                </ng-container>
+
+
+              </ng-container>
+            </td>
+          </ng-container>
+
+        </tr>
+
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]="deleteModelMessage"
+    (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>
+
+<ng-container *ngIf="showEditLeadModal">
+  <div class="dialog-new">
+    <app-lead-inline-edit [modalData]="leadObj" [showModal]="showEditLeadModal" (modalClosed)="onCloseModal($event)">
+    </app-lead-inline-edit>
+  </div>
+</ng-container>
+
+
+<!-- -------------------------- custom paginator --------------------------- -->
+<p-paginator [rows]="paginatorConfig.noOfRecord" [totalRecords]="totalDataCount?.totalCount"
+  (onPageChange)="paginate($event)" [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="paginatorConfig.recordArray"></p-paginator>
+
+
+
+<!-- -------------------------- export file --------------------------- -->
+<ng-container *ngIf="showExportModal">
+  <app-export-file [showExportModal]="showExportModal" [modalTitle]="'Export Leads'"
+    [modalDescription]="'Select a file type you would like to Export in'" [modalExportMessage]=null
+    (modalExportClosed)="onCloseExportFileModal($event)"></app-export-file>
+</ng-container>
+
+<ng-container *ngIf="showTagModal">
+  <app-assign-tags [showLeadTagModal]="showTagModal" (modalTagClosed)="modalTagClosed($event)"
+    [type]="'LEAD'"></app-assign-tags>
+</ng-container>
+
+<ng-container *ngIf="showConvertLeadModal">
+  <div class="dialog-new">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+      [style]="{width: '50vw'}" [header]="'Confirmation'" [(visible)]="showConvertLeadModal">
+
+      <div class="modal-body">
+        <div class="row mx-0 my-4">
+          Are you sure you want to convert this Lead?
+        </div>
+
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="modal-footer-section d-flex">
+          <button class="btn-small-new btn-save-new" (click)="convertToPatient()">Convert</button>
+
+          <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal"
+            (click)="hideConvertLeadModal()">
+            Cancel
+          </button>
+        </div>
+      </ng-template>
+    </p-dialog>
+  </div>
+
+</ng-container>
+
+
+<ng-container *ngIf="showOnboardedLeadModal">
+  <div class="dialog-new">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+      [style]="{width: '50vw'}" [header]="'Confirmation'" [(visible)]="showOnboardedLeadModal">
+
+      <div class="modal-body">
+        <div class="row mx-0 my-4">
+          Are you sure you want to Onboard this Lead?
+        </div>
+
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="modal-footer-section d-flex">
+          <button class="btn-small-new btn-save-new" (click)="convertToOnboarded()">Onboarded</button>
+
+          <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal"
+            (click)="hideOnboarderLeadModal()">
+            Cancel
+          </button>
+        </div>
+      </ng-template>
+    </p-dialog>
+  </div>
+
+</ng-container>

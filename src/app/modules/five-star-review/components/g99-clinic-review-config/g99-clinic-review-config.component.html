@@ -1,0 +1,330 @@
+<div class="blue-card">
+
+  <form [formGroup]="clinicG99ReviewSettings" (ngSubmit)="submitForm()">
+    <div class="add-edit-form">
+      <div class="form form-type2">
+        <div class="row mx-0">
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="panel-blue">
+
+              <div class="panel-inner-wrapper">
+                <!-- ----------------------------- Name Feild ----------------------------- -->
+                <div *ngIf="showReviewStatus" style="text-align: left;" class="input-wrapper pb-1">
+
+                  <div *ngIf="showReviewCount">
+                    <label class="mt-3 mb-0 fw-500 last-refresh" *ngIf="reviewLastRefreshedOn !== null">Last Refreshed
+                      on
+                      {{formatTimeService.formatTime(reviewLastRefreshedOn)}}</label><br />
+                    <div className="col-12 align-self-center my-5">
+                      <table class="table custom-table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Platform</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Count</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Facebook</td>
+                            <td *ngIf="facebookReviewStatus===null">NA</td>
+                            <td>{{facebookReviewStatus}} </td>
+                            <td *ngIf="faceBookReviewCount===null">NA</td>
+                            <td>{{faceBookReviewCount}}</td>
+                          </tr>
+                          <tr>
+                            <td>Google</td>
+                            <td *ngIf="googleReviewStatus===null">NA</td>
+                            <td>{{googleReviewStatus}} </td>
+                            <td *ngIf="gmbReviewCount===null">NA</td>
+                            <td>{{gmbReviewCount}}</td>
+                          </tr>
+                          <tr>
+                            <td>Yelp</td>
+                            <td *ngIf="yelpReviewStatus===null">NA</td>
+                            <td>{{yelpReviewStatus}} </td>
+                            <td *ngIf="yelpReviewCount===null">NA</td>
+                            <td>{{yelpReviewCount}}</td>
+                          </tr>
+                          <tr>
+                            <td>DemandForce</td>
+                            <td *ngIf="!demandforceStatus">NA</td>
+                            <td *ngIf="demandforceStatus">{{ demandforceStatus }} </td>
+                            <td *ngIf="demandforceCount === null || demandforceCount === undefined">NA</td>
+                            <td *ngIf="demandforceCount !== null && demandforceCount !== undefined">{{ demandforceCount
+                              }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel-new panel-border no-overflow mt-2 pb-4">
+                  <div class="panel-header">
+                    <h3>
+                      Review Manager
+                    </h3>
+                  </div>
+
+                  <div class="panel-body">
+                    <form [formGroup]="ReviewUrlConfig">
+                      <div class="flex-box">
+                        <div class="input-wrapper">
+                          <div class="form-group"
+                            [ngClass]="r.googleMyBusiness.invalid && ((r.googleMyBusiness.dirty || r.googleMyBusiness.touched))?'has-error':''">
+                            <label>Google My Business
+                            </label>
+                            <a href="https://growth99.zohodesk.com/portal/en/kb/articles/how-to-find-the-google-my-business-gmb-url-for-the-5-star-review-configuration"
+                              target="blank"> <i class="fa fa-info-circle" aria-hidden="true"
+                                style="padding-left: 2px;"></i></a>
+                            <input type="url" class="form-control input-type2" formControlName="googleMyBusiness"
+                              appErrorStylingDirective>
+                          </div>
+                        </div>
+
+                        <div class="input-wrapper">
+                          <div class="form-group"
+                            [ngClass]="r.googlePlaceId.invalid && ((r.googlePlaceId.dirty || r.googlePlaceId.touched))?'has-error':''">
+                            <label>Google Place Id
+                            </label>
+                            <a href="https://growth99.zohodesk.com/portal/en/kb/articles/how-to-find-the-google-place-id"
+                              target="blank"> <i class="fa fa-info-circle" aria-hidden="true"
+                                style="padding-left: 2px;"></i></a>
+                            <input type="url" class="form-control input-type2" formControlName="googlePlaceId"
+                              appErrorStylingDirective>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="flex-box">
+
+                        <div class="input-wrapper">
+                          <div class="form-group"
+                            [ngClass]="r.facebook.invalid && ((r.facebook.dirty || r.facebook.touched))?'has-error':''">
+                            <label>Facebook URL
+                            </label>
+                            <a href="https://growth99.zohodesk.com/portal/en/kb/articles/how-to-find-the-facebook-url-for-the-5-star-review-configuration"
+                              target="blank"> <i class="fa fa-info-circle" aria-hidden="true"
+                                style="padding-left: 2px;"></i></a>
+                            <input type="url" formControlName="facebook" class="form-control input-type2"
+                              appErrorStylingDirective>
+                          </div>
+                        </div>
+
+                        <div class="input-wrapper">
+                          <div class="form-group"
+                            [ngClass]="r.yelpUrl.invalid && ((r.yelpUrl.dirty || r.yelpUrl.touched))?'has-error':''">
+                            <label>Yelp URL
+                            </label>
+                            <a href="https://growth99.zohodesk.com/portal/en/kb/articles/how-to-find-the-yelp-url-for-the-5-star-review-configuration-22-2-2023"
+                              target="blank"> <i class="fa fa-info-circle" aria-hidden="true"
+                                style="padding-left: 2px;"></i></a>
+                            <input type="url" formControlName="yelpUrl" class="form-control input-type2"
+                              appErrorStylingDirective>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="flex-box">
+                        <div class="input-wrapper">
+                          <div class="form-group"
+                            [ngClass]="r.demandforceUrl.invalid && ((r.demandforceUrl.dirty || r.demandforceUrl.touched))?'has-error':''">
+                            <label>DemandForce URL
+                            </label>
+                            <a href="https://support.growth99.com/portal/en/kb/articles/how-to-find-the-demand-force-url-for-the-5-star-review-configuration"
+                              target="blank"> <i class="fa fa-info-circle" aria-hidden="true"
+                                style="padding-left: 2px;"></i></a>
+                            <input type="url" formControlName="demandforceUrl" class="form-control input-type2"
+                              appErrorStylingDirective>
+                          </div>
+                        </div>
+                        <div class="input-wrapper"></div>
+                      </div>
+                    </form>
+
+                    <div class="checkbox-group">
+                      <div class="checkbox-row">
+                        <div class="input-wrapper">
+                          <input type="checkbox" formControlName="enableReviewManager" id="enableReviewManager"
+                            appErrorStylingDirective>
+                          <label for="enableReviewManager">Enable Review Manager</label>
+                        </div>
+
+                        <div class="input-wrapper">
+                          <input type="checkbox" formControlName="sortReviewType" id="sortReviewType"
+                            appErrorStylingDirective>
+                          <label for="sortReviewType">Sort all reviews by date</label>
+                        </div>
+                      </div>
+
+                      <div class="checkbox-row">
+                        <div class="input-wrapper">
+                          <input type="checkbox" formControlName="disableNegativeComment" id="disableNegativeComment"
+                            appErrorStylingDirective>
+                          <label for="disableNegativeComment">Disable negative comment posting as reviews</label>
+                        </div>
+
+                        <div class="input-wrapper">
+                          <input type="checkbox" formControlName="showFiveStarReviewOnly" id="showFiveStarReviewOnly"
+                            appErrorStylingDirective>
+                          <label for="showFiveStarReviewOnly">Show five star review only</label>
+                        </div>
+                      </div>
+
+                      <div class="checkbox-row">
+                        <div class="input-wrapper">
+                          <input type="checkbox" formControlName="maskFirstName" id="maskFirstName"
+                            appErrorStylingDirective>
+                          <label for="maskFirstName">Mask First Name</label>
+                        </div>
+
+                        <div class="input-wrapper">
+                          <input type="checkbox" formControlName="maskLastName" id="maskLastName"
+                            appErrorStylingDirective>
+                          <label for="maskLastName">Mask Last Name</label>
+                        </div>
+                      </div>
+                  </div>
+
+
+                  </div>
+                </div>
+
+
+                <div class="panel-new panel-border no-overflow mt-2 pb-3">
+                  <div class="panel-header">
+                    <h3>
+                      Review Manager
+                    </h3>
+                  </div>
+
+                  <div class="panel-body">
+                    <div class="flex-box">
+                      <div class="input-wrapper">
+                        <div class="form-group"
+                          [ngClass]="f.widgetHeader.invalid && ((f.widgetHeader.dirty || f.widgetHeader.touched))?'has-error':''">
+                          <label>Widget Header
+                          </label>
+                          <input type="text" formControlName="widgetHeader" class="form-control input-type2"
+                            appErrorStylingDirective>
+                        </div>
+                      </div>
+
+                      <div class="input-wrapper">
+                        <div class="form-group">
+                          <label for="link">Widget Description</label>
+                          <input type="text" class="form-control" formControlName="widgetDescription" rows="5"
+                            id="app-review" name="text">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="flex-box">
+                      <div class="input-wrapper">
+                        <div class="form-group"
+                          [ngClass]="f.buttonText.invalid && ((f.buttonText.dirty || f.buttonText.touched))?'has-error':''">
+                          <label>Button Text
+                          </label>
+                          <input type="text" formControlName="buttonText" class="form-control input-type2"
+                            appErrorStylingDirective>
+                        </div>
+                      </div>
+
+                      <div class="input-wrapper">
+                        <div class="form-group">
+                          <label for="link">Positive Content</label>
+                          <input type="text" class="form-control" formControlName="positiveContent" rows="5"
+                            id="app-review" name="text">
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="flex-box">
+                      <div class="input-wrapper">
+                        <div class="form-group">
+                          <label for="link">Negative Content</label>
+                          <input type="text" class="form-control" formControlName="negativeContent" rows="5"
+                            id="app-review" name="text">
+                        </div>
+                      </div>
+
+                      <div class="input-wrapper">
+                        <div class="form-group"
+                          [ngClass]="f.reviewPerPage.invalid && ((f.reviewPerPage.dirty || f.reviewPerPage.touched))?'has-error':''">
+                          <label>Select Review per page</label>
+
+                          <p-dropdown [options]="numberOfReview" formControlName="reviewPerPage"
+                            placeholder="Select Review per page">
+                          </p-dropdown>
+                          <div class="error error-msg">
+                            <div *ngIf="f.reviewPerPage.errors?.required">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Review per page is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-wrapper">
+                      <input type="checkbox" formControlName="reviewUsButtonEnabled" id="reviewUsButtonEnabled"
+                        appErrorStylingDirective>
+                      <label for="reviewUsButtonEnabled">Enable Button on Review Page</label>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                <!-- --------------------------- buttons section --------------------------- -->
+                <div class="input-wrapper mt-2 pb-3">
+                  <div class="form-group">
+                    <div class="button-flex">
+                      <button class="btn-save-new btn-small-new"
+                        [disabled]="!clinicG99ReviewSettings.valid || !ReviewUrlConfig.valid">
+                        Save
+                      </button>
+
+                      <!-- <button type="button" class="btn-default-new btn-small-new" (click)="onCancelForm()">
+                        Cancel
+                      </button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="righ-card" [ngClass]="showReviewCount ? 'add-padding': 'mt-2'">
+              <app-g99-clinic-review-config-right-card [clinicReviewData]="clinicReviewData"
+                [multiLocationIframe]="multiLocationIframe" [clinicReviewId]="clinicReviewId" [iframeUrl]="iframeUrl"
+                [g99ReviewUrl]="g99ReviewUrl" [buttonIframeUrl]="buttonIframeUrl" [reviewsIframeUrl]="reviewsIframeUrl"
+                [buttonPreviewUrl]="buttonPreviewUrl" [reviewsPreviewUrl]="reviewsPreviewUrl"
+                [g99ReviewLandingPage]="g99ReviewLandingPage" [floatingReviewsUrl]="floatingReviewsUrl"
+                [floatingReviewsPreviewUrl]="floatingReviewsPreviewUrl" [carouselReviewsUrl]="carouselReviewsUrl"
+                [carouselReviewsPreviewUrl]="carouselReviewsPreviewUrl">
+              </app-g99-clinic-review-config-right-card>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+
+
+        <!-- ---------------------------- col-lg-8 ends ---------------------------- -->
+
+      </div>
+    </div>
+  </form>
+</div>

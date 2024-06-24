@@ -1,0 +1,154 @@
+.title h3 {
+  margin-bottom: 1em;
+  color: #009EDE;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.add-edit-form {
+  max-width: 100%;
+  padding-top: 1em;
+}
+
+.add-edit-form .panel-inner-wrapper {
+  padding:2em;
+
+  max-width: 100%;
+  margin: 0 auto;
+}
+.panel-blue {
+  margin-bottom: 2em;
+}
+textarea.form-control,
+.input-type2,
+.form-type2 label{
+  font-size: 14px;
+}
+
+
+.form-type2 label{
+  color: #040920;
+}
+.form-type2 input[type="checkbox"]{
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox-wrapper {
+  margin-bottom: 25px;
+}
+.checkbox-wrapper .input-wrapper{
+  display: flex;
+  padding-top: 10px;
+
+}
+.checkbox-wrapper .input-wrapper label{
+  padding-left: 8px;
+}
+
+@media screen and (max-width:550px) {
+
+.add-edit-form .panel-inner-wrapper {
+  padding: 2em 1em;
+}
+}
+
+
+.table thead tr,
+.table th{
+  background-color: #D8E2F6;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+table tr th:first-child{
+  border-top-left-radius: 16px;
+}
+.table tr th:last-child {
+  border-top-right-radius: 16px;
+}
+
+.table tr td{
+  font-size: 14px;
+}
+
+
+.flex-box{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+.flex-box .input-wrapper{
+  width: 100%;
+}
+
+.clinic-hours{
+  align-items: center;
+    margin: 0 !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+input[type="checkbox"] {
+  display: none;
+}
+
+label{
+  font-size: 16px;
+  font-weight: 400;
+}
+/* Style the label to create a custom checkbox */
+input[type="checkbox"] + label {
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  line-height: 15px;
+  font-size: 16px;
+}
+
+/* Style the custom checkbox */
+input[type="checkbox"] + label:before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  border: 1px solid #333;
+  border-radius: 6px;
+}
+
+/* Change the background color of the checkbox when checked */
+input[type="checkbox"]:checked + label:before {
+  background-color: #D8E2F6;
+  border: 1px solid #D8E2F6;
+}
+
+/* Style the checkmark inside the checkbox */
+label:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 0px;
+  width: 6px;
+  height: 12px;
+  border: 2px  solid #2656C9;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  display: none;
+}
+
+/* Show the checkmark when the checkbox is checked */
+input[type="checkbox"]:checked + label:after {
+  display: block;
+}
+
+.input-wrapper{
+  margin-bottom: 1em;
+}

@@ -1,0 +1,25 @@
+<div class="div-bg">
+  <div class="div-wrapper">
+    <div class="title-wrapper">
+      <h4>Your Appointment is booked</h4>
+    </div>
+
+    <div class="seamless-div" *ngIf="consents && consents.length > 0">
+      <app-consent-table (afterQuestionSubmit)="onAfterSubmit($event)" [consents]="consents"></app-consent-table>
+    </div>
+
+
+    <div class="questionarrie" *ngIf="questionnaires && questionnaires.length > 0">
+      <app-questionarie-table [booking]="booking" (afterQuestionSubmit)="onAfterSubmit($event)"  [questionnaires]="questionnaires"></app-questionarie-table>
+    </div>
+
+
+    <div class="flex-item-right">
+      <button class="save-color-btn" (click)="onSubmit()" [disabled]="!allQuestionsSubmited || !allStatusesAreTrue">
+        <span class="btn-text">Submit</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <app-angular-form></app-angular-form> -->

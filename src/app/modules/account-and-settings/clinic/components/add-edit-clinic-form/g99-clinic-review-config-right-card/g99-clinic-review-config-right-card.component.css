@@ -1,0 +1,30 @@
+.no-border{
+    border: 0px;
+    padding: 0;
+  }
+  
+  .button-flex{
+    justify-content: center;
+    display: flex;
+  }
+  
+  .css-card p{
+    font-size: 14px;
+    margin-bottom: 1em;
+  }
+  
+  .panel-blue{
+    margin-bottom: 2em;
+  }
+  
+  .script-card label{
+    font-size: 13px;
+  }
+  .script-card p{
+    font-size: 14px;
+    margin-bottom: 1em;
+  }
+  .panel-blue textarea{
+    font-size: 13px;
+  }
+  

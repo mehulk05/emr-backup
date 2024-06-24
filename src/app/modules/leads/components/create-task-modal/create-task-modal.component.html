@@ -1,0 +1,106 @@
+<p-dialog #modal [header]="'Create Task '" [(visible)]="showModal" [modal]="true"
+    [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <div class="ms-panel no-shadow">
+        <div mat-dialog-content class="custom-modal ms-panel custom-blue">
+            <div class="ms-panel-body py-5">
+                <div class="form form-type2">
+                    <form [formGroup]="taskForm" class="login-box" (ngSubmit)="submitTaskForm()">
+                        <div class="row mx-0">
+                            <div class="col-lg-12">
+                                <div class="form-group"
+                                    [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+                                    <label>Name<span class="error-red">*</span></label>
+                                    <input type="text" formControlName="name" class="form-control">
+                                    <div class="error error-msg">
+                                        <div *ngIf="f.name.touched && f.name.errors?.required">
+                                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Name is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="">Description</label>
+                                    <textarea formControlName="description" class="form-control"></textarea>
+                                </div>
+
+
+                                <div class="form-group"
+                                    [ngClass]="f.workflowTaskUser.invalid && ((f.workflowTaskUser.dirty || f.workflowTaskUser.touched))?'has-error':''">
+                                    <label> Assign Task to User <span class="error-red">*</span></label>
+                                    <p-dropdown [options]="users" optionValue="id" formControlName="workflowTaskUser"
+                                        optionLabel="firstName" [filter]="true" placeholder="Select User"
+                                        [style]="{'width':'100%'}">
+                                    </p-dropdown>
+                                    <div class="error error-msg">
+                                        <div *ngIf="f.workflowTaskUser.touched && f.workflowTaskUser.errors?.required">
+                                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please
+                                            select
+                                            the
+                                            user.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group"
+                                    [ngClass]="f.workflowTaskStatus.invalid && ((f.workflowTaskStatus.dirty || f.workflowTaskStatus.touched))?'has-error':''">
+                                    <label for="">Status <span class="error-red">*</span></label>
+                                    <p-dropdown [options]="taskStatus" formControlName="workflowTaskStatus"
+                                        optionLabel="name" optionValue="code" [filter]="true"
+                                        placeholder="Select Status" [style]="{'width':'100%'}">
+                                    </p-dropdown>
+                                    <div class="error error-msg">
+                                        <div
+                                            *ngIf="f.workflowTaskStatus.touched && f.workflowTaskStatus.errors?.required">
+                                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Status is
+                                            required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- -------------------------- Priority --------------------------- -->
+
+
+                                <div class="form-group"
+                                    [ngClass]="f.priority.invalid && ((f.priority.dirty || f.priority.touched))?'has-error':''">
+                                    <label for="">Priority <span class="error-red">*</span></label>
+                                    <p-dropdown [options]="taskPriority" formControlName="priority" optionLabel="name"
+                                        optionValue="code" [filter]="true" placeholder="Select priority"
+                                        [style]="{'width':'100%'}">
+                                    </p-dropdown>
+                                    <div class="error error-msg">
+                                        <div *ngIf="f.priority.touched && f.priority.errors?.required">
+                                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Priority is
+                                            required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Deadline</label>
+                                    <p-calendar (onSelect)="onDateSelect($event)" formControlName="deadline"
+                                        [minDate]="currentTime" [showIcon]="true" (renderDayCell)="onLoad($event)"
+                                        inputId="min-max" [style]="{'width':'100%'}">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="modal-footer-section mt-2">
+
+            <button type="submit" class="btn-save-new btn-small-new" data-dismiss="modal" [disabled]="!taskForm.valid"
+                (click)="submitTaskForm()">Save</button>
+            <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal"
+                (click)="hideModal()">Cancel</button>
+        </div>
+    </ng-template>
+</p-dialog>

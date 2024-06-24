@@ -1,0 +1,36 @@
+.save-btn-with-icon{
+  border: 1px solid #D9D9D9;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  height: 33px;
+  padding: 0 20px;
+  border-radius: 4px;
+  background: #ffff;
+  border-radius: 4px;
+}
+
+.button-group{
+  display: flex;
+  align-items: center;
+}
+
+.save-btn-with-icon.selected{
+  border-color: #2656c9;
+  border-width: 2px;
+}
+
+.pb-20{
+  padding-bottom: 20px;
+}
+
+button.first {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+button.last {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

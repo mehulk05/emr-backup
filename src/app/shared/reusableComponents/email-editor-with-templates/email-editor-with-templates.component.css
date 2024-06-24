@@ -1,0 +1,52 @@
+.form-group {
+  /* margin-bottom: 20px; */
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  color: #333;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 15px;
+}
+
+.form-group :is(input, textarea) {
+  font-size: 14px;
+  color: #000;
+}
+
+.form-group textarea {
+  min-height: 25rem;
+}
+
+.email-template-preview {
+  border: 1px solid #dbdbdb;
+}
+
+.email-opt-out-info {
+  font-size: 12px;
+}
+
+.color-red {
+  color: #ff2000;
+}
+
+/* .email-editor-container {
+  max-height: 500px; 
+  height: auto; 
+  overflow-y: hidden; 
+  overflow-x: hidden;
+} */
+.email-editor-container {
+  min-height: auto; 
+  max-height: 500px;
+  overflow-y: hidden; /* Initially hide the vertical scrollbar */
+  overflow-x: hidden;
+}
+
+.email-editor-container:hover {
+  overflow-y: auto;
+}
+

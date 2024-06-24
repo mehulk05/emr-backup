@@ -1,0 +1,317 @@
+<div class="container-fluid">
+  <div class="main1">
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+              <div class="left-div1">
+                  <div class="center">
+                      <div class="userInfo" *ngIf="userId">
+                          <div class="img-center" *ngIf="userInfo?.profileImageUrl">
+                              <img [src]="userInfo?.profileImageUrl" />
+                          </div>
+
+                          <div class="img-center no-border" *ngIf="!userInfo?.profileImageUrl">
+                              <img [src]="'https://g99plus.b-cdn.net/AEMR/assets/images/avtar.jpeg' " />
+                          </div>
+                          <div class="detail-info">
+                              <div class="flex-align py-1">
+                                  <h1 [ngStyle]="titleStyle">{{userInfo?.firstName}} {{userInfo?.lastName}}, {{userInfo?.designation}}</h1>
+                              </div>
+
+
+                              <h2 [ngStyle]="activeLinkStyle">{{showClinicInfo?.name}}</h2>
+                          </div>
+                      </div>
+
+
+                      <div class="serviceName">
+
+                          <div class="section-link sel" (click)="activeStep(0)" *ngIf="!userId || clinicLength>1">
+                              <div class="service-details" [ngStyle]="activeLinkBorder">
+                                  <div class="img">
+                                      <div class="arrows">
+                                          <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                      </div>
+                                  </div>
+
+                                  <div class="text">
+                                      <a [ngStyle]="titleStyle">Clinic</a> <br />
+                                      <span>{{booking.selectedClinic?.name}}</span>
+                                  </div>
+
+                                  <div class="book-btn-right">
+                                      <div class="img-right">
+                                          <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                          <!-- <img src="assets/images/done.png"> -->
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <!-- ----------------------------------------------------------------------- -->
+                          <!--              this is service selection for only userId url              -->
+                          <!-- ----------------------------------------------------------------------- -->
+                          <ng-container *ngIf="userId">
+
+                              <div class="section-link" [ngClass]="{disabled: stepNumber === 0, sel: stepNumber > 0}" (click)="activeStep(1)">
+                                  <div class="service-details" [ngStyle]=" stepNumber > 0?activeLinkBorder:null">
+                                      <div class="img">
+                                          <div class="arrows">
+                                              <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="text">
+                                          <a [ngStyle]="titleStyle">Services</a> <br />
+                                          <div class="sub-text">
+                                              <span *ngFor="let service of booking.selectedServices">{{service.name}}</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="book-btn-right">
+                                          <div class="img-right">
+                                              <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                              <!-- <img src="assets/images/done.png"> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-container>
+
+                          <!-- ----------------------------------------------------------------------- -->
+                          <!--                     this is service first selection                     -->
+                          <!-- ----------------------------------------------------------------------- -->
+
+                          <ng-container *ngIf="!provider && !userId">
+                              <div class="section-link" [ngClass]="{disabled: stepNumber === 0, sel: stepNumber > 0}" (click)="activeStep(1)">
+                                  <div class="service-details" [ngStyle]=" stepNumber > 0?activeLinkBorder:null">
+                                      <div class="img">
+                                          <div class="arrows">
+                                              <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="text">
+                                          <a [ngStyle]="titleStyle">Services</a> <br />
+                                          <div class="sub-text">
+                                              <span *ngFor="let service of booking.selectedServices">{{service.name}}</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="book-btn-right">
+                                          <div class="img-right">
+                                              <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                              <!-- <img src="assets/images/done.png"> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <ng-container *ngIf="!booking?.selectedClinic?.isProviderBasedAppointment">
+                                <div class="section-link" [ngClass]="{disabled: stepNumber === 1, sel: stepNumber > 1 }" (click)="activeStep(2)">
+                                  <div class="service-details" [ngStyle]=" stepNumber > 1?activeLinkBorder:null ">
+                                      <div class="img">
+                                          <div class="arrows">
+                                              <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="text">
+                                          <a [ngStyle]="titleStyle">Provider</a> <br />
+                                          <div class="sub-text">
+                                              <span>{{booking.provider?.firstName}}
+                                                  {{booking.provider?.lastName}}</span>
+                                          </div>
+
+                                      </div>
+
+                                      <div class="book-btn-right">
+                                          <div class="img-right">
+                                              <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                              <!-- <img src="assets/images/done.png"> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              </ng-container>
+
+                          </ng-container>
+
+                          <!-- ----------------------------------------------------------------------- -->
+                          <!--                    this is provider first selection                     -->
+                          <!-- ----------------------------------------------------------------------- -->
+
+                          <ng-container *ngIf="provider && !userId">
+                              <div class="section-link" [ngClass]="{disabled: stepNumber === 0, sel: stepNumber > 0}" (click)="activeStep(1)">
+
+                                  <div class="service-details" [ngStyle]=" stepNumber > 0?activeLinkBorder:null ">
+                                      <div class="img">
+                                          <div class="arrows">
+                                              <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="text">
+                                          <a [ngStyle]="titleStyle">Provider</a> <br />
+                                          <div class="sub-text">
+                                              <span>{{booking.provider?.firstName}}
+                                                  {{booking.provider?.lastName}}</span>
+                                          </div>
+
+                                      </div>
+
+                                      <div class="book-btn-right">
+                                          <div class="img-right">
+                                              <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                              <!-- <img src="assets/images/done.png"> -->
+                                          </div>
+                                      </div>
+                                  </div>
+
+
+                              </div>
+
+                              <div class="section-link" [ngClass]="{disabled: stepNumber === 1, sel: stepNumber > 1 }" (click)="activeStep(2)">
+                                  <div class="service-details" [ngStyle]=" stepNumber > 1?activeLinkBorder:null ">
+                                      <div class="img">
+                                          <div class="arrows">
+                                              <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="text">
+                                          <a [ngStyle]="titleStyle">Services</a> <br />
+                                          <div class="sub-text">
+                                              <span *ngFor="let service of booking.selectedServices">{{service.name}}</span>
+                                          </div>
+                                      </div>
+
+                                      <div class="book-btn-right">
+                                          <div class="img-right">
+                                              <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                              <!-- <img src="assets/images/done.png"> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </ng-container>
+
+                          <div class="section-link" [ngClass]="{disabled: stepNumber <= 2, sel: stepNumber > 2 }" (click)="activeStep(3)">
+                              <div class="service-details" [ngStyle]=" stepNumber > 2? activeLinkBorder:null ">
+                                  <div class="img">
+                                      <div class="arrows">
+                                          <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                      </div>
+                                  </div>
+
+                                  <div class="text">
+                                      <a [ngStyle]="titleStyle">Date & Time</a> <br />
+                                      <ng-container *ngIf="booking.date">
+                                          <span class="dttime"> {{booking.date | date : 'mediumDate'}}</span>
+                                          <span class="dttime">{{formatTime(booking.time )}}</span>
+                                      </ng-container>
+
+                                      <!-- <span class="dttime">{{booking.time | date : 'shortTime'}}</span> -->
+                                      <p class="dttime"></p>
+
+                                  </div>
+
+                                  <div class="book-btn-right">
+                                      <div class="img-right">
+                                          <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                          <!-- <img src="assets/images/done.png"> -->
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                          <div class="section-link" [ngClass]="{disabled: stepNumber <= 3, sel: stepNumber > 3 }" (click)="activeStep(4)">
+
+                              <div class="service-details" [ngStyle]=" stepNumber > 3 ?activeLinkBorder:null ">
+                                  <div class="img">
+                                      <div class="arrows">
+                                          <span [ngStyle]="btnTextStyle" class="font-arrow">&#187;</span>
+                                      </div>
+                                  </div>
+
+                                  <div class="text">
+                                      <a [ngStyle]="titleStyle">Your info</a>
+                                  </div>
+
+                                  <div class="book-btn-right">
+                                      <div class="img-right">
+                                          <span [ngStyle]="activeLinkStyle" class="tick">&#10003;</span>
+                                          <!-- <img src="assets/images/done.png"> -->
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div class="social-media" *ngIf="userId">
+                      <div class="title" [ngStyle]="{'color':titleColor}">
+                          STAY IN TOUCH
+                      </div>
+                      <div class="icons">
+
+                          <a tooltip="twitter" *ngIf="showClinicInfo?.twitter" [attr.href]="showClinicInfo?.twitter " target="_blank"> <i [ngStyle]="activeLinkStyle" class="fab fa-twitter"></i></a>
+                          <a tooltip="facebook" *ngIf="showClinicInfo?.facebook" [attr.href]="showClinicInfo?.facebook " target="_blank"> <i [ngStyle]="activeLinkStyle" class="fab fa-facebook"></i></a>
+                          <a tooltip="instagram" *ngIf=" showClinicInfo?.instagram" [attr.href]="showClinicInfo?.instagram " target="_blank"> <i [ngStyle]="activeLinkStyle" class="fab fa-instagram"></i></a>
+
+                      </div>
+                      <div class="contact-detial">
+                          <p>{{getUsformattedPhoneNumber(userInfo?.phone)}}</p>
+                          <p>{{userInfo?.email}}</p>
+                          <p><i class="fas fa-map-marker-alt"></i>{{showClinicInfo?.address}}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+              <div class="right-div1">
+                  <div class="center">
+                      <app-clinic-selection *ngIf="stepNumber === 0" (onClinicSelection)="onClinicSelection($event)" (onContinue)="onContinue($event)" [booking]="booking">
+                      </app-clinic-selection>
+
+                      <ng-container *ngIf="!isProvider">
+
+
+                          <app-service-selection *ngIf="stepNumber === 1" (onBack)="onBackStep($event)" (onServiceSelection)="onServiceSelection($event)" (onContinue)="onContinue($event)" [booking]="booking" [serviceSelectionBeforeProvider]="true">
+                          </app-service-selection>
+
+                          <ng-container *ngIf="!booking?.selectedClinic?.isProviderBasedAppointment">
+                            <app-provider-selection *ngIf="stepNumber === 2" (onBack)="onBackStep($event)" (onProviderSelection)="onProviderSelection($event)" (onContinue)="onContinue($event)" [booking]="booking">
+                            </app-provider-selection>
+                          </ng-container>
+
+
+                      </ng-container>
+
+
+                      <ng-container *ngIf="isProvider">
+                          <app-provider-selection *ngIf="stepNumber === 1"  (onBack)="onBackStep($event)" (onProviderSelection)="onProviderSelection($event)" (onContinue)="onContinue($event)" [booking]="booking">
+                          </app-provider-selection>
+
+                          <app-service-selection *ngIf="stepNumber === 2" (onBack)="onBackStep($event)" (onServiceSelection)="onServiceSelection($event)" (onContinue)="onContinue($event)" [booking]="booking" [serviceSelectionBeforeProvider]="false">
+                          </app-service-selection>
+
+
+                      </ng-container>
+
+                      <app-date-selection *ngIf="stepNumber === 3" (onBack)="onBackStep($event)" (onDateSelection)="onDateSelection($event)" [booking]="booking" [clinic]="booking?.selectedClinic">
+                      </app-date-selection>
+
+                      <app-patient-information (onBack)="onBackStep($event)" *ngIf="stepNumber === 4" (onAppointmentSuccess)="onAppointmentSuccess($event)" [booking]="booking">
+                      </app-patient-information>
+
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

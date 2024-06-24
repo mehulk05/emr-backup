@@ -1,0 +1,5 @@
+/* ::ng-deep .p-tabview .p-tabview-panels {
+    padding: 1rem 0 1rem 1rem !important;
+}
+AVOID NG DEEP CSS AND TRY NOT TO ADD CSS IN TAB COMPONENT
+*/

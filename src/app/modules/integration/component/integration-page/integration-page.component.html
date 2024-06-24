@@ -1,0 +1,557 @@
+<div class="bg-white datatable-table">
+
+
+  <div class="row mx-0">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="padding-top: 15px;">
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                              NEW UI DESIGN                              -->
+      <!-- ----------------------------------------------------------------------- -->
+      <div class="panel-card" #scrollframe cdkDropList (cdkDropListDropped)="drop($event)"
+        [cdkDropListData]="integrationList">
+        <form [formGroup]="integrationForm" class="login-box" (ngSubmit)="submitForm()">
+          <div class="panel-blue bg-white" cdkDrag *ngFor="let item of integrationList" [ngClass]="{'disabled': selectedFeatureCount >= maxSelectedFeatureCount && !selectedFeatureObj[item.featureName]}">
+            <span class="mover">
+              <img src="https://g99plus.b-cdn.net/Emr/Group%20427318330.png">
+            </span>
+            <ng-container [ngSwitch]="item.label">
+
+              <ng-container *ngSwitchCase="integrationForm.controls.composerLabel?.value">
+                <div class="panel-blue bg-white" >
+                  <div class="panel-header">
+                    <div class="panel-title">
+                      <h3> {{integrationForm.controls.composerLabel?.value}} </h3>
+                    </div>
+
+                    <div class="link-section">
+                      <span class="panel-link" (click)="editLabel('composerLabel')">
+                        <span>
+                          <i class="fa fa-pencil"></i>
+                        </span>
+                      </span>
+
+
+                      <span class="panel-link">
+                        <span>
+                          <a routerLink="/vc/symptoms/compose" target="_blank">
+                            <i class="fa fa-cog"></i></a>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveUp(item)">
+                        <span>
+                          <i class="fa fa-arrow-up" ></i>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveDown(item)">
+                        <span>
+                          <i class="fa fa-arrow-down" ></i>
+                        </span>
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <div class="panel-body">
+                    <div class="panel-card-content">
+                      <div class="form-group">
+                        <div class="form-element">
+                          <div class="title-element-wrapper">
+                            <input (change)="handleCheckboxSelection('isSymptomComposerSelected', $event)" type="checkbox" formControlName="isSymptomComposerSelected"
+                              id="isSymptomComposerSelected" />
+                            <label class="f-16 fw-500" for="isSymptomComposerSelected">
+                              Enable Self Assessment
+                            </label>
+                          </div>
+
+                          <div class="show-as-radio"
+                            [ngClass]="{'hidden': integrationForm.controls.isSymptomComposerSelected?.value === false }">
+                            <!-- <input type="radio" id="showInSameTab" name="showSymptomComposerAsNewTab"
+                              [value]="true"
+                              formControlName="showSymptomComposerAsNewTab" checked>
+                            <label for="showInSameTab">Show in same tab</label>
+
+                            <input type="radio" id="showInNewTab" name="showSymptomComposerAsNewTab"
+                              [value]="false"
+                              formControlName="showSymptomComposerAsNewTab">
+                            <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label> -->
+                            <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label>
+                            <p-inputSwitch (onChange)="onShowType($event, 'showSymptomComposerAsNewTab')"
+                              formControlName="showSymptomComposerAsNewTab"></p-inputSwitch>
+                          </div>
+
+                        </div>
+
+                        <div
+                          [ngClass]="{'hidden': integrationForm.controls.isSymptomComposerSelected?.value === false }">
+                          <div class="form-group custom-input">
+                            <label class="f-15">
+                              Enter Custom URL for your Self Assessment
+                            </label>
+                            <input type="url" (mousedown)="$event.stopPropagation()" formControlName="customUrlForVC"
+                              (click)="stopPropagation($event)" class="form-control">
+                          </div>
+                          <div class="error"
+                            *ngIf="f.customUrlForVC.invalid && ((f.customUrlForVC.dirty || f.customUrlForVC.touched))">
+                            <div *ngIf="f.customUrlForVC.errors.pattern">
+                              Invalid URL Format
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+
+              <ng-container *ngSwitchCase="integrationForm.controls.appointmentLabel?.value">
+                <div class="panel-blue bg-white">
+                  <div class="panel-header">
+                    <div class="panel-title">
+                      <h3>{{integrationForm.controls.appointmentLabel?.value}}</h3>
+                    </div>
+
+                    <div class="link-section">
+                      <span class="panel-link" (click)="editLabel('appointmentLabel')">
+                        <span>
+                          <i class="fa fa-pencil" ></i>
+                        </span>
+                      </span>
+
+                      <span class="panel-link">
+                        <span>
+                          <a routerLink="/appointment/booking-history" target="_blank">
+                            <i class="fa fa-cog"></i></a>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveUp(item)">
+                        <span>
+                          <i class="fa fa-arrow-up" ></i>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveDown(item)">
+                        <span>
+                          <i class="fa fa-arrow-down" ></i>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+
+
+                  <div class="panel-body">
+                    <div class="panel-card-content">
+                      <div class="form-group">
+                        <div class="form-element">
+                          <div class="title-element-wrapper">
+
+                            <input type="checkbox" (change)="handleCheckboxSelection('isAppointmentSelected', $event)"  formControlName="isAppointmentSelected"  id="isAppointmentSelected" />
+                            <label class="f-16 fw-500" for="isAppointmentSelected">
+                              Enable Appointments
+                            </label>
+                          </div>
+
+                          <div class="show-as-radio"
+                            [ngClass]="{'hidden': integrationForm.controls.isAppointmentSelected?.value === false }">
+                            <!-- <input type="radio" id="showInSameTab" name="showAppointmentAsNewTab"
+                              [value]="true"
+                              formControlName="showAppointmentAsNewTab" checked>
+                            <label for="showInSameTab">Show in same tab</label>
+
+                            <input type="radio" id="showInNewTab" name="showAppointmentAsNewTab"
+                              [value]="false"
+                              formControlName="showAppointmentAsNewTab">
+                            <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label> -->
+                            <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label>
+                            <p-inputSwitch (onChange)="onShowType($event, 'showAppointmentAsNewTab')"
+                              formControlName="showAppointmentAsNewTab"></p-inputSwitch>
+                          </div>
+                        </div>
+                        <div [ngClass]="{'hidden': integrationForm.controls.isAppointmentSelected?.value === false }">
+                          <div class="form-group custom-input">
+                            <label class="f-15">
+                              Enter Custom URL for your appointment booking
+                            </label>
+                            <input type="url" (mousedown)="$event.stopPropagation()" (click)="stopPropagation($event)"
+                              formControlName="customUrlForAppointment" class="form-control">
+                          </div>
+                          <div class="error"
+                            *ngIf="f.customUrlForAppointment.invalid && ((f.customUrlForAppointment.dirty || f.customUrlForAppointment.touched))">
+                            <div *ngIf="f.customUrlForAppointment.errors.pattern">
+                              Invalid URL Format
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </ng-container>
+
+
+              <ng-container *ngSwitchCase="integrationForm.controls.contactFormLabel?.value">
+                <div class="panel-blue bg-white">
+                  <div class="panel-header">
+                    <div class="panel-title">
+                      <h3>{{integrationForm.controls.contactFormLabel?.value}}</h3>
+                    </div>
+
+
+                    <div class="link-section">
+                      <span class="panel-link" (click)="editLabel('contactFormLabel')">
+                        <span>
+                          <i class="fa fa-pencil" ></i>
+                        </span>
+                      </span>
+
+                      <span class="panel-link">
+                        <span>
+                          <a routerLink="/form-builder/0/lead-capture-form" target="_blank">
+                            <i class="fa fa-cog"></i></a>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveUp(item)">
+                        <span>
+                          <i class="fa fa-arrow-up" ></i>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveDown(item)">
+                        <span>
+                          <i class="fa fa-arrow-down" ></i>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+
+
+                  <div class="panel-body">
+                    <div class="panel-card-content">
+                      <div class="form-group">
+                        <div class="form-element">
+                          <div class="title-element-wrapper">
+
+                            <input type="checkbox" (change)="handleCheckboxSelection('isContactFormSelected', $event)" formControlName="isContactFormSelected" id="isContactFormSelected" />
+                            <label class="f-16 fw-500" for="isContactFormSelected">
+                              Enable Contact Form
+                            </label>
+                          </div>
+
+
+                          <div class="show-as-radio"
+                            [ngClass]="{'hidden': integrationForm.controls.isContactFormSelected?.value === false }">
+                            <!-- <input type="radio" id="showInSameTab" name="showContactFormAsNewTab"
+                              [value]="true"
+                              formControlName="showContactFormAsNewTab" checked>
+                            <label for="showInSameTab">Show in same tab</label>
+
+                            <input type="radio" id="showInNewTab" name="showContactFormAsNewTab"
+                              [value]="false"
+                              formControlName="showContactFormAsNewTab">
+                            <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label> -->
+                            <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label>
+                            <p-inputSwitch (onChange)="onShowType($event, 'showContactFormAsNewTab')"
+                              formControlName="showContactFormAsNewTab"></p-inputSwitch>
+                          </div>
+
+                        </div>
+                        <div [ngClass]="{'hidden': integrationForm.controls.isContactFormSelected?.value === false }">
+                          <div class="form-group custom-input">
+                            <label class="f-15">
+                              Enter Custom URL for your Contact form redirection
+                            </label>
+                            <input type="url" (mousedown)="$event.stopPropagation()"
+                              formControlName="customUrlForContactForm" (click)="stopPropagation($event)"
+                              class="form-control">
+                          </div>
+                          <div class="error"
+                            *ngIf="f.customUrlForContactForm.invalid && ((f.customUrlForContactForm.dirty || f.customUrlForContactForm.touched))">
+                            <div *ngIf="f.customUrlForContactForm.errors.pattern">
+                              Invalid URL Format (URL should start with http or https)
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="integrationForm.controls.clinicReviewLabel?.value">
+                <div class="panel-blue bg-white" >
+                  <div class="panel-header">
+                    <div class="panel-title">
+                      <h3> {{integrationForm.controls.clinicReviewLabel?.value}} </h3>
+                    </div>
+
+
+                    <div class="link-section">
+                      <span class="panel-link" (click)="editLabel('clinicReviewLabel')">
+                        <span>
+                          <i class="fa fa-pencil" ></i>
+                        </span>
+                      </span>
+
+                      <span class="panel-link">
+                        <span>
+                          <a [routerLink]="['/reviews']" [queryParams]="{ source: 'g99review' }"
+                            target="_blank">
+                            <i class="fa fa-cog"></i>
+                          </a>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveUp(item)">
+                        <span>
+                          <i class="fa fa-arrow-up" ></i>
+                        </span>
+                      </span>
+
+                      <span class="panel-link" (click)="moveDown(item)">
+                        <span>
+                          <i class="fa fa-arrow-down" ></i>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="panel-body">
+                    <div class="panel-card-content">
+                      <div class="form-group">
+                        <div class="form-element">
+                          <div class="title-element-wrapper">
+
+                            <input (change)="handleCheckboxSelection('isClinicReviewSelected', $event)" type="checkbox" formControlName="isClinicReviewSelected"
+                              id="isClinicReviewSelected" />
+                            <label class="f-16 fw-500" for="isClinicReviewSelected">
+                              Enable Clinic Review
+                            </label>
+                          </div>
+
+                          <div class="show-as-radio"
+                            [ngClass]="{'hidden': integrationForm.controls.isClinicReviewSelected?.value === false }">
+                            <!-- <input type="radio" id="showInSameTab" name="showClinicReviewAsNewTab"
+                            [value]="true"
+                            formControlName="showClinicReviewAsNewTab" checked>
+                          <label for="showInSameTab">Show in same tab</label>
+
+                          <input type="radio" id="showInNewTab" name="showClinicReviewAsNewTab"
+                            [value]="false"
+                            formControlName="showClinicReviewAsNewTab">
+                          <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label> -->
+                            <label for="showInNewTab" class="f-14 fw-400">Show in new tab</label>
+                            <p-inputSwitch (onChange)="onShowType($event, 'showClinicReviewAsNewTab')"
+                              formControlName="showClinicReviewAsNewTab"></p-inputSwitch>
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+
+          <!-- ---------------------------- Chhatbot div ----------------------------- -->
+          <div class="cdk-drag panel-blue bg-white">
+            <div class="panel-blue bg-white">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <h3> {{integrationForm.controls.chatbotLabel?.value}} </h3>
+                </div>
+
+                <div class="link-section">
+                  <span class="panel-link" (click)="editLabel('chatbotLabel')">
+                    <span>
+                      <i class="fa fa-pencil" ></i>
+                    </span>
+                  </span>
+
+                  <span class="panel-link">
+                    <span>
+                      <a routerLink="/chat/chat-config" target="_blank">
+                        <i class="fa fa-cog"></i></a>
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="panel-body">
+                <div class="panel-card-content">
+                  <div class="form-group">
+                    <div class="form-element">
+                      <div class="title-element-wrapper">
+                        <input type="checkbox" class="" formControlName="isChatbotSelected" id="isChatbotSelected" />
+                        <label class="f-16 fw-500" for="isChatbotSelected">
+                          Enable Chatbot
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+      <div class="preview  padding-class pl-2 pr-2">
+        <div class="small-title">
+          <p class="pl-2">
+            Choose your Integration Layout
+          </p>
+        </div>
+        <div class="row mx-0">
+          <!-- ------------------------ Cliff hanger Icon Layout ------------------------- -->
+          <div class="col-lg-3 col-md-12 col-sm-12 pl-0 pr-0">
+            <div class="bg-card" (click)="setLayoutType('vertical')" [class.active]="layoutType === 'vertical'">
+              <div class="img">
+                <img src="https://g99plus.b-cdn.net/singlescript/cliff.png" />
+              </div>
+              <div class="card-btn">
+                Cliff Hanger Layout
+              </div>
+
+
+              <div class="show-selected">
+                <i class="fa fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Left side layout --------------------------- -->
+          <div class="col-lg-3 col-md-12 col-sm-12 pl-0 pr-0">
+            <div class="bg-card" (click)="setLayoutType('fixed-left')" [class.active]="layoutType === 'fixed-left'">
+              <div class="img">
+                <img src="https://g99plus.b-cdn.net/singlescript/left.png" />
+              </div>
+              <div class="card-btn">
+                Left Layout
+              </div>
+
+
+              <div class="show-selected">
+                <i class="fa fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------- Right Side Icon Layout ------------------------ -->
+          <div class="col-lg-3 col-md-12 col-sm-12 pl-0 pr-0">
+            <div class="bg-card" (click)="setLayoutType('fixed')" [class.active]="layoutType === 'fixed'">
+              <div class="img">
+                <img src="https://g99plus.b-cdn.net/singlescript/righht.png" />
+              </div>
+
+              <div class="card-btn">
+                Right Layout
+              </div>
+
+              <div class="show-selected">
+                <i class="fa fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------ Floating Side Icon Layout ------------------------ -->
+          <div class="col-lg-3 col-md-12 col-sm-12 pl-0 pr-0">
+            <div class="bg-card" (click)="setLayoutType('float')" [class.active]="layoutType === 'float'">
+              <div class="img">
+                <img src="https://g99plus.b-cdn.net/singlescript/floating.png" />
+              </div>
+              <div class="card-btn">
+                Floating Layout
+              </div>
+
+
+              <div class="show-selected">
+                <i class="fa fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                           NEW UI DESIGN ENDS                            -->
+      <!-- ----------------------------------------------------------------------- -->
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="righ-card">
+        <app-integration-right-section (contentChange)="handleContentChange($event)"
+          [customCssForButton]="integrationForm?.value?.customCssForButton"
+          [integrationPreviewUrl]="integrationPreviewUrl"
+          [integrationScript]="integrationScript"></app-integration-right-section>
+      </div>
+    </div>
+    <!-- <div class="col-lg-12 col-md-12 col-sm-12 right-card">
+      <div class="righ-card">
+        <app-integration-right-card [showLayout]="'3'" [integrationPreviewUrl]="integrationPreviewUrl"
+          [integrationScript]="integrationScript"></app-integration-right-card>
+      </div>
+    </div> -->
+
+    <div class="button-flex pl-4 pt-4">
+      <button [disabled]="!integrationForm.valid" (click)="submitForm()" type="button" class="btn-save-new">
+        Save
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- modal -->
+<div class="dialog-new-v1" *ngIf="displayModal">
+  <p-dialog [header]="'Edit Label'" [(visible)]="showModal" [modal]="true"
+    [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+    [draggable]="false" (onHide)="hideModal()" [resizable]="false">
+    <div class="ms-panel no-shadow">
+      <div mat-dialog-content class="custom-modal ms-panel custom-blue">
+        <div class="ms-panel-body">
+          <div class="form form-type2">
+            <div class="login-box">
+              <div class="form-group">
+                <label class="f-15 fw-500">Provide your label Name for feature<span class="error-red">*</span></label>
+                <input type="text" [(ngModel)]="labelName" class="form-control">
+                <div class="error-block" *ngIf="!labelName.trim()">
+                  <span class="error-mesage">
+                    Label name is required
+                  </span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-save-new btn-small-new" (click)="saveLabel()" [disabled]="!labelName.trim()">
+                Save
+              </button>
+
+              <button type="button" class="btn-small-new btn-default-new" (click)="hideModal()">
+                Cancel
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

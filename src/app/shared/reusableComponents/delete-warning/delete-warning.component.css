@@ -1,0 +1,16 @@
+
+::ng-deep .p-dialog .p-dialog-header{
+  border-bottom: 2px solid gainsboro;
+}
+::ng-deep .p-dialog .p-dialog-footer{
+  border-top: 2px solid gainsboro;
+}
+::ng-deep .p-dialog .p-dialog-footer,
+::ng-deep .p-dialog .p-dialog-content{
+  padding: 2rem 1.5rem 2rem 1.5rem;
+}
+
+.body-section span{
+  font-size: 14px;
+  font-weight: 500;
+}

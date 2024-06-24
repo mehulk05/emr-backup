@@ -1,0 +1,494 @@
+<div class="new-ui mt-4">
+  <form [formGroup]="subscriptionForm">
+    <div class="add-edit-form">
+      <div class="form form-type2">
+        <div class="row mx-0">
+          <div class="col-12">
+            <div class="form-heading py-1">Business Details</div>
+          </div>
+
+          <!-- -------------------------- First Name feild --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.businessName.invalid &&
+                (f.businessName.dirty || f.businessName.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Business Name <span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="businessName"
+                placeholder="Enter the exact legal business name. E.g. Growth99 LLC. rather than Growth99"
+                appErrorStylingDirective />
+
+              <small class="subtxt">Enter the exact legal business name. E.g. Growth99 LLC. rather than
+                Growth99</small>
+
+              <div class="error error-msg">
+                <div *ngIf="f.businessName.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Name is required.
+                </div>
+                <div *ngIf="f.businessName.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.businessType.invalid &&
+                (f.businessType.dirty || f.businessType.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Business Type<span class="error-red">*</span></label>
+
+              <p-dropdown [options]="businessTypes" formControlName="businessType" [filter]="true" filterBy="name"
+                placeholder="Select Business Type" optionLabel="name" optionValue="code">
+              </p-dropdown>
+
+              <div class="error error-msg">
+                <div *ngIf="
+                    f.businessType.touched && f.businessType.errors?.required
+                  ">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Type is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 1 row done -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.registrationType.invalid &&
+                (f.registrationType.dirty || f.registrationType.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Business Registration Type <span class="error-red">*</span></label>
+              <p-dropdown [options]="businessRegistrationTypes" formControlName="registrationType" [filter]="true"
+                filterBy="name" placeholder="Select Business Registration Type" optionLabel="name" optionValue="code">
+              </p-dropdown>
+
+              <div class="error error-msg">
+                <div *ngIf="f.registrationType.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Registration Type is required.
+                </div>
+                <div *ngIf="f.registrationType.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Registration Type is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.registrationNumber.invalid &&
+                (f.registrationNumber.dirty || f.registrationNumber.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Business Registration Number
+                <span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="registrationNumber"
+                placeholder="For Ex: EIN in case of USA" appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.registrationNumber.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Registration Number is required.
+                </div>
+                <div *ngIf="f.registrationNumber.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Registration Number is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.address1.invalid && (f.address1.dirty || f.address1.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Address 1 <span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="address1"
+                placeholder="Enter the first line of the business address as it appears in the Business Registration (EIN) listing"
+                appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.address1.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Address 1 is required.
+                </div>
+                <div *ngIf="f.address1.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Address 1 is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.address2.invalid && (f.address2.dirty || f.address2.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Address 2</label>
+              <input type="text" class="form-control input-type2" formControlName="address2"
+                placeholder="If applicable, enter the second line of the business address as it appears in the Business Registration (EIN) listing"
+                appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.address2.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Address 2 is required.
+                </div>
+                <div *ngIf="f.address2.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Address 2 is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.country.invalid &&
+                (f.country.dirty || f.country.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Country
+                <span class="error-red">*</span></label>
+              <p-dropdown [options]="countries" formControlName="country" placeholder="Select country"
+                appErrorStylingDirective>
+              </p-dropdown>
+              <div class="error error-msg">
+                <div *ngIf="f.country.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Country is required.
+                </div>
+                <div *ngIf="f.country.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Country is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.state.invalid && (f.state.dirty || f.state.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>State/Province/Region <span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="state" placeholder="Enter State" />
+
+              <div class=" error error-msg">
+                <div *ngIf="f.state.touched && f.state.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  State is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.city.invalid && (f.city.dirty || f.city.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>City <span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="city" placeholder="Enter City" />
+
+              <div class="error error-msg">
+                <div *ngIf="f.city.touched && f.city.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  City is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.zipCode.invalid && (f.zipCode.dirty || f.zipCode.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Zipcode <span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="zipCode" placeholder="eg; 12345"
+                appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.zipCode.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Zipcode is required.
+                </div>
+                <div *ngIf="f.zipCode.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Zipcode is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.region.invalid && (f.region.dirty || f.region.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Region of Operations <span class="error-red">*</span></label>
+              <p-multiSelect [options]="regionList" placeholder="Select region" formControlName="region"
+                optionLabel="name" optionValue="code"></p-multiSelect>
+
+              <div class="error error-msg">
+                <div *ngIf="f.region.touched && f.region.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Region of Operations is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.website.invalid && (f.website.dirty || f.website.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Website URL<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="website"
+                placeholder="eg; www.company.com" appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.website.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Website is required.
+                </div>
+                <div *ngIf="f.website.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Website is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="mt-2">
+            <label>EIN Document File Upload <span class="error-red">*</span></label>
+            <input class="form-control" type="file" (change)="fileChangeEvent($event)">
+            <small class="subtxt">Please upload the first page of your EIN document where the Registration Number,
+              Business Name and Address Details are mentioned.</small>
+
+          </div>
+
+
+          <div class="inline-checkbox">
+            <app-custom-checkbox
+              label="I declare that the information provided is accurate. I acknowledge that Growth99 will be processing the information provided for the purposes of identity verification, and that Growth99 reserves the right to retain the Business Profile information after account closure in the case of a traceback from a regulatory authority or equivalent."
+              (valueChange)="onCheckboxValueChanged1($event)" for="usersConcent1"
+              [control]="$any(subscriptionForm.get('usersConcent1'))"></app-custom-checkbox>
+          </div>
+
+
+
+          <div class="col-12">
+            <div class="form-heading py-1">Point of Contact Details</div>
+          </div>
+          <!-- ---------------------------- Contact Name field ----------------------------- -->
+
+          <div class="col-lg-2 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.businessTitle.invalid &&
+                (f.businessTitle.dirty || f.businessTitle.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Title<small class="error-red">*</small></label>
+              <p-dropdown [options]="businessTitles" formControlName="businessTitle" [filter]="true" filterBy="name"
+                placeholder="Enter business title" optionLabel="name" optionValue="code">
+              </p-dropdown>
+
+              <small class="subtxt">Enter business title</small>
+
+              <div class="error error-msg">
+                <div *ngIf="f.businessTitle.touched && f.businessTitle.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Business Title is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.contactName.invalid &&
+                (f.contactName.dirty || f.contactName.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Contact Name <span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="contactName"
+                appErrorStylingDirective />
+
+              <small class="subtxt">Enter Contact Name</small>
+
+              <div class="error error-msg">
+                <div *ngIf="f.contactName.touched && f.contactName.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Contact Name is required.
+                </div>
+                <div *ngIf="f.contactName.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------- Role field ----------------------------- -->
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.contactRole.invalid && (f.contactRole.dirty || f.contactRole.touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Job Position<span class="error-red">*</span></label>
+              <p-dropdown [options]="jobPositions" formControlName="contactRole" [filter]="true" filterBy="name"
+                placeholder="Select Role" optionLabel="name" optionValue="code">
+                <ng-template let-item pTemplate="clinics">
+                  {{item.name}}
+                </ng-template>
+              </p-dropdown>
+
+              <div class="error error-msg">
+                <div *ngIf="f.contactRole.touched && f.contactRole.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Role is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- Phone feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                    f.contactPhone.invalid &&
+                    (f.contactPhone.dirty || f.contactPhone.touched)
+                      ? 'has-error'
+                      : ''
+                  ">
+              <label>Phone Number<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="contactPhone"
+                appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.contactPhone.touched && f.contactPhone.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Phone Number is required.
+                </div>
+                <div *ngIf="f.contactPhone.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Phone Number is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- Email feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                f.contactEmail.invalid &&
+                (f['contactEmail'].dirty || f['contactEmail'].touched)
+                  ? 'has-error'
+                  : ''
+              ">
+              <label>Email Address<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="contactEmail"
+                appErrorStylingDirective />
+              <div class="error error-msg">
+                <div *ngIf="f.contactEmail.touched && f.contactEmail.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Email address is required.
+                </div>
+                <div *ngIf="f.contactEmail.errors">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Email address is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline-checkbox">
+            <app-custom-checkbox
+              label="I confirm that my nominated authorized representatives agree to be contacted for Verification."
+              (valueChange)="onCheckboxValueChanged($event)" for="usersConcent"
+              [control]="$any(subscriptionForm.get('usersConcent'))"></app-custom-checkbox>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <!-- <button type="button" class="btn-default-new btn-small-new" (click)="submitEmit('cancel')">
+                  Go Back
+                </button> -->
+                <button type="button" class="btn-save-new btn-small-new" [disabled]="subscriptionForm.status==='INVALID' 
+                  || !upgradefile" (click)="hideShowModal('show')">
+                  Proceed
+                </button>
+
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------- Row ends below div -------------------------- -->
+        </div>
+
+        <!-- ------------------------- FOrm ends below div ------------------------- -->
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<ng-container *ngIf="showModal">
+  <div class="dialog-new">
+    <p-dialog [modal]="showModal" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+      [style]="{width: '50vw'}" [header]="'Confirmation'" [(visible)]="showModal">
+
+      <div class="modal-body">
+        <div class="row mx-0 my-4">
+          Please make sure that the details furnished by you are the same as given in your Business Registration ID (EIN
+          for the US, CCN/CBN for Canada, ACN for Australia, etc.). Providing mismatched details will lead to a longer
+          wait time for the service activation.
+        </div>
+
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="modal-footer-section d-flex">
+          <button class="btn btn-save-new" (click)="submitEmit('upgrade')">Yes, it's correct</button>
+
+          <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal"
+            (click)="hideShowModal('hide')">
+            No, review again
+          </button>
+        </div>
+      </ng-template>
+    </p-dialog>
+  </div>
+
+</ng-container>

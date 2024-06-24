@@ -1,0 +1,25 @@
+.action-btn {
+  display: flex;
+}
+.save-color-btn {
+  min-width: 140px !important;
+  max-height: 32px !important;
+  border: none !important;
+  padding: 6px 10px !important;
+  border-radius: 24px !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+}
+.datatable-table .table-button .table-btn-wrapper {
+  margin-left: 10px !important;
+}
+
+.table-btn-wrapper .icon i {
+  color: #fff;
+}
+
+.actions-wrapper {
+  margin-left: 10px;
+  position: relative;
+  display: flex;
+}

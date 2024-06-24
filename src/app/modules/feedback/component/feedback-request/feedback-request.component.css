@@ -1,0 +1,34 @@
+.feed-card{
+    background-clip: border-box;
+    border: 1px solid #edf2f9 !important;
+    border-radius: 0.65rem;
+    box-shadow: 0 0.75rem 1.5rem rgb(18 38 63 / 3%);
+    height: 100%;
+    margin: 0;
+}
+
+.bg-light{
+    padding: 3em;
+    min-height: 70vh;
+}
+
+
+.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 1em;
+    flex-direction: column;
+    min-height: 230px;
+}
+
+.icon img{
+    max-width: 100px;
+    min-width: 80px;
+}
+
+.feed-card p{
+    font-size: 18px;
+    padding-top: 1em;
+}

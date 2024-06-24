@@ -1,0 +1,37 @@
+<div class="bg-light">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card feed-card" *ngIf="agenciesLinks[agencyInfo?.name]">
+                <div class="icon">
+                    <a target="_blank" [href]="agenciesLinks[agencyInfo?.name]">
+                        <img src="https://g99plus.b-cdn.net/Emr/feedback.svg" />
+                    </a>
+                    <p>Feedback</p>
+                </div>
+            </div>
+    
+    
+            <div class="card feed-card" *ngIf="!agenciesLinks[agencyInfo?.name]">
+                <div class="icon">
+                    <a target="_blank" [href]="'https://practicebuddy.rapidr.io/contribute/growth-99/'">
+                        <img src="https://g99plus.b-cdn.net/Emr/feedback.svg" />
+                    </a>
+                    <p>Feedback</p>
+    
+                </div>
+            </div>
+    
+        </div>
+    
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card feed-card">
+                <div class="icon">
+                    <a target="_blank" [href]="'https://practicebuddy.rapidr.io/'">
+                        <img src="https://g99plus.b-cdn.net/Emr/roadmap.svg" />
+                    </a>
+                    <p>Roadmap</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

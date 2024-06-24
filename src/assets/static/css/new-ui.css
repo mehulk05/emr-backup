@@ -1,0 +1,898 @@
+.f-12 {
+  font-size: 12px !important;
+  font-weight: 400;
+}
+
+.f-13 {
+  font-size: 13px !important;
+  font-weight: 400;
+}
+
+.f-14 {
+  font-size: 14px !important;
+  font-weight: 400;
+}
+
+.small-text {
+  font-size: 12px !important;
+  font-weight: 400;
+}
+
+.f-16 {
+  font-size: 16px !important;
+  font-weight: 400;
+}
+
+.f-15 {
+  font-size: 15px !important;
+  font-weight: 400;
+}
+
+.fw-500 {
+  font-weight: 500 !important;
+}
+
+.fw-400 {
+  font-weight: 400 !important;
+}
+
+.fw-600 {
+  font-weight: 600 !important;
+}
+
+.error-mesage {
+  color: red;
+}
+
+.theme-text {
+  color: #2656c9;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 button css                                 */
+/* -------------------------------------------------------------------------- */
+.tab-view .dropdown-color-btn:disabled,
+.tab-view .dropdown-color-btn,
+.new-ui .dropdown-color-btn:disabled,
+.new-ui .dropdown-color-btn {
+  background: #2656c9;
+}
+
+.tab-view .p-tabview-title,
+.new-ui .p-tabview-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-save-new {
+  background: #2656c9;
+  padding: 7px 25px;
+  border-radius: 24px;
+  color: #fff;
+  margin-right: 5px;
+  border: none;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.btn-save-new:disabled {
+  opacity: 0.7;
+}
+
+.new-ui .save-color-btn,
+.tab-view .save-color-btn,
+.btn-new {
+  background: #2656c9;
+  padding: 7px 25px;
+  border-radius: 24px;
+  color: #fff;
+}
+
+.btn-small {
+  padding: 3px 10px;
+}
+
+.btn-small-new {
+  min-width: 100px;
+  border: none !important;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.btn-default-new {
+  background: #fff;
+  color: #2656c9;
+  padding: 4.2px 10px;
+  border-radius: 24px;
+  margin-right: 5px;
+  border: 2px solid #2656c9 !important;
+}
+
+.btn-square {
+  border-radius: 4px !important;
+  padding: 4px 6px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.btn-default-border-new {
+  background: #fff;
+  color: #2656c9;
+  padding: 4.2px 10px;
+  border-radius: 24px;
+  margin-right: 5px;
+  border: 2px solid #2656c9 !important;
+  line-height: 1;
+}
+
+.new-ui .link,
+.tab-view .link {
+  color: #2656c9;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.new-ui .link-new,
+.new-ui .link-new i {
+  color: #2656c9 !important;
+}
+
+.btn-icon {
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #828282;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.btn-icon span,
+.btn-icon i {
+  color: #828282;
+}
+
+.new-ui .dropdown-color-btn i,
+.btn-save-new a,
+.btn-save-new i {
+  color: #fff !important;
+  padding-left: 3px;
+  padding-right: 5px;
+}
+
+.tab-view .savebtn,
+.new-ui .savebtn {
+  background-color: #d8e2f6 !important;
+  color: #2656c9 !important;
+  border: 1px solid #2656c9 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-ui .save-border-btn,
+.tab-view .save-border-btn {
+  color: #2656c9 !important;
+  border: 2px solid #2656c9 !important;
+  padding: 7px 25px;
+  border-radius: 24px;
+}
+
+.btn-default-del {
+  background: #fff;
+  color: red;
+  padding: 4.2px 10px;
+  border-radius: 24px;
+  margin-right: 5px;
+  border: 2px solid red !important;
+  min-width: 100px;
+  max-height: 33.38px;
+  font-size: 14px;
+}
+
+.btn-xs-new {
+  padding: 6px 10px;
+}
+
+.btn-long-new {
+  padding: 6px 20px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Tab css                                  */
+/* -------------------------------------------------------------------------- */
+.p-tabview-nav-content {
+  padding-left: 30px;
+}
+
+.tab-view .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  font-weight: 400;
+  font-size: 16px !important;
+  color: #333333 !important;
+  margin: 0 !important;
+  border: none !important;
+  padding-left: 5px;
+}
+
+.tab-view .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: #fff !important;
+  color: #2656c9 !important;
+  border-bottom: 1px solid #2656c9 !important;
+  margin-bottom: -1px !important;
+}
+
+.new-ui .p-paginator {
+  border-bottom: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Form CSS                                  */
+/* -------------------------------------------------------------------------- */
+
+.new-ui label .error-red {
+  font-size: 12px;
+}
+
+.new-ui .add-edit-form,
+.tab-view .add-edit-form {
+  max-width: 100%;
+  padding-top: 0;
+  padding-left: 10px;
+}
+
+.new-ui .add-edit-form label,
+.tab-view .add-edit-form label,
+.new-ui .input-type2,
+.new-ui .form-type2 label,
+.tab-view .input-type2,
+.tab-view .form-type2 label {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.new-ui .input-type2,
+.tab-view .input-type2 {
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+}
+
+.new-ui textarea .tab-view textarea {
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.new-ui p.input-type3-label {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.new-ui .p-button {
+  background: #2656c9;
+  border: none;
+  color: white;
+}
+
+.new-ui .p-button:hover {
+  background: #2656c9 !important;
+  border: none !important;
+  color: white !important;
+}
+
+.add-edit-form .panel-inner-wrapper {
+  padding: 0em 2em !important;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.new-ui .p-inputtext {
+  font-size: 14px;
+  font-family: 'Work Sans', sans-serif !important;
+}
+
+.new-ui .btn-save-new {
+  background: #2656c9;
+  padding: 6px 20px;
+  border-radius: 24px;
+  color: #fff;
+  border: none;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 Dialog css                                 */
+/* -------------------------------------------------------------------------- */
+.panel-border .panel-body {
+  border: 1px solid #d8e2f6;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.panel-border.no-overflow .panel-header {
+  overflow: hidden;
+}
+
+.tab-view .panel-header {
+  background: #d8e2f6;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #d8e2f6;
+  color: #333333 !important;
+}
+
+.tab-view .panel-header h3 {
+  font-size: 16px;
+  color: #333;
+  font-weight: 400;
+  background: #d8e2f6;
+  color: #333333 !important;
+}
+
+.tab-view .panel-blue {
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+.new-ui .panel-blue {
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+/* .tab-view .p-tabview-panel{
+  background-color: #F8FAFE;
+} */
+
+.tab-view .panel-body {
+  background-color: #f8fafe;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.tab-view .p-tabview .p-tabview-panels {
+  background-color: #fff;
+}
+
+.tab-view .panel-header .panel-title {
+  font-size: 16px;
+  color: #333333;
+  padding: 10px 10px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             P dialog popup css                             */
+/* -------------------------------------------------------------------------- */
+.new-ui-dialog .p-dialog .p-dialog-header {
+  background: #2656c9 !important;
+  color: #333333;
+  padding: 13px 1em;
+  /* border-top-left-radius: 24px;
+  border-top-right-radius: 24px; */
+}
+
+.new-ui-dialog .p-dialog .p-dialog-header .p-dialog-title {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Work Sans', sans-serif !important;
+}
+
+.new-ui-dialog .p-dialog .p-dialog-content {
+  padding-top: 1em;
+}
+
+.dialog-new .p-dialog {
+  border-radius: 8px;
+  /* border-top-left-radius: 8px;
+  border-top-right-radius: 8px; */
+}
+
+/*
+ */
+.dialog-new .p-dialog .p-dialog-header {
+  background-color: #2656c9 !important;
+  padding: 1em !important;
+  padding-left: 1.6rem !important;
+  padding-right: 1.6rem !important;
+  /* border-top-left-radius: 8px;
+  border-top-right-radius: 8px; */
+  color: #fff;
+}
+
+.dialog-new-v1 .p-dialog .p-dialog-header {
+  color: #fff;
+  background-color: #2656c9 !important;
+  padding: 1em !important;
+}
+
+.dialog-new .p-dialog .p-dialog-header span {
+  color: #fff;
+}
+
+.dialog-new .panel-header,
+.dialog-new .p-dialog .p-dialog-header {
+  padding-left: 1.6rem !important;
+  padding-right: 1.6rem !important;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 1rem 1rem 1rem 1rem;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  display: none;
+}
+
+.dialog-with-close-icon .p-dialog .p-dialog-header .p-dialog-header-icon {
+  display: flex;
+}
+
+.modal-footer-section .btn-small-new {
+  font-size: 14px;
+  min-width: 100px;
+}
+
+.panel-new .panel-header {
+  padding: 0 1em;
+}
+
+.panel-new .panel-body {
+  padding: 1em 1.6rem;
+}
+
+/* ---------------------------- toggle button css --------------------------- */
+
+.new-ui-dialog .p-dialog .p-dialog-header .p-dialog-header-icon {
+  border: 2px solid #333333 !important;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.new-ui-dialog .p-dialog .p-dialog-header .p-dialog-header-icon,
+.new-ui-dialog .p-dialog .p-dialog-header span {
+  color: #333333 !important;
+}
+
+.new-ui-dialog .p-dialog {
+  box-shadow: none !important;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.tab-view .add-edit-form p-dropdown.p-element.p-inputwrapper .p-dropdown,
+.new-ui .add-edit-form p-dropdown.p-element.p-inputwrapper .p-dropdown,
+.new-ui .p-dropdown,
+.tab-view .p-dropdown {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Toggle button css                             */
+/* -------------------------------------------------------------------------- */
+
+.show-as-radio p-inputswitch .p-inputswitch {
+  width: 40px;
+  height: 20px;
+}
+
+.show-as-radio p-inputswitch .p-inputswitch .p-inputswitch-slider {
+  top: 3px;
+}
+
+.show-as-radio p-inputswitch .p-inputswitch-slider:before {
+  width: 20px;
+  height: 20px;
+  left: 0;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.show-as-radio
+  .p-inputswitch.p-inputswitch-checked
+  .p-inputswitch-slider:before {
+  background: #2656c9 !important;
+}
+
+.show-as-radio p-inputswitch .p-inputswitch:hover .p-inputswitch-slider,
+.show-as-radio p-inputswitch .p-inputswitch-slider {
+  background: #ced4da;
+}
+
+.show-as-radio
+  p-inputswitch
+  .p-inputswitch.p-inputswitch-checked
+  .p-inputswitch-slider {
+  background: #d8e2f6;
+}
+
+.new-ui .p-multiselect-token {
+  background: #d8e2f6 !important;
+  height: 31px;
+}
+
+.p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover
+  .p-inputswitch-slider {
+  background-color: #d8e2f6 !important;
+}
+
+.new-ui .p-multiselect-token span {
+  color: #2656c9;
+  height: 14px;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
+
+.new-ui p-dropdown.p-element.p-inputwrapper .p-dropdown,
+.new-ui p-multiselect.p-element.p-inputwrapper .p-dropdown,
+.new-ui p-multiselect.p-element.p-inputwrapper .p-multiselect {
+  border-radius: 4px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Table css                                 */
+/* -------------------------------------------------------------------------- */
+.new-ui
+  .table-list
+  .p-paginator
+  .p-paginator-pages
+  .p-paginator-page.p-highlight,
+.new-ui .table-list .p-datatable .p-sortable-column .p-sortable-column-icon,
+.new-ui .table-list .p-datatable .p-datatable-thead > tr > th {
+  background-color: #d8e2f6 !important;
+  color: #333;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.new-ui .table-list .p-datatable .p-sortable-column .p-sortable-column-icon,
+.new-ui .table-list .p-datatable .p-datatable-thead > tr > th {
+  padding-left: 17px;
+}
+
+.tab-view .datatable-table .title,
+.new-ui .datatable-table .title {
+  border-bottom: none;
+}
+
+.new-ui .p-datatable .p-datatable-header,
+.tab-view .p-datatable .p-datatable-header {
+  border: none;
+}
+
+.new-ui .p-datatable .p-datatable-wrapper {
+  overflow-y: auto;
+}
+
+.new-ui .p-datatable i,
+.new-ui i.far.fa-trash-alt.ms-text-danger,
+.new-ui .fa-pencil.ms-text-primary,
+.new-ui i.fas.fa-edit.ms-text-primary {
+  background-color: transparent !important;
+  color: #333;
+}
+
+.new-ui .table-list .search-table {
+  border-radius: 24px;
+  box-shadow: none;
+  background: #f0f0f0;
+  color: #333;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  height: auto;
+  padding-left: 25px;
+}
+
+.new-ui .table-btn-wrapper .icon {
+  box-shadow: none !important;
+  background: #2656c9;
+  border-radius: 24px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+
+.new-ui .table-btn-wrapper .icon a {
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+
+.new-ui .table-list .p-paginator .p-paginator-pages .p-paginator-page,
+.new-ui .table-list .p-paginator .p-paginator-current {
+  font-size: 15px;
+  font-weight: 400 !important;
+}
+
+.new-ui .ngx-pagination .current,
+.tab-view .ngx-pagination .current {
+  background: #d8e2f6;
+  color: #333;
+}
+
+.new-ui .table-list .search-table {
+  margin-right: 5px;
+}
+
+.p-datatable .p-datatable-thead > tr > th,
+.small-table .p-datatable .p-datatable-tbody > tr > td {
+  padding: 10px;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+.p-datatable .p-datatable-tbody > tr {
+  background-color: #ffffff;
+}
+/* -------------------------------------------------------------------------- */
+/*                               table icon css                               */
+/* -------------------------------------------------------------------------- */
+.new-ui table td a {
+  color: #333;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   box css                                  */
+/* -------------------------------------------------------------------------- */
+.new-ui .blue-box {
+  background-color: #f8fafe;
+  border-color: #2656c9;
+}
+
+.bg-light-blue {
+  background: #f8fafe;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Preview card new                              */
+/* -------------------------------------------------------------------------- */
+
+.code-new .panel-header {
+  background: #d8e2f6;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.code-new .panel-header h3 {
+  font-size: 16px;
+  color: #333;
+  font-weight: 400;
+}
+
+.code-new .panel-blue {
+  border: 1px solid #d8e2f6;
+  border-radius: 10px;
+}
+
+.code-new .border-box {
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #fff !important;
+  border: 1px solid #f0f0f0 !important;
+}
+
+.code-new .iframeurl {
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #fff !important;
+}
+
+.code-new .button-flex a {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  background-color: #2656c9 !important;
+  border: 1px solid #2656c9 !important;
+  padding: 5px 20px !important;
+  border-radius: 24px !important;
+  color: #fff !important;
+  text-transform: capitalize !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  grid css                                  */
+/* -------------------------------------------------------------------------- */
+.flex-row-new {
+  display: flex;
+  column-gap: 1em;
+}
+
+.flex-row-new .input-wrapper {
+  width: 100%;
+}
+
+/* ------------------------------ Margin class ------------------------------ */
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.pl-15 {
+  padding-left: 15px;
+}
+
+/* ------------------------------- Page title ------------------------------- */
+.page-new-title {
+  padding-left: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.page-new-form-title h3,
+.page-new-form-title {
+  font-size: 18px;
+  font-weight: 500;
+  padding-left: 5px;
+  padding-bottom: 8px;
+}
+
+.new-ui .p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #2656c9;
+  background: #2656c9;
+}
+
+.new-ui
+  .p-multiselect-panel
+  .p-multiselect-items
+  .p-multiselect-item.p-highlight {
+  background-color: #d8e2f6;
+}
+
+.page-new-title h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 991px) {
+  .flex-md-col-new {
+    display: block;
+  }
+}
+
+/* ------------------------ Warning and error styling ----------------------- */
+
+.new-warning-panel {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8a0101;
+  background-color: #fee5e5;
+  border-radius: 8px;
+  padding: 1em;
+  margin: 10px;
+}
+
+.new-warning-panel p {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.error,
+.error div {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.new-ui.custom-modal-1 .p-dialog .p-dialog-header {
+  background-color: #2656c9 !important;
+  position: relative;
+  padding: 1.5rem 1.75rem !important;
+}
+
+.new-ui.custom-modal-1 .p-dialog .p-dialog-header .p-dialog-title {
+  padding-top: 15px;
+  color: #f8fafe !important;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.new-ui.custom-modal-1 .p-dialog .p-dialog-header-icons {
+  position: absolute;
+  top: 14px;
+  right: 12px;
+}
+
+.new-ui.custom-modal-1 .p-dialog .p-dialog-header-close-icon {
+  color: #fff !important;
+}
+
+.new-ui.custom-modal-1
+  .p-dialog
+  .p-dialog-header
+  .p-dialog-header-icon:enabled:hover
+  .p-dialog-header-close-icon {
+  color: #2656c9 !important;
+}
+
+.new-ui p-dropdown.p-element.p-inputwrapper .p-dropdown,
+.new-ui p-multiselect.p-element.p-inputwrapper .p-dropdown,
+.new-ui p-multiselect.p-element.p-inputwrapper .p-multiselect {
+  border-radius: 4px;
+}
+
+.new-ui .p-inputtext {
+  padding: 6px 8px;
+}
+
+.new-ui .p-dropdown-label.p-inputtext {
+  padding: 8px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                           Caroousal next prev css                          */
+/* -------------------------------------------------------------------------- */
+.owl-carousel .owl-nav .owl-next,
+.owl-carousel .owl-nav .owl-prev {
+  background-color: #2656c9;
+}
+
+::ng-deep .p-button {
+  color: #ffffff;
+  background: #2656c9;
+  border: 1px solid #2656c9;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  border-radius: 3px;
+}
+
+.p-tag.p-tag-success{
+  background-color: #d0e1fd;
+  color: #295bac;
+  margin-right: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 8px
+}
+/* -------------------------------------------------------------------------- */
+/*                                scrollbar css                               */
+/* -------------------------------------------------------------------------- */
+/* styles.css */
+/* .dialog-new-v1,
+.dialog-new {
+  width: 300px;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+.dialog-new-v1:hover,
+.dialog-new:hover {
+  overflow-y: scroll;
+}
+.dialog-new-v1::-webkit-scrollbar,
+.dialog-new::-webkit-scrollbar {
+  width: 8px;
+}
+.dialog-new-v1::-webkit-scrollbar-thumb ,
+.dialog-new::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+.dialog-new-v1::-webkit-scrollbar-thumb:hover,
+.dialog-new::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+ */
+
+/* .dialog-new-v1 .p-dialog-content::-webkit-scrollbar {
+  height: 12px;
+  width: 9px;
+  background: rgb(189 192 192)
+}
+
+.dialog-new-v1 .p-dialog-content::-webkit-scrollbar-thumb {
+  background: #828280;
+  border-radius: 1ex;
+  -webkit-border-radius: 1ex;
+  box-shadow: 0px 1px 2px rgba(73, 75, 75, 0.75);
+  -webkit-box-shadow: 0px 1px 2px rgba(73, 75, 75, 0.75);
+}
+
+.dialog-new-v1 .p-dialog-content::-webkit-scrollbar-corner {
+  background: #000;
+}
+ */

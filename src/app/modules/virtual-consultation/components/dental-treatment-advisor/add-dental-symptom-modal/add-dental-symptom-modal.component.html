@@ -1,0 +1,55 @@
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+        [style]="{width: '50vw'}" header="Add Symptoms" [(visible)]="showModal" (onHide)="onCancel()">
+        <div class="body">
+
+            <form class="form form-type2" [formGroup]="addSymptomForm">
+                <div class="form-group"
+                    [ngClass]="f.name.invalid && (f.name.dirty || f.name.touched) ? 'has-error' : ''">
+                    <label>Name<span class="error-red">*</span></label>
+                    <input type="text" class="form-control input-type2" formControlName="name"
+                        appErrorStylingDirective />
+
+                    <div class="error error-msg">
+                        <div *ngIf="f.name.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is
+                            required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <input type="file" (change)="fileChangeEvent($event)" />
+                    </div>
+
+                    <div class="img-wrapper">
+                        <div *ngIf="croppedImage">
+                            <img [src]="croppedImage" />
+                        </div>
+
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                            [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                    </div>
+
+
+                    <!-- Add a hidden input field to bind the cropped image data to the form -->
+                    <input type="hidden" formControlName="imgUrl" [value]="croppedImage" />
+
+                </div>
+            </form>
+        </div>
+
+
+        <ng-template pTemplate="footer">
+            <div class="modal-footer-section">
+                <button type="button" class="btn btn-primary" [disabled]="false" data-dismiss="modal"
+                    (click)="addNewSymptom()">
+                    <i [ngClass]="isLoading? 'pi-spin pi-spinner' : 'pi-check'" class="pi"></i> Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                    (click)="isLoading = false; onCancel()">
+                    <i class="pi pi-times-circle"></i> Cancel</button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</div>

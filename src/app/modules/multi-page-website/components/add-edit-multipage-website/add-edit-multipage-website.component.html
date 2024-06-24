@@ -1,0 +1,212 @@
+<div class="blue-card bg-white box-shadow-light">
+  <div class="">
+      <div class="form form-type2">
+        <form [formGroup]="landingPageForm">
+          <div class="row mx-0">
+            <div class="col-lg-8 col-md-8 col-sm-12"> 
+              <div class="form-group" [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+                <label>Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="name" />
+                <div class="error error-msg">
+                  <div *ngIf="f.name.touched && f.name.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Name is
+                    required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="file-wrapper">
+                <div class="container" appFileDragDrop (fileDropped)="onFileDropped($event)">
+                  <input type="file" #fileDropRef id="fileDropRef" accept={{fileType}} (change)="fileBrowseHandler($event.target)" />
+                  <div class="download-icon mt-4">
+                    <svg width="55" height="48" viewBox="0 0 55 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <mask id="mask0_1_323" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="55" height="48">
+                      <path d="M54.561 0.877014H0.695007V47.944H54.561V0.877014Z" fill="white"/>
+                      </mask>
+                      <g mask="url(#mask0_1_323)">
+                      <path d="M34.195 23.547V3.50201C34.195 3.0034 33.9969 2.52522 33.6444 2.17265C33.2918 1.82008 32.8136 1.62201 32.315 1.62201H22.615C22.1163 1.62201 21.638 1.82005 21.2853 2.17259C20.9326 2.52513 20.7343 3.00331 20.734 3.50201V23.547C20.734 24.0456 20.5359 24.5238 20.1834 24.8764C19.8308 25.2289 19.3526 25.427 18.854 25.427H18.571C18.199 25.4268 17.8353 25.5369 17.5259 25.7434C17.2165 25.95 16.9753 26.2437 16.8329 26.5874C16.6905 26.9311 16.6533 27.3093 16.7259 27.6741C16.7986 28.039 16.9778 28.3741 17.241 28.637L26.135 37.531C26.4879 37.8835 26.9662 38.0815 27.465 38.0815C27.9638 38.0815 28.4421 37.8835 28.795 37.531L37.689 28.637C37.9522 28.3741 38.1314 28.039 38.2041 27.6741C38.2767 27.3093 38.2395 26.9311 38.0971 26.5874C37.9547 26.2437 37.7135 25.95 37.4041 25.7434C37.0947 25.5369 36.731 25.4268 36.359 25.427H36.077C35.83 25.4273 35.5853 25.3788 35.3569 25.2845C35.1286 25.1901 34.9211 25.0517 34.7464 24.8771C34.5716 24.7025 34.4329 24.4951 34.3383 24.2669C34.2437 24.0387 34.195 23.7941 34.195 23.547Z" fill="#DAE2F4"/>
+                      <path d="M36.848 34.288L28.793 42.343C28.4401 42.6955 27.9618 42.8934 27.463 42.8934C26.9642 42.8934 26.4859 42.6955 26.133 42.343L18.08 34.288C17.7271 33.9354 17.2488 33.7373 16.75 33.737H3.32C3.07312 33.737 2.82865 33.7856 2.60056 33.8801C2.37247 33.9746 2.16522 34.1131 1.99064 34.2876C1.81607 34.4622 1.67759 34.6695 1.58311 34.8976C1.48863 35.1256 1.44 35.3701 1.44 35.617V45.317C1.44 45.8156 1.63807 46.2938 1.99064 46.6464C2.34321 46.9989 2.8214 47.197 3.32 47.197H51.94C52.4387 47.197 52.917 46.999 53.2697 46.6464C53.6224 46.2939 53.8207 45.8157 53.821 45.317V35.617C53.8207 35.1183 53.6224 34.6401 53.2697 34.2876C52.917 33.935 52.4387 33.737 51.94 33.737H38.178C37.931 33.737 37.6864 33.7856 37.4582 33.8801C37.23 33.9747 37.0226 34.1133 36.848 34.288Z" fill="#DAE2F4"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="mt-2">Drag and drop file here <br/>or</p>
+                  <button class="btn-save-new btn-small-new file-upload-button mt-2" for="fileDropRef">Browse for file</button>
+                </div>
+  
+                <div class="files-list" >
+                  <div class="single-file" *ngIf="file">
+                    <div class="file-icon" style="width: 50px">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px" y="0px" viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+                        <polygon style="fill:#EDEADA;" points="51.5,14 37.5,0 6.5,0 6.5,58 51.5,58 " />
+                        <g>
+                          <path style="fill:#CEC9AE;"
+                            d="M16.5,23h25c0.552,0,1-0.447,1-1s-0.448-1-1-1h-25c-0.552,0-1,0.447-1,1S15.948,23,16.5,23z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M16.5,15h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S15.948,15,16.5,15z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M41.5,29h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,29,41.5,29z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M41.5,37h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,37,41.5,37z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M41.5,45h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,45,41.5,45z" />
+                        </g>
+                        <polygon style="fill:#CEC9AE;" points="37.5,0 37.5,14 51.5,14 " />
+                      </svg>
+                    </div>
+                    <div class="info">
+                      <h4 class="name">
+                        {{ file?.name }}
+                      </h4>
+                      <p class="size">
+                        {{ formatBytes(file?.size) }}
+                      </p>
+                    </div>
+                
+                    <div class="delete" (click)="deleteFile()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18">
+                        <path fill="#B1B1B1" fill-rule="nonzero"
+                          d="M1 16c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v10zm3.17-7.83a.996.996 0 0 1 1.41 0L7 9.59l1.42-1.42a.996.996 0 1 1 1.41 1.41L8.41 11l1.42 1.42a.996.996 0 1 1-1.41 1.41L7 12.41l-1.42 1.42a.996.996 0 1 1-1.41-1.41L5.59 11 4.17 9.58a.996.996 0 0 1 0-1.41zM10.5 1L9.79.29C9.61.11 9.35 0 9.09 0H4.91c-.26 0-.52.11-.7.29L3.5 1H1c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1h-2.5z" />
+                      </svg>
+                    </div>
+                  </div>
+  
+                  <div class="single-file edit-mode" *ngIf="websiteData?.landingSinglePages?.length>0">
+                    <div class="file-icon" style="width: 50px">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px" y="0px" viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+                        <polygon style="fill:#EDEADA;" points="51.5,14 37.5,0 6.5,0 6.5,58 51.5,58 " />
+                        <g>
+                          <path style="fill:#CEC9AE;"
+                            d="M16.5,23h25c0.552,0,1-0.447,1-1s-0.448-1-1-1h-25c-0.552,0-1,0.447-1,1S15.948,23,16.5,23z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M16.5,15h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S15.948,15,16.5,15z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M41.5,29h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,29,41.5,29z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M41.5,37h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,37,41.5,37z" />
+                          <path style="fill:#CEC9AE;"
+                            d="M41.5,45h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,45,41.5,45z" />
+                        </g>
+                        <polygon style="fill:#CEC9AE;" points="37.5,0 37.5,14 51.5,14 " />
+                      </svg>
+                    </div>
+                    <div class="info">
+                      <h4 class="name">
+                        {{ websiteData?.websiteName }}
+                      </h4>
+                    </div>
+                    <div class="download-btn" (click)="downloadWebsiteZip()">
+                      <button class="btn-save-new btn-small-new">
+                        <i class="fa fa-download"></i>
+                        Download
+                      </button>
+                        
+  
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12" *ngIf="id">
+              <div class="preview-card  code-new">
+                <div class="panel-blue">
+                  <div class="panel-header">
+                    <h3>Website Integration</h3>
+                  </div>
+              
+                  <div class="panel-body">
+                    <div class="panel-card-content no-border">
+                      <app-url-preview [iframeUrl]="websitePreviewUrl" [previewUrl]="websitePreviewUrl"></app-url-preview>
+                    </div>
+                  </div>
+                </div>
+                </div>
+            </div>
+              
+
+
+
+          </div>
+        </form>
+      </div>
+      <app-custom-panel [title]="'Preview pages'" [bodyStyleProps]="{padding: 0}" [addTopPadding]="20" *ngIf="id"> 
+        <div class="preview-header">
+          <div class="info-banner">
+            <p>Update the pages as per your design and make sure to click on save button in the header or else the changes will be lost if you dont hit the save button</p>
+
+          </div>
+          <div class="preview-button-wrapper">
+            <button class="save-color-btn" (click)="addNewPage()">Add</button>
+            <button class="save-color-btn" (click)="savePage()">Save</button>
+          </div>
+          <hr/>
+          
+        </div>
+        <div class="preview-section">
+          <div class="preview-wrapper" *ngIf="websiteData">
+            <div class="left">
+              <div class="list-item" *ngFor="let page of websiteData.landingSinglePages; let i = index">
+                <a href="javascript:void(0)"  [class.active]="page?.id === selectedPageFromWebsite?.id" (click)="showPagePreview(page, i)">
+                 <span class="d-flex justify-content-between align-items-center">
+                  <span class="f-14 fw-600">
+                    {{ page.pageName }}
+                  </span>
+
+                  <span style="color:red" (click)="deletePage(page)" *ngIf="page.fileName !== 'index.html'">
+                    <i class="fa fa-trash"></i>
+                  </span>
+                 </span>
+       
+                  <div>
+                    <small class="f-12 fw-500"> {{ page.fileName }}</small>
+                  </div>
+                </a>
+              </div>
+            </div>
+          
+            <div class="right-section">
+              <div class="preview">
+                <div [innerHTML]="websiteData.landingSinglePages[selectedPageIndex].htmlContent | safeHtml" ></div>
+              </div>
+
+              <div class="editor">
+                <app-new-editor (getEditorValue)="onPageHtmlChange($event)" [landingTemplateValue]="websiteData.landingSinglePages[selectedPageIndex].htmlContent"></app-new-editor>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </app-custom-panel>
+      
+
+      <!----------------------------Button--------------------------------->
+      <div class="footer">
+        <button class="save-color-btn" type="button" (click)="onFormSubmit()">
+          Save
+        </button>
+
+        <button class="save-border-btn" type="button" (click)="back()">
+          Cancel
+        </button>
+      </div>
+      <!----------------------------Button--------------------------------->
+    </div>
+</div>
+
+<ng-container>
+  <div class="editTitleModal dialog-new-v1 dialog-with-close-icon" *ngIf="showAddNewPageModal">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"  header="Dental Service" [(visible)]="showAddNewPageModal" [style]="{width: '50vw'}">
+     <app-add-website-single-page-modal (onAddPageModalClose)="handleOnAddPageModalClose($event)" [websiteId]="id"></app-add-website-single-page-modal>
+  </p-dialog>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="showDeletePageModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showDeletePageModal" [modalMessage]=null
+    (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>

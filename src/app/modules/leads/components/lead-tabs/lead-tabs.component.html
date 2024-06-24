@@ -1,0 +1,36 @@
+<div class="tab-view lead-page-tab new-ui" *ngIf="source !== 'single-page'">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Details">
+      <app-lead-detail-tab1 [leadQuestionarieResponse]="leadQuestionarieResponse"
+        (handleCallQuestionaireApiCallback)="handleQuestionarieCall()"
+        *ngIf="source === 'leadDetail'"></app-lead-detail-tab1>
+    </p-tabPanel>
+    <p-tabPanel header="Timeline">
+      <app-lead-timeline-tab2 *ngIf="source === 'timeline'" [email]="email"></app-lead-timeline-tab2>
+    </p-tabPanel>
+    <p-tabPanel header="Tasks">
+      <app-lead-tasks-tab3 *ngIf="source === 'leadTask'" [leadId]="leadId"></app-lead-tasks-tab3>
+    </p-tabPanel>
+
+    <p-tabPanel header="History">
+      <app-lead-hisory-tab4 *ngIf="source === 'history'" [leadDetailObj]="leadDetailObj"></app-lead-hisory-tab4>
+    </p-tabPanel>
+    <!-- <p-tabPanel header="Combined Timeline">
+      <app-lead-timeline-all-tab5
+        *ngIf="source === 'allTimeline'"
+        [email]="email"
+      ></app-lead-timeline-all-tab5>
+    </p-tabPanel> -->
+    <!-- <p-tabPanel header="Two Way SMS">
+      <app-two-way-text-sms-audit
+        [showOnlyOneUserSource]="true"
+        [userSourceId]="leadId"
+        [businessInfo]="businessInfo"
+      ></app-two-way-text-sms-audit>
+    </p-tabPanel> -->
+  </p-tabView>
+</div>
+
+<div class="lead-info-single-page" *ngIf="source === 'single-page'">
+  <app-lead-info-single-page [leadDetailObj]="leadDetailObj"></app-lead-info-single-page>
+</div>

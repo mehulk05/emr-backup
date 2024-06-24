@@ -1,0 +1,32 @@
+<div class="main-div">
+    <!-- --------------------------- Form start --------------------------- -->
+    <div class="form-card">
+        <h5 *ngIf="!chatQuestionnaireId">Add Chat Questionnaire</h5>
+        <h5 *ngIf="chatQuestionnaireId">Edit Chat Questionnaire</h5><br>
+        <form [formGroup]="questionnaireForm" (ngSubmit)="submitForm()">
+            <div class="row">
+                <div class="col-md-6 form-part">
+                    <div class="form-group"
+                        [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+                        <label> Chat Questionnaire Name <span class="error-red">*</span></label>
+                        <input type="text" formControlName="name" class="form-control">
+                        <div class="error error-msg">
+                            <div *ngIf="f.name.touched && f.name.errors?.required">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Chat Questionnaire Name is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-save-new btn-small-new mt-1" type="submit"> Save </button>
+            <button class="btn-default-new btn-small-new mt-1" type="button" (click)="backToChatConfig()">Cancel </button>
+        </form>
+    </div>
+    <!-- --------------------------- Form end --------------------------- -->
+    <!-- --------------------------- Question list page start --------------------------- -->
+    <div class="table-section py-5" *ngIf="chatQuestionnaireId">
+        <app-chat-questionarie-list></app-chat-questionarie-list>
+    </div>
+    <!-- --------------------------- Question list page end --------------------------- -->
+</div>

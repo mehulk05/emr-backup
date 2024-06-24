@@ -1,0 +1,78 @@
+<p-dialog [(visible)]="showModal" [showHeader]="false" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70%'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" [contentStyle]="{'overflow':'scroll'}">
+
+  <!-- ----------------------------- Modal Body ------------------------------ -->
+
+  <div class="modal-body background-color">
+    <div class="panel-body">
+      <div class="panel-card-content">
+        <div class="ModalHeader_title">
+          <div class="row heading">
+            <span>
+              Generate Images with {{agencyName}} AI Assist <span class="badge rounded-pill bg-primary">Beta</span></span>
+          </div>
+        </div>
+        <div class="spinner-border" role="status" *ngIf="loading">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="form-card" style="margin-top: 20px;">
+          <div style="margin-bottom: 2px;margin-left: 12px;">
+            For best results, specify your requirements and desired criteria.
+          </div>
+          <div class="form-group row" [formGroup]="aiForm">
+            <div class="col-lg-10">
+              <textarea type="text" name="aiText"  [(ngModel)]="enteredValue" class="form-control sender"
+                style="height: 100px; width: 100%;"  formControlName="aiText"></textarea>
+            </div>
+            <div class="col-lg-2 center">
+              <img alt="ai assistant img" src="/assets/images/logo-ai.png" style="width:100px; height: 100px">
+            </div>
+          </div>
+          <div class="error error-msg">
+            <div *ngIf="aiForm.get('aiText')?.dirty && !enteredValue">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true" ></i> Message is
+              required.
+            </div>
+          </div>
+          <div class="row">
+            <p-dropdown  [options]="imageSize" [(ngModel)]="imageSizeSelect" optionLabel="name"></p-dropdown>
+          </div>
+        </div>
+        <button type="button" class="btn-save-new btn-small-new" [disabled]="loading || !enteredValue"
+        (click)="generateMessage()" style="margin-left: 10px; margin-top: 10px;"><i class="fa fa-lightbulb-o"></i> Generate Image</button>
+        <div class="form-group row" style="margin-top: 20px !important;margin-left: 10px !important" *ngIf="alData"> 
+         
+            <div class="row mx-0">
+                <div class="col-lg-4 col-md-4 col-sm-12" *ngFor="let library of alData">
+                  <div class="wrapper" (click)="selectPage(library.url)">
+                    <div class="overlay-wrapper">
+                      <div class="bg-img">
+                        <img [src]="library.url | safeUrl">
+                      </div>
+                      <div class="overlay">
+                        <div class="button-flex">
+                          <button class="btn btn-common btn-xs-new" >Select</button>
+                        </div>
+                      </div>
+                    </div>       
+                   </div>      
+                </div>
+              </div>
+      
+            
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------------- Modal Footer ----------------------------- -->
+  <ng-template pTemplate="footer">
+    <div class="modal-footer-section">
+      <!-- <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal" [disabled]="loading" (click)="replace()">Select
+        Image</button> -->
+      <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+    </div>
+  </ng-template>
+</p-dialog>

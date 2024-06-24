@@ -1,0 +1,5 @@
+.tab-view ::ng-deep .p-tabview  .p-tabview-nav li.p-highlight .p-tabview-nav-link{
+  background: #fff !important;
+  color: #2656C9  !important ;
+  border-color: #2656C9 !important
+}

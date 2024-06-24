@@ -1,0 +1,68 @@
+<div *ngIf="reportFetched === true">
+  <div class="container d-lg-flex d-sm-flex flex-sm-column flex-lg-row justify-content-center align-items-center py-2">
+    <img src="{{agencyLogoUrl}}" height="70px" width="350px" />
+    <span class="report-page-header-text">{{ clinicName }} | {{agencyName}} Reviews and Reputation Report</span>
+  </div>
+  <div class="review-rating-count-container">
+    <div class="review-count-container">
+      <div class="total-reviews">
+        <p>Total Reviews</p>
+        <p class="review-rating-number">{{ totalReviewsSize }}</p>
+        <!-- <p>started at 87</p> -->
+      </div>
+      <div class="new-reviews">
+        <p>New Reviews</p>
+        <p class="review-rating-number">{{ newReviewsSize }}</p>
+        <!-- <p>2 Reviews sites</p> -->
+      </div>
+      <div class="total-rating">
+        <p>Avg Rating</p>
+        <p class="review-rating-number">{{ averageRating }}</p>
+      </div>
+    </div>
+    <!-- <div class="rating-count-container"></div> -->
+  </div>
+  <div class="center-table">
+    <div class="site-reviews-count-table">
+      <div class="site-reviews-count-table-column">
+        <div class="table-header">Site</div>
+        <div class="table-cell">Google</div>
+        <hr />
+        <div class="table-cell">Facebook</div>
+        <hr />
+        <div class="table-cell">Yelp</div>
+        <hr />
+        <div class="table-cell">Demandforce</div>
+      </div>
+      <div class="site-reviews-count-table-column">
+        <div class="table-header">New Reviews Count</div>
+        <div class="table-cell">{{ reviewCount.googleCount }}</div>
+        <hr />
+        <div class="table-cell">{{ reviewCount.facebookCount }}</div>
+        <hr />
+        <div class="table-cell">{{ reviewCount.yelpCount }}</div>
+        <hr />
+        <div class="table-cell">{{ reviewCount.demandForceCount }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <h4>New Reviews for {{ clinicName }} (Details)</h4>
+    <h5>Report of {{ date }}</h5>
+    <div *ngIf="true">
+      <div *ngFor="let review of reviewList">
+        <app-g99-report-review-item [review]="review"></app-g99-report-review-item>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="error">
+  <div class="container">
+    <div class="error-dialog">
+      <h1>Uh oh.</h1>
+      <p>
+        The page you were looking for either stopped working or doesn't exist.
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="panel-card">
+    <div class="role-container menu-container">
+   
+    
+      <div class="custom-role-button">
+        <input type="text" [(ngModel)]="newRoleName" placeholder="Enter role name">
+        <button class="btn btn-regular btn-extra-small" [disabled]="!newRoleName.trim()" (click)="addCustomRole()">Add</button>
+        <button class="btn btn-cancel btn-extra-small" (click)="cancelCustomRole()">Cancel</button>
+      </div>
+      <div *ngIf="showError" class="error-message">Role name should not be empty or already exists</div>
+    </div>
+  </div>
+  

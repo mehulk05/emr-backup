@@ -1,0 +1,136 @@
+<main class="login-page">
+    <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/Geometric%20patterns.png" class="login-geometric-bg">
+    <div class="top-section">
+        <div class="center-content">
+            <div class="logo-row">
+                <img src="https://g99plus.b-cdn.net/AA%20new%20g99%20app/images/g99%20full%20logo.svg" class="logo">
+
+            </div>
+            <div class="main-box">
+                <h2 class="login-title">Open new account</h2>
+                <ng-container *ngIf="errMsg">
+                    <app-error-success-panel [error]="errMsg"></app-error-success-panel>
+                </ng-container>
+                <form *ngIf="registrationForm" [formGroup]="registrationForm" (ngSubmit)="submitForm()" class="input-color">
+
+
+
+                    <div class="form-group">
+                        <label class="login-label" for="signup-first-name">First Name</label>
+                        <input type="text" class="basic-input input-type1 form-control" formControlName="firstName" id="signup-first-name" />
+                        <div class="error" *ngIf="f.firstName.invalid && (submitted || (f.firstName.dirty || f.firstName.touched))">
+                            <div *ngIf="f.firstName.errors?.required">
+                                First Name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label" for="signup-last-name">Last Name</label>
+                        <input type="text" class="basic-input input-type1 form-control" formControlName="lastName" id="signup-last-name" />
+                        <div class="error" *ngIf="f.lastName.invalid && (submitted || (f.lastName.dirty || f.lastName.touched))">
+                            <div *ngIf="f.lastName.errors?.required">
+                                Last Name is required.
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label" for="signup-email">Email Address</label>
+                        <input type="text" class="basic-input input-type1 form-control" formControlName="email" id="signup-email" />
+                        <div class="error" *ngIf="f.email.invalid && (submitted || (f.email.dirty || f.email.touched))">
+                            <div *ngIf="f.email.errors?.required">
+                                Email address is required.
+                            </div>
+                            <div *ngIf="f.email.errors?.pattern">
+                                Please address enter a valid email
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label" for="signup-number">Phone number</label>
+                        <input type="tel" class="basic-input input-type1 form-control" formControlName="phone" id="signup-number" />
+                        <div class="error" *ngIf="f.phone.invalid && (submitted || (f.phone.dirty || f.phone.touched))">
+                            <div *ngIf="f.phone.errors?.required">
+                                Phone number is required.
+                            </div>
+                            <div *ngIf="f.phone.errors?.pattern">
+                                Please enter only 10 digits
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label" for="singup-password">Password</label>
+                        <input type="password" name="password" class="login-password-input" formControlName="password" id="signup-password" />
+                        <div class="error" *ngIf="f.password.invalid && (submitted || (f.password.dirty || f.password.touched))">
+                            <div *ngIf="f.password.errors?.required">
+                                Password is required.
+                            </div>
+                            <div *ngIf="f.password.errors?.pattern">
+                                Password must contain one small character, one upper case charcter, one number and one of (!, &#64;, $). It must be minimum 8 characters long.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label" for="signup-repeat-password">Repeat Password</label>
+                        <input type="password" name="password" class="login-password-input" formControlName="confirmPassword" id="signup-repeat-password" />
+                        <div class="error" *ngIf="f.confirmPassword.invalid && (submitted || (f.confirmPassword.dirty || f.confirmPassword.touched))">
+                            <div *ngIf="f.confirmPassword.errors?.required">
+                                Confirm password is required
+                            </div>
+                            <div *ngIf="f.confirmPassword.errors?.mustMatch"> Confirm password should be same as password
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label" for="signup-business-name">Business name</label>
+                        <input type="text" maxlength="80" class="basic-input input-type1 form-control" formControlName="businessName" id="signup-business-name" />
+                        <div >
+                            <div class="note">
+                               *Note- Business name needs to be less than 80 characters. We use this name in automated SMS/Emails hence to avoid longer SMS we limit business name to 80 characters.
+                            </div>
+                        </div>
+                        <div class="error" *ngIf="f.businessName.invalid && (submitted || (f.businessName.dirty || f.businessName.touched))">
+                            <div *ngIf="f.businessName.errors?.required">
+                                Business Name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label" for="signup-business-name">Business Address</label>
+                        <!-- <input type="text" class="basic-input input-type1 form-control" formControlName="address" id="signup-business-name" /> -->
+                        <input type="text" class="basic-input input-type1 form-control" formControlName="address" ngx-google-places-autocomplete
+                        [options]='addressOptionCountry' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+                        appErrorStylingDirective>
+                        <div class="error" *ngIf="f.address.invalid && (submitted || (f.address.dirty || f.address.touched))">
+                            <div *ngIf="f.address.errors?.required">
+                                Business Address is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stay-row">
+
+                        <label class="normal stay">
+                      <input type="checkbox" name="stay-signed-in" id="stay-signed-in" formControlName="agreeTerms"/>
+                      I agree to Growth99 <a href="https://growth99.com/terms-and-conditions/" target="_blank" class="link"> Terms &amp;
+                          Conditions</a> and <a href="https://growth99.com/privacy-policy/" target="_blank" class="link"> Privacy Policy</a>
+                  </label>
+                    </div>
+                    <button class="continue-btn"> Continue </button>
+                    <p class="normal text-center no-account">Already have an account?
+                        <a href="#" class="link"> Sign in</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="login-footer">
+        <p>© Growth99</p>
+        ·
+        <p><a href="mailto:support@growth99.com" title="mailto:support@growth99.com"
+            data-renderer-mark="true" target="_blank" class="item-name"> Contact</a></p>
+        ·
+        <!-- <p>Privacy &amp; terms</p> -->
+        <p class="normal text-center no-account">Already have an account? <a routerLink="/" class="link"> Sign in</a></p>
+    </footer>
+</main>

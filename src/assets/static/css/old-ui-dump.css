@@ -1,0 +1,104 @@
+.table-list .p-paginator .p-paginator-pages .p-paginator-page.p-highlight,
+.table-list .p-datatable .p-sortable-column .p-sortable-column-icon,
+.table-list .p-datatable .p-datatable-thead>tr>th {
+  background: #D8E2F6 !important;
+  color: #333;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.anchor p {
+  color: #333;
+}
+
+p-dialog button.btn.btn-primary {
+  background: #2656C9 !important;
+}
+
+.save-color-btn,
+.table-button .dropdown button,
+.dropdown-color-btn,
+.table-btn-wrapper .icon,
+.btn-primary,
+.btn-save {
+  background: #2656C9;
+  color: #fff;
+}
+
+.btn-small,
+.save-color-btn,
+.table-button .dropdown button,
+.dropdown-color-btn,
+.table-btn-wrapper .icon,
+.btn-small,
+.btn-primary,
+.save-border-btn,
+.btn-cancel,
+.btn-danger,
+.btn-save {
+  min-width: 100px !important;
+  border: none !important;
+  padding: 8px 10px !important;
+  border-radius: 24px !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+}
+
+
+.save-border-btn {
+  border: 2px solid #2656C9 !important;
+  color: #2656C9 !important;
+}
+
+.savebtn,
+.fa-info,
+table td a,
+i.far.fa-trash-alt.ms-text-danger,
+.fa-pencil.ms-text-primary,
+i.fas.fa-edit.ms-text-primary {
+  background-color: #fff;
+  color: #333;
+}
+
+.p-dialog .p-dialog-header {
+  background: #2656c9 !important;
+  color: #333333;
+  /* border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important; */
+}
+
+/* .p-dialog .p-dialog-content {
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+} */
+
+.p-dialog {
+  border-radius: 10px !important;
+}
+
+
+.p-dialog .p-dialog-header span,
+.p-dialog .p-dialog-header p,
+.p-dialog .p-dialog-header h3,
+.p-dialog .p-dialog-header h4,
+.p-dialog .p-dialog-header h5,
+.p-dialog .p-dialog-header h2,
+.p-dialog .p-dialog-header span,
+.panel-header h3,
+.panel-header h4 {
+  color: #333333;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.dialog-new .p-dialog .p-dialog-header span {
+  color: #fff !important;
+
+}
+
+
+.title h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}

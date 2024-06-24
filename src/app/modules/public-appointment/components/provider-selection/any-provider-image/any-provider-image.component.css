@@ -1,0 +1,87 @@
+
+@media screen and (max-width:1544px) {
+  ::ng-deep .service-details .img {
+      height: 75px;
+  }
+}
+
+#circle,
+#circle .segment {
+  border-color: lightgray;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+  box-sizing: border-box;
+  height: 60px;
+  position: relative;
+  width: 60px;
+}
+
+#circle .segment {
+  -webkit-clip-path: inset(0 0 0 24px);
+  /*content: ''; EDIT: not needed */
+  left: -5px;
+  position: absolute;
+  top: -5px;
+}
+
+#circle .segment:nth-child(1) {
+  border-color: #d6d6d6;
+  -webkit-clip-path: inset(-0px 0px 0 0);
+}
+
+#circle .segment:nth-child(2) {
+  border-color: blue;
+  transform: rotate(60deg);
+}
+::ng-deep .service-details .img {
+  padding-right: 30px;
+  position: relative;
+  float: left;
+  max-width: 80px;
+  max-height: 75px;
+}
+
+.arrows {
+  position: absolute;
+  top: -10px;
+  left: 18px;
+}
+
+.img.img-any img {
+  max-width: 50px;
+  border: 3px solid #fff !important;
+  border-radius: 50%;
+}
+
+.font-arrow {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.img.img-any {
+  min-height: 75px;
+  margin-right: 5px
+}
+
+.img2 {
+  position: absolute;
+  top: 1em;
+  left: 1.1em;
+}
+
+img.cirlc{
+  max-width: 100%;
+  border-radius: 50%;
+  border: 3px solid;
+  max-width: 100%;
+}
+
+@media screen and (min-width:1199px) and (max-width:1550px) {
+  ::ng-deep .service-details .img {
+    padding-right: 15px;
+    position: relative;
+    float: left;
+    max-width: 75px;
+}
+}

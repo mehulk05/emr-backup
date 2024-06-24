@@ -1,0 +1,23 @@
+<div class="img" *ngIf="imgUrlForAnyProvider?.length === 1">
+  <img src={{imgUrlForAnyProvider[0]}} [ngStyle]="{ 'border-color':'transparent'}" class="cirlc">
+</div>
+
+<div class="img img-any" *ngIf="imgUrlForAnyProvider?.length === 2">
+  <img src={{imgUrlForAnyProvider[0]}} [ngStyle]="{ 'border-color':'transparent'}" class="cirlc">
+  <div class="img2">
+    <img src={{imgUrlForAnyProvider[1]}} [ngStyle]="{ 'border-color':'transparent'}" class="cirlc">
+  </div>
+</div>
+
+
+<div class="img" *ngIf="!provider?.profileImageUrl && imgUrlForAnyProvider?.length === 0">
+
+  <div id="circle">
+    <div class="segment"></div>
+    <div [ngStyle]="{ 'border-color':activeLinkStyle.color}" class="segment"></div>
+  </div>
+
+  <div class="arrows">
+    <span [ngStyle]="activeLinkStyle" class="font-arrow">&#187;</span>
+  </div>
+</div>

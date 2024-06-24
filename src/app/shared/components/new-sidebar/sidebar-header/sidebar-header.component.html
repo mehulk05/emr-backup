@@ -1,0 +1,9 @@
+<div  [ngClass]="isSidebarOpened ? 'company-log': 'company-min-log'">
+  <img [src]="businessData?.logoUrl || 'https://g99plus.b-cdn.net/AEMR/assets/img/growth99_icon.png'">
+</div>
+
+<div *ngIf="isSidebarOpened" class="business-content">
+  <h4>{{businessData?.name}}</h4>
+  <span>{{currentUserInfo?.roles  ===  'Patient' ? 'Client' : currentUserInfo?.roles }}</span>
+</div>
+

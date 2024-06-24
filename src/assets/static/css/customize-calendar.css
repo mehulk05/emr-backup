@@ -1,0 +1,75 @@
+.e-toolbar .e-tbar-btn.e-btn .e-icons{
+  color: #7F7F7F !important;
+  font-size: 12px !important;
+  font-weight: 700;
+}
+.e-schedule .e-schedule-toolbar .e-toolbar-items .e-tbar-btn.e-btn.e-tbtn-txt .e-icons.e-icon-right.e-btn-icon.e-icon-down-arrow{
+  font-size: 10px !important;
+  font-weight: 500;
+}
+.e-schedule .e-schedule-toolbar .e-tbar-btn .e-tbar-btn-text,
+.e-schedule .e-schedule-toolbar .e-toolbar-items .e-toolbar-item.e-date-range .e-tbar-btn .e-tbar-btn-text{
+  color:#2656C9;
+  font-weight: 500
+}
+.e-toolbar-item.e-today.e-overflow-show .e-tbar-btn-text{
+  color:#2656C9 !important;
+}
+.e-schedule .e-vertical-view .e-time-cells-wrap table td span,
+.e-schedule .e-vertical-view .e-time-cells-wrap table td{
+  font-weight: 500;
+  font-size: 12px;
+  color: #1A1F36;
+}
+
+.e-schedule .e-schedule-table tr td.e-work-cells{
+  background-color: #fff;
+}
+/* .e-schedule .e-schedule-table tr:nth-child(4n-1) td.e-work-cells,
+.e-schedule .e-schedule-table tr:nth-child(4n) td.e-work-cells{
+  background-color: #F2F4F8;
+} */
+
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment{
+  width: 100% !important;
+}
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment{
+
+}
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment .e-subject{
+  padding-top: 0 !important;
+}
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment .e-time{
+  line-height: 1;
+}
+
+
+.p-datepicker table th{
+  text-align: center !important;
+}
+
+.p-datepicker table th > span{
+  font-weight: 500 !important;
+  color: #1A1F36 !important;
+  font-size: 14px !important;
+}
+.p-datepicker table td > span{
+  font-weight: 400 !important;
+  color: #1A1F36 !important;
+  font-size: 14px !important;
+}
+
+.p-datepicker table td.p-datepicker-today > span{
+  background-color: #2656C9 !important;
+  color: #fff !important;
+  font-size: 14px !important;
+}
+
+
+.click-edit{
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+

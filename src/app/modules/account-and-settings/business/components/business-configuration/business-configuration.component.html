@@ -1,0 +1,48 @@
+<div class="panel-blue">
+  <div class="panel-header">
+    <div class="panel-title">
+      Configuration
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="add-edit-form">
+      <form [formGroup]="businessConfigurationForm" (ngSubmit)="submitForm()">
+        <div class="form form-type2">
+          <div class="form-group">
+            <div class="inline-checkbox">
+              <!-- <input type="checkbox" formControlName="showNotesPopupOnLeadLoad" />
+                      <label for="link">Show pop-up of notes on patient details </label> -->
+              <!-- <app-custom-checkbox label="Show pop-up of notes on patient details" (valueChange)="onCheckboxValueChanged($event, 'showNotesPopupOnLeadLoad')" for="showNotesPopupOnLeadLoad" [control]="$any(businessConfigurationForm.get('showNotesPopupOnLeadLoad'))"></app-custom-checkbox> -->
+
+              <app-custom-checkbox1 label="Show pop-up of notes on patient details" for="showNotesPopupOnLeadLoad"
+                [control]="$any(businessConfigurationForm.get('showNotesPopupOnLeadLoad'))"></app-custom-checkbox1>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="inline-checkbox">
+              <!-- <input type="checkbox" formControlName="showPatientDetailsOnSinglePage" />
+                      <label for="link">Show patient details on single page</label> -->
+              <app-custom-checkbox label="Show patient details on single page"
+                (valueChange)="onCheckboxValueChanged($event, 'showPatientDetailsOnSinglePage')"
+                for="showPatientDetailsOnSinglePage"
+                [control]="$any(businessConfigurationForm.get('showPatientDetailsOnSinglePage'))"></app-custom-checkbox>
+
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn-save-new btn-small" [disabled]="!businessConfigurationForm.valid">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

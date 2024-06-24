@@ -1,0 +1,21 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Chat Customization">
+      <app-chat-config [chatConfig]="chatConfig"></app-chat-config>
+    </p-tabPanel>
+    <p-tabPanel header="Chatbot Form Builder">
+      <app-chat-form-questionnaire *ngIf="source === 'chatbot-form-builder'"></app-chat-form-questionnaire>
+   </p-tabPanel>
+    <p-tabPanel header="Chatbot Template" >
+      <app-chatbot-template *ngIf="source === 'chatbot-template'" [businessId]="chatConfig?.tenantId"></app-chatbot-template>
+    </p-tabPanel>
+    <p-tabPanel header="Scrape Website">
+        <app-scrape-website  [scrapeWeb]="scrapeWeb"></app-scrape-website>
+    </p-tabPanel>
+
+    <p-tabPanel header="Chat Questionnaires">
+      <app-chat-questionarie></app-chat-questionarie>
+   </p-tabPanel>
+
+</p-tabView>
+</div>

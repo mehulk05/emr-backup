@@ -1,0 +1,108 @@
+<div class="bg-white datatable-table" [ngClass]="{'hidden': showAssignNewConsentForm}">
+  <!-- <div class="title">
+    <h3>Consents</h3>
+  </div> -->
+  <div class="table-list">
+    <p-table #dt1 responsiveLayout="stack" [value]="consents" [reorderableColumns]=true sortField="id"
+      [sortOrder]="-1" [columns]="selectedColumns" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]"
+      [globalFilterFields]="globalFilterColumn">
+
+
+      <!-- ------------------------- table upper  button ------------------------- -->
+      <ng-template pTemplate="caption">
+        <div class="flex">
+
+          <!-- ----------------------- table column visibility ----------------------- -->
+          <p-multiSelect [resetFilterOnHide]="true"  [options]="columns" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}" placeholder="Choose Columns">
+          </p-multiSelect>
+          <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i>
+            <div class="table-button">
+              <!-- -------------------------- table search bar --------------------------- -->
+              <input pInputText class="search-table" type="text"
+                (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+
+
+            </div>
+          </span>
+        </div>
+      </ng-template>
+
+      <!-- -------------------------- Table Data starts -------------------------- -->
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <th [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </ng-container>
+        </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="body" let-data> -->
+      <ng-template pTemplate="body" let-data let-columns="columns">
+        <tr class="mobile-special">
+          <ng-container *ngFor="let col of columns">
+            <td>
+
+
+              <ng-container [ngSwitch]="col.field">
+                <!-- --------------------------- Appointment Id ---------------------------- -->
+                <!-- <ng-container *ngSwitchCase="'appointmentId'">
+                  <a *ngIf="data?.appointmentId !== null" [routerLink]="['/appointment/', data?.appointmentId, 'edit']"
+                  [queryParams]="{ source: 'consents', patientId: currentPaitent?.id}">
+                  {{data?.appointmentId}}
+                  </a>
+                </ng-container> -->
+
+                  <!-- -------------------------- Appointment Date --------------------------- -->
+                  <ng-container *ngSwitchCase="'appointmentDate'">
+                    <span>  {{data?.appointmentDate  ? formatTimeService.formatBookingHistoryTime(data?.appointmentDate) : "-" }}</span>
+                  </ng-container>
+
+                  <!-- ---------------------------- Consent date ----------------------------- -->
+                  <ng-container *ngSwitchCase="'signedDate'">
+                    <span>  {{data?.signedDate  ? formatTime(data?.signedDate) : "-" }}</span>
+                  </ng-container>
+
+                    <!-- ---------------------------- Created date ----------------------------- -->
+                    <ng-container *ngSwitchCase="'createdAt'">
+                      <span>  {{data?.createdAt  ? formatTime(data?.createdAt) : "-" }}</span>
+                    </ng-container>
+
+                <!-- ----------------------------- action tabs ----------------------------- -->
+                <ng-container *ngSwitchCase="'actions'">
+                  <span class="p-column-title">{{col.header}}</span>
+                  <a *ngIf="data?.signFileGenerated !== null && data.appointmentConsentStatus === 'Signed' && data?.signFileGenerated" href="javascript:void(0)" (click)="downloadAppointmentConsent(data)" title="Download" style="margin-left: 5px;">
+                    <i class="fa fa-download"></i>
+                    Download
+                </a>
+                <a *ngIf="data?.signFileGenerated === null && data?.appointmentConsentStatus === 'Signed' && !data?.signFileGenerated" href="javascript:void(0)" title="File not available yet" style="margin-left: 5px; color: grey;">
+                    <i class="fa fa-download"></i>
+                    Download
+                </a>
+
+                <a *ngIf="data?.appointmentConsentStatus !== null && data?.appointmentConsentStatus === 'Pending'" href="javascript:void(0)" (click)="showSignedConsent(data)" title="Sign" style="margin-left: 5px;">
+                   Sign Now
+                    <i class="fa fa-edit"></i>
+                </a>
+                </ng-container>
+
+                <!-- ------------------------- default switch case ------------------------- -->
+                <ng-container *ngSwitchDefault>
+                  <span class="p-column-title">{{col.header}}</span> {{data[col.field] ? data[col.field] : '-'}}
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<div *ngIf="showAssignNewConsentForm">
+  <app-assign-patient-consent [patientId]="currentPaitent.id" (handleCancel)="onConsentCancel()" (handleConsentAssign)="onConsentAssign()">
+  </app-assign-patient-consent>
+</div>

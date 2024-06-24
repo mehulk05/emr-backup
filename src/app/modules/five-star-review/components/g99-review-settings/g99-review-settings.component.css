@@ -1,0 +1,19 @@
+.month-year-selector{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+p{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.time-frame-wrapper{
+  display: flex;
+  align-items: center;
+}
+
+.time-frame-wrapper p{
+  min-width: 120px
+}

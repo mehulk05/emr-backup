@@ -1,0 +1,193 @@
+<div class="bg-white datatable-table">
+    <div class="table-list">
+        <p-table #dt1 responsiveLayout="stack" [reorderableColumns]=true sortField="appointmentCreatedDate"
+            [sortOrder]="-1" [value]="dataList" [columns]="selectedColumns" [paginator]="true" [rows]="50"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="globalFilterColumn">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <!-- ---------------------- Column visibility starts ----------------------- -->
+                    <p-multiSelect [resetFilterOnHide]="true" [options]="columns" [(ngModel)]="selectedColumns"
+                        optionLabel="header" selectedItemsLabel="{0} Columns" [style]="{minWidth: '120px'}"
+                        placeholder="Choose Columns">
+                    </p-multiSelect>
+                    
+
+                    <span class="p-input-icon-left">
+                        <select style="width: 140px;height: 35px;margin: 0px 0px 0px 10px;" (change)="onTagSelected()"
+                        class="form-select" [(ngModel)]="selectedTag" name="selectedTag">
+                        <option value="" disabled selected value="">Select Tag</option>
+                        <option value="">All</option>
+                        <option *ngFor="let tag of tags" [ngValue]="tag.id">{{tag.name}}</option>
+                      </select>
+                    </span>
+
+                    <!-- ------------------------- Table Search starts ------------------------- -->
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <div class="table-button">
+                            <input pInputText class="search-table" type="text"
+                                (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                placeholder="Search keyword" />
+                            <div class="table-btn-wrapper">
+                                <button class="btn-save-new btn-small-new" (click)="addFiles()">
+                                    <i class="fa fa-plus"></i> Add Files
+                                </button>
+
+                                <button class="btn-save-new btn-small-new" (click)="addFolder()" *ngIf="!subfolderId">
+                                    <i class="fa fa-plus"></i> Add Folders
+                                </button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </ng-template>
+
+            <!-- ---------------------------- Table starts ----------------------------- -->
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <ng-container *ngFor="let col of columns">
+                        <th [pSortableColumn]="col.field" *ngIf="col.field !== 'actions'">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                        <th *ngIf="col.field === 'actions'">
+                            {{col.header}}
+                        </th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+
+            <!-- -------------------------- Table body starts -------------------------- -->
+            <ng-template pTemplate="body" let-data let-columns="columns">
+                <tr class="mobile-special">
+                    <ng-container *ngFor="let col of columns">
+                        <td>
+                            <ng-container [ngSwitch]="col.field">
+                                <ng-container *ngSwitchCase="'createdBy'">
+                                    <p *ngIf="data?.createdBy">By {{data.createdBy.firstName || '-'}}</p>
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="'socialTags'">
+                                    <ng-container *ngFor="let tag of data.socialTags; let i = index ">
+                                        <ng-container *ngIf=" i &lt; 2">
+                                            <p-tag severity="success" [value]="tag?.libraryTag?.name" ></p-tag>
+                                        </ng-container>
+                                        <ng-container *ngIf=" i === data.socialTags?.length - 1 && i >= 2">
+                                            <span (click) = "openModalForTags(data.socialTags)" style="cursor: pointer;">
+                                                <p-tag severity="success"> + {{ data.socialTags?.length - 2}}</p-tag>
+                                            </span>
+                                        </ng-container>
+                                    </ng-container>
+
+                                </ng-container>
+
+                                
+                                <ng-container *ngSwitchCase="'filename'">
+                                    <!-- Display fileName if available, otherwise display name -->
+                                    
+                                        <!-- Display fileName if available, otherwise display name -->
+                                        <!-- {{ data.filename ?? data.name ?? '-' }} -->
+                                        <a *ngIf="!data?.location; else link" [routerLink]="['./', 'subfolder', data.id]" style="cursor: pointer;">
+                                            <p>
+                                                {{ data?.name }}
+                                            </p>
+                                        </a>
+                                        <ng-template #link>
+                                            <p>
+                                                {{ data?.filename }}
+                                            </p>
+                                        </ng-template>
+                                    
+                                  </ng-container>
+
+                                <ng-container *ngSwitchCase="'location'">
+                                    <app-file-icon-preview [data]="data"></app-file-icon-preview>
+
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="'createdAt'">
+                                    <p> On {{ data.updatedAt ?
+                                        (data.createdAt | date:'medium') : (data?.createdAt | date:'medium')}}
+                                    </p>
+                                </ng-container>
+
+                                
+                                <ng-container *ngSwitchCase="'isPrivate'">
+
+                                    <ng-container *ngIf="!fileTypeService.isFolder(data)">
+                                        <p> {{data?.isPrivate ? 'Private' : 'Public' }}
+                                        </p>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="fileTypeService.isFolder(data)">
+                                        <p>-
+                                        </p>
+                                    </ng-container>
+                                    
+                                   
+                                </ng-container>
+
+
+                                <ng-container *ngSwitchDefault>
+                                    <span class="click-edit1">
+                                        <span class="p-column-title">{{col.header}}</span> {{data[col.field] ?? '-'}}
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'actions'">
+                                    <span class="p-column-title">{{col.header}}</span>
+
+                                    <button class="btn-invisible" mat-icon-button [matMenuTriggerFor]="menu"
+                                        aria-label="Example icon-button with a menu">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                    <mat-menu #menu="matMenu">
+                                        <!-- <button (click)="editPage(data.id)" mat-menu-item>Edit</button> -->
+                                        <ng-container *ngIf="!data?.isPrivate ">
+                                            <button (click)="viewFiles(data)" mat-menu-item>View</button>
+                                        </ng-container>
+                                        <button (click)="deleteTrash(data)" mat-menu-item>Delete</button>
+                                        <button (click)="editFolderOrFile(data)" mat-menu-item>Edit</button>
+                                        <ng-container *ngIf="data.contentType !== 'folder'">
+                                            <button (click)="downloadImage(data.id, data.filename)" mat-menu-item>Download</button>
+                                            <button (click)="copyToClipboard(data.location)" mat-menu-item>Copy</button>
+
+                                        </ng-container>
+                                    </mat-menu>
+
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+
+<ng-container *ngIf="showAddFilesModal">
+    <app-add-edit-media-file [folderId]="currentFolderId" [editId]="editFolderId"  [showAddFilesModal]="showAddFilesModal"
+        (afterModalClose)="onModalClose($event)"></app-add-edit-media-file>
+</ng-container>
+
+<!-- <ng-container *ngIf="showImagePreviewModal">
+    <app-image-preview [selectedData]="selectedData" [showImagePreviewModal]="showImagePreviewModal"
+        (afterImagePreviewModalClose)="onImagePreviewModalClose()"></app-image-preview>
+</ng-container> -->
+
+
+<ng-container *ngIf="showImagePreviewModal">
+    <app-media-file-preview [selectedData]="selectedData" [showImagePreviewModal]="showImagePreviewModal"
+        (afterImagePreviewModalClose)="onImagePreviewModalClose()"></app-media-file-preview>
+</ng-container>
+
+<ng-container *ngIf="showAddFolderModal">
+    <app-add-edit-media-folder [showAddFolderModal]="showAddFolderModal" [editId]="editFolderId" [parentFileManagerFolderId]="folderId" [data]="folderList"
+        (afterModalClose)="onAddFolderModalClose($event)"></app-add-edit-media-folder>
+</ng-container>
+
+<ng-container *ngIf="showTagsModal">
+    <app-view-tags [tagsData]="tagsData" [showTagsData]="showTagsModal" (afterTagsModalClose)="onTagsModalClose()" ></app-view-tags>
+</ng-container>

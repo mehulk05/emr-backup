@@ -1,0 +1,36 @@
+<div class="table-controls">
+  <div class="control-group">
+    <label>Number of columns:</label>
+    <select [(ngModel)]="numColumns" (ngModelChange)="onNumColumnsChange()">
+      <option *ngFor="let n of [1, 2, 3, 4, 5]">{{n}}</option>
+    </select>
+  </div>
+  <button class="add-column-btn" (click)="addColumn()">Add Column</button>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let header of getColumnHeaders(); let i = index">
+          <input [value]="header" (input)="onHeaderInput($event, i)">
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableData; let i = index">
+        <td *ngFor="let cell of row; let j = index" [ngClass]="{'bold': i === 0}">
+          <input [value]="tableData[i][j]" (keyup.enter)="onCellInput($event, i, j)">
+        </td>
+        <td class="row-controls">
+          <button class="add-row-btn" (click)="addRowAfter(i)">+</button>
+          <button class="remove-row-btn" (click)="removeRow(i)">-</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" (click)="addRow()">+</button>
+</div>

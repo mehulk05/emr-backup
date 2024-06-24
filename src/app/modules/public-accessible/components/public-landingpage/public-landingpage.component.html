@@ -1,0 +1,25 @@
+<div class="tab-view">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="My Templates">
+      <app-public-defaault-landingpage [defaultTemplates]="defaultTemplates" [isPublic]="true"  [previwThumbnailLink]="previwThumbnailLink" [bid]="this.businessId"
+        [websiteLink]="ssrDomain" (onPageUpdate)="onPageUpdate($event)"></app-public-defaault-landingpage>
+        <p-paginator [rows]="paginatorConfig.noOfRecord" [totalRecords]="totalDataCount?.totalCount"
+        (onPageChange)="paginate($event)" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="paginatorConfig.recordArray"></p-paginator>
+    </p-tabPanel>
+
+    <p-tabPanel header="Library">
+        <app-public-defaault-landingpage (onPageUpdate)="onPageUpdate($event)" *ngIf="source==='Libary'" [isPublic]="true"  [defaultTemplates]="libraryTemplates" [previwThumbnailLink]="previwThumbnailLink" [bid]="this.businessId"
+        [websiteLink]="ssrDomain"></app-public-defaault-landingpage>
+
+        <p-paginator [rows]="myPaginatorConfig.noOfRecord" [totalRecords]="totalCustomCount?.count"
+        (onPageChange)="paginate($event)" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="myPaginatorConfig.recordArray"></p-paginator>
+    </p-tabPanel>
+
+  </p-tabView>
+  <!-- -------------------------- custom paginator --------------------------- -->
+
+</div>

@@ -1,0 +1,157 @@
+<ng-container *ngIf="showDentalComponent">
+  <app-dental-treatment-container></app-dental-treatment-container>
+</ng-container>
+
+<ng-container *ngIf="!showDentalComponent">
+  <div class="blue-card bg-white box-shadow-light">
+    <div class="row mx-0">
+      <div class="col-xl-9 col-lg-8 col-md-12 pl-0">
+        <!-- --------------------------- header section ---------------------------- -->
+        <div class="profile-header">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+          <div class="content-wrapper">
+            <div class="header-content">
+              <h2 class="title text-white">
+                {{symptomModalDetail?.title ?? 'Self Assessment'}}
+                <span class="edit-icon" (click)="editTitle('title')">
+                  <i class="fa fa-pencil"></i>
+                </span>
+              </h2>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card-view">
+    <!-- -------------------- composer description section --------------------- -->
+    <div class="composer-card-wrapper">
+      <div class="card-wrapper card">
+        <div class="icon">
+          <span class="edit-icon" (click)="selectedGender === 'female'? editTitle('description') : editTitle('maleDescription')">
+            <i class="fa fa-pencil"></i>
+          </span>
+        </div>
+        <div class="card-data">
+  
+          <!-- ------------------------- Female Description -------------------------- -->
+          <ng-container *ngIf="selectedGender === 'female'">
+            <ng-container *ngIf="symptomModalDetail?.description; else noDescription;">
+              <p>{{symptomModalDetail?.description}}</p>
+            </ng-container>
+            <ng-template #noDescription>
+              <p>Place the Cursor on the desired Body Part (Toggle for front/back)</p>
+            </ng-template>
+          </ng-container>
+  
+  
+             <!-- ------------------------- Male Description -------------------------- -->
+             <ng-container *ngIf="selectedGender === 'male'">
+              <ng-container *ngIf="symptomModalDetail?.maleDescription; else noDescription;">
+                <p>{{symptomModalDetail?.maleDescription}}</p>
+              </ng-container>
+              <ng-template #noDescription>
+                <p>Place the Cursor on the desired Body Part (Toggle for front/back)</p>
+              </ng-template>
+            </ng-container>
+  
+  
+        </div>
+      </div>
+    </div>
+  
+    <!-- -------------------------- Modal div starts --------------------------- -->
+    <div class="modal-wrapper">
+      <div class="button-wrraper">
+        <div class="toggle-button show-as-radio">
+          <p-inputSwitch (onChange)="toggleModalView($event)"></p-inputSwitch>
+          <span *ngIf="selectedSide !== 'back'">
+            FRONT
+          </span>
+          <span *ngIf="selectedSide === 'back'">
+            BACK
+          </span>
+        </div>
+  
+        <div class="service-button table-btn-wrapper">
+          <button class="btn-save-new btn-small-new" (click)="showAllServiceModal()">
+            <i class="fa fa-eye"></i> View All Services
+          </button>
+        </div>
+      </div>
+  
+      <div class="modal-wrapper">
+          <app-symptom-modal [selectedMaleModel]="selectedMaleModel" [selectedFemaleModel]="selectedFemaleModel"
+           [selectedSide]="selectedSide"  [selectedGender]="selectedGender"></app-symptom-modal>
+      </div>
+  
+      <div class="table-btn-wrapper btn-save-modal" (click)="saveModelData()">
+        <button class="btn-new btn-small-new">
+          <i class="fa fa-save"></i> Save
+        </button>
+  
+      </div>
+    </div>
+        </div>
+  
+      </div>
+  
+      <div class="col-xl-3 col-lg-4 col-md-12">
+        <app-symptom-composer-right-part [selectedSide]="selectedSide" [genderToHide]="genderToHide" [showMaleModelFirst]="showMaleModelFirst" [hideSelectedSymptoms]="hideSelectedSymptoms"
+        (modalChangeEmitter)="onModalChange($event)" (genderChangeEmiiter)="onGenderChange($event)" (vcConfigChangeEmitter)="onvcConfigChange($event)"
+        (hideSelectedSymptomsEmitter)="onhideSelectedSymptoms($event)"
+        [selectedFemaleModel]="selectedFemaleModel"  [selectedMaleModel]="selectedMaleModel"></app-symptom-composer-right-part>
+      </div>
+    </div>
+  
+    <!-- <div class="showSymptomModal" [ngClass]="showServiceModal? 'show' : 'hidden'">
+        <app-preview-symptoms [showServiceModal]="showServiceModal" (hideServiceModal)="onHideServiceModal()"></app-preview-symptoms>
+    </div> -->
+    <div class="showSymptomModal" *ngIf="showServiceModal" [ngClass]="showServiceModal ? 'show' : 'hidden'">
+  <app-preview-symptoms [showServiceModal]="showServiceModal" (hideServiceModal)="onHideServiceModal()"></app-preview-symptoms>
+</div>
+
+  </div>
+</ng-container>
+
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"  header="Edit Title" [(visible)]="this.editDetailObj.isEditTitle" [style]="{width: '50vw'}">
+    <div class="modal-body">
+      <input type="text" class="form-control" [(ngModel)]="this.symptomModalDetail.title" />
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn btn-primary" [disabled]="!this.symptomModalDetail.title" data-dismiss="modal"
+          (click)="saveEdits('title')">
+          <i  [ngClass]="this.editDetailObj.isLoading? 'pi-spin pi-spinner' : 'pi-check'"  class="pi"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="this.editDetailObj.isEditTitle=false">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+</p-dialog>
+</div>
+
+<div class="editDescModal">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}" header="Edit description" [(visible)]="this.editDetailObj.isEditDesc" [style]="{width: '50vw'}">
+    <div class="modal-body">
+      <ng-container *ngIf="selectedGender==='female'">
+        <textarea  class="form-control" [(ngModel)]="this.symptomModalDetail.description" ></textarea>
+      </ng-container>
+
+      <ng-container *ngIf="selectedGender==='male'">
+        <textarea  class="form-control" [(ngModel)]="this.symptomModalDetail.maleDescription" ></textarea>
+      </ng-container>
+
+
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section">
+        <button type="button" class="btn-save-new btn-small-new" [disabled]="!this.symptomModalDetail.description" data-dismiss="modal"
+          (click)="selectedGender === 'female'? saveEdits('description') : saveEdits('maleDescription')">
+          <i  [ngClass]="this.editDetailObj.isLoading? 'pi-spin pi-spinner' : 'pi-check'"  class="pi"></i> Save</button>
+        <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="this.editDetailObj.isEditDesc=false">
+          <i class="pi pi-times-circle"></i> Cancel</button>
+      </div>
+    </ng-template>
+</p-dialog>
+</div>

@@ -1,0 +1,14 @@
+<div class="selected-menu-list-box">
+    <ul cdkDropList (cdkDropListDropped)="drop($event)" #scrollframe [cdkDropListData]="selectedMenus">
+      <li class="menu-selection" *ngFor="let selectedMenu of selectedMenus; let i = index" cdkDrag #rowTemplate (cdkDragStarted)="onDragStarted($event)" [cdkDragBoundary]="scrollframe">
+        <div class="drag-preview" cdkDragPreviewTemplate="#rowTemplate">
+          <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
+          <span class="menu-text">{{ selectedMenu.name }} ({{ selectedMenu.id }})</span>
+          <button (click)="moveMenuUp(i)" [disabled]="i === 0" title="Move Up"><i class="fas fa-chevron-up"></i></button>
+          <button (click)="moveMenuDown(i)" [disabled]="i === selectedMenus.length - 1" title="Move Down"><i class="fas fa-chevron-down"></i></button>
+          <button class="delete-button" (click)="deleteMenu(i)" title="Delete"><i class="fas fa-trash"></i></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

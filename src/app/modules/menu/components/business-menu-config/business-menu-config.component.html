@@ -1,0 +1,18 @@
+<div class="menu-list">
+    <p>Customize your Side menu as per your preference.</p>
+    <div class="menu-list-wrapper">
+        <ng-container *ngFor="let item of menuList">
+            <div class="menu-list-item">
+                <i class="{{item.icon}} fa-2x" aria-hidden="true" style="padding-right: 5px;"></i>
+                <div>
+                    <p>{{item?.displayName }}</p>
+                    <small>{{item?.description }}</small>
+                </div>
+                <span style="float:right;margin-left: auto;">
+                    <p-inputSwitch [(ngModel)]="item.menuEnabled" (onChange)="updateResultArray(item)"></p-inputSwitch>
+                </span>
+            </div>
+            <hr>
+        </ng-container>
+    </div>
+</div>

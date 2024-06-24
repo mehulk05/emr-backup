@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'Raleway';
+    src: url('./Raleway/Raleway-Regular.ttf') format('truetype');
+    font-weight: normal
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('./Raleway/Raleway-Medium.ttf') format('truetype');
+    font-weight: 500
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('./Raleway/Raleway-SemiBold.ttf') format('truetype');
+    font-weight: 600
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('./Raleway/Raleway-Bold.ttf') format('truetype');
+    font-weight: bold
+}
+
+
+/* ----------------------------- Monstreat font ----------------------------- */
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Monstreat/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Monstreat/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Monstreat/Montserrat-SemiBold.ttf') format('truetype');
+    font-weight: 600
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Monstreat/Montserrat-Bold.ttf') format('truetype');
+    font-weight: bold
+}
+
+
+/* ----------------------------- Work Sans font ----------------------------- */
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./WorkSans/WorkSans-Regular.ttf') format('truetype');
+    font-weight: 400
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./WorkSans/WorkSans-Medium.ttf') format('truetype');
+    font-weight: 500
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./WorkSans/WorkSans-SemiBold.ttf') format('truetype');
+    font-weight: 600
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./WorkSans/WorkSans-Bold.ttf') format('truetype');
+    font-weight: bold
+}

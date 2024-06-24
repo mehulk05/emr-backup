@@ -1,0 +1,38 @@
+<section class="thankyousec bg-white">
+  <div class="container">
+      <div class="row flex-div">
+              <div class="col-md-5 col-sm-12">
+                  <div class="col-12">
+                      <h1 class="login-heading text-center thnk">Thank You !!</h1>
+                      <p *ngIf="payNow!=='yes'" class=" text-center" style="margin: 0px 0px;font-family: 'Avenir-Roman';">You have successfully submitted your request.</p>
+                      <p *ngIf="payNow==='yes'" class=" text-center" style="margin: 0px 0px;font-family: 'Avenir-Roman';">You have successfully booked your Appointment.</p>
+                      <p *ngIf="payNow==='yes'" class=" text-center" style="color: red;margin: 0px 0px;font-family: 'Avenir-Roman';font-size: 20px;">You Can Complete The Payment At The Clinic.</p>
+
+                      <div class="login-box">
+                          <!-- <div class="form-group">
+                              <a href={{website}} *ngIf="web" style="margin-left: 100px" class="button-common select_more_symptoms">Go Back to Home</a>
+
+                          </div> -->
+                      </div>
+
+                      <div class="col-12 social">
+
+                          <a *ngIf="facebook !== ''  && facebook!== null && facebook !==undefined" href={{facebook}} title="Login with Facebook" target="_blank" alt="Login with facebook">
+                              <span class="fab fa-facebook fa-2x"></span></a>
+                          <a *ngIf="instagram !== ''  && instagram!== null && instagram !==undefined" href={{instagram}} title="Login with Instagram" target="_blank" alt="Login with instagram"><span
+                                  class="fab fa-instagram fa-2x" ></span></a>
+
+                          <a *ngIf="twitter !== ''  && twitter!== null && twitter !==undefined" href={{twitter}} title="Login with Twitter" target="_blank" alt="Login with Twitter"><span
+                                      class="fab fa-twitter fa-2x" ></span></a>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div class="col-md-5 col-sm-12 ml-auto">
+                  <img src="https://g99plus.b-cdn.net/AEMR/assets/img/thnkyou.svg" class="img-fluid" alt="Thank you" title="Thank you" />
+              </div>
+          </div>
+
+      </div>
+</section>

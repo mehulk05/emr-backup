@@ -1,0 +1,21 @@
+<div class="panel-blue">
+    <div class="panel-header">
+      <h3>Syndication Report Page</h3>
+    </div>
+
+    <div class="panel-body">
+      <div class="report-view" *ngIf="sReportUrl">
+        <iframe [src]="sReportUrl | safeUrl">
+
+        </iframe>
+      </div>
+
+      <div class="report-view error-mesage" *ngIf="showError">
+        <p>
+          Your reports are currently not configured. Please send an email to
+          <a href="mailto:support@growth99.com">support@growth99.com</a>
+          and request to configure Syndication Report for your business.
+        </p>
+      </div>
+    </div>
+  </div>

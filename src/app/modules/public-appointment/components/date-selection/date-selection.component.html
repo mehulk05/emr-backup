@@ -1,0 +1,124 @@
+<div class="section-detail">
+  <div class="bookapt-title">
+    <div class="title">
+      <h1 >SELECT DATE</h1>
+      <h6>Schedule the best date and time to talk</h6>
+    </div>
+  </div>
+
+  <div class="serviceName">
+
+    <div class="service-border">
+      <div class="row">
+
+        <div class="col-md-6  col-sm-6 col-xs-6 col-6 text-left calender-title">
+          <p >{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</p>
+        </div>
+        <div class="btn-group pull-right col-md-6 col-sm-6 col-6 col-xs-6 calender-btn">
+          <div class="btn btn-md btn-light previous" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="closeOpenMonthViewDay()">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/images/pre.png">
+          </div>
+
+          <div class="btn btn-md btn-light next" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="closeOpenMonthViewDay()">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/images/Vector%202%20(Stroke).png">
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <div class="calender-dates">
+        <mwl-calendar-month-view  id="calender1" [viewDate]="viewDate" [events]="events"
+          [refresh]="refresh" (dayClicked)="dayClicked($event)" (beforeViewRender)="beforeMonthViewRender($event)">
+        </mwl-calendar-month-view>
+      </div>
+
+    </div>
+
+    <ng-container>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="bookapt-title">
+            <div class="title">
+              <h1>SELECT TIME</h1>
+              <p  class="dateTime">TimeZone : {{timezone}}</p>
+              <p  class="dateTime">
+                <span class="dttime" >{{this.date | date : 'fullDate'}} </span> &nbsp; <span
+                  class="dttime"  *ngIf="this.time">{{formatTime(this.time)}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="serviceName">
+        <div class="service-border">
+          <div class="row">
+            <ng-container *ngIf="availableTimes.length>0  &&  booking?.provider?.id !==0">
+              <div class=" col-xl-3  col-lg-3  col-md-3 col-sm-4 col-xs-6  sm-col-6 service-details"
+                *ngFor="let availableTime of availableTimes;let i=index">
+                <div class="img">
+                  <div id="circle" [ngStyle]="time === availableTime? dateBackgrounColor :null ">
+                    <div class="segment"></div>
+                    <div class="segment segmentborder"></div>
+                  </div>
+
+
+                  <div class="arrows">
+                    <button  type="button" class="time-button"
+                      [ngClass]="{'btn-not-avail' : time !== availableTime, 'btn-avail': time === availableTime}"
+                      (click)="selectAvailableTime(availableTime,i)">{{formatTime(availableTime)}}</button>
+                  </div>
+                </div>
+
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="availableTimes.length>0 && booking?.provider?.id ===0">
+              <div class="col-xl-3  col-lg-3  col-md-3 col-sm-4 col-xs-6 service-details"
+                *ngFor="let availableTime of availableTimes;let i=index">
+                <div class="img">
+                  <div id="circle" [ngStyle]="time === availableTime.timeSlot? dateBackgrounColor :null ">
+                    <div class="segment"></div>
+                    <div class="segment segmentborder"></div>
+                  </div>
+
+                  <div class="arrows">
+
+                    <button [ngStyle]="time === availableTime.timeSlot ? activeLinkStyle :null" type="button"
+                      class="time-button"
+                      [ngClass]="{'btn-not-avail' : time !== availableTime.timeSlot, 'btn-avail': time === availableTime.timeSlot}"
+                      (click)="selectAvailableTime(availableTime,i)">{{formatTime(availableTime?.timeSlot)}}</button>
+                  </div>
+                </div>
+
+              </div>
+            </ng-container>
+            <div class="noTime" [ngStyle]="titleStyle" *ngIf="availableTimes.length===0">
+              <h3>No Time Slots available for selected Date</h3>
+              <p>Please Select a different date to proceed</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </ng-container>
+    <div class="section-footer">
+
+      <div class="book-btn-right">
+
+        <button type="button" *ngIf="!userId"
+          class="btn btn-dark mr-2" (click)="goBack()">BACK</button>
+
+        <button type="button"
+          class="btn btn-dark" [disabled]="!time" (click)="onDateSelect()">CONTINUE</button>
+      </div>
+    </div>
+
+  </div>
+</div>

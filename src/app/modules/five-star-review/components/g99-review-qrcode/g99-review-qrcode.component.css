@@ -1,0 +1,29 @@
+#company-div{
+  column-gap: 2em;
+  align-items: center;
+}
+
+.panel-new{
+  padding-left: 24px;
+  margin-top: 28px;
+}
+#company-div img{
+  width:  130px;
+  height: 130px;
+  border: 2px dotted gainsboro;
+  object-fit: cover;
+  padding: 5px;
+}
+
+.url-go {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#company-div ngx-qrcode ::ng-deep img{
+  width:  130px;
+  height: 130px;
+  object-fit: cover;
+  border: 2px dotted gainsboro;
+}
+

@@ -1,0 +1,57 @@
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+.rounded-lg {
+  border-radius: 1rem !important;
+}
+
+.text-small {
+  font-size: 0.9rem !important;
+}
+
+.custom-separator {
+  width: 5rem;
+  height: 6px;
+  border-radius: 1rem;
+}
+
+.text-uppercase {
+  letter-spacing: 0.2em;
+}
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+
+.header-bg-blue
+{
+  background-color: #009EDE;
+  padding: 4em 1em 8em;
+}
+
+
+.pricing-plan{
+  margin-top: -6em;
+}
+
+.pricing-plan li{
+  text-align: center;
+}
+.save-color-btn{
+  padding: 10px 1em;
+    min-width: 150px;
+}
+
+.quota-plan a{
+  color:  #fff !important;
+  text-decoration: underline;
+}

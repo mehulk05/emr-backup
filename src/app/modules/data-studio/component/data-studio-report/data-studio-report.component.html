@@ -1,0 +1,91 @@
+<div class="d-flex flex-row-reverse button-container">
+  <button (click)="openModal()" class="btn-save-new btn-long-new"><i class="fa fa-plus"></i> Data Studio
+    Code</button>
+</div>
+
+
+
+<div class="panel-blue" style="margin: 0px 25px;">
+  <div class="panel-header">
+    <h3>Data Studio Report Page</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="report-view" *ngIf="dataStudioUrl">
+      <iframe [src]="dataStudioUrl | safeUrl">
+
+      </iframe>
+    </div>
+
+    <div class="report-view error-mesage" *ngIf="showError">
+      <!-- <p>
+        Your reports are currently not configured. Please send an email to
+        <a href="mailto:support@growth99.com">support@growth99.com</a>
+        and request to configure Data Studio for your business.
+      </p> -->
+
+      <p *ngIf="dashboardAndReportEmail; else notConfigured">
+        Your reports are currently not configured. Please send an email to
+        <a href="mailto:{{dashboardAndReportEmail}}">{{dashboardAndReportEmail}}</a>
+        and request to configure Data Studio for your business.
+      </p>
+      <ng-template #notConfigured>
+        Your reports are currently not configured.
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+  <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}"
+    [header]="'Data Studio Code'" [(visible)]="modalState" (onHide)="closeModal()" (closable)="true" [baseZIndex]="10000"
+    [contentStyle]="{paddingBottom:'0px'}" [resizable]="false" [draggable]="false">
+
+    <div class="modal-body">
+      <div class="image-cropper-wrapper row mx-0">
+        <div class="col-lg-12 col-md-12 p-0 m-0 ">
+          <form [formGroup]="dataStudioForm" (ngSubmit)="submitForm()">
+            <div class="form form-type2">
+              <div class="form-group"
+                [ngClass]="f.dataStudioCode.invalid && ((f.dataStudioCode.dirty || f.dataStudioCode.touched))?'has-error':''">
+                <label for="">Data Studio Code <span class="small-text">
+                    ( Please enter the source URL without iframe code.)
+                  </span></label>
+                <br />
+                <div class="form-datastudio d-flex">
+                  <textarea rows="5" class="form-control w-100" formControlName="dataStudioCode"></textarea>
+                </div>
+
+                <div class="error error-msg">
+                  <div *ngIf="f.dataStudioCode.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please fill the above field with valid
+                    URL
+                  </div>
+                  <div *ngIf="f.dataStudioCode.errors?.pattern">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please enter the URL in correct format
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="button-flex mt-3">
+        <div class="left-buttons">
+          <button type="submit" class="btn-save-new btn-small-new" (click)="submitForm()">
+            Save
+          </button>
+          <button type="button" (click)="onCancelclick()" class="btn-small-new btn-default-new ml-0">
+            Cancel
+          </button>
+        </div>
+        <button class="btn-default-del ml-auto mr-0" type="button" (click)="deleteCodeInDataStudio()">
+          Delete
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

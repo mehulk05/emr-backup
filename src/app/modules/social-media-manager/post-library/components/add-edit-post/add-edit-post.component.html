@@ -1,0 +1,189 @@
+<div class="blue-card new-ui">
+
+  <div class="add-edit-form">
+    <div class="page-new-form-title">
+      <h3 *ngIf="!id">Create post
+        <span class="error-red" *ngIf="!isSocialProfileExists" style="font-size: small;">
+          (Please add your Facebook and Instagram account in the Social Profiles before adding posts)
+        </span>
+      </h3>
+      <h3 *ngIf="id">Edit post</h3>
+    </div>
+    <div class="form form-type2">
+      <form #myform [formGroup]="socialMediaForm">
+        <div class="row mx-0">
+          <!-- -------------------------- HashTag feild --------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.hashtag.invalid && ((f.hashtag.dirty || f.hashtag.touched))?'has-error':''">
+              <label>Hashtag<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="hashtag" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.hashtag.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Hashtag is required.
+                </div>
+                <div *ngIf="f.hashtag.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Hashtag is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- Label Field -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.socialMediaPostLabelId.invalid && ((f.socialMediaPostLabelId.dirty || f.socialMediaPostLabelId.touched))?'has-error':''">
+              <div class="addLabel">
+                <label>Label<span class="error-red">*</span></label>
+                <a href="/post-library-label/add" class="link-new">Add Label</a>
+              </div>
+              <p-multiSelect [resetFilterOnHide]="true" placeholder="Select Label" [options]="labels"
+                formControlName="socialMediaPostLabelId" optionLabel="name" optionValue="id" display="chip">
+              </p-multiSelect>
+
+              <div class="error error-msg">
+                <div *ngIf="f.socialMediaPostLabelId.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Label is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------- Schedule Date Field ---------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>Schedule Date<span class="error-red">*</span>
+                <span style="font-size: x-small;">({{localTimezone}})</span></label>
+
+              <p-calendar [showTime]="true" hourFormat="12" [inputStyle]="{'width':'70%'}"
+                formControlName="scheduledDate">
+              </p-calendar>
+            </div>
+          </div>
+
+          <!-- ------------------------- Social Channel Field -------------------------- -->
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group"
+              [ngClass]="f.socialProfileIds.invalid && ((f.socialProfileIds.dirty || f.socialProfileIds.touched))?'has-error':''">
+              <div class="socialChannel">
+                <label>Social Channel<span class="error-red">*</span></label>
+                <a href="/post-library/profiles" class="link-new">Link Social Channel</a>
+              </div>
+              <p-multiSelect [resetFilterOnHide]="true" placeholder="Select Social Channel"
+                formControlName="socialProfileIds" optionLabel="name" [options]="socialProfiles" optionValue="id"
+                display="chip">
+              </p-multiSelect>
+
+              <div class="error error-msg">
+                <div *ngIf="f.socialProfileIds.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Social Channel is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- Post -------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.post.invalid && ((f.post.dirty || f.post.touched))?'has-error':''">
+              <label>Post</label>
+              <textarea rows="5" type="text" class="form-control" formControlName="post"></textarea>
+              <!-- <div class="error error-msg">
+                <div *ngIf="f.post.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Post is required
+                </div>
+              </div> -->
+            </div>
+          </div>
+
+
+          <div class="flex-row-new">
+            <div  *ngIf="showUploadButton">
+              <label class="btn-save-new btn-small-new">
+
+                <input type="file" #myFileInput accept="image/*" (change)="handleImageUpload($event)" accept="image/*" 
+                  style="display: none;" />
+                <span class="btn-text">Upload Image</span>
+              </label>
+             
+              <div class="image_upload">
+                <div *ngIf="!uploadPost">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Image is required
+                </div>
+              </div>
+            </div>
+            <!-- ---------------------------- Service IMage ---------------------------- -->
+            <div  *ngIf="showUploadButton" (click)="uploadImageFromLibrary()">
+              <label class="btn-save-new btn-xs-new">
+                <span class="btn-text">Select from Library</span>
+              </label>
+
+              <div class="image_upload">
+                <div *ngIf="!uploadPost">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Image is required
+                </div>
+              </div>
+            </div>
+
+            <div  *ngIf="showUploadButton" (click)="generateImageFromAi()">
+              <label class="btn-save-new btn-xs-new">
+                <span class="btn-text">Generate AI Image</span>
+              </label>
+
+              <div class="image_upload">
+                <div *ngIf="!uploadPost">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Image is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group image-cropper-wrapper " *ngIf="!showUploadButton">
+            <div class="col-md-6  col-sm-12" *ngIf="croppedImage">
+              <div class="output-img-wrapper">
+                <img class="img-fluid cropped-img" [src]="croppedImage">
+              </div>
+            </div>
+          </div>
+          <div class="image_upload">Note: Image size must be less than 1MB and for the instagram post please make sure use image aspect ratio 1:1</div>
+
+          <div class="form-group remove-btn">
+            <button class="btn-save-new btn-small-new" *ngIf="!showUploadButton" (click)="removeImage()">
+              <i class="fa fa-trash"> Remove </i>
+            </button>
+          </div>
+          <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn-save-new btn-small-new ng-star-inserted" [disabled]="!socialMediaForm.valid || approvedPost"
+                  (click)="submitForm()">
+                  Save
+                </button>
+
+                <button type="button" class="btn-default-new btn-small-new" (click)="goBack()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngIf="showModalForImage">
+  <app-select-image-library [showModalForImage]="showModalForImage"
+    (afterImageSelection)="afterImageSelection($event)"></app-select-image-library>
+</ng-container>
+
+
+
+<ng-container *ngIf="showAiImageModal">
+  <app-ai-image [showModal]="showAiImageModal" [message]="''" [category]="'category'"
+    (modalClosed)="aiModelClose($event)" (getSelectedAiImage)="getSelectedAiImage($event)">
+  </app-ai-image>
+</ng-container>

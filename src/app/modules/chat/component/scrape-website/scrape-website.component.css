@@ -1,0 +1,63 @@
+.main-div{
+    margin-bottom: 2em;
+    display: flex;
+    padding: 10px 20px 0px 20px;
+    box-shadow: none;
+    border: 2px solid #f2f2f4;
+    height: 700px;
+    border-radius: 10px;
+  }
+
+  .main-div h3.title-content {
+    font-size: 19px;
+    font-weight: 600;
+    padding-top: 10px;
+  }
+
+  .right-card{
+    width: 34%;
+  }
+  .right-card img{
+      height: 250px;
+  }
+  .title-content{
+      padding-bottom: 20px;
+      font-weight: 600;
+      font-size: 21px;
+      line-height: 21.6px;
+      color: #000;
+  }
+  p.font-15{
+      padding-bottom: 20px;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #1A1F36;
+      font-weight: 400;
+  }
+
+  @media screen and (max-width:767px){
+    .main-div{
+        display: block;
+
+    }
+    .right-card img{
+        height: 215px;
+    }
+  }
+
+  input.form-control.ng-untouched.ng-pristine.ng-invalid{
+      background-color: #FAFBFB;
+  }
+
+  input.form-control.ng-touched.ng-invalid{
+    background: rgba(255, 64, 64, 0.2);
+    border: 1px solid #FF4040;
+  }
+  .btn:hover,
+  .btn:focus,
+  .btn{
+    color:#ffffff !important;
+    border: #2656c9!important;
+    background-color: #2656c9!important;
+    border-radius: 24px;
+  }

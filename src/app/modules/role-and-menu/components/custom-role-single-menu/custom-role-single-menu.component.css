@@ -1,0 +1,49 @@
+
+.child-card .menu-card,
+.panel-card{
+  margin-top: 1em;
+    padding: 10px;
+    box-shadow: 0 0 2rem 0 rgb(41 48 66 / 10%);
+    background: #fff;
+}
+.panel-card-content{
+  padding: 10px;
+  max-width: 100%;
+  max-width: 100%;
+  padding: 1em;
+  background:  #F5F7FB;;
+}
+
+.group-card .menu-name{
+  font-size: 18px;
+  color: #009EDE;
+  font-weight: 500;
+  padding-left: 5px;
+}
+
+.group-card .icon,
+.group-card a{
+  color: #009EDE;
+}
+
+.child-card .icon,
+.child-card a{
+  color: #000;
+}
+.menu-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.child-card .menu-name{
+  font-weight: 500;
+  font-size: 14px;
+  padding-left: 5px;
+  color: #000;
+}
+
+.header-card{
+  border: 1px solid gainsboro;
+}

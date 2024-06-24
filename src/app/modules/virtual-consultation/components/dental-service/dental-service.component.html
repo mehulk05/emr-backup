@@ -1,0 +1,46 @@
+<div class="body-part-service" *ngFor="let service of services; let i = index">
+    <div class="service-dropdown">
+        <div class="service-sub-title">
+            <div class="service-label-wrapper">
+                <label class="f-13 fw-400">Symptom:</label>
+                <span class="f-14 fw-500">{{service?.symptom?.name}}</span>
+            </div>
+          
+
+
+            <div class="btn-wrapper">
+                <div class="edit-delete-btn" *ngIf="selectedServiceObjId !== service.id">
+                    <button class="btn" style="margin-right: 5px" (click)="editSymptom(service)"><i
+                            class="fas fa-pencil-alt ms-text-primary"></i></button>
+                </div>
+
+                <div class="save-cancel-btn" *ngIf="selectedServiceObjId === service.id">
+                    <button class="btn" style="margin-right: 5px" (click)="updateSymptom(i, service)"><i
+                            class="fas fa-save"></i></button>
+                    <button class="btn" style="margin-right: 5px" (click)="cancelEdit()"><i
+                            class="fas fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="selected-service-list">
+            <div class="mb-2" *ngIf="selectedServiceObjId === service.id">
+                <div>
+                    <span class="f-14 fw-500">Select the service you want to add/remove</span>
+                </div>
+                <p-multiSelect [resetFilterOnHide]="true" [options]="serviceList" [(ngModel)]="selectedServiceList"
+                    display="chip" optionLabel="name" optionValue="id">
+                </p-multiSelect>
+            </div>
+             
+            <ng-container *ngFor="let symptomservice of service?.symptom?.symptmServices; let j = index">
+                <div class="service-name f-13 fw-500">
+                   {{symptomservice?.service?.name}}
+                </div>
+            </ng-container>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,249 @@
+<div class="aws-chime-online-meeting">
+  <!-- Device management and preview screen -->
+
+  <div id="flow-devices" class="flow" [hidden]="meetingJoined">
+      <div class="container">
+          <form id="form-devices" [formGroup]="deviceForm" (ngSubmit)="submitForm()">
+              <h1 class="h3 mb-3 font-weight-normal text-center">Select devices</h1>
+              <div class="row mt-3">
+                  <div class="col-md-8 col-sm-12">
+                      <label for="audio-input">Microphone</label>
+                      <select id="audio-input" class="form-control" formControlName="microphone" (change)="microphoneChange($event)">
+                          <option value="">Select Microphone</option>
+                          <option *ngFor="let device of audioInputDevices" [value]="device.deviceId">{{device.label}}</option>
+                      </select>
+                  </div>
+                  <div class="col-md-4 col-sm-12 prveiw">
+                      <label>Preview</label>
+                      <div class="w-100 progress form-control">
+                          <div #audioPreview id="audio-preview" class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': audioPreviewPrecent + '%'}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{audioPreviewPrecent.toFixed(0)}} %</div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row mt-3">
+                  <div class="col-md-8 col-sm-12">
+                      <label for="video-input">Camera</label>
+                      <select id="video-input" class="form-control" formControlName="camera" (change)="cameraChange($event)">
+                          <option value="">Select Camera</option>
+                          <option *ngFor="let device of videoInputDevices" [value]="device.deviceId">{{device.label}}</option>
+                      </select>
+                  </div>
+                  <div class="col-md-4 col-sm-12 text-center" style="width:137px;height:82px">
+                      <video #videoPreview id="video-preview" class="w-100 h-100" style="max-width:137px;max-height:82px;border-radius:8px"></video>
+                  </div>
+              </div>
+              <div class="row mt-3">
+                  <div class="col-md-8 col-sm-12">
+                      <select id="video-input-quality" class="form-control" formControlName="videoQuality">
+                          <option value="360p">360p (nHD) &#64; 15 fps (600 Kbps max)</option>
+                          <option value="540p" selected>540p (qHD) &#64; 15 fps (1.4 Mbps max)</option>
+                          <option value="720p">720p (HD) &#64; 15 fps (1.4 Mbps max)</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="row mt-3">
+                  <div class="col-md-8 col-sm-12">
+                      <label for="audio-output">Speaker</label>
+                      <select id="audio-output" class="form-control" formControlName="speaker" (change)="speakerChange($event)">
+                          <option value="">Select Speaker</option>
+                          <option *ngFor="let device of audioOutputDevices" [value]="device.deviceId">{{device.label}}</option>
+                      </select>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 audio-test">
+                      <label for="audio-output">&nbsp;</label>
+                      <button type="button" id="button-test-sound" class="btn btn-outline-secondary btn-block" (click)="onTestSoundClick($event)">Test</button>
+                  </div>
+              </div>
+
+
+              <div class="button1 text-right">
+                  <button id="joinButton" class="btn-save-new btn-small-new" type="submit">Join</button>
+              </div>
+
+          </form>
+      </div>
+  </div>
+
+  <!-- In-meeting screen -->
+
+  <div id="flow-meeting" class="flow" style="left:15px;top:0;bottom:55px;right:15px" [hidden]="!meetingJoined">
+      <div class="text-muted" style="left:3px;bottom:3px" id="video-uplink-bandwidth"></div>
+      <div class="text-muted" style="left:30%;width:40%;text-align:center;bottom:3px" id="chime-meeting-id"></div>
+      <div class="text-muted" style="right:3px;bottom:3px" id="video-downlink-bandwidth"></div>
+      <audio #meetingAudio id="meeting-audio" style="display:none"></audio>
+      <div class="container-fluid h-100">
+
+          <div class="row h-100 mt-4">
+              <div class="col-sm-4">
+                  <div class="bs-component">
+                      <ul id="roster" class="list-group">
+                          <li *ngFor="let attendee of $any(roster | keyvalue)" class="list-group-item d-flex justify-content-between align-items-center">
+                              {{attendee.value?.name}}
+                              <span *ngIf="attendee.value.muted" class="badge badge-pill badge-secondary">
+                                  MUTED
+                              </span>
+                              <span *ngIf="!attendee.value.muted && attendee.value.active" class="badge badge-pill badge-success">
+                                  SPEAKING
+                              </span>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="row h-100 mt-4">
+              <div class="col-12 p-0">
+                  <div id="tile-area" class="w-100 h-100 row">
+                      <div id="tile-0" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-0" class="w-100 h-100"></video>
+                          <div class="tile-info">
+                              <div class="name" id="nameplate-0"></div>
+                              <button id="video-pause-0" class="btn"><i class="fa fa-pause"></i></button>
+                              <button id="video-resume-0" class="btn"><i class="fa fa-play"></i></button>
+                          </div>
+                      </div>
+                      <div id="tile-1" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-1" class="w-100 h-100"></video>
+                          <div class="tile-info">
+                              <div class="name" id="nameplate-1"></div>
+                              <button id="video-pause-1" class="btn"><i class="fa fa-pause"></i></button>
+                              <button id="video-resume-1" class="btn"><i class="fa fa-play"></i></button>
+                          </div>
+                      </div>
+                      <div id="tile-2" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-2" class="w-100 h-100"></video>
+                          <div class="tile-info">
+                              <div class="name" id="nameplate-2"></div>
+                              <button id="video-pause-2" class="btn"><i class="fa fa-pause"></i></button>
+                              <button id="video-resume-2" class="btn"><i class="fa fa-play"></i></button>
+                          </div>
+                      </div>
+                      <div id="tile-3" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-3" class="w-100 h-100"></video>
+                          <div id="nameplate-3"></div>
+                          <button id="video-pause-3" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-3" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-4" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-4" class="w-100 h-100"></video>
+                          <div id="nameplate-4"></div>
+                          <button id="video-pause-4" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-4" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-5" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-5" class="w-100 h-100"></video>
+                          <div id="nameplate-5"></div>
+                          <button id="video-pause-5" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-5" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-6" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-6" class="w-100 h-100"></video>
+                          <div id="nameplate-6"></div>
+                          <button id="video-pause-6" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-6" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-7" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-7" class="w-100 h-100"></video>
+                          <div id="nameplate-7"></div>
+                          <button id="video-pause-7" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-7" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-8" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-8" class="w-100 h-100"></video>
+                          <div id="nameplate-8"></div>
+                          <button id="video-pause-8" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-8" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-9" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-9" class="w-100 h-100"></video>
+                          <div id="nameplate-9"></div>
+                          <button id="video-pause-9" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-9" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-10" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-10" class="w-100 h-100"></video>
+                          <div id="nameplate-10"></div>
+                          <button id="video-pause-10" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-10" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-11" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-11" class="w-100 h-100"></video>
+                          <div id="nameplate-11"></div>
+                          <button id="video-pause-11" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-11" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-12" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-12" class="w-100 h-100"></video>
+                          <div id="nameplate-12"></div>
+                          <button id="video-pause-12" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-12" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-13" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-13" class="w-100 h-100"></video>
+                          <div id="nameplate-13"></div>
+                          <button id="video-pause-13" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-13" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-14" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-14" class="w-100 h-100"></video>
+                          <div id="nameplate-14"></div>
+                          <button id="video-pause-14" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-14" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-15" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-15" class="w-100 h-100"></video>
+                          <div id="nameplate-15"></div>
+                          <button id="video-pause-15" class="btn"><i class="fa fa-pause"></i></button>
+                          <button id="video-resume-15" class="btn"><i class="fa fa-play"></i></button>
+                      </div>
+                      <div id="tile-16" style="display:none" class="col-md-6 video-tile">
+                          <video id="video-16" class="w-100 h-100"></video>
+                          <div class="tile-info">
+                              <div class="name" id="nameplate-16"></div>
+                              <button id="video-pause-16" class="btn"><i class="fa fa-pause"></i></button>
+                              <button id="video-resume-16" class="btn"><i class="fa fa-play"></i></button>
+                          </div>
+                      </div>
+                      <div id="tile-17" class="screenview unselectable" style="resize:both;display:none">
+                          <div id="nameplate-17" style="display:none">No one is sharing screen</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="mt-4">
+
+              <div class="row meeting-page" style="text-align: center;">
+                  <div class="button-wrap">
+                      <button id="button-microphone" type="button" class="btn btn-outline-primary" title="Toggle microphone" (click)="toggleMicrophone($event)">
+                          <i class="fa" [ngClass]="{'fa-microphone-alt': !isMicrophoneMute, 'fa-microphone-slash': isMicrophoneMute}"></i>
+                      </button>
+                      <p>Toggle microphone</p>
+                  </div>
+
+
+                  <div class="button-wrap">
+                      <button id="button-camera" type="button" class="btn btn-outline-secondary" title="Toggle camera" (click)="toggleCamera($event)">
+                          <i class="fa" [ngClass]="{'fa-video': isCameraOn, 'fa-video-slash': !isCameraOn}" ></i>
+                  </button>
+                      <p>Toggle camera</p>
+                  </div>
+
+                  <div class="button-wrap">
+
+                      <button id="button-meeting-leave" type="button" class="btn btn-outline-warning" title="Leave meeting" (click)="leave()">
+                      <i class="fa fa-share-square"></i>
+                  </button>
+                      <p>Leave meeting</p>
+                  </div>
+                  <div class="button-wrap">
+                      <button id="button-meeting-end" type="button" class="btn btn-outline-danger" title="End meeting" (click)="endMeeting()">
+                      <i class="fa fa-power-off"></i>
+                  </button>
+                      <p>End meeting</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

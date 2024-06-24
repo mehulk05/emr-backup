@@ -1,0 +1,139 @@
+<div class="container p-0">
+  <div class="row pb-0">
+    <div class="main-wrap col-lg-6 col-md-12 border-right">
+      <h5>SMS/Email Membership & Billing</h5>
+      <button type="button" (click)="currentSubscription ? openConfirmationOrExplorePacks(): showPacks()"
+        class="btn btn-light mt-1">{{currentSubscription ?'Cancel Subscription':'Explore Packs'}}</button>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <div class="row">
+        <div class="col-3">Email :</div>
+        <div class="col-9">
+          <p class="font-weight-bold text-primary">{{businessInfo?.notificationEmail}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 ">Mobile :</div>
+        <div class="col-9">
+          <p class="font-weight-bold text-primary">{{"+1" + businessInfo?.notificationSMSNumber|| "NA"}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">Card details :</div>
+        <div class="col-9">
+          <p class="font-weight-bold text-primary">{{customerPaymentInfo?.last4 ? "**** **** ****
+            "+customerPaymentInfo?.last4+" ["+customerPaymentInfo?.cardBrand+"]" :
+            "**** **** **** ****"}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="m-0 mb-1">
+
+  <ng-container *ngIf="currentSubscription; else noSubActive" role="alert">
+    <div class="alert alert-success alert-wrap">
+      <h4>Plan Details :</h4>
+      <div class="row">
+        <div class="col-2 .text-dark font-weight-normal">Plan</div>
+        <div class="col-2 .text-dark font-weight-normal">Started</div>
+        <div class="col-2 .text-dark font-weight-normal">Renews</div>
+        <div class="col-2 .text-dark font-weight-normal">Renewal</div>
+        <div class="col-2 .text-dark font-weight-normal">Amount</div>
+        <div class="col-2 .text-dark font-weight-normal">Status</div>
+
+      </div>
+      <div class="row">
+        <div class="col-2">{{currentSubscription?.subscriptionName}}</div>
+        <div class="col-2">{{getDate(currentSubscription.currentPeriodStart) | date:'mediumDate'}}</div>
+        <div class="col-2">{{getDate(currentSubscription.currentPeriodEnd) | date:'mediumDate'}}</div>
+        <div class="col-2">{{currentSubscription?.interval}}</div>
+        <div class="col-2">${{currentSubscription?.amount}}</div>
+        <div class="col-2">Active</div>
+      </div>
+    </div>
+
+
+  </ng-container>
+
+  <ng-template #noSubActive>
+    <div class="row">
+      <div class="col-12" style="padding-left: 25px;padding-right: 0px;">
+        <div class="alert alert-primary m-0" role="alert">
+          You don't have any subscriptions active!
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</div>
+
+
+<hr class="m-0 my-1">
+
+<ng-container *ngIf="payments.length>0">
+
+  <div class="table-container">
+    <h5 style="padding-left: 25px;">Payment History</h5>
+    <p-table [value]="payments" [tableStyle]="{ 'min-width': '100%' }">
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th>ID</th>
+          <th>Name</th>
+          <th>Cost</th>
+          <th>Status</th>
+          <th>Currency</th>
+          <th>Sms/Emails</th>
+          <th>Type</th>
+          <th>Created</th>
+          <th>See Invoice</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-payment>
+        <tr>
+          <td>{{ payment.id }}</td>
+          <td>{{ payment.emailSmsPackage.name }}</td>
+          <td>${{ payment.emailSmsPackage.cost }}</td>
+          <td>{{ payment.paymentStatus }}</td>
+          <td>{{ payment.currency }}</td>
+          <td>{{ payment?.emailSmsPackage?.emailCount||payment.emailSmsPackage.smsCount }}</td>
+          <td>{{ payment.type | titlecase}}</td>
+          <td>{{ payment.createdAt| date:'fullDate'}}</td>
+          <td><button class="btn-icon" (click)="showInvoice(payment?.invoiceHosted)">
+              <i class="fa"
+                [title]="payment?.invoiceHosted && payment.invoiceHosted.includes('http')?'Click to see Invoice':'Invoice not available for One Time Payment'"
+                [ngClass]="payment?.invoiceHosted && payment.invoiceHosted.includes('http')?'fa-eye':'fa-eye-slash'"></i>
+            </button></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</ng-container>
+
+
+<p-dialog [header]="'Confirmation'" [(visible)]="cancelConfirmVisible" [modal]="true" [breakpoints]="{'550px': '18vw'}"
+    [style]="{width: '50vw', height: '18vw'}" [baseZIndex]="10020" [draggable]="false" [resizable]="false"
+    (onHide)="cancelConfirmVisible=false">
+    <!-- Modal body -->
+    <div class="body-section add-edit-form custom">
+        <div class="bg-white">
+            <div class="page-wrapper">
+                <div class="main-section">
+
+                    <h5>Are you sure you want to cancel a Subscription?</h5>
+
+                </div>
+
+                <div class="mt-4">
+                    <button type="button" class="btn btn-save mr-3" data-dismiss="modal"
+                        (click)="doActionAftterConfirm()">Proceed</button>
+                    <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal"
+                        (click)="cancelConfirmVisible=false">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</p-dialog>

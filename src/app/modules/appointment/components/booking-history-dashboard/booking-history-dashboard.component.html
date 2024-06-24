@@ -1,0 +1,249 @@
+<div class="new-ui bg-light">
+    <div class="leads-graphs">
+        <div class="leads-stats">
+            <div class="row mx-0 bg-white">
+                <div class="col-4 py-0 title">
+                    <h3>All Appointments</h3>
+                </div>
+
+                <div class="col-4 py-0 flex justify-content-center">
+                    <div class="togglecontainer m-2 p-2">
+                        <div (click)="showTable()" [ngClass]="showHide?'tabletoggle':'tabletoggleactive'">
+                            <i class="fas fa-table" [ngStyle]="!showHide?{color:'white'}:{color:'#2656C9'}"></i>
+                            <p [ngClass]="showHide?'toggleTxt':'toggleTxtactive'">Table</p>
+                        </div>
+                        <div (click)="showGraph()" [ngClass]="!showHide?'graphtoggle':'graphtoggleactive'">
+                            <i class="fas fa-chart-line" [ngStyle]="showHide?{color:'white'}:{color:'#2656C9'}"></i>
+                            <p [ngClass]="!showHide?'toggleTxt':'toggleTxtactive'" class="toggleTxt">Graph</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 py-0 flex justify-content-end align-items-center">
+                    <button class="btn-save-new btn-small-new" (click)="onAddAppointment()">
+                        <i class="fa fa-plus"></i>
+                        Add New
+                    </button>
+                </div>
+            </div>
+
+            <div class="lead-stat-cards">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-2">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row mb-1">
+                                    <div class="col-12 py-1 flex-wrapper">
+                                        <div class="">
+                                            <p class="muted-text">
+                                                Total Appointments
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column">
+                                        <p class="count">{{ bookingData.totalAppointmentCount ?? 0 }}</p>
+                                    </div>
+                                    <div class="percentage col-6">
+
+                                        <span
+                                            [ngClass]="bookingData?.lastYearAppointmentCount === bookingData?.currentYearAppointmentCount?'bg-same':bookingData?.lastYearAppointmentCount > bookingData?.currentYearAppointmentCount ? 'bg-decrease' : 'bg-increase'">
+                                            <svg *ngIf="bookingData?.lastYearAppointmentCount === bookingData?.currentYearAppointmentCount"
+                                                fill="#8d929c" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9.002 2.5a.75.75 0 01.691.464l6.302 15.305 2.56-6.301a.75.75 0 01.695-.468h4a.75.75 0 010 1.5h-3.495l-3.06 7.532a.75.75 0 01-1.389.004L8.997 5.21l-3.054 7.329A.75.75 0 015.25 13H.75a.75.75 0 010-1.5h4l3.558-8.538a.75.75 0 01.694-.462z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.lastYearAppointmentCount < bookingData?.currentYearAppointmentCount"
+                                                fill="#299617" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M20,8v2h6.5859L18,18.5859,13.707,14.293a.9994.9994,0,0,0-1.414,0L2,24.5859,3.4141,26,13,16.4141l4.293,4.2929a.9994.9994,0,0,0,1.414,0L28,11.4141V18h2V8Z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.lastYearAppointmentCount > bookingData?.currentYearAppointmentCount"
+                                                fill="#900603" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M21,11a1,1,0,0,0-1,1v2.59l-6.29-6.3a1,1,0,0,0-1.42,0L9,11.59,3.71,6.29A1,1,0,0,0,2.29,7.71l6,6a1,1,0,0,0,1.42,0L13,10.41,18.59,16H16a1,1,0,0,0,0,2h5a1,1,0,0,0,.38-.08,1,1,0,0,0,.54-.54A1,1,0,0,0,22,17V12A1,1,0,0,0,21,11Z" />
+                                            </svg>
+                                            {{
+                                            getStatsForPercentageChange(bookingData?.lastYearAppointmentCount,bookingData?.currentYearAppointmentCount)}}%
+                                        </span>
+                                        <p class="subTxt">Since last year</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-2">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row mb-1">
+                                    <div class="col-12 py-1 flex-wrapper">
+                                        <div class="">
+                                            <p class="muted-text">
+                                                Appointments this month
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column">
+                                        <p class="count">{{ bookingData.currentMonthAppointmentCount ?? 0 }}</p>
+                                    </div>
+                                    <div class="percentage col-6">
+
+                                        <span
+                                            [ngClass]="bookingData?.lastMonthAppointmentCount === bookingData?.currentMonthAppointmentCount?'bg-same':bookingData?.lastMonthAppointmentCount > bookingData?.currentMonthAppointmentCount ? 'bg-decrease' : 'bg-increase'">
+                                            <svg *ngIf="bookingData?.lastMonthAppointmentCount === bookingData?.currentMonthAppointmentCount"
+                                                fill="#8d929c" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9.002 2.5a.75.75 0 01.691.464l6.302 15.305 2.56-6.301a.75.75 0 01.695-.468h4a.75.75 0 010 1.5h-3.495l-3.06 7.532a.75.75 0 01-1.389.004L8.997 5.21l-3.054 7.329A.75.75 0 015.25 13H.75a.75.75 0 010-1.5h4l3.558-8.538a.75.75 0 01.694-.462z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.lastMonthAppointmentCount < bookingData?.currentMonthAppointmentCount"
+                                                fill="#299617" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M20,8v2h6.5859L18,18.5859,13.707,14.293a.9994.9994,0,0,0-1.414,0L2,24.5859,3.4141,26,13,16.4141l4.293,4.2929a.9994.9994,0,0,0,1.414,0L28,11.4141V18h2V8Z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.lastMonthAppointmentCount > bookingData?.currentMonthAppointmentCount"
+                                                fill="#900603" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M21,11a1,1,0,0,0-1,1v2.59l-6.29-6.3a1,1,0,0,0-1.42,0L9,11.59,3.71,6.29A1,1,0,0,0,2.29,7.71l6,6a1,1,0,0,0,1.42,0L13,10.41,18.59,16H16a1,1,0,0,0,0,2h5a1,1,0,0,0,.38-.08,1,1,0,0,0,.54-.54A1,1,0,0,0,22,17V12A1,1,0,0,0,21,11Z" />
+                                            </svg>
+                                            {{
+                                            getStatsForPercentageChange(bookingData?.lastMonthAppointmentCount,bookingData?.currentMonthAppointmentCount)
+                                            }}%
+                                        </span>
+                                        <p class="subTxt">Since last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-2">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row mb-1">
+                                    <div class="col-12 py-1 flex-wrapper">
+                                        <div class="">
+                                            <p class="muted-text">
+                                                Appointments this week
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column">
+                                        <p class="count">{{ bookingData.currentWeekAppointmentCount ?? 0 }}</p>
+                                    </div>
+                                    <div class="percentage col-6">
+
+                                        <span
+                                            [ngClass]="bookingData?.lastWeekAppointmentCount === bookingData?.currentWeekAppointmentCount?'bg-same':bookingData?.lastWeekAppointmentCount > bookingData?.currentWeekAppointmentCount ? 'bg-decrease' : 'bg-increase'">
+                                            <svg *ngIf="bookingData?.lastWeekAppointmentCount === bookingData?.currentWeekAppointmentCount"
+                                                fill="#8d929c" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9.002 2.5a.75.75 0 01.691.464l6.302 15.305 2.56-6.301a.75.75 0 01.695-.468h4a.75.75 0 010 1.5h-3.495l-3.06 7.532a.75.75 0 01-1.389.004L8.997 5.21l-3.054 7.329A.75.75 0 015.25 13H.75a.75.75 0 010-1.5h4l3.558-8.538a.75.75 0 01.694-.462z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.lastWeekAppointmentCount < bookingData?.currentWeekAppointmentCount"
+                                                fill="#299617" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M20,8v2h6.5859L18,18.5859,13.707,14.293a.9994.9994,0,0,0-1.414,0L2,24.5859,3.4141,26,13,16.4141l4.293,4.2929a.9994.9994,0,0,0,1.414,0L28,11.4141V18h2V8Z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.lastWeekAppointmentCount > bookingData?.currentWeekAppointmentCount"
+                                                fill="#900603" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M21,11a1,1,0,0,0-1,1v2.59l-6.29-6.3a1,1,0,0,0-1.42,0L9,11.59,3.71,6.29A1,1,0,0,0,2.29,7.71l6,6a1,1,0,0,0,1.42,0L13,10.41,18.59,16H16a1,1,0,0,0,0,2h5a1,1,0,0,0,.38-.08,1,1,0,0,0,.54-.54A1,1,0,0,0,22,17V12A1,1,0,0,0,21,11Z" />
+                                            </svg>
+                                            {{
+                                            getStatsForPercentageChange(bookingData?.lastWeekAppointmentCount,bookingData?.currentWeekAppointmentCount)}}
+                                            %
+                                        </span>
+                                        <p class="subTxt">Since last week</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-2">
+                        <div class="card lead-card">
+                            <div class="card-body">
+                                <div class="row mb-1">
+                                    <div class="col-12 py-1 flex-wrapper">
+                                        <div class="">
+                                            <p class="muted-text">
+                                                Appointments today
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-wrapper row d-flex flex-row">
+                                    <div class="col-6 pb-0 d-flex flex-column">
+                                        <p class="count">{{ bookingData.todayAppointmentCount ?? 0 }}</p>
+                                    </div>
+                                    <div class="percentage col-6">
+
+                                        <span
+                                            [ngClass]="bookingData?.yesterdayAppointmentCount === bookingData?.todayAppointmentCount?'bg-same':bookingData?.yesterdayAppointmentCount > bookingData?.todayAppointmentCount ? 'bg-decrease' : 'bg-increase'">
+                                            <svg *ngIf="bookingData?.yesterdayAppointmentCount === bookingData?.todayAppointmentCount"
+                                                fill="#8d929c" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9.002 2.5a.75.75 0 01.691.464l6.302 15.305 2.56-6.301a.75.75 0 01.695-.468h4a.75.75 0 010 1.5h-3.495l-3.06 7.532a.75.75 0 01-1.389.004L8.997 5.21l-3.054 7.329A.75.75 0 015.25 13H.75a.75.75 0 010-1.5h4l3.558-8.538a.75.75 0 01.694-.462z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.yesterdayAppointmentCount < bookingData?.todayAppointmentCount"
+                                                fill="#299617" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M20,8v2h6.5859L18,18.5859,13.707,14.293a.9994.9994,0,0,0-1.414,0L2,24.5859,3.4141,26,13,16.4141l4.293,4.2929a.9994.9994,0,0,0,1.414,0L28,11.4141V18h2V8Z" />
+                                            </svg>
+                                            <svg *ngIf="bookingData?.yesterdayAppointmentCount > bookingData?.todayAppointmentCount"
+                                                fill="#900603" width="20" height="20" viewBox="0 0 30 30"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M21,11a1,1,0,0,0-1,1v2.59l-6.29-6.3a1,1,0,0,0-1.42,0L9,11.59,3.71,6.29A1,1,0,0,0,2.29,7.71l6,6a1,1,0,0,0,1.42,0L13,10.41,18.59,16H16a1,1,0,0,0,0,2h5a1,1,0,0,0,.38-.08,1,1,0,0,0,.54-.54A1,1,0,0,0,22,17V12A1,1,0,0,0,21,11Z" />
+                                            </svg>
+                                            {{
+                                            getStatsForPercentageChange(bookingData?.yesterdayAppointmentCount,bookingData?.todayAppointmentCount)}}
+                                            %
+                                        </span>
+                                        <p class="subTxt">Since yesterday</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="leads-graph" *ngIf="showHide">
+        <app-booking-history-graph [appointment]="appointment"></app-booking-history-graph>
+    </div>
+
+    <div class="lead-table" *ngIf="!showHide">
+        <app-booking-history-prime [clinicList]="clinicsForFilter" [serviceList]="servicesForFilter"
+            [providerList]="providerList" [isRefreshApiCall]="isRefreshApiCall"></app-booking-history-prime>
+    </div>
+
+</div>
+
+<ng-container *ngIf="showAppointmentModal">
+    <app-add-edit-appointment-dialog [clinics]="clinicsForFilter" [timezone]="timezone"
+        [showModal]="showAppointmentModal" (modalClosed)="closeModal($event)"
+        (afterAppointmentCreated)="afterAppointmentCreated($event)"></app-add-edit-appointment-dialog>
+</ng-container>

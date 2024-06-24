@@ -1,0 +1,89 @@
+<div class="bg-white datatable-table new-ui">
+  <div class="table-list">
+    <p-table #dt1 responsiveLayout="stack" [value]="rowData" [reorderableColumns]="true" sortField="sourceId"
+      [sortOrder]="-1" [columns]="selectedColumns" [globalFilterFields]="globalFilterColumn">
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <p-multiSelect [resetFilterOnHide]="true" [options]="columns" [(ngModel)]="selectedColumns"
+            optionLabel="header" selectedItemsLabel="{0} Columns" [style]="{ minWidth: '120px' }"
+            placeholder="Choose Columns">
+          </p-multiSelect>
+          <span class="p-input-icon-left ml-auto"><i class="pi pi-search"></i>
+            <div class="table-button">
+              <input pInputText class="search-table" type="text" (input)="
+                  dt1.filterGlobal($any($event.target).value, 'contains')
+                " placeholder="Search keyword" />
+            </div>
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <th [pSortableColumn]="col.field">
+              {{ col.header }}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </ng-container>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-data let-columns="columns">
+        <tr class="mobile-special">
+          <ng-container *ngFor="let col of columns">
+            <td>
+              <ng-container [ngSwitch]="col.field">
+                <ng-container *ngSwitchCase="'actions'">
+                  <span class="p-column-title">{{ col.header }}</span>
+                  <span>
+                    <div class="d-flex">
+                      <!-- <a
+                        href="javascript:void(0)"
+                        (click)="onActionClick('view', data)"
+                        ><i
+                          class="far fa-eye ms-text-primary"
+                          aria-hidden="true"
+                        ></i
+                      ></a> -->
+                      <a href="javascript:void(0)" (click)="onActionClick('edit', data)"><i
+                          class="fas fa-edit ms-text-primary" aria-hidden="true"></i></a>
+                    </div>
+                  </span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'recipientName'">
+                  <span>
+                    <span class="p-column-title">{{ col.header }}</span>
+                    {{ (data[col.field] && !data[col.field].includes(data['recipient'])) ? data[col.field] : '-' }}
+                  </span>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <span>
+                    <span class="p-column-title">{{ col.header }}</span>
+                    <ng-container *ngIf="
+                        col.field === 'source' || col.field === 'sourceName'
+                      ">
+                      {{
+                      data[col.field] && data[col.field] !== '-'
+                      ? data[col.field]
+                      : 'Business'
+                      }}
+                    </ng-container>
+                    <ng-container *ngIf="
+                        col.field !== 'source' && col.field !== 'sourceName'
+                      ">
+                      {{ data[col.field] ? data[col.field] : '-' }}
+                    </ng-container>
+                  </span>
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<!-- -------------------------- custom paginator --------------------------- -->
+<p-paginator [rows]="paginatorConfig.noOfRecord" [totalRecords]="totalCount" (onPageChange)="paginate($event)"
+  [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="paginatorConfig.recordArray"></p-paginator>

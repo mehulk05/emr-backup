@@ -1,0 +1,65 @@
+<div class="full-container">
+  <div>
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let slidePackage of buypacksData,let i = index">
+        <ng-template carouselSlide>
+          <div class="card">
+            <div class="row mx-5">
+              <div class="col-2"></div>
+              <div class="col-8 d-flex flex-column justify-content-between">
+                <img src="{{agencyLogoUrl}}" />
+                <small class="add-on-txt">ADD-ON</small>
+              </div>
+              <div class="col-2"></div>
+            </div>
+            <div style="background-color: #2656c9; padding: 5px 0px;">
+              <div class="d-flex justify-content-center align-items-end my-1">
+                <img class="buyLogo" *ngIf="slidePackage[0].name.split(' ')[1]==='SMS'"
+                  src="../../../../../../assets/images/sms_logo.png" />
+                <img class="buyLogo" *ngIf="slidePackage[0].name.split(' ')[1]==='SMS+Emails'"
+                  src="../../../../../../assets/images/email_sms_logo.png" />
+                <img class="buyLogo" *ngIf="slidePackage[0].name.split(' ')[1]==='Emails'"
+                  src="../../../../../../assets/images/email_logo.png" />
+              </div>
+              <div class="d-flex justify-content-center align-items-center">
+                <p class="align-text-center text-white">{{slidePackage[0].name.split(' ')[1]|uppercase}}</p>
+              </div>
+            </div>
+            <buy-row *ngIf="i===0" [package]="{name:'1000 SMS', goto:'free'}"></buy-row>
+            <buy-row *ngIf="i===1" [package]="{name:'1000 SMS+Emails', goto:'free'}"></buy-row>
+            <buy-row *ngIf="i===2" [package]="{name:'1000 Emails', goto:'free'}"></buy-row>
+            <ng-container *ngFor="let package of slidePackage">
+              <buy-row [package]="package" (callOnBuy)="callOnBuy($event)"></buy-row>
+            </ng-container>
+            <buy-row *ngIf="i===0" [package]="{name:'10K+ SMS', goto:'contact us'}"
+              (callOnBuy)="callOnBuy($event)"></buy-row>
+            <buy-row *ngIf="i===1" [package]="{name:'10K+ SMS+Emails', goto:'contact us'}"
+              (callOnBuy)="callOnBuy($event)"></buy-row>
+            <buy-row *ngIf="i===2" [package]="{name:'10K+ Emails', goto:'contact us'}"
+              (callOnBuy)="callOnBuy($event)"></buy-row>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-template carouselSlide></ng-template>
+    </owl-carousel-o>
+
+    <div class="buy-pack-modal editTitleModal dialog-new-v1 dialog-with-close-icon">
+      <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+        [style]="{width: '50vw', padding: 0}" [(visible)]="showStripeComponent" [closable]="false">
+
+        <!-- ---------------------------- image cropper ---------------------------- -->
+        <app-pachage-payment [package]="selectedPack" (afteronPaymentSuccess)="onPaymentSuccess()"
+          (afteronPaymentCancel)="onPaymentCancel()"></app-pachage-payment>
+
+
+        <!-- ------------------------- Image cropper ends -------------------------- -->
+        <!-- <ng-template pTemplate="footer">
+          <div class="modal-footer-section pt-1 pr-1">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onPaymentCancel()">
+              Cancel</button>
+          </div>
+        </ng-template> -->
+      </p-dialog>
+    </div>
+  </div>
+</div>

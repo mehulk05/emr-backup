@@ -1,0 +1,19 @@
+.field-value {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.field-value i{
+  cursor: pointer;
+}
+
+.error-class{
+  border: 1px solid red;
+}
+
+.field-value input{
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 10px;
+}

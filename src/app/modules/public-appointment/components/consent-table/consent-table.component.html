@@ -1,0 +1,28 @@
+<div class="bg-white datatable-table" >
+  <div class="title">
+    <h3>Please complete the below Consents </h3>
+  </div>
+  <div class="panel-card">
+    <div class="box" *ngFor="let item of consents">
+      <div class="item-wrapper">
+        <div class="label-item">
+          {{item?.consent.name}}
+        </div>
+
+        <div class="action">
+          <a *ngIf="item?.appointmentConsentStatus !== null && item?.appointmentConsentStatus !== 'Pending'"
+            href="javascript:void(0)" title="Sign" style="margin-left: 5px;">
+            Completed
+
+          </a>
+
+          <a *ngIf="item?.appointmentConsentStatus !== null && item?.appointmentConsentStatus === 'Pending'"
+            href="javascript:void(0)" (click)="showSignedConsent(item)" title="Sign" style="margin-left: 5px;">
+            Sign Now
+            <i class="fa fa-edit"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

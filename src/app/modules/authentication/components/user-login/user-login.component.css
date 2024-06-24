@@ -1,0 +1,191 @@
+p.label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: #3c4257;
+}
+
+.label.forgot {
+    color: #009EDE;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.label.forgot:hover {
+    color: #3c4257;
+}
+
+p.stay {
+    margin-bottom: 28px;
+    color: #3c4257;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.title {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 600;
+    color: #3c4257;
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+.input {
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+input.form-control.ng-touched.ng-invalid {
+    background: rgba(255, 64, 64, 0.2);
+    border: 1px solid #FF4040;
+}
+.input-field {
+    margin-bottom: 20px;
+}
+
+.login {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background: #f7fafc;
+}
+
+.top-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 33;
+    justify-content: center;
+}
+
+
+/* .center-content {
+  border: 1px solid black;
+} */
+
+.center-content .logo {
+    margin-bottom: 34px;
+    margin-top: 2em;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+
+}
+
+.main-box {
+    width: 540px;
+    padding: 48px 68px 72px;
+    background: #fff;
+    box-shadow: 0px 15px 35px 0px #3c425714, 0px 5px 15px 0px #0000001f;
+    border-radius: 4px;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stay-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 6px;
+    margin-bottom: 28px;
+}
+
+.stay-row p {
+    margin-bottom: 0;
+}
+
+.btn-save-new {
+    width: 100%;
+    padding: 10px 0;
+    color: white;
+    border: none;
+    font-weight: 500;
+}
+
+.link-new{
+  font-size: 14px;
+}
+.no-account {
+    margin-top: 16px;
+}
+
+.footer {
+    width: 100%;
+    padding: 50px;
+    display: flex;
+    column-gap: 7px;
+    justify-content: flex-end;
+    justify-self: flex-end;
+}
+
+.footer p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c4257;
+}
+
+span.show-hide {
+    position: absolute;
+    top: 10px;
+    right: 1em;
+    cursor: pointer;
+}
+
+.show-hide .fa {
+    font-weight: 600;
+}
+
+@media screen and (max-width: 480px) {
+    .login-footer {
+        justify-content: center;
+    }
+    .login-footer p {
+        display: none;
+    }
+    .login-footer .no-account {
+        display: inline-block;
+    }
+    .main-box {
+        width: auto;
+        padding: 46px 25px;
+        margin: 0 28px;
+    }
+    .logo-row {
+        position: absolute;
+        top: 25px;
+        width: 100%;
+        padding: 0 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .center-content .logo {
+        width: 75%;
+        text-align: center;
+        margin: 1em auto;
+        display: flex;
+        margin-bottom: 2em;
+    }
+    .logo-row .login-title {
+        display: inline-block;
+        font-size: 18px;
+        margin: 0;
+    }
+    .main-box .login-title {
+        display: none;
+    }
+}

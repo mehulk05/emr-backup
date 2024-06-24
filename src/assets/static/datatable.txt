@@ -1,0 +1,157 @@
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { AuthService } from 'src/app/modules/authentication/services/auth.service';
+import { UserAppointmentData } from '../../model/userAppointmentData';
+import { UserProfileService } from '../../services/user-profile.service';
+
+@Component({
+  selector: 'app-user-appointment',
+  templateUrl: './user-appointment.component.html',
+  styleUrls: ['./user-appointment.component.css']
+})
+export class UserAppointmentComponent implements OnInit, AfterViewInit {
+  @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {
+    columns: [
+      { data: 'Id' },
+      { data: 'Patient' },
+      { data: 'Clinic' },
+      { data: 'Provider' },
+      { data: 'Type' },
+      { data: 'Appointment Date' },
+      { data: 'Payment Status' },
+      { data: 'Appointment Status' },
+      { data: 'Created Date' },
+      { data: 'Actions' }
+    ]
+  };
+  dtTrigger: Subject<any> = new Subject();
+  rowData: UserAppointmentData[] = [];
+  columns = [
+    { value: 'Id', isChecked: true },
+    { value: 'Patient', isChecked: true },
+    { value: 'Clinic', isChecked: true },
+    { value: 'Provider', isChecked: true },
+    { value: 'Type', isChecked: true },
+    { value: 'Appointment Date', isChecked: true },
+    { value: 'Payment Status', isChecked: true },
+    { value: 'Appointment Status', isChecked: true },
+    { value: 'Created Date', isChecked: true },
+    { value: 'Actions', isChecked: true }
+  ];
+  userId: any;
+  isDtInitialized: boolean = false;
+  tableHtml: any;
+  constructor(
+    private authService: AuthService,
+    private userService: UserProfileService
+  ) {}
+
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
+    this.authService.currentUserSubject.subscribe((data) => {
+      this.userId = data.id;
+      this.loadAppointment(data.id);
+    });
+  }
+
+  loadAppointment(userId: any) {
+    this.userService
+      .getProvidersAppointmentOptimized(userId)
+      .then((data: any) => {
+
+        this.rowData = data;
+        this.setViewOfData()
+      //  this.rerender()
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  showColumns(c: { isChecked: any; value: any }) {
+    console.log(c);
+    if (c.isChecked) {
+      this.onColSelect(c.value);
+    } else {
+      this.onColDeSelect(c.value);
+    }
+  }
+
+  onColDeSelect(colDeselected: any) {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      for (var i = 0; i < this.columns.length; i++) {
+        if (this.columns[i].value == colDeselected) {
+          dtInstance.column(i).visible(false, false);
+          break;
+        }
+      }
+      dtInstance.columns.adjust().draw(false);
+    });
+  }
+
+  onColSelect = (colSelected: any) => {
+    console.log(this.dtElement);
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      console.log(dtInstance);
+      for (var i = 0; i < this.columns.length; i++) {
+        if (this.columns[i].value == colSelected) {
+          dtInstance.column(i).visible(true, false);
+          break;
+        }
+      }
+      dtInstance.columns.adjust().draw(false);
+    });
+  };
+
+  editAppointment(id: Number) {}
+
+  deleteAppointmentModal(data: any) {
+    this.userService.deleteAppointment(data.id).then(
+      () => {
+        this.rowData = []
+        this.loadAppointment(this.userId);
+      },
+      () => {}
+    );
+  }
+
+  ngAfterViewInit(): void {
+    this.tableHtml = $('.table-header').remove();
+  }
+
+  setViewOfData(){
+
+    console.log(this.tableHtml);
+    setTimeout(() => {
+      console.log($('#datatable_wrapper .row').length);
+      $('.dataTables_wrapper .row:nth-child(1) .col-sm-12:nth-child(2)').append(
+        this.tableHtml
+      );
+    }, 100);
+  }
+
+  // setDataTable() {
+  //   if (this.isDtInitialized) {
+  //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //       dtInstance.destroy();
+  //       this.dtTrigger.next();
+  //     });
+  //   } else {
+  //     this.isDtInitialized = true;
+  //     this.dtTrigger.next();
+  //   }
+  // }
+
+  // rerender(): void {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     dtInstance.destroy();
+  //     this.dtTrigger.next();
+  //   });
+  // }
+}

@@ -1,0 +1,181 @@
+.btn-small {
+  font-size: 12px !important;
+  padding: 7px 4px 5px !important;
+  text-transform: capitalize;
+}
+
+.lg-mr-1 {
+  margin-right: 10px;
+}
+
+.header-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-blue {
+  padding: 1em;
+}
+
+
+.button-flex {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.form-group-flex {
+  display: flex;
+  margin-top: 1em;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.form-group-flex .input-element {
+  max-width: 48%;
+}
+
+img {
+  max-width: 100%;
+  margin-bottom: 1em;
+}
+
+
+.section-class {
+  margin-bottom: 2em;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.section3 .form-group-flex {
+  padding-right: 2em;
+}
+
+.section2 .input-element {
+  max-width: 100%;
+}
+
+
+table th {
+  font-size: 14px;
+  padding: 10px !important;
+  border-right: 1px solid rgb(222, 226, 230);
+  border-left: 1px solid rgb(222, 226, 230);
+}
+
+table tr td {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.table>:not(:first-child) {
+  border-top: 1px solid gainsboro;
+}
+
+td input {
+  max-width: 80%;
+  display: inline;
+}
+
+.submitAmount .fas {
+  border-radius: 50%;
+  background: rgb(18 255 5 / 16%);
+  height: 35px;
+  width: 35px;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  padding-top: 9px;
+  padding-left: 1px;
+  color: green;
+  margin-left: 1em;
+}
+
+.error-block {
+  color: red;
+}
+
+.invoice-section {
+  margin-top: 2em;
+}
+
+@media print {
+  body,
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    /* Chrome, Safari */
+    color-adjust: exact !important;
+    /*Firefox*/
+  }
+  .right-btn.button-flex,
+  i.fas.fa-edit.ms-text-primary,
+  .ms-text-danger,
+  .action{
+    display: none;
+  }
+
+}
+
+* {
+  outline: none;
+  color-adjust: exact;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact;
+}
+
+ul li {
+  border-bottom: 1px solid gray;
+}
+
+button.btn-borders {
+  background: #fff;
+  border: none;
+  padding: 7px 5px;
+  font-size: 14px;
+  font-weight: 600;
+  /* border-bottom: 1px solid gainsboro; */
+  width: 100%;
+  color: #009EDE;
+}
+
+.dropdown {
+  display: none;
+}
+.form-control.input-element {
+  font-size: 13px;
+  font-weight: 500;
+}
+@media screen and (max-width:1024px) {
+  .form-group-flex .input-element {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width:767px) {
+
+  .right-btn {
+    display: none;
+  }
+
+  .dropdown {
+    display: block;
+  }
+
+  .form-group-flex .input-element {
+    max-width: 100%;
+  }
+
+  label {
+    min-width: 50px;
+  }
+}

@@ -1,0 +1,57 @@
+<div class="tab-view new-ui">
+
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Business Profile">
+      <app-business-profile *ngIf="source === 'profile'" [loggedInUser]="loggedInUser" [businessInfo]="businessInfo"></app-business-profile>
+    </p-tabPanel>
+    <!-- <p-tabPanel header="Configuration">
+      <app-business-configuration [businessInfo]="businessInfo"></app-business-configuration>
+    </p-tabPanel>
+       <p-tabPanel header="Tracking code">
+      <app-tracking-code [businessInfo]="businessInfo"></app-tracking-code>
+    </p-tabPanel>
+    <p-tabPanel header="Subdomain">
+      <app-subdomain-config [businessInfo]="businessInfo"></app-subdomain-config>
+    </p-tabPanel>-->
+
+    <!-- <p-tabPanel header="Refund Policy">
+      <app-refund-policy [businessInfo]="businessInfo" [loggedInUser]="loggedInUser"></app-refund-policy>
+    </p-tabPanel> -->
+
+
+
+    <p-tabPanel header="Personalization">
+      <app-business-personalization *ngIf="source === 'personalization'"></app-business-personalization>
+    </p-tabPanel>
+
+    <!-- <p-tabPanel header="Data Studio">
+      <app-data-studio [businessInfo]="businessInfo"></app-data-studio>
+    </p-tabPanel>
+
+    <p-tabPanel header="Paid Media">
+      <app-paid-media [businessInfo]="businessInfo"></app-paid-media>
+    </p-tabPanel>
+
+    <p-tabPanel header="Syndication Report">
+      <app-syndication-multiple-reports [businessInfo]="businessInfo"></app-syndication-multiple-reports>
+    </p-tabPanel> -->
+
+    <p-tabPanel header="Email/SMS Audit">
+      <app-email-sms-audit *ngIf="source === 'audit'" [businessInfo]="businessInfo" [loggedInUser]=" loggedInUser"></app-email-sms-audit>
+    </p-tabPanel>
+
+    <!-- <p-tabPanel header="Account Control" *ngIf="businessInfo">
+      <account-control [businessInfo]="businessInfo"></account-control>
+    </p-tabPanel> -->
+     <!-- Functionality not working so commenting -->
+
+    <p-tabPanel header="Business Account">
+      <app-business-form-integration *ngIf="source === 'business-account'"></app-business-form-integration>
+    </p-tabPanel>
+
+    <p-tabPanel header="Opted Out Email List" *ngIf="businessInfo">
+      <app-optedout-records *ngIf="source === 'opt-out-list'" [businessInfo]="businessInfo"></app-optedout-records>
+    </p-tabPanel>
+
+  </p-tabView>
+</div>

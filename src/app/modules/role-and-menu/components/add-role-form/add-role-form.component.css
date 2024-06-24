@@ -1,0 +1,64 @@
+.panel-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .role-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .role-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .chip {
+    background-color: #e0e0e0;
+    border-radius: 16px;
+    padding: 5px 10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-regular {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  .btn-extra-small {
+    font-size: 12px;
+  }
+  
+  .btn-cancel {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .custom-role-button {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  

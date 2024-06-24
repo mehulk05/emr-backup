@@ -1,0 +1,57 @@
+<div class="templates-dialog">
+  <p-dialog [header]="'My Templates'" [(visible)]="showModal" [modal]="true"
+    [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }" [style]="{ width: '40vw' }"
+    [baseZIndex]="10000" [draggable]="false" (onHide)="hideModal()" [resizable]="false">
+    <ng-template pTemplate="header">
+      <div class="custom-modal-header mx-2">
+        <div class="module-name-text">
+          {{ moduleName ? moduleName : 'My' }} Templates
+        </div>
+        <div class="search-container">
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input type="text" class="form-control input-type2" placeholder="Search Template"
+            (input)="filterTemplates($event)" />
+        </div>
+      </div>
+    </ng-template>
+    <div class="ms-panel no-shadow">
+      <div class="custom-modal ms-panel custom-blue">
+        <div class="ms-panel-body p-4">
+          <ng-container *ngFor="let template of filteredTemplates">
+            <div class="template-card mb-2 py-2 px-3 bg-white" [class.selected]="selectedTemplateId === template.id"
+              (click)="selectTemplateId(template.id)">
+              <div class="template-name mb-2 f-16 fw-500">
+                {{ template.name }}
+              </div>
+              <div class="template-body py-2 px-3 f-14 fw-400" [innerHtml]="template.body | safeHtml"></div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="custom-modal-footer">
+        <div class="template-btn-wrapper">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" class="btn-save-new btn-small-new" (click)="selectTemplateMessage()"
+                [disabled]="!selectedTemplateId">
+                Select Template
+              </button>
+            </div>
+
+            <div>
+              <button type="button" class="btn-small-new btn-default-new" (click)="hideModal()">
+                Close
+              </button>
+            </div>
+          </div>
+          <div>
+            {{selectedTemplate?.body.length||0}} Characters
+          </div>
+
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

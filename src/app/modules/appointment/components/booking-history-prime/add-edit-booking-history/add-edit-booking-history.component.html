@@ -1,0 +1,298 @@
+<div class="appointment-container mt-2">
+    <div class="edit-appointment-heading ml-3">Edit Appointment</div>
+    <div class="button-container">
+        <button type="button" class="btn-save-new">
+            <span class="btn-text" (click)="goToPatientDetails()">Go to Patient details</span>
+        </button>
+        <ng-container *ngIf="appointmentData?.appointmentStatus !== 'Canceled'">
+            <button type="button" class="btn-default-del mr-2">
+                <span class="btn-text" (click)="cancelConfirmVisible = true"> Cancel Appointment</span>
+            </button>
+        </ng-container>
+    </div>
+</div>
+<div class="bg-white new-ui">
+    <div class="add-edit-form">
+        <div class="form form-type2">
+            <form [formGroup]="appointmentForm">
+                <div class="row mx-0">
+                    <!-- -------------------------- First Name feild --------------------------- -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.firstName.invalid && ((f.firstName.dirty || f.firstName.touched))?'has-error':''">
+                            <label>First Name<span class="error-red">*</span></label>
+                            <input type="text" class="form-control input-type2" formControlName="firstName"
+                                appErrorStylingDirective>
+                            <div class="error error-msg">
+                                <div *ngIf="f.firstName.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is
+                                    required.
+                                </div>
+                                <div *ngIf="f.firstName.errors?.pattern">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> First Name is invalid.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- --------------------------- Last Name feild --------------------------- -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.lastName.invalid && ((f.lastName.dirty || f.lastName.touched))?'has-error':''">
+                            <label>Last Name<span class="error-red">*</span></label>
+                            <input type="text" class="form-control input-type2" formControlName="lastName"
+                                appErrorStylingDirective>
+                            <div class="error error-msg">
+                                <div *ngIf="f.lastName.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is required.
+                                </div>
+                                <div *ngIf="f.lastName.errors?.pattern">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Last Name is invalid.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ----------------------------- Email Feild ----------------------------- -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.email.invalid && ((f.email.dirty || f.email.touched))?'has-error':''">
+                            <label>Email Address<span class="error-red">*</span></label>
+                            <input type="text" class="form-control input-type2" formControlName="email"
+                                appErrorStylingDirective>
+                            <div class="error error-msg">
+                                <div *ngIf="f.email.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is required.
+                                </div>
+                                <div *ngIf="f.email.errors?.pattern">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email address is invalid.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ------------------------- Phone number field -------------------------- -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.phone.invalid && ((f.phone.dirty || f.phone.touched))?'has-error':''">
+                            <label>Phone Number<span class="error-red">*</span></label>
+                            <input type="text" class="form-control input-type2" formControlName="phone"
+                                appErrorStylingDirective>
+                            <div class="error error-msg">
+                                <div *ngIf="f.phone.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is
+                                    required.
+                                </div>
+                                <div *ngIf="f.phone.errors?.pattern">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Phone Number is
+                                    invalid.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ------------------------- Clinic Feild Start -------------------------- -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.clinicId.invalid && ((f.clinicId.dirty || f.clinicId.touched))?'has-error':''">
+                            <label>Select your Clinic<span class="error-red">*</span></label>
+                            <!-- <input type="text" class="form-control input-type2" formControlName="clinicId" appErrorStylingDirective> -->
+                            <p-dropdown [options]="clinics" formControlName="clinicId" [filter]="true" filterBy="name"
+                                placeholder="Select Clinic" optionLabel="name" optionValue="id"
+                                (onChange)="getClinicServices($event)">
+                                <ng-template let-item pTemplate="clinics">
+                                    {{item.name}}
+                                </ng-template>
+                            </p-dropdown>
+                            <div class="error error-msg">
+                                <div *ngIf="f.clinicId.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clinic is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ------------------------- Service Feild Start ------------------------- -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.serviceIds.invalid && ((f.serviceIds.dirty || f.serviceIds.touched))?'has-error':''">
+                            <label>Select your Services<span class="error-red">*</span></label>
+                            <p-multiSelect [resetFilterOnHide]="true" [options]="servicesList"
+                                formControlName="serviceIds" optionLabel="name" optionValue="id" display="chip">
+                            </p-multiSelect>
+                            <!-- <input type="text" class="form-control input-type2" formControlName="serviceIds" appErrorStylingDirective> -->
+                            <div class="error error-msg">
+                                <div *ngIf="f.serviceIds.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Services are required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- --------------------------- Provider Field ---------------------------- -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.providerId.invalid && ((f.providerId.dirty || f.providerId.touched))?'has-error':''">
+                            <label>Select Your Provider<span class="error-red">*</span></label>
+                            <!-- <input type="text" class="form-control input-type2" formControlName="providerId" appErrorStylingDirective> -->
+                            <p-dropdown [options]="providers" formControlName="providerId" [filter]="true"
+                                filterBy="fullName" placeholder="Select Provider" optionLabel="fullName"
+                                optionValue="id">
+                                <ng-template let-item pTemplate="providers">
+                                    {{item.fullName}}
+                                </ng-template>
+                            </p-dropdown>
+                            <div class="error error-msg">
+                                <div *ngIf="f.providerId.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Provider is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ------------------------- Appointment Status -------------------------- -->
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.appointmentType.invalid && ((f.appointmentConfirmationStatus.dirty || f.appointmentConfirmationStatus.touched))?'has-error':''">
+                            <label>Select Appointment Status<span class="error-red">*</span></label>
+                            <p-dropdown [options]="appointmentStatus" formControlName="appointmentConfirmationStatus"
+                                placeholder="Select a City">
+                                <ng-template let-item pTemplate="appointmentStatus">
+                                    {{item}}
+                                </ng-template>
+                            </p-dropdown>
+                            <div class="error error-msg">
+                                <div *ngIf="f.appointmentConfirmationStatus.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Status is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ----------------------------- Date field ------------------------------ -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.date.invalid && ((f.date.dirty || f.date.touched))?'has-error':''">
+                            <label>Select Appointment Date<span class="error-red">*</span></label>
+                            <p-calendar (onSelect)="onDateSelect()" formControlName="date" [minDate]="calendarMinDate"
+                                [maxDate]="calendarMaxDate" [showIcon]="true" [showButtonBar]="true"
+                                inputId="min-max"></p-calendar>
+                            <!-- <input type="text" class="form-control input-type2" formControlName="date" appErrorStylingDirective> -->
+                            <div class="error error-msg">
+                                <div *ngIf="f.date.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Date is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ----------------------------- TIme feild ------------------------------ -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.time.invalid && ((f.time.dirty || f.time.touched))?'has-error':''">
+                            <label>Select Appointment Time<span class="error-red">*</span></label>
+                            <!-- <input type="text" class="form-control input-type2" formControlName="time" appErrorStylingDirective> -->
+                            <p-dropdown [options]="availableTimes" bindl formControlName="time"
+                                placeholder="Select TimeSlot" optionLabel="label" optionValue="value">
+                                <ng-template let-item pTemplate="availableTimes">
+                                    {{item.label}}
+                                </ng-template>
+                            </p-dropdown>
+                            <div class="error error-msg">
+                                <div *ngIf="f.time.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Time is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- -------------------------- Appointment Mode --------------------------- -->
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.appointmentType.invalid && ((f.appointmentType.dirty || f.appointmentType.touched))?'has-error':''">
+                            <label>Select Appointment Mode<span class="error-red">*</span></label>
+                            <div class="col-sm-12" *ngIf="isEnabledInPersonAppointment()">
+                                <input type="radio" value="InPerson" formControlName="appointmentType">
+                                <label for="name" style="padding-left: 0.5rem">In Person</label>
+                            </div>
+                            <div class="col-sm-12" *ngIf="isEnabledVirtualConsulatation()">
+                                <input type="radio" value="Virtual" formControlName="appointmentType">
+                                <label for="name" style="padding-left: 0.5rem">Virtual</label>
+                            </div>
+
+                            <div class="error"
+                                *ngIf="f.appointmentType.invalid && ((f.appointmentType.dirty || f.appointmentType.touched))">
+                                <div *ngIf="f.appointmentType.errors?.required">
+                                    Select appointment type.
+                                </div>
+                            </div>
+
+                            <div class="error error-msg">
+                                <div *ngIf="f.appointmentType.errors?.required">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Appointment Mode is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ---------------------------- notes section ---------------------------- -->
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group"
+                            [ngClass]="f.notes.invalid && ((f.notes.dirty || f.notes.touched))?'has-error':''">
+                            <label>{{notesLabel}}</label>
+                            <textarea rows="3" cols="80" class="form-control textarea" formControlName="notes"
+                                appErrorStylingDirective></textarea>
+                        </div>
+                    </div>
+
+                    <!-- --------------------------- buttons section --------------------------- -->
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <div class="button-flex">
+                                <button type="button" class="btn-save-new btn-small-new"
+                                    [disabled]="!appointmentForm.valid" (click)="submitForm()">Save</button>
+                                <button type="button" class="btn-small-new btn-default-new"
+                                    (click)="cancelAppointChanges()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ------------------------- div class row ends -------------------------- -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog [header]="'Confirmation'" [(visible)]="cancelConfirmVisible" [modal]="true" [breakpoints]="{'550px': '18vw'}"
+    [style]="{width: '50vw', height: '18vw'}" [baseZIndex]="10020" [draggable]="false" [resizable]="false"
+    (onHide)="cancelConfirmVisible=false">
+    <!-- Modal body -->
+    <div class="body-section add-edit-form custom">
+        <div class="bg-white">
+            <div class="page-wrapper">
+                <div class="main-section">
+
+                    <h5>Are you sure you want to cancel an Appointment?</h5>
+
+                </div>
+
+                <div class="mt-4">
+                    <button type="button" class="btn btn-save mr-3" data-dismiss="modal"
+                        (click)="cancelAppointments()">Proceed</button>
+                    <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal"
+                        (click)="cancelConfirmVisible=false">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</p-dialog>

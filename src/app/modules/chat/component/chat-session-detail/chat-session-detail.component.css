@@ -1,0 +1,50 @@
+.ms-chat-text p {
+  padding: 0.7rem 1rem;
+  margin: 0;
+  box-shadow: 0 3px 10px -3px rgb(0 0 0 / 21%);
+  background-color: #fff;
+  color: #000;
+  transition: all .15s ease-in-out;
+  border-radius: 15px;
+  word-break: break-word;
+  font-size: 14px;
+}
+
+.ms-chat-outgoing p {
+  background-color: #009ede;
+  color:#fff
+}
+
+.chat-message{
+  display: flex;
+
+}
+
+.ms-chat-outgoing{
+  justify-content: flex-end;
+  margin-right: 1em;
+}
+.ms-chat-incoming{
+  margin-left: 1em;
+}
+
+.ms-chat-incoming p:first-child {
+  border-top-left-radius: 0;
+}
+
+.ms-chat-outgoing p:first-child {
+  border-bottom-right-radius: 0;
+}
+
+.panel-body{
+  background-color: rgba(245,248,251,.97);
+  background-image: linear-gradient(-180deg,#eceff3,#fefeff);
+  transition: all .25s ease-in-out;
+}
+
+@media screen and (max-width:767px) {
+
+  .chat-message{
+    margin-bottom: 2em;
+  }
+}

@@ -1,0 +1,43 @@
+<div class="timeline">
+    <ng-container *ngIf="showPreviewModal">
+      <app-preview-email-sms-template [modalData]="patientEmailData" [showModal]="showPreviewModal"
+        (modalClosed)="onCloseModal()"></app-preview-email-sms-template>
+    </ng-container>
+  
+  
+  
+    <div class="wrapper">
+      <div class="center-line">
+        <a href="javascript:void(0)" class="scroll-icon"><i class="fas fa-caret-up"></i></a>
+      </div>
+      <ng-container *ngFor="let data of patientTimelineData;let i=index">
+        <div class="row" [ngClass]="i%2===0 ? 'row-1' : 'row-2'">
+          <section class="panel-blue">
+            <i class="icon fa fa-envelope"></i>
+            <div class="details">
+              <div class="date-time">{{formatTime(data.createdDateTime)}}, {{formatTime1(data.createdDateTime)| date : 'hh:mm a'}}</div>
+              <span class="type"> {{data.type}}</span>
+              <div class="title">{{data.name}}</div>
+              <div *ngIf="data.email" class="title">{{data.email}}</div>
+            <div *ngIf="data.phoneNumber" class="title">{{data.phoneNumber}}</div>
+            </div>
+  
+            <div class="bottom">
+              <ng-container *ngIf="data.type !== 'TASK'">
+                <button class="save-color-btn" (click)="getEmail(data.id)">
+                    View Template
+                </button>
+              </ng-container>
+              <ng-container *ngIf="data.type === 'TASK'">
+                <button class="save-color-btn">
+                  <a routerLink="/tasks/{{data.contentId}}/edit"
+                  style="color: #fff; font-size: 14px;font-weight: 600;">View Details</a>
+                </button>
+              </ng-container>
+            </div>
+          </section>
+        </div>
+      </ng-container>
+  
+    </div>
+  

@@ -1,0 +1,45 @@
+<p-dialog [header]="'Tags'" [(visible)]="showLeadTagModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '30vw', height: '300px'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" (onHide)="hideModal()">
+
+  <!-- Modal body -->
+  <div class="body-section">
+      <label>Select the Tags</label><span style="color: red;">*</span>
+      <div class="row">
+        <div class="form-group" style="display: flex; padding-left: 0;">
+          <span style="width: 90%">
+            <p-multiSelect [resetFilterOnHide]="true"  [options]="tags" defaultLabel="Select the Tags" optionLabel="name"
+              name="tagId" [style]="{'width':'100%'}" display="chip" optionValue="id"
+              (onChange)="onTagSelect($event)" [(ngModel)]="selectedTag" appendTo="body">
+            </p-multiSelect>
+          </span>
+        </div>
+        <!-- <div class="error error-msg">
+          <div *ngIf="tagSelect">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            Lead tag is required.
+          </div>
+        </div> -->
+</div>
+  </div>
+
+  <!-- Modal footer -->
+  <!-- <ng-template pTemplate="footer">
+    <div class="modal-footer-section">
+      <button type=" button" class="btn btn-danger" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="hideModal('submit')" [disabled]="!tagSelect">Submit</button>
+    </div>
+  </ng-template> -->
+  <ng-template pTemplate="footer">
+    <div class="input-wrapper mt-2">
+      <div class="form-group">
+        <div class="button-order">
+          <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal"
+            (click)="hideModal('submit')" [disabled]="!tagSelect">Save</button>
+          <button type="button" class="btn-default-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+

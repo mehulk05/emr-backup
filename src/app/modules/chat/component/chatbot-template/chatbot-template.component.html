@@ -1,0 +1,83 @@
+<div class="chatbotTemplate">
+  <div class="chat-templates defaultChatbotTemplate">
+
+    <div class="row mx-0">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="chatcode">
+            <div class="panel-blue">
+              <div class="panel-header">
+                <h3>Default Chatbot</h3>
+              </div>
+              <div class="panel-body">
+                <div class="chatbotDefaultCode">
+                  <iframe [src]="defaultChatbot?.previewIframeUrl | safeUrl"></iframe>
+              </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 border-left" style="padding-top: 10px;">
+          <div class="instructions">
+              <div class="chatbot-header">
+                  <h4>Configuration Instructions</h4>
+              </div>
+
+              <div class="chatcode">
+                  <div class="preview-card code-new">
+                    <div class="panel-blue" >
+                      <div class="panel-header">
+                        <h3>Website Integration</h3>
+                      </div>
+
+                      <div class="panel-body">
+                        <p class="my-0">You can embed the following html code on your website for chatbot.</p>
+                        <div class="no-border">
+                          <app-url-preview [iframeUrl]="chatEmbededCode" [previewUrl]="defaultChatbot?.appPreviewUrl"></app-url-preview>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="available-button">
+            <p> {{allowAvailbaleTemplates ?  'To hide the below templates' : 'To view more templates'}}  ?  <a href="javascript:void(0)" (click)="allowAvailbaleTemplates=!allowAvailbaleTemplates">click here</a></p>
+
+          </div>
+
+
+      </div>
+  </div>
+  </div>
+  <div class="availableTemplates" *ngIf="allowAvailbaleTemplates">
+    <div class="chatbot-header">
+        <h4>Select your ChatBot Template</h4>
+    </div>
+    <div class="row mx-0" id="centered">
+        <ng-container *ngFor="let template of chatbotTemplate;let i = index">
+            <div class="col-lg-4 col-md-6 col-sm-12 div-margin">
+                <iframe [src]="template?.previewIframeUrl | safeUrl"></iframe>
+
+                <div class="chatcode">
+
+
+                    <div class="code-footer">
+                        <button class="btn btn-code btn-primary-border" (click)="makeDefaultChatbot(template)">
+                            <a href="javascript:void(0)" >
+                                <i class="fa fa-bookmark-o"></i>
+                            </a> Make Default
+                        </button>
+                        <button class="btn btn-code btn-primary-border" (click)="previewChatBot(template)">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>Preview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+  </div>
+</div>
+

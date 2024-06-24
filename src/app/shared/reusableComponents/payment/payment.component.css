@@ -1,0 +1,28 @@
+.stripe-page{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.example.example1 {
+  background-color: #fff;
+  padding: 30px 20px 20px;
+  border: 1px dashed #dcdcdc;
+  color: #000;
+  max-width: 90%;
+  margin: 0 auto;
+  margin-top: 1em;
+}
+
+.panel-blue{
+  padding: 1em;
+}
+
+
+.button-flex{
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+

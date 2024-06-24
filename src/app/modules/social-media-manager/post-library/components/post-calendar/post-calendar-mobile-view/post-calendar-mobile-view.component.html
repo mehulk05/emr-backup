@@ -1,0 +1,143 @@
+<div class="calendar-mobile">
+
+  <div class="form-group">
+    <p-calendar [inline]="true" selectionMode="range" appendTo="body" (onSelect)="onDateSelect($event)"
+     [showIcon]="true" inputId="min-max"></p-calendar>
+  </div>
+
+  <div class="add-btn">
+    <div class="table-btn-wrapper">
+      <span class="icon"> <i class="fa fa-plus"></i>
+        <a href="javascript:void(0);" (click)="addPost()"> Add Post</a></span>
+    </div>
+  </div>
+
+<!-- ---------------------------- Upcoming post ---------------------------- -->
+  <div class="card">
+    <p-tabView (onChange)="handleChange($event)">
+      <p-tabPanel header="Upcoming">
+        <ng-container *ngIf="!isEmptyObject(groupedUpComingPostsObj); else other_content">
+          <div class="appointment-events">
+            <div class="" *ngFor="let item of groupedUpComingPostsObj | keyvalue:keyDescOrder">
+              <h4>
+                {{item?.key | date:'MMM d, y'}}
+              </h4>
+              <div class="appointment-card" *ngFor="let apt of item.value">
+                <!-- wrapper is used so that left border can be applied according to design -->
+                <div class="wrapper">
+                  <div class="details">
+                    <p class="name">{{apt?.post ?? apt?.hashtag}}</p>
+                    <p class="status">
+                      <b> Status : </b>
+                      <span [ngClass]="apt?.approved ? 'approved' : 'pending'">
+                        {{apt?.approved ? 'Approved' : 'Pending'}}
+                      </span>
+                    </p>
+                    <p class="time-slot">{{formatTime(apt?.scheduledDate)| date: "hh:mm a" }}</p>
+
+                  </div>
+                  <div class="date-wrapper">
+                    <div class="date-container">
+                      <p class="text-white font-bold">{{apt?.scheduledDate | date:'dd'}}</p>
+                    </div>
+                    <p class="edit-icon" (click)="editPost(apt)"><i class="fa fa-edit"></i></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+      </p-tabPanel>
+
+      <!-- -------------------------- Past Appointment --------------------------- -->
+      <p-tabPanel header="Past">
+        <ng-container *ngIf="!isEmptyObject(groupedUpComingPostsObj); else other_content">
+          <div class="appointment-events">
+            <div class="" *ngFor="let item of groupedUpComingPostsObj | keyvalue:keyDescOrder">
+              <h4>
+                {{item?.key | date:'MMM d, y'}}
+              </h4>
+              <div class="appointment-card" *ngFor="let apt of item.value">
+                <!-- wrapper is used so that left border can be applied according to design -->
+                <div class="wrapper">
+                  <div class="details">
+                    <p class="name">{{apt?.post ? apt?.post : apt?.hashtag}}</p>
+                    <p class="status">
+                      <b> Status : </b>
+                      <span [ngClass]="apt?.approved ? 'approved' : 'pending'">
+                        {{apt?.approved ? 'Approved' : 'Pending'}}
+                      </span>
+                    </p>
+                    <p class="time-slot">{{apt?.scheduledDate | date: "hh:mm a"}} </p>
+
+                  </div>
+                  <div class="date-wrapper">
+                    <div class="date-container">
+                      <p class="text-white font-bold">{{apt?.scheduledDate | date:'dd'}}</p>
+                    </div>
+                    <p class="edit-icon" (click)="editPost(apt)"><i class="fa fa-edit"></i></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+      </p-tabPanel>
+
+      <!-- --------------------------- All Post --------------------------- -->
+      <p-tabPanel header="All">
+        <ng-container *ngIf="!isEmptyObject(groupedUpComingPostsObj); else other_content">
+          <div class="appointment-events">
+            <div class="" *ngFor="let item of groupedUpComingPostsObj | keyvalue:keyDescOrder">
+              <h4>
+                {{item?.key | date:'MMM d, y'}}
+              </h4>
+              <div class="appointment-card" *ngFor="let apt of item.value">
+                <!-- wrapper is used so that left border can be applied according to design -->
+                <div class="wrapper">
+                  <div class="details">
+                    <p class="name">{{apt?.post ?? apt?.hashtag}}</p>
+                    <p class="status">
+                      <b> Status : </b>
+                      <span [ngClass]="apt?.approved ? 'approved' : 'pending'">
+                        {{apt?.approved ? 'Approved' : 'Pending'}}
+                      </span>
+                    </p>
+                    <p class="time-slot">{{formatTime(apt?.scheduledDate)| date: "hh:mm a" }}</p>
+
+                  </div>
+                  <div class="date-wrapper">
+                    <div class="date-container">
+                      <p class="text-white font-bold">{{apt?.scheduledDate | date:'dd'}}</p>
+                    </div>
+                    <p class="edit-icon" (click)="editPost(apt)"><i class="fa fa-edit"></i></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+      </p-tabPanel>
+
+    </p-tabView>
+  </div>
+
+
+  <ng-template #other_content>
+    <div class="appointment-events">
+      <div class="no-appointments">
+        <div class="appointment-card">
+          <!-- wrapper is used so that left border can be applied according to design -->
+          <div class="wrapper">
+            <div class="details">
+              <h3>No Appointments Found</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

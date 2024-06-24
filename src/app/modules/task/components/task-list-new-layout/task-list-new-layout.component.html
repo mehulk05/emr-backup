@@ -1,0 +1,357 @@
+<div class="task-header pt-2 d-flex justify-content-between">
+
+
+  <div class="d-flex flex-row">
+    <select style="width: 150px; height: 32px; margin: 0px 5px 0px 15px; font-size: 14px;" #statusSelect
+      class="form-select" [(ngModel)]="activeStatusFilter" (change)="filterStatusTask(statusSelect.value)">
+      <option selected="true" disabled="disabled" value="">By Status</option>
+      <option value="All">All</option>
+      <option value="Completed">Completed</option>
+      <option value="Inprogress">In Progress</option>
+      <option value="Todo">To-do</option>
+    </select>
+
+
+    <select style="width: 150px; height: 32px; margin: 0px 10px 0px 0px; font-size: 14px;"
+      [(ngModel)]="activePriorityFilter" class="form-select" #prioritySelect
+      (change)="filterPriorityTask(prioritySelect.value)">
+      <option selected="true" disabled="disabled" value="">By Priority</option>
+      <option value="All">All</option>
+      <option value="Medium">Medium</option>
+      <option value="Low">Low</option>
+      <option value="High">High</option>
+    </select>
+
+
+    <select style="width: 140px; height: 32px; margin: 0px 10px 0px 0px; font-size: 14px;"
+      [(ngModel)]="activeDateFilter" class="form-select" #Dateselect (change)="filterTaskDeadline(Dateselect.value)">
+      <option selected="true" disabled="disabled" value="">By Due-Date</option>
+      <option value="All">All</option>
+      <option value="Today">Today</option>
+      <option value="Tomorrow">Tomorrow</option>
+      <option value="Yesterday">Yesterday</option>
+      <option value="LastWeek">Last Week</option>
+      <option value="NextWeek">Next Week</option>
+      <option value="Between">Between</option>
+      <option value="After">After</option>
+      <option value="Before">Before</option>
+    </select>
+
+    <ng-container *ngIf="activeDateFilter === 'Between'">
+      <div class="d-flex align-items-center flex-row" style="position: relative; bottom: 20px;">
+        <div class="d-flex flex-column mr-1">
+          <label for="startDate" style="font-size: 14px;">Start Date:</label>
+          <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="startDate"
+            [(ngModel)]="startDate" (change)="filterTaskDeadline('Between')" [min]="minDate"
+            [max]="endDate || maxDate" />
+        </div>
+        <div class="d-flex flex-column">
+          <label for="endDate" style="font-size: 14px;">End Date:</label>
+          <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="endDate"
+            [(ngModel)]="endDate" (change)="filterTaskDeadline('Between')" [min]="startDate || minDate"
+            [max]="maxDate" />
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeDateFilter === 'After'">
+      <div style="position: relative; bottom: 24px;">
+        <label for="afterDate" style="font-size: 14px;">Date After:</label>
+        <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="afterDate"
+          [(ngModel)]="afterDate" (change)="filterTaskDeadline('After')" [min]="minDate" [max]="maxDate" />
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeDateFilter === 'Before'">
+      <div style="position: relative; bottom: 24px;">
+        <label for="beforeDate" style="font-size: 14px;">Date Before:</label>
+        <input style="font-size: 12px; width: 120px;" type="date" class="form-control" id="beforeDate"
+          [(ngModel)]="beforeDate" (change)="filterTaskDeadline('Before')" [min]="minDate" [max]="maxDate" />
+      </div>
+    </ng-container>
+
+  </div>
+
+
+
+  <div class="search-box">
+    <div class="search">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control" [(ngModel)]="taskFilter" placeholder="Search here">
+    </div>
+  </div>
+</div>
+
+<div class="row mx-0 task-list-view">
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="task-wrapper panel-blue">
+      <div class="panel-header">
+        <h3>
+          To-Do Tasks
+        </h3>
+      </div>
+
+      <div class="task-card" *ngFor="let task of toDoTask | filter: taskFilter">
+        <div class="item-detail">
+          <label>Id:</label>
+          <p>
+            {{task.id}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Task Name:</label>
+          <p>
+            {{task.name}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Related To:</label>
+          <p *ngIf="task.patientId">
+            {{'Patient'}}
+          </p>
+          <p *ngIf="task.leadId">
+            {{'Lead'}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Related Name:</label>
+          <p *ngIf="task.patientId">
+            {{task.patientDTO.firstName}} {{task.patientDTO.lastName}}
+          </p>
+          <p *ngIf="task.leadId">
+            {{task.leadDTO.firstName}} {{task.leadDTO.lastName}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Assigned To:</label>
+          <p>
+            {{task.userName}}
+          </p>
+        </div>
+
+
+        <div class="item-detail">
+          <label>Status:</label>
+          <p>
+            {{ task.status==='Inprogress'? 'In Progress':task.status === 'Todo'?'To-do':'Completed'}}
+          </p>
+          <span class="edit-btn" (click)="editTask(task.id)">
+            <i class="fa fa-edit"></i>
+          </span>
+        </div>
+
+
+
+        <div class="item-detail">
+          <label>Deadline:</label>
+          <p>
+            <!-- {{formatTimeService.formatTime(task.deadLine) ?? " - "}} -->
+            {{(task.deadLine| date: 'MMM dd yyyy') ?? "-"}}
+          </p>
+          <span class="edit-btn" (click)="editTask(task.id)">
+            <i class="fa fa-edit"></i>
+          </span>
+        </div>
+
+        <div class="item-detail">
+          <label>Actions:</label>
+          <div class="actions">
+
+            <a [routerLink]="[ '/tasks', task.id, 'edit']" [queryParams]="{from: 'task'}"><i
+                class="fas fa-edit ms-text-primary"></i></a>
+            <a href="javascript:void(0)" (click)="deleteTemplateModal(task)"><i
+                class="far fa-trash-alt ms-text-danger"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="task-wrapper panel-blue">
+      <div class="panel-header">
+        <h3>In Progress Tasks</h3>
+      </div>
+
+
+      <div class="task-card" *ngFor="let task of inProgressTask | filter: taskFilter">
+        <div class="item-detail">
+          <label>Id:</label>
+          <p>
+            {{task.id}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Task Name:</label>
+          <p>
+            {{task.name}}
+          </p>
+        </div>
+        <div class="item-detail">
+          <label>Related To:</label>
+          <!-- <p *ngIf="task.patientId">
+            {{'Patient'}}
+          </p>
+          <p *ngIf="task.leadId">
+            {{'Lead'}}
+          </p> -->
+          <p>{{task.related}}</p>
+        </div>
+
+        <div class="item-detail">
+          <label>Related Name:</label>
+          <p *ngIf="task.patientId">
+            {{task.patientDTO.firstName}} {{task.patientDTO.lastName}}
+          </p>
+          <p *ngIf="task.leadId">
+            {{task.leadDTO.firstName}} {{task.leadDTO.lastName}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Assigned To:</label>
+          <p>
+            {{task.userName}}
+          </p>
+        </div>
+
+
+        <div class="item-detail">
+          <label>Status:</label>
+          <p>
+            {{ task.status==='Inprogress'? 'In Progress':task.status === 'Todo'?'To-do':'Completed'}}
+          </p>
+          <span class="edit-btn" (click)="editTask(task.id)">
+            <i class="fa fa-edit"></i>
+          </span>
+        </div>
+
+
+
+        <div class="item-detail">
+          <label>Deadline:</label>
+          <p>
+            {{(task.deadLine| date: 'MMM dd yyyy') ?? "-"}}
+          </p>
+          <span class="edit-btn" (click)="editTask(task.id)">
+            <i class="fa fa-edit"></i>
+          </span>
+        </div>
+
+        <div class="item-detail">
+          <label>Actions:</label>
+          <div class="actions">
+
+            <a [routerLink]="[ '/tasks', task.id, 'edit']" [queryParams]="{from: 'task'}"><i
+                class="fas fa-edit ms-text-primary"></i></a>
+            <a href="javascript:void(0)" (click)="deleteTemplateModal(task)"><i
+                class="far fa-trash-alt ms-text-danger"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="task-wrapper panel-blue">
+      <div class="panel-header">
+        <h3>Completed Tasks</h3>
+      </div>
+
+
+      <div class="task-card" *ngFor="let task of completedTask | filter: taskFilter">
+        <div class="item-detail">
+          <label>Id:</label>
+          <p>
+            {{task.id}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Task Name:</label>
+          <p>
+            {{task.name}}
+          </p>
+        </div>
+        <div class="item-detail">
+          <label>Related To:</label>
+          <!-- <p *ngIf="task.patientId">
+            {{'Patient'}}
+          </p>
+          <p *ngIf="task.leadId">
+            {{'Lead'}}
+          </p> -->
+          <p>{{task.related}}</p>
+        </div>
+
+        <div class="item-detail">
+          <label>Related Name:</label>
+          <p *ngIf="task.patientId">
+            {{task.patientDTO.firstName}} {{task.patientDTO.lastName}}
+          </p>
+          <p *ngIf="task.leadId">
+            {{task.leadDTO.firstName}} {{task.leadDTO.lastName}}
+          </p>
+        </div>
+
+        <div class="item-detail">
+          <label>Assigned To:</label>
+          <p>
+            {{task.userName}}
+          </p>
+        </div>
+
+
+        <div class="item-detail">
+          <label>Status:</label>
+          <p>
+            {{ task.status==='Inprogress'? 'In Progress':task.status === 'Todo'?'To-do':'Completed'}}
+          </p>
+          <span class="edit-btn" (click)="editTask(task.id)">
+            <i class="fa fa-edit"></i>
+          </span>
+        </div>
+
+
+
+        <div class="item-detail">
+          <label>Deadline:</label>
+          <p>
+            {{(task.deadLine| date: 'MMM dd yyyy') ?? "-"}}
+          </p>
+          <span class="edit-btn" (click)="editTask(task.id)">
+            <i class="fa fa-edit"></i>
+          </span>
+        </div>
+
+        <div class="item-detail">
+          <label>Actions:</label>
+          <div class="actions">
+
+            <a [routerLink]="[ '/tasks', task.id, 'edit']" [queryParams]="{from: 'task'}"><i
+                class="fas fa-edit ms-text-primary"></i></a>
+            <a href="javascript:void(0)" (click)="deleteTemplateModal(task)"><i
+                class="far fa-trash-alt ms-text-danger"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngIf="showModal">
+  <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]=null
+    (modalClosed)="onCloseModal($event)"></app-delete-warning>
+</ng-container>
+
+<ng-container *ngIf="showEditTaskModal">
+  <app-edit-task-modal [modalData]="taskId" [showEditTaskModal]="showEditTaskModal"
+    (modalClosed)="onCloseModal($event)">
+  </app-edit-task-modal>
+</ng-container>

@@ -1,0 +1,28 @@
+.thnk {
+  margin-top: 25px;
+}
+
+.social a {
+  margin: 0;
+  text-decoration: none;
+}
+
+.social {
+  margin: 0 auto;
+}
+
+.button-common {
+  color: #fff;
+  text-decoration: none;
+}
+
+.col-12 {
+  flex: 0 0 auto;
+  padding: 0rem;
+  width: 100%;
+}
+
+.flex-div{
+align-items: center;
+padding-top: 3EM;
+}

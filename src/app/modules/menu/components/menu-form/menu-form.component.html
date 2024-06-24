@@ -1,0 +1,110 @@
+<p-dialog [header]="'Delete '" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '50vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" (onHide)="hideModal()">
+
+
+  <div class="modal-body">
+    <div class="add-edit-form">
+      <div class="form form-type2">
+        <form [formGroup]="menuForm" (ngSubmit)="submitForm()">
+          <div class="row mx-0">
+            <!-- ------------------------------ Menu name ------------------------------ -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group" [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+                <label> Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective>
+
+                <div class="error error-msg">
+                  <div *ngIf="f.name.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Menu Name is required.
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+            <!-- ---------------------------- Display name ----------------------------- -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group"
+                [ngClass]="f.displayName.invalid && ((f.displayName.dirty || f.displayName.touched))?'has-error':''">
+                <label>Display Name<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="displayName"
+                  appErrorStylingDirective>
+
+                <div class="error error-msg">
+                  <div *ngIf="f.displayName.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Menu Name is required.
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------------------------- Icon name ----------------------------- -->
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="form-group" [ngClass]="f.icon.invalid && ((f.icon.dirty || f.icon.touched))?'has-error':''">
+                <label>Icon <span class="error-red">*</span></label>
+
+                <p-dropdown formControlName="icon" placeholder="Select Icon" [options]="iconsArray">
+                  <ng-template let-option pTemplate="item">
+                    <div class="custom-option">
+                      <i [class]="option"></i> {{ option }}
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+
+
+                <div class="error error-msg">
+                  <div *ngIf="f.icon.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Icon is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- ----------------------------- RouterLink ------------------------------ -->
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group"
+                [ngClass]="f.routerLink.invalid && ((f.routerLink.dirty || f.routerLink.touched))?'has-error':''">
+                <label>Router Link<span class="error-red">*</span></label>
+                <input type="text" class="form-control input-type2" formControlName="routerLink"
+                  appErrorStylingDirective>
+
+                <div class="error error-msg">
+                  <div *ngIf="f.routerLink.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Router Link is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ------------------------------- Groups -------------------------------- -->
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="form-group"
+                [ngClass]="f.groupMenuId.invalid && ((f.groupMenuId.dirty || f.groupMenuId.touched))?'has-error':''">
+                <label>Select Group Menu<span class="error-red">*</span></label>
+
+                <p-dropdown [options]="groupMenus" formControlName="groupMenuId" [filter]="true"
+                  filterBy="name" placeholder="Select Category" optionLabel="name" optionValue="id">
+                </p-dropdown>
+                <div class="error error-msg">
+                  <div *ngIf="f.groupMenuId.touched && f.groupMenuId.errors?.required">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  Group Menu is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer-section">
+    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="submitForm()">Save</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+
+  </div>
+</p-dialog>

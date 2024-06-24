@@ -1,0 +1,70 @@
+<div class="panel-blue">
+  <div class="panel-body">
+    <div class="add-edit-form">
+      <form [formGroup]="paymentRefundForm" (ngSubmit)="submitPaymentRefundForm()">
+        <div class="row">
+
+
+          <div class="col-md-8 mb-3">
+            <div class="form-group">
+              <div class="popup">
+                <!-- <input type="checkbox" formControlName="paymentRefundable" class="mr-3" />
+                                <label for="link">Is payment refundable? </label> -->
+                <app-custom-checkbox label="Is payment refundable?"
+                  (valueChange)="onCheckboxValueChanged($event, 'paymentRefundable')" for="paymentRefundable"
+                  [control]="$any(paymentRefundForm.get('paymentRefundable'))"></app-custom-checkbox>
+
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="">How many hours before appointment time, payment can be
+                refunded for canceled appointments?</label>
+              <br />
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                formControlName="paymentRefundableBeforeHours" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="">
+                What Percentage of paid amount you want to refund for canceled appointments?
+                <span class="error-red">*</span>
+              </label>
+              <br />
+              <input type="number" onwheel="return false;" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                style="width: 50%;display: inline-block!important;" formControlName="refundablePaymentPercentage"
+                class="form-control">
+              <span style="width: 50%;margin-left: 5px;">%</span>
+              <div class="error error-msg">
+                <div *ngIf="paymentRefundForm.controls.refundablePaymentPercentage.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Refund Percentage is required.
+                </div>
+                <div
+                  *ngIf="paymentRefundForm.controls.refundablePaymentPercentage.errors?.min || paymentRefundForm.controls.refundablePaymentPercentage.errors?.max">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Refundable percentage should be in
+                  between 0 and 100.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="error-bg" for=""> Note
+                <span>
+                  (If the appointment is canceled before the mentioned hours of appointment time, it will refund the
+                  mentioned percentage of paid amount.)
+                </span>
+              </label>
+
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <button type="submit" class="btn-save-new btn-small-new">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

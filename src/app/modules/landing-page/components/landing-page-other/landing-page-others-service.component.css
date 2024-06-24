@@ -1,0 +1,187 @@
+.wrapper {
+    border-radius: 4px;
+    box-shadow: hsl(0deg 0% 80%) 0 0 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .link{
+    color: #009EDE;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.5s ease;
+      background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .overlay-wrapper{
+    position: relative;
+  }
+  
+  .overlay-wrapper:hover .overlay {
+    opacity: 1;
+  }
+  
+  .button-flex{
+    display: flex;
+    column-gap: 10px
+  }
+  
+  .bg-img {
+    background-size: cover !important;
+    width: 100%;
+    height: 450px;
+    max-height: 500px;
+    border-bottom: 2px solid gainsboro;
+  }
+  
+  .bg-img iframe{
+    border: none;
+    transform: scale(0.25);
+    transform-origin: 0 0;
+    width: 400%;
+    height: 400%;
+  }
+  .panel-blue{
+    padding: 1em;
+    border: 1px solid #009EDE;
+    background-color: rgba(0, 158, 222, 0.06);
+  }
+  
+  .panel-blue p{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+  }
+  
+  .panel-blue a {
+    color: #009EDE;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .panel-blue .desc,
+  .panel-blue .title1{
+    margin-bottom: 15px;
+  }
+  
+  
+  
+  .flex-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .buttons-icons  a{
+    font-size: 14px;
+    color: #009EDE;
+    font-weight: 600;
+  }
+  
+  
+  .flex-layout p{
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+  }
+  
+  
+  .buttons-icons{
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  
+  .light{
+    font-size: 12px;
+    font-weight: 500;
+    color: gray;
+  }
+  
+  
+  .page-body{
+    padding: 1em;
+  }
+  
+  
+  
+  .instructions{
+    padding: 1em;
+      margin-bottom: 1em;
+  }
+  
+  .wrapper{
+    margin-bottom: 2em;
+  }
+  .default-website-text{
+    display: flex;
+      align-items: center;
+      margin-top: 1em;
+  }
+  .default-website-text p{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+  }
+  @media screen and (max-width:767px) {
+    .col-lg-6.col-md-6.col-sm-12,
+    .instructions{
+      padding: 0;
+    }
+    .bg-img{
+      max-height: 350px;
+    }
+  }
+  
+  .table-filter {
+    padding: 0 1em;
+  }
+  
+  .filter-btn {
+    border: 2px solid;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .landing-header{
+    margin-bottom: 10px;
+  }
+
+  .filter {
+      float: right;
+      width: 220px;
+      margin-left: 10px;
+  }
+
+  .search{
+    float: right;
+    margin-left: 10px;
+  }
+
+  .dropdown{
+    margin-right: 5px;
+  }
+
+  .back-button{
+    float: left;
+  }
+
+  .new-ui {
+    margin: 16px 20px;
+    padding: 0px;
+  }
+
+  .task-header{
+    margin-right: 8px;
+  }

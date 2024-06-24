@@ -1,0 +1,72 @@
+<div class="email-form-wrapper px-3 py-2">
+  <div class="email-opt-out-info" *ngIf="!isOptOutEnabled">
+    <p class="color-red">
+      General Warning: It appears {{ email }} may/have unsubscribed or blocked our messages.
+    </p>
+  </div>
+  <form class="login-box" [formGroup]="simpleEmailForm">
+    <div class="form-group">
+      <label for="toNumber">To</label>
+      <Input id="toNumber" type="text" class="form-control" formControlName="toNumber" ngDefaultControl readonly />
+    </div>
+    <div class="form-group">
+      <label for="emailSubject">Subject</label>
+      <Input id="emailSubject" type="text" class="form-control" formControlName="subject" ngDefaultControl required />
+      <div class="error error-msg">
+        <div *ngIf="f.subject.invalid && (f.subject.touched || f.subject.dirty)">
+          <div *ngIf="f.subject.errors?.required">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            Email Subject is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-3 pl-0">
+          <label for="emailBody">Body</label>
+        </div>
+        <div class="col-lg-9 pr-0">
+          <app-ai-button class="ml-0" [showModal]="showAiModal" [message]="simpleEmailForm.value.body"
+            [category]="category" [totalCharacterLength]="totalCharacterLength"
+            (modalClosed)="aiModelClose($event)"></app-ai-button>
+        </div>
+      </div>
+      <!-- <label for="emailBody">Body <app-ai-button class="ml-0" [showModal]="showAiModal" [message]="simpleEmailForm.value.body" [category]="category"
+        [totalCharacterLength]="totalCharacterLength" (modalClosed)="aiModelClose($event)"></app-ai-button></label> -->
+      <!-- <ng-container *ngIf="isTemplateSelected && f.body.value; else emailBody">
+        <div contenteditable="true" class="email-template-preview p-2" [innerHtml]="f.body.value | safeHtml"></div>
+      </ng-container>
+      <ng-template #emailBody>
+        <textarea id="emailBody" type="text" class="form-control" style="height: 500px;" formControlName="body"
+          required></textarea>
+        </ng-template> -->
+      <div class="email-editor-container" #editorContainer>
+        <ckeditor [config]="config" #ckeditor (input)="adjustEditorHeight()" (ready)="editorReady()" formControlName="body">
+        </ckeditor>
+      </div>
+      <div class="error error-msg">
+        <div *ngIf="f.body.invalid && (f.body.touched || f.body.dirty)">
+          <div *ngIf="f.body.errors['required']">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            Email Body is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-wrapper d-flex justify-content-end">
+      <button class="btn-save-new btn-small-new" (click)="showHideTemplatesDialog(true)">
+        Templates
+      </button>
+      <button class="btn-save-new btn-small-new mx-0" [disabled]="simpleEmailForm.invalid" (click)="sendSimpleEmail()">
+        Send
+      </button>
+    </div>
+  </form>
+</div>
+
+<app-templates-modal [moduleName]="'Email'" [showModal]="showTemplatesModal" [templates]="emailTemplates"
+  (hideTemplateModal)="showHideTemplatesDialog($event)"
+  (templateSelected)="templateSelected($event)"></app-templates-modal>

@@ -1,0 +1,12 @@
+<div class="dropdown">
+  <input   [class.invalid]="!isValid"
+  type="text" #input placeholder="Select" [(ngModel)]="selectedItem" (keydown)="onInputKeyDown($event)">
+  <div class="dropdown-menu" #dropdownMenu [ngClass]="{'show': isDropdownOpen && isValid && selectedItem}">
+    <a *ngFor="let item of filteredItems" class="dropdown-item" (click)="onItemSelect(item)">{{ item?.name }}</a>
+    <a *ngIf="filteredItems.length === 0" class="dropdown-item add-item" (click)="onAddItemClick()"><i class="fas fa-plus"></i> Add "{{ selectedItem }}"</a>
+
+  </div>
+</div>
+<div class="chips" >
+  <span class="chip" *ngFor="let chip of selectedItems" (click)="onChipClick(chip)">{{ chip?.name }} <span class=""> <i class="fa fa-close"></i> </span></span>
+</div>

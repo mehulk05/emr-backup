@@ -1,0 +1,16 @@
+<div class="status-box-wrapper">
+  <div class="selected"  [ngStyle]="{background: colorMapping[selected.toLowerCase()]}"  (click)="toggleOptions()">
+    <span class="selected-value">{{selected}}</span>
+    <span class="arrow"><i class="fa fa-chevron-down"></i></span>
+   </div>
+
+  <div class="options">
+    <ul>
+      <li  *ngFor="let status of allOptions" (click)="selectOption(status)">
+        <span [ngStyle]="{background: colorMapping[status.toLowerCase()]}">
+          {{status.toUpperCase()}}
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>

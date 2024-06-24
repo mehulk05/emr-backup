@@ -1,0 +1,39 @@
+.breadcrumb {
+  background: none;
+  font-size: 0.8em;
+  margin: 0;
+}
+.breadcrumb a, .breadcrumb span {
+  font-size: 16px;
+  line-height: 16px;
+  color: #2656C9;
+  font-weight: 400;
+  cursor: pointer;
+}
+.breadcrumb a:hover, .breadcrumb span:hover {
+  color: dimgrey;
+  text-decoration: none;
+}
+.breadcrumb li {
+  list-style: none;
+  float: left;
+  margin: 5px;
+}
+.breadcrumb li:first-child span{
+  color: #333333;
+}
+
+.breadcrumb li:last-child {
+  margin-right: 20px;
+}
+.breadcrumb li::after {
+  content: '->';
+  font-size: 14px;
+  line-height: 16px;
+  color: #3c4257;
+  font-weight: 500;
+  padding-left: 6px
+}
+.breadcrumb li:last-child::after {
+  content: '';
+}

@@ -1,0 +1,14 @@
+<ng-container *ngIf="layout===1">
+  <div class="message" *ngIf="message">
+    <p>{{message}}</p>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="layout===2">
+  <div class="error-bg" *ngIf="message">
+    {{message}}
+  </div>
+</ng-container>
+
+

@@ -1,0 +1,93 @@
+<div class="blue-card new-ui">
+  <form [formGroup]="consentForm">
+    <div class="add-edit-form ml-1">
+      <div class="form form-type2">
+        <div class="row mx-0">
+          <!-- ----------------------------- Name Feild ----------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="
+                  f.name.invalid && (f.name.dirty || f.name.touched)
+                    ? 'has-error'
+                    : ''
+                ">
+              <label>Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective />
+
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is
+                  required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- Tag  --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <label for="">Tag </label>
+
+            <input type="text" class="form-control input-type2" formControlName="tag" />
+
+          </div>
+
+          <!-- -------------------------- Specialization  --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12 my-4">
+            <label>
+              Specialization
+            </label>
+            <p-dropdown [options]="specializationList" formControlName="specialization" optionLabel="name">
+            </p-dropdown>
+          </div>
+
+          <!-- -------------------------- Email Variables --------------------------- -->
+          <div class="mt-3 mb-3">
+            <button class="btn-save-new btn-long-new mx-1 my-1 f-14"
+              *ngFor="let emailVariables of consentVariables; let i=index;"
+              (click)="addVariables($event,emailVariables)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ emailVariables.label }}
+            </button>
+          </div>
+
+
+          <!-- -------------------------- Body--------------------------- -->
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <label class="mt-2" for="body"> Body <span class="error-red">*</span></label>
+
+            <ckeditor #ckeditor class="editor" [config]="config" formControlName="body" dat a="<p>Hello, world!</p>">
+            </ckeditor>
+            <div class="error error-msg">
+              <div *ngIf="f.body.errors?.required">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Body is
+                required
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+          <!-- --------------------------- buttons section --------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12 mt-2
+              ">
+            <div class="form-group">
+              <div class="button-flex">
+                <button [disabled]="!consentForm.valid" (click)="submitForm()" class="btn-save-new btn-small-new">
+                  Save
+                </button>
+
+                <button type="button" (click)="back()" class="btn-small-new btn-default-new">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

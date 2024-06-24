@@ -1,0 +1,140 @@
+<div class="custom-modal-1">
+  <p-dialog [header]="'Edit Lead'" [(visible)]="showModal" [modal]="true"
+    [breakpoints]="{ '1024px': '75vw', '960px': '75vw', '640px': '90vw' }"
+    [style]="{ width: '60vw', overflow: 'hidden' }" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"
+    (onHide)="hideModal()"
+    >
+    <!-- ----------------------------- Modal Body ------------------------------ -->
+
+    <div class="modal-body">
+      <form [formGroup]="leadForm" (ngSubmit)="saveLead()">
+        <div class="row mx-0">
+
+          <div class="col-12 d-flex  align-items-center">
+            <ng-container *ngFor="let status of leadStatus">
+              <div class="lead-status" (click)="selectStatus(status)">
+                <span class="lead-status-name" [ngClass]="status">
+                  <ng-container *ngIf="status===selectedStatus">
+                    <i class="fa fa-check text-light" color="white"></i>
+                  </ng-container>
+                  {{status}}
+                </span>
+              </div>
+            </ng-container>
+          </div>
+
+
+          <!-- ----------------------------- Name field ------------------------------ -->
+          <div class="col-12">
+            <div class="form-group">
+              <label for="lead-name">Name</label>
+              <input id="lead-name" type="text" class="form-control" formControlName="name" />
+              <div class="error error-msg" *ngIf="f.name.errors">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Name is required.
+                </div>
+                <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Phone field ------------------------------ -->
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="lead-phone">Phone Number</label>
+              <input id="lead-phone" type="text" class="form-control" formControlName="phone" />
+              <div class="error error-msg" *ngIf="f.phone.errors">
+                <div *ngIf="f.phone.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Phone Number is required.
+                </div>
+                <div *ngIf="f.phone.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Phone Number is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Email Feild ----------------------------- -->
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="lead-email">Email Address</label>
+              <input id="lead-email" type="text" class="form-control" formControlName="email" />
+              <div class="error error-msg" *ngIf="f.email.errors">
+                <div *ngIf="f.email.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Email address is required.
+                </div>
+                <div *ngIf="f.email.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Email address is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------- Amount date ----------------------------- -->
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="lead-amount">Amount</label>
+              <input id="lead-amount" type="text" class="form-control" formControlName="amount" />
+              <div class="error error-msg" *ngIf="f.amount.errors">
+                <div *ngIf="f.amount.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Amount is required.
+                </div>
+                <div *ngIf="f.amount.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  Amount is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------- Source Feild ----------------------------- -->
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="lead-source">Source</label>
+              <input id="lead-source" type="text" class="form-control" formControlName="source"
+                [attr.disabled]="true" />
+            </div>
+          </div>
+          <!-- ---------------------------- lead status Feild ----------------------------- -->
+          <!-- <div class="col-12">
+            <div class="form-group">
+              <span>
+                <label for="lead-status">Lead Status</label>
+                <select id="lead-status" class="form-control" placeholder="amount" formControlName="leadStatus">
+                  <option *ngFor="let status of leadStatus" [ngValue]="status">
+                    {{ status }}
+                  </option>
+                </select>
+              </span>
+            </div>
+          </div> -->
+        </div>
+      </form>
+    </div>
+
+    <!-- ---------------------------- Modal Footer ----------------------------- -->
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-section d-flex">
+        <button type="button" class="btn-small-new btn-save-new" data-dismiss="modal" (click)="saveLead()"
+          [disabled]="!leadForm.valid">
+          Save
+        </button>
+
+        <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal" (click)="hideModal()"
+          >
+          Cancel
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

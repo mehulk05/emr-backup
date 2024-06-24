@@ -1,0 +1,182 @@
+.serviceName {
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.service-details {
+  overflow: hidden;
+  border: 3px solid rgb(243, 244, 246, 0.7);
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+.service-details {
+  padding: 20px 20px 10px;
+  margin-bottom: 10px;
+}
+
+.service-details .img {
+  padding-right: 20px;
+  position: relative;
+  float: left;
+}
+
+.arrows {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+}
+
+.service-details .text {
+  float: left;
+  width: 259px;
+  padding-top: 15px;
+}
+
+.service-details p {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  line-height: 18px;
+  margin: 0;
+  color: #262628;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.service-details p.bold {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px
+}
+
+.book-btn-right {
+  float: right;
+  position: relative;
+  top: 50%;
+  padding-top: 20px;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  color: #262628;
+  margin: 0;
+}
+
+.title {
+  color: #262628;
+    font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.title h1 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.book-btn-right button {
+  background: #262628;
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: bold;
+}
+
+.radio-btn {
+  padding-top: 10px;
+}
+
+.section-detail {
+  min-height: 225px;
+}
+
+@media screen and (max-width:550px) {
+  .service-details .img{
+    display: none;
+  }
+  .service-details .text {
+      padding-right: 10px;
+      padding-top: 20px;
+  }
+  .radio-btn {
+      position: absolute;
+      right: 50px;
+      padding-top: 1em;
+  }
+  .section-detail {
+      min-height: 320px;
+  }
+  .service-details p.bold{
+    padding-right: 2em;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .service-details p.bold,
+  .service-details p {
+      font-size: 14px;
+  }
+}
+
+.e-radio:checked+label::before {
+  background-color: #fff;
+  border-color: currentColor;
+}
+
+.e-radio+label .e-label {
+  color: currentColor;
+}
+
+.e-radio:checked+label::after {
+  background-color: currentColor;
+  color: currentColor;
+}
+
+#circle,
+#circle .segment {
+  border-color: lightgray;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+  box-sizing: border-box;
+  height: 60px;
+  position: relative;
+  width: 60px;
+}
+
+#circle .segment {
+  -webkit-clip-path: inset(0 0 0 24px);
+  /*content: ''; EDIT: not needed */
+  left: -5px;
+  position: absolute;
+  top: -5px;
+}
+
+#circle .segment:nth-child(1) {
+  border-color: #d6d6d6;
+  -webkit-clip-path: inset(-0px 0px 0 0);
+}
+
+#circle .segment:nth-child(2) {
+  border-color: blue;
+  transform: rotate(60deg);
+}
+
+.font-arrow {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+@media screen and (max-width:400px) {
+  .book-btn-right button {
+      padding: 8px 6px;
+      min-width: 100px;
+  }
+}

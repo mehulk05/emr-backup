@@ -1,0 +1,324 @@
+<!-- ------------------------ Gender selection card ------------------------ -->
+<div class="right-card-wrapper new-ui">
+  <div class="card-wrapper card">
+    <div class="title anchor">
+      <p>CHANGE CHARACTER</p>
+    </div>
+
+    <div class="button-flex table-btn-wrapper" >
+      <span class="icon-border save-border-btn" [ngClass]="selectedGender==='female'? '' : 'disbaled'"
+        (click)="selectGender('female')" *ngIf="genderToHide!=='female'">
+        Female
+      </span>
+
+      <span class="icon-border save-border-btn" [ngClass]="selectedGender==='male'? '' : 'disbaled'"
+        (click)="selectGender('male')" *ngIf="genderToHide!=='male'">
+        Male
+      </span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ------------------------ Composer configuation ------------------------ -->
+<!-- ------------------------ Gender selection card ------------------------ -->
+<div class="right-card-wrapper">
+  <div class="card-wrapper card">
+    <div class="title anchor">
+      <p>CONFIGURATION</p>
+    </div>
+
+
+
+    <div class="button-flex table-btn-wrapper">
+      <div>
+        <div class="vc-radio-wrapper">
+          <label style="font-weight:600">Do you want to hide any model</label>
+
+          <div class="vc-radio">
+            <input type="radio" name="genderToHide" value="female" [(ngModel)]="genderToHide"
+              (change)="onGenderToHideChange()" />
+            <label>Hide Female Model</label>
+          </div>
+
+          <div class="vc-radio">
+            <input type="radio" name="genderToHide" value="male" [(ngModel)]="genderToHide"
+              (change)="onGenderToHideChange()" />
+            <label>Hide Male Model</label>
+          </div>
+
+          <div class="vc-radio">
+            <input type="radio" name="genderToHide" value="none" [(ngModel)]="genderToHide"
+              (change)="onGenderToHideChange()" />
+            <label>Show Both Models</label>
+          </div>
+        </div>
+
+        <ng-container *ngIf="genderToHide ==='none' ">
+          <div class="vc-checkbox-wrapper">
+            <label style="font-weight:600; padding-bottom: 10px; padding-top: 20px;">Do you want to show Male Model first</label>
+            <div class="vc-checkbox">
+              <input type="checkbox" [(ngModel)]="showMaleModelFirst"  (change)="onShowMaleModalFirstChange()"/>
+              <label>Show Male Model First</label>
+            </div>
+          </div>
+        </ng-container>
+        <div class="vc-checkbox-wrapper">
+          <label style="font-weight:600; padding-bottom: 10px; padding-top: 20px;">Do you want to hide the list of Selected Symptoms on preview page</label>
+          <div class="vc-checkbox">
+            <input type="checkbox" [(ngModel)]="hideSelectedSymptoms" (change)="onHideSelectedSymptomsChange()"/>
+            <label>Hide Selected Symptoms</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------------- Change MOdal Card ------------------------------ -->
+<div class="right-card-wrapper">
+  <div class="card-wrapper card">
+    <div class="title anchor">
+      <p>CHANGE MODEL</p>
+    </div>
+
+    <div class="image-grid">
+
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                           FEMALE MODAL IMAGES                           -->
+      <!-- ----------------------------------------------------------------------- -->
+
+
+      <!-- ---------------- Below are for FEMALE MODAL AND FRONT ----------------- -->
+      <ng-container *ngIf="selectedGender === 'female' && selectedSide === 'front'">
+
+        <div class="row mx-0 item">
+          <div data-slide-to="7" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model1f-crousal.png"
+              [ngClass]="selectedFemaleModel === 10 ?'selected':''" (click)="onModelClick(10)">
+          </div>
+          <div data-slide-to="8" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model2-f-crousal.png"
+              [ngClass]="selectedFemaleModel === 11 ?'selected':''" (click)="onModelClick(11)">
+          </div>
+          <div data-slide-to="6" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model3-crousal.png"
+              [ngClass]="selectedFemaleModel === 9 ?'selected':''" (click)="onModelClick(9)">
+          </div>
+          <div data-slide-to="9" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model4-f-crousal.png"
+              [ngClass]="selectedFemaleModel === 12 ?'selected':''" (click)="onModelClick(12)">
+          </div>
+          <div data-slide-to="10" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model5-f-crousal.png"
+              [ngClass]="selectedFemaleModel === 13 ?'selected':''" (click)="onModelClick(13)">
+          </div>
+          <div data-slide-to="11" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model7-f-crousal.png"
+              [ngClass]="selectedFemaleModel === 14 ?'selected':''" (click)="onModelClick(14)">
+          </div>
+          <div data-slide-to="5" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F3FrontBodycopy.png"
+              [ngClass]="selectedFemaleModel === 6 ?'selected':''" (click)="onModelClick(6)">
+          </div>
+          <div data-slide-to="4" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F2FrontBodycopy.png"
+              [ngClass]="selectedFemaleModel === 5 ?'selected':''" (click)="onModelClick(5)">
+          </div>
+          <div data-slide-to="5" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F8FrontCopy.png"
+              [ngClass]="selectedFemaleModel === 8 ?'selected':''" (click)="onModelClick(8)">
+          </div>
+
+          <div data-slide-to="0" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/front-posecopy.png"
+              [ngClass]="selectedFemaleModel === 1 ?'selected':''" (click)="onModelClick(1)">
+          </div>
+          <div data-slide-to="2" class="thumb  col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F5FrontBodycopy.png"
+              [ngClass]="selectedFemaleModel === 3 ?'selected':''" (click)="onModelClick(3)">
+          </div>
+          <div data-slide-to="1" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F4FrontBodycopy.png"
+              [ngClass]="selectedFemaleModel === 2 ?'selected':'' " (click)="onModelClick(2)">
+          </div>
+          <div data-slide-to="3" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F1FrontBodycopy.png"
+              [ngClass]="selectedFemaleModel === 4 ?'selected':'' " (click)="onModelClick(4)">
+          </div>
+          <div data-slide-to="5" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F7FrontCopy.png"
+              [ngClass]="selectedFemaleModel === 7 ?'selected':'' " (click)="onModelClick(7)">
+          </div>
+        </div>
+      </ng-container>
+
+
+      <!-- -------------------- BELOW ARE FOR FEMALE AND BACK -------------------- -->
+      <ng-container *ngIf="selectedGender === 'female' && selectedSide === 'back'">
+        <div class="row mx-0">
+          <div data-slide-to="6" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model1-b-crousal.png"
+              [ngClass]="selectedFemaleModel === 10 ?'selected':'' " (click)="onModelClick(10)">
+          </div>
+          <div data-slide-to="7" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model2-b-crousal.png"
+              [ngClass]="selectedFemaleModel === 11 ?'selected':'' " (click)="onModelClick(11)">
+          </div>
+          <div data-slide-to="5" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model3b-crousal.png"
+              [ngClass]="selectedFemaleModel === 9 ?'selected':'' " (click)="onModelClick(9)">
+          </div>
+          <div data-slide-to="8" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model4-b-crousal.png"
+              [ngClass]="selectedFemaleModel === 12 ?'selected':'' " (click)="onModelClick(12)">
+          </div>
+          <div data-slide-to="9" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model5-b-crousal.png"
+              [ngClass]="selectedFemaleModel === 13 ?'selected':'' " (click)="onModelClick(13)">
+          </div>
+          <div data-slide-to="10" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/Model7-b-crousal.png"
+              [ngClass]="selectedFemaleModel === 14 ?'selected':'' " (click)="onModelClick(14)">
+          </div>
+          <div data-slide-to="5" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F3BackBodycopy.png"
+              [ngClass]="selectedFemaleModel === 6 ?'selected':'' " (click)="onModelClick(6)">
+          </div>
+          <div data-slide-to="4" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F2BackBodycopy.png"
+              [ngClass]="selectedFemaleModel === 5 ?'selected':'' " (click)="onModelClick(5)">
+          </div>
+          <div data-slide-to="5" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F8BackCopy.png"
+              [ngClass]="selectedFemaleModel === 8 ?'selected':'' " (click)="onModelClick(8)">
+          </div>
+          <div data-slide-to="0" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/back-posecopy.png"
+              [ngClass]="selectedFemaleModel === 1 ?'selected':'' " (click)="onModelClick(1)">
+          </div>
+          <div data-slide-to="2" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F5BackBodycopy.png"
+              [ngClass]="selectedFemaleModel === 3 ?'selected':'' " (click)="onModelClick(3)">
+          </div>
+          <div data-slide-to="1" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F4BackBodycopy.png"
+              [ngClass]="selectedFemaleModel === 2 ?'selected':'' " (click)="onModelClick(2)">
+          </div>
+          <div data-slide-to="3" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F1BackBodycopy.png"
+              [ngClass]="selectedFemaleModel === 4 ?'selected':'' " (click)="onModelClick(4)">
+          </div>
+          <div data-slide-to="5" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/female/F7BackCopy.png"
+              [ngClass]="selectedFemaleModel === 7 ?'selected':'' " (click)="onModelClick(7)">
+          </div>
+        </div>
+      </ng-container>
+
+
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                            MALE MODAL STARTS                            -->
+      <!-- ----------------------------------------------------------------------- -->
+
+
+      <!-- ------------------- BELOW ARE MALE MODAL AND FRONT -------------------- -->
+      <ng-container *ngIf="selectedGender === 'male' && selectedSide === 'front'">
+        <div class="row item item-flex">
+          <div data-target="#carousel-2" data-slide-to="0" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M4FrontBodycopy.png"
+              [ngClass]="selectedMaleModel === 1 ?'selected':'' " (click)="onModelClick(1)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="1" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M5FrontBodycopy.png"
+              [ngClass]="selectedMaleModel === 2 ?'selected':'' " (click)="onModelClick(2)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="2" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M6FrontBodycopy.png"
+              [ngClass]="selectedMaleModel === 3 ?'selected':'' " (click)="onModelClick(3)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="8" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M8FrontCopy.png"
+              [ngClass]="selectedMaleModel === 8 ?'selected':'' " (click)="onModelClick(8)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="3" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M1FrontBodycopy.png"
+              [ngClass]="selectedMaleModel === 4 ?'selected':'' " (click)="onModelClick(4)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="4" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M2FrontBodycopy.png"
+              [ngClass]="selectedMaleModel === 5 ?'selected':'' " (click)="onModelClick(5)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="5" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M3FrontBodycopy.png"
+              [ngClass]="selectedMaleModel === 6 ?'selected':'' " (click)="onModelClick(6)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="7" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M7FrontCopy.png"
+              [ngClass]="selectedMaleModel === 7 ?'selected':'' " (click)="onModelClick(7)">
+          </div>
+          <div data-target="#carousel-2" data-slide-to="10" class="thumb col-4 col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/Model6-f-crousal.png"
+              [ngClass]="selectedMaleModel === 10 ?'selected':'' " (click)="onModelClick(10)">
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- ------------------------- MALE MODAL AND BACK ------------------------- -->
+      <ng-container *ngIf="selectedGender === 'male' && selectedSide === 'back'">
+        <div class="row mx-0">
+          <div data-target="#carousel-2-back" data-slide-to="0" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M4BackBodycopy.png"
+              [ngClass]="selectedMaleModel === 1 ?'selected':'' " (click)="onModelClick(1)">
+          </div>
+          <div data-target="#carousel-2-back" data-slide-to="1" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M5BackBodycopy.png"
+              [ngClass]="selectedMaleModel === 2 ?'selected':'' " (click)="onModelClick(2)">
+          </div>
+          <div data-target="#carousel-2-back" data-slide-to="2" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M6BackBodycopy.png"
+              [ngClass]="selectedMaleModel === 3 ?'selected':'' " (click)="onModelClick(3)">
+          </div>
+          <div data-target="#carousel-2-back" data-slide-to="8" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M8BackCopy.png"
+              [ngClass]="selectedMaleModel === 8 ?'selected':'' " (click)="onModelClick(8)">
+          </div>
+
+          <div data-target="#carousel-2-back" data-slide-to="3" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M1BackBodycopy.png"
+              [ngClass]="selectedMaleModel === 4 ?'selected':'' " (click)="onModelClick(4)">
+          </div>
+          <div data-target="#carousel-2-back" data-slide-to="4" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M2BackBodycopy.png"
+              [ngClass]="selectedMaleModel === 5 ?'selected':'' " (click)="onModelClick(5)">
+          </div>
+          <div data-target="#carousel-2-back" data-slide-to="5" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M3BackBodycopy.png"
+              [ngClass]="selectedMaleModel === 6 ?'selected':'' " (click)="onModelClick(6)">
+          </div>
+          <div data-target="#carousel-2-back" data-slide-to="7" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/M7BackCopy.png"
+              [ngClass]="selectedMaleModel === 7 ?'selected':'' " (click)="onModelClick(7)">
+          </div>
+          <div data-target="#carousel-2-back" data-slide-to="10" class="thumb col-4  col-md-3 col-sm-3">
+            <img src="https://g99plus.b-cdn.net/AEMR/assets/img/models/male/Model6-b-crousal.png"
+              [ngClass]="selectedMaleModel === 10 ?'selected':'' " (click)="onModelClick(10)">
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<!-- ---------------------------- COPY URL CARD ---------------------------- -->
+<div class="right-card-wrapper">
+
+  <div class="card-wrapper card code-new">
+    <div class="title anchor">
+      <p>WEBSITE INTEGRATION</p>
+    </div>
+    <app-url-preview [previewUrl]="symptomSelectorLink" [iframeUrl]="symptomSelectorIframe"></app-url-preview>
+  </div>
+</div>

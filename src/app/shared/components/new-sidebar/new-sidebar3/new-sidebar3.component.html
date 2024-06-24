@@ -1,0 +1,232 @@
+<div class="side-bar accordion" id="sidebar-accordian">
+  <div [ngStyle]="{width: isSidebarOpened ? '250px' : '62px'}" class="side-bar-body" [ngClass]="isSidebarOpened?'sidebar-open': 'sidebar-close'">
+    <app-sidebar-header *ngIf="businessData" [isSidebarOpened]="isSidebarOpened" [currentUserInfo]="currentUserInfo" [businessData]="businessData"></app-sidebar-header>
+
+    <!-- ------------------- Support user and banner message ------------------- -->
+    <ng-container>
+      <app-email-sms-audit-banner></app-email-sms-audit-banner>
+    </ng-container>
+
+    <!-- ------------------------------ Menu list ------------------------------ -->
+    <div class="menu-list" [ngClass]="!isSidebarOpened ? 'toggleSidebar': ''" class="accordion" id="accordionExample">
+     
+     <!-- -------------------------- Admin role start --------------------------- -->
+      <ng-container *ngIf="!isPatientRole">
+
+      <ng-container *ngFor="let menuItem of sortedMenuList">
+        <ng-container *ngIf="menuItem.menuType === 'Header'">
+          <div class="header-menu-wrapper">
+            <!-- ----------------------------- header name ----------------------------- -->
+            <h2 class="small-text hideText">{{ menuItem.displayName }}</h2>
+
+
+            <!-- ------------------------- Header's Group Menu ------------------------- -->
+            <ul class="nav flex-column  level0" *ngIf="menuItem?.groupItems?.length > 0">
+              <li *ngFor="let item of menuItem.groupItems" (mouseleave)="hide(op, item)" class="nav-item">
+                <a *ngIf="item?.items?.length" href="javascript:void(0)" data-toggle="popover"
+                  (mouseenter)="op.hide();(!isSidebarOpened) ? (op.toggle($event)): ''" data-html="true"
+                  data-content-id="popover-content-1" (click)="toggleSubMenu(item, menuItem)" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse-' + item.id" aria-expanded="false"
+                  [attr.aria-controls]="'collapse-' + item.id" class="nav-link collapsed"
+                  [ngClass]="item?.items?.length > 0 ? 'group-item' : ''"
+                  [class.active]="item?.displayName === activeMenu">
+                  <i [class]="item.icon" class="icon-bg"></i>
+                  <span class="menu-text hideText" [ngClass]="item?.items?.length > 0 ? 'has-child' : 'no-child'">
+                    {{item.displayName}}
+
+                    <!-- --------------------------- Badge Menu Note --------------------------- -->
+                    <span [ngClass]="NoteClassMap[item.menuNote?.toLowerCase()]" *ngIf="item.menuNote" class="badge badge-light"> {{item.menuNote}} </span>
+
+                  </span>
+                  <i class="fas fa-chevron-down menu-toggle" *ngIf="isSidebarOpened && item.items.length > 0"></i>
+                </a>
+                <a *ngIf="!item?.items?.length" [routerLink]="[item.routerLink]" data-toggle="popover"
+                  (mouseenter)="op.hide();(!isSidebarOpened) ? (op.toggle($event)): ''" data-html="true"
+                  data-content-id="popover-content-1" (click)="toggleSubMenu(item, menuItem)" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse-' + item.id" aria-expanded="false"
+                  [attr.aria-controls]="'collapse-' + item.id" class="nav-link collapsed"
+                  [ngClass]="item?.items?.length > 0 ? 'group-item' : ''"
+                  [class.active]="item?.displayName === activeMenu">
+                  <i [class]="item.icon" class="icon-bg"></i>
+                  <span class="menu-text hideText" [ngClass]="item?.items?.length > 0 ? 'has-child' : 'no-child'">{{
+                    item.displayName}}
+                    <!-- ------------------------------ Menu note ------------------------------ -->
+                    <span [ngClass]="NoteClassMap[item.menuNote.toLowerCase()]" *ngIf="item.menuNote" class="badge badge-light"> {{item.menuNote}} </span>
+                  <i class="fas fa-chevron-down menu-toggle" *ngIf="isSidebarOpened && item.items.length > 0"></i>
+                  </span>
+                </a>
+
+
+                <!-- --------------------- Headers' Group - child menu level-3 --------------------- -->
+
+                <ul *ngIf="isSidebarOpened && item.items.length > 0" class="nav sub-menu collapse"
+                  [class.collapsed]="item.collapsed" [id]="'collapse-' + item.id"
+                  [attr.aria-labelledby]="'heading-' + item.id">
+                  <li *ngFor="let subItem of item.items" class="nav-item">
+                    <a [routerLink]="[subItem.routerLink]" (click)="addActiveClass(subItem)" class="nav-link"
+                      [class.active]="subItem?.displayName === activeMenu">
+                      <i [class]="subItem.icon" class="icon-bg"></i>
+                      <span class="menu-text hideText">{{ subItem.displayName }}
+                        <span [ngClass]="NoteClassMap[subItem.menuNote?.toLowerCase()]" *ngIf="subItem.menuNote" class="badge badge-light"> {{subItem.menuNote}} </span>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+
+                <p-overlayPanel #op   styleClass="sidebar_overlay" [style]="{width: '220px'}">
+                  <ng-template pTemplate>
+                    <div (mouseleave)="op.hide()">
+                      <span class="popup-list-header">{{item.displayName}}</span>
+                      <ul *ngIf="item?.items?.length > 0" class="popup-list">
+                        <li class="popup-list-name" [routerLink]="[subItem.routerLink]"
+                          (click)="addActiveClass(subItem); op.hide()" *ngFor="let subItem of item.items"
+                          [ngStyle]="{'background': subItem?.displayName === activeMenu ? '#d9f2fa': ''}">
+                          {{subItem.displayName}}</li>
+                      </ul>
+                    </div>
+                  </ng-template>
+                </p-overlayPanel>
+
+              </li>
+            </ul>
+
+            <!-- ------------------------- Header- child menu -------------------------- -->
+            <ul class="nav  level0" *ngIf="menuItem?.items?.length > 0">
+              <li *ngFor="let item of menuItem.items" class="nav-item">
+                <a [routerLink]="[menuItem.routerLink]" (click)="toggleSubMenu(item, menuItem)" class="nav-link"
+                  [class.active]="item?.displayName === activeMenu">
+                  <i [class]="item.icon" class="icon-bg"></i>
+                  <span class="menu-text no-child hideText">{{ item.displayName }}
+                    <span [ngClass]="NoteClassMap[item.menuNote?.toLowerCase()]" *ngIf="item.menuNote" class="badge badge-light"> {{item.menuNote}} </span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+
+
+        <!-- ----------------------------- Group menu ------------------------------ -->
+        <ng-container *ngIf="menuItem.menuType === 'Group' && menuItem.items.length > 0">
+          <ul class="nav flex-column  level1">
+            <li class="nav-item" (mouseleave)="hide(op1, menuItem)">
+              <a href="javascript:void(0)"
+                (mouseenter)="op1.hide(); mouseEnterDiv = true; (!isSidebarOpened) ? ( op1.toggle($event)): ''"
+                (mouseleave)="mouseEnterDiv = false" (click)="toggleSubMenu(menuItem, menuItem)"
+                data-bs-toggle="collapse" aria-expanded="false" [attr.data-bs-target]="'#collapse-' + menuItem.id"
+                aria-expanded="false" [attr.aria-controls]="'collapse-' + menuItem.id"
+                class="nav-link group-level collapsed" [class.active]="menuItem?.displayName === activeMenu"
+                [ngClass]="menuItem?.items?.length > 0 ? 'group-item' : ''">
+                <i [class]="menuItem.icon" class="icon-bg"></i>
+                <span class="menu-text hideText" [ngClass]="menuItem?.items?.length > 0 ? 'has-child' : 'no-child'">{{
+                  menuItem.displayName
+                  }}
+                  <span [ngClass]="NoteClassMap[menuItem.menuNote?.toLowerCase()]" *ngIf="menuItem.menuNote" class="badge badge-light"> {{menuItem.menuNote}} </span>
+                </span>
+                <i class="fas fa-chevron-down menu-toggle" *ngIf="isSidebarOpened &&  menuItem.items.length > 0"></i>
+
+              </a>
+
+
+              <!-- ------------------------- Items of groupItems ------------------------- -->
+              <ul *ngIf="isSidebarOpened && menuItem.items.length > 0" [id]="'collapse-' + menuItem.id"
+                [attr.aria-labelledby]="'heading-' + menuItem.id" class="nav  sub-menu collapse">
+                <li *ngFor="let subItem of menuItem?.items" class="nav-item">
+                  <a (click)="navSubItem(subItem)" class="nav-link"
+                    [class.active]="subItem?.displayName === activeMenu">
+                    <i [class]="subItem.icon" class="icon-bg-child"></i>
+                    <span class="menu-text hideText">{{ subItem.displayName }}
+                      <span [ngClass]="NoteClassMap[subItem.menuNote?.toLowerCase()]" *ngIf="subItem.menuNote" class="badge badge-light"> {{subItem.menuNote}} </span>
+
+                    </span>
+                  </a>
+                </li>
+              </ul>
+
+              <p-overlayPanel #op1  styleClass="sidebar_overlay"  [style]="{width: '220px'}">
+                <ng-template pTemplate>
+                  <div (mouseleave)="op1.hide()">
+                    <span class="popup-list-header overlay-panel">{{menuItem.displayName}}</span>
+                    <ul *ngIf="menuItem?.items?.length > 0" class="popup-list overlay-panel">
+                      <li class="popup-list-name" [routerLink]="[subItem.routerLink]"
+                        (click)="addActiveClass(subItem); op1.hide()" *ngFor="let subItem of menuItem?.items"
+                        [ngStyle]="{'background': subItem?.displayName === activeMenu ? '#d9f2fa': ''}">
+                        {{subItem.displayName}}</li>
+                    </ul>
+                  </div>
+                </ng-template>
+              </p-overlayPanel>
+
+            </li>
+          </ul>
+
+        </ng-container>
+
+
+        <ng-container *ngIf="menuItem.menuType === 'Menu'">
+          <li class="nav-item" (mouseleave)="hide(op2, menuItem)">
+            <a  (mouseenter)="(!isSidebarOpened) ? op2.toggle($event): ''"
+              (click)="toggleSubMenu(menuItem, menuItem)" class="nav nav-link"
+              [class.active]="menuItem?.displayName === activeMenu">
+              <i [class]="menuItem.icon" class="icon-bg"></i>
+              <span class="menu-text no-child hideText">
+                {{menuItem.displayName}}
+                <span [ngClass]="NoteClassMap[menuItem.menuNote?.toLowerCase()]" *ngIf="menuItem.menuNote" class="badge badge-light"> {{menuItem.menuNote}} </span>
+              </span>
+            </a>
+
+            <p-overlayPanel #op2  styleClass="sidebar_overlay"  [style]="{width: '220px'}">
+              <ng-template pTemplate>
+                <span class="popup-list-header">{{menuItem.displayName}}</span>
+                <ul *ngIf="menuItem?.items?.length > 0" class="popup-list">
+                  <li class="popup-list-name" [routerLink]="[subItem.routerLink]"
+                    (click)="addActiveClass(subItem); op1.hide()" *ngFor="let subItem of menuItem?.items"
+                    [ngStyle]="{'background': subItem?.displayName === activeMenu ? '#d9f2fa': ''}">
+                    {{subItem.displayName}}</li>
+                </ul>
+              </ng-template>
+            </p-overlayPanel>
+          </li>
+
+        </ng-container>
+      </ng-container>
+
+        
+      </ng-container>
+
+      <!-- ------------------------ Admin role menu ends ------------------------- -->
+
+
+      <!-- ---------------------------- Patient Role ----------------------------- -->
+      <ng-container *ngIf="isPatientRole">
+        <ng-container *ngFor="let menuItem of patientMenuList">
+          <li class="nav-item" (mouseleave)="hide(op2, menuItem)">
+            <a [routerLink]="[menuItem.routerLink]" (mouseenter)="(!isSidebarOpened) ? op2.toggle($event): ''"
+              (click)="toggleSubMenu(menuItem, menuItem)" class="nav nav-link"
+              [class.active]="menuItem?.displayName === activeMenu">
+              <i [class]="menuItem.icon" class="icon-bg"></i>
+              <span class="menu-text no-child hideText">
+                {{menuItem.displayName}}
+                <span [ngClass]="NoteClassMap[menuItem.menuNote?.toLowerCase()]" *ngIf="menuItem.menuNote" class="badge badge-light"> {{menuItem.menuNote}} </span>
+              </span>
+            </a>
+  
+            <p-overlayPanel #op2  styleClass="sidebar_overlay"  [style]="{width: '220px'}">
+              <ng-template pTemplate>
+                <span class="popup-list-header">{{menuItem.displayName}}</span>
+              </ng-template>
+            </p-overlayPanel>
+          </li>
+        </ng-container>
+       
+      </ng-container>
+    </div>
+
+    <app-sidebar-static-links [businessData]="businessData" [isSidebarOpened]="isSidebarOpened"></app-sidebar-static-links>
+    <app-sidebar-footer [businessData]="businessData" [agencyLogoUrl]="agencyLogoUrl"></app-sidebar-footer>
+  </div>
+  <div (click)="toggleSideBar()" [ngStyle]="{width: isSidebarOpened ? '250px' : '62px'}" class="collapse-btn">
+    <img class="img-col" [src]="isSidebarOpened ? '/assets/images/Collapse.svg': '/assets/images/Expand.svg'">
+    <span [ngClass]="isSidebarOpened ? 'show-text' : 'hide-text'" class="col-text">Collapsed View</span>
+  </div>
+</div>

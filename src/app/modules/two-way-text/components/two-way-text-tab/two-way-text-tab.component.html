@@ -1,0 +1,11 @@
+<div class="tab-view new-ui">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <p-tabPanel header="Configuration">
+      <app-two-way-text-configuration [businessInfo]="businessInfo"></app-two-way-text-configuration>
+    </p-tabPanel>
+    <!-- <p-tabPanel header="Message Center">
+      <app-two-way-text-sms-audit *ngIf="selectedSource === 'smsAudit'"
+        [businessInfo]="businessInfo"></app-two-way-text-sms-audit>
+    </p-tabPanel> -->
+  </p-tabView>
+</div>

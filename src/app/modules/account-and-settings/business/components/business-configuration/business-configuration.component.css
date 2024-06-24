@@ -1,0 +1,22 @@
+
+  .inline-checkbox {
+    display: flex;
+    column-gap: 0.5em;
+    align-items: center;
+  }
+
+  .inline-checkbox label {
+    padding-bottom: 0;
+    padding-left: 5px;
+  }
+
+  .add-edit-form{
+    padding-top: 0em !important;
+  }
+
+  .div-margin-left {
+    margin-left: -14px;
+  }
+  .div-margin-top {
+    margin-top: -5px;
+  }

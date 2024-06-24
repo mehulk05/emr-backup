@@ -1,0 +1,42 @@
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-blue{
+  margin-bottom: 2em;
+}
+
+.panel-header h3 {
+  margin: 0;
+  flex-grow: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.panel-header span {
+  margin-left: 0;
+  margin-right: 10px; /* Add spacing on the right side */
+  cursor: pointer;
+  color: #fff;
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  background: #fff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.panel-header i{
+  text-shadow: -1px 0 #828282, 0 1px #828282, 1px 0 #828282, 0 -1px #828282;
+  font-size: 13px;
+}
+
+.panel-body{
+  padding-left: 1em;
+  padding-right: 1em;
+}

@@ -1,0 +1,19 @@
+.bshadow {
+  /* 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(5px 5px 5px #222222);
+    opacity: .5; */
+
+}
+
+.url-go {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.company-logo {
+  margin-top: 18px;
+  margin-right: 100px;
+}

@@ -1,0 +1,47 @@
+<div class="tab-view" *ngIf="source !== 'single-page'">
+  <p-tabView [(activeIndex)]="selectedIndex" (onChange)="handleChange($event)">
+    <ng-container *ngIf="!patientId">
+      <p-tabPanel header="Create Patient">
+        <app-add-edit-patient-form [patientId]="patientId"></app-add-edit-patient-form>
+      </p-tabPanel>
+    </ng-container>
+
+    <ng-container *ngIf="patientId">
+      <p-tabPanel header="Patient Detail">
+        <app-patient-detail [patientId]="patientId" *ngIf="source === 'pateint'"></app-patient-detail>
+      </p-tabPanel>
+
+      <p-tabPanel header="Questionnaire">
+        <app-patient-questionarie [patientId]="patientId" *ngIf="source === 'questionarie'"></app-patient-questionarie>
+      </p-tabPanel>
+      <p-tabPanel header="Tasks">
+        <app-patient-task [patientId]="patientId" *ngIf="source === 'task'"></app-patient-task>
+      </p-tabPanel>
+      <p-tabPanel header="Consents">
+        <app-patient-consent [patientId]="patientId" *ngIf="source === 'consents'"></app-patient-consent>
+      </p-tabPanel>
+
+      <p-tabPanel header="Payments">
+        <app-patient-payment [patientId]="patientId" *ngIf="source === 'payments'"></app-patient-payment>
+      </p-tabPanel>
+
+      <p-tabPanel header="Appointments">
+        <app-patient-appointment [patientId]="patientId" *ngIf="source === 'appointments'"></app-patient-appointment>
+      </p-tabPanel>
+      <p-tabPanel header="Timeline">
+        <app-patient-timeline [patientId]="patientId" *ngIf="source === 'timeline'"></app-patient-timeline>
+      </p-tabPanel>
+      <!-- <p-tabPanel header="Two Way SMS">
+        <app-two-way-text-sms-audit
+          [showOnlyOneUserSource]="true"
+          [userSourceId]="patientId"
+          [businessInfo]="businessInfo"
+        ></app-two-way-text-sms-audit>
+      </p-tabPanel> -->
+    </ng-container>
+  </p-tabView>
+</div>
+
+<div class="lead-info-single-page" *ngIf="source === 'single-page'">
+  <app-pateint-detail-single-page [patientId]="patientId"></app-pateint-detail-single-page>
+</div>

@@ -1,0 +1,24 @@
+<div class="editTitleModal dialog-new-v1 dialog-with-close-icon">
+    <p-dialog [modal]="true" [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}"
+        [style]="{width: '40vw', height: '80vh'}" [header]="'File Preview'" [(visible)]="showImagePreviewModal"
+        (onHide)="closeModal()">
+
+        <!-- ---------------------------- image cropper ---------------------------- -->
+        <div class="modal-body">
+            <div class="blue-card new-ui">
+
+                <div class="add-edit-form pb-0 mb-0">
+
+                    <div class="form form-type2">
+                        <ng-container *ngIf="renderModalBody">
+                          
+                          <app-file-icon-preview [data]="selectedData" [integrated]="['image', 'video', 'pdf', 'excel']"></app-file-icon-preview>
+
+                          </ng-container>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>

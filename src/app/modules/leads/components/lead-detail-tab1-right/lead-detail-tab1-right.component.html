@@ -1,0 +1,75 @@
+<div class="right-card">
+  <div class="panel-blue" *ngIf="questionnaireSubmission !== null">
+    <div class="panel-header">
+      <div class="header-btn-wrapper">
+        <div class="flex-space">
+          <button type="button" class="transparent-btn" style="width: 74px !important "
+            [ngClass]="activeTab === 'SMS' ? 'blue-btn' : 'transparent-btn'" (click)="toggleEmailSMSTab('SMS')">
+            SMS
+          </button>
+          <button type="button" class="transparent-btn" style="width: 74px !important; "
+            [ngClass]="activeTab === 'Email' ? 'blue-btn' : 'transparent-btn'" (click)="toggleEmailSMSTab('Email')">
+            Email
+          </button>
+        </div>
+
+
+        <ng-container *ngIf="activeTab === 'SMS'">
+          <div class="flex-end">
+            <button type="button" class="search-btn" (click)="onSearch()">
+              <i class="pi pi-search" aria-hidden="true" *ngIf="!showSearch"></i>
+              <i class="pi pi-times" aria-hidden="true" *ngIf="showSearch"> </i>
+            </button>
+
+            <button type="button" class="arrow-btn" mat-icon-button [matMenuTriggerFor]="menu"
+              [ngClass]="leadChatStatus">
+              <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="Path 88" d="M1.38184 1.5L8.00098 8.11902L14.6199 1.5" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <mat-menu #menu="matMenu">
+              <div class="chat-status-dropdown" style="padding: 6px; border-radius: 6px; margin: -8px 0;">
+                <div class="chat-status chat-status-open f-14 fw-400" (click)="chatStatusChange('OPEN')"
+                  style="padding: 4px 52px 4px 8px; cursor: pointer; "
+                  [ngStyle]="leadChatStatus === 'OPEN' ? {'background-color': '#e5fee7', color: '#3cbc49'} : {}">
+                  <span> Open </span>
+                </div>
+                <div class="chat-status chat-status-close f-14 fw-400" (click)="chatStatusChange('CLOSE')"
+                  style="padding: 4px 52px 4px 8px; cursor: pointer; "
+                  [ngStyle]="leadChatStatus === 'CLOSE' ? {'background-color': '#fee5e5', 'color': '#ff2000;'} : {}">
+                  <span> Close </span>
+                </div>
+              </div>
+            </mat-menu>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+    <div class="panel-body">
+      <div [class.d-none]="activeTab !== 'SMS'">
+        <div class="sms-chat-container">
+          <app-two-way-text-chat #TwoWayTextChatComponent [fromLeadPage]="true" [showSearch]="showSearch"
+            [showArrow]="false" [chat]="smsChat" [chatStatus]="leadChatStatus" [currentIndex]="currentIndex"
+            [leadFullName]="leadFullName" [communication]="communication" [businessName]="businessName"
+            [leadPhoneNumber]="leadPhoneNumber" [enableTwoWayAiAutoSuggestion]="enableTwoWayAiAutoSuggestion"
+            [businessNumber]="businessNumber" [isTwilioEnabled]="isTwilioEnabled"
+            (sendCustomSms)="sendCustomSms($event)" (showTemplatesDialog)="showHideTemplatesDialog($event)"
+            [(messageBody)]="messageBody" [isLoading]="isLoading" (chatStatusChange)="chatStatusChange($event)"></app-two-way-text-chat>
+        </div>
+      </div>
+      <div [class.d-none]="activeTab !== 'Email'">
+        <div style="height: 794px;">
+          <app-email-editor-with-templates [emailTemplates]="emailTemplates" [email]="email" [isOptOutEnabled]="isOptOutEnabled"
+            (sendEmail)="sendCustomEmail($event)">
+          </app-email-editor-with-templates>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-templates-modal [moduleName]="'SMS'" [showModal]="showTemplatesModal" [templates]="smsTemplates"
+  (hideTemplateModal)="showHideTemplatesDialog($event)"
+  (templateSelected)="templateSelected($event)"></app-templates-modal>

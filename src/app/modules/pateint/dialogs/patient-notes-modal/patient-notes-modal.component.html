@@ -1,0 +1,113 @@
+<p-dialog [header]="'Notes'" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  (onHide)="hideModal()" [draggable]="false" [resizable]="false">
+
+  <!-- ----------------------------- Modal Body ------------------------------ -->
+
+  <div class="modal-body">
+    <div class="panel-body">
+      <div class="panel-card-content">
+        <div class="note-item" *ngFor="let item of notes">
+          <div class="card-header-item">
+            <!-- ----------------------------- Author img ------------------------------ -->
+            <div class="author-img">
+              <a class="avatar">
+                <div *ngIf="item.profileImageUrl; else default">
+                  <img src="{{item.profileImageUrl}}" height="50px" />
+                </div>
+                <ng-template #default>
+                  <img src="https://g99plus.b-cdn.net/AEMR/assets/images/avtar.jpeg">
+                </ng-template>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="card-body-item">
+            <div class="author-name">
+              <a class="author">{{item.createdBy}}</a>
+            </div>
+
+            <div class="note-description">
+              <div *ngIf="item.comment" class="text">
+                {{item.comment}}
+              </div>
+              <div *ngIf="!item.comment && item.patientNotesFilelink" class="text">
+                <span class="file-icon">
+                  <i [class]="getFileIconClass(item.patientNotesFileType)"></i>
+                </span>
+                <a *ngIf="item.patientNotesFilelink" class="notes-link" href="{{item.patientNotesFilelink }}" target="_blank" rel="noopener noreferrer">
+                  {{ item.patientNotesFileName || 'View File' }}
+                  <span class="file-icon">
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <div class="date"><span style="margin-right: 10px;">
+              <i class="fa fa-calendar-o"></i>
+            </span>{{ formatTimeService.formatTime(item.createdAt)}}
+          </div>
+          </div>
+
+
+        </div>
+
+        <div class="form-card" style="margin-top: 20px;">
+          <div class="form-group">
+            <textarea *ngIf="!patientNotesFile" (keyup)="commentChange($event)" #commentInput class="form-control"></textarea>
+          
+            <div *ngIf="patientNotesFile" class="selected-file">
+              <div class="file-info">
+                <span class="file-icon">
+                  <i class="fas fa-file"></i>
+                </span>
+                <span class="file-name">{{ patientNotesFile.name }}</span>
+                <div class="patient-notes-btns">
+                  <label for="patient-notes-file" class="edit-btn">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </label>
+                  <label (click)="deletelnFile()" class="delete-btn">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </label>
+                </div>
+              </div>
+            </div> 
+  
+            <ng-template #filePicker>
+              <input type="file" #myFileInput class="form-control d-none" id="patient-notes-file"
+                (change)="fileChangeEvent($event)"
+                accept="application/pdf,image/*,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                <span class="upload-icon" (click)="myFileInput.click()">
+                  <i class="fas fa-paperclip"></i>
+                </span>
+            </ng-template>
+  
+            <div *ngIf="patientNotesFilelink || patientNotesFile; else filePicker">
+              <input type="file" #myFileInput class="form-control d-none" id="patient-notes-file"
+                (change)="fileChangeEvent($event)"
+                accept="application/pdf,image/*,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />   
+            </div>
+
+            <div class="error error-msg">
+              <div *ngIf="commentValue">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Notes is
+                required.
+              </div>
+            </div>
+          </div>       
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------------- Modal Footer ----------------------------- -->
+  <ng-template pTemplate="footer">
+    <div class="modal-footer-section">
+      <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal" (click)="save()"
+        [disabled]="">Save</button>
+      <button type="button" class="btn-default-new btn-small-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+    </div>
+  </ng-template>
+</p-dialog>

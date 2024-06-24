@@ -1,0 +1,9 @@
+<!-- all-role-list.html -->
+<div class="menu-list-box">
+    <ul>
+      <li *ngFor="let menu of menus" [class.selected]="menu.selected" (click)="selectMenu(menu)">
+        {{ menu.name }} ({{ menu.id }})
+      </li>
+    </ul>
+  </div>
+  

@@ -1,0 +1,55 @@
+<div class="quick-link-icons">
+  <!-- <a tooltipPosition="top"
+    pTooltip="New Editor" [routerLink]="['public', 'htmlEditor']" class="stat">
+    <i class="fa-code fas" aria-hidden="true"></i>
+  </a> -->
+
+  <a *ngIf="availableQuickLinkObj?.isBookingUrl && quickLinkUrl?.appointmentUrl" tooltipPosition="top"
+    pTooltip="Booking Appointment" [href]="quickLinkUrl?.appointmentUrl" class="stat" target="_blank">
+    <i class="fa-calendar-check fas" aria-hidden="true"></i>
+  </a>
+
+  <a *ngIf="quickLinkUrl?.myWebsiteUrl" tooltipPosition="top" pTooltip="Website URL" [href]="quickLinkUrl?.myWebsiteUrl"
+    class="stat" target="_blank">
+    <i class="icon-bg fa-laptop fas" aria-hidden="true"></i>
+  </a>
+
+  <a *ngIf="quickLinkUrl?.chatbotUrl" tooltipPosition="top" pTooltip="Chatbot" [href]="quickLinkUrl?.chatbotUrl" class="stat" target="_blank">
+    <!-- <img src="https://g99plus.b-cdn.net/singlescript/chatbot.svg" /> -->
+    <i class="fa-robot fas" aria-hidden="true"></i>
+  </a>
+
+  <a *ngIf="availableQuickLinkObj?.isVCUrl && quickLinkUrl?.symptomComposerUrl" tooltipPosition="top"
+    pTooltip="Self Assessment" [href]="quickLinkUrl?.symptomComposerUrl" class="stat" target="_blank">
+    <i class="fas fa-user-md" aria-hidden="true"></i>
+  </a>
+
+  <a *ngIf="quickLinkUrl?.providerUrl" tooltipPosition="top"
+  pTooltip="Provider URL" [href]="quickLinkUrl?.providerUrl" class="stat" target="_blank">
+  <!-- <img src="https://g99plus.b-cdn.net/singlescript/provider.svg" /> -->
+  <i class="fa-solid fa-hospital-user fas"></i>
+</a>
+
+  <a tooltipPosition="top" *ngIf="quickLinkUrl?.clinicReviewUrl" pTooltip="Review Reel" [href]="quickLinkUrl?.clinicReviewUrl" class="stat" target="_blank">
+    <i class="fa-duotone fas fa-star"></i>
+  </a>
+
+  <a *ngIf="availableQuickLinkObj?.isContactFormUrl && quickLinkUrl?.contactUrl" tooltipPosition="top"
+    pTooltip="Contact Form" [href]="quickLinkUrl?.contactUrl+'&source=quickLinks'" class="stat" target="_blank">
+    <i class="fa-edit fas" aria-hidden="true"></i>
+  </a>
+
+  <a tooltipPosition="top" *ngIf="quickLinkUrl?.reviewUrl" pTooltip="Review Reel" [href]="quickLinkUrl?.reviewUrl"
+    class="stat" target="_blank">
+    <i class="fa-duotone fas fa-star"></i>
+  </a>
+
+
+  <a tooltipPosition="top" pTooltip="Two Way Text"
+    [href]="twoWayTextLink" target="_blank" *ngIf="currentUserInfo?.roles === 'Admin'"
+    class="position-relative pt-1 pr-1 two-way-text">
+    <i class=" fab fa-weixin" [ngClass]="notificationEnabled ? 'fa-comment' : 'fa-comment-slash'"
+      aria-hidden="true"></i>
+    <span class="notification-badge">{{notificationEnabled ? unreadSmsCount : 0}}</span>
+  </a>
+</div>

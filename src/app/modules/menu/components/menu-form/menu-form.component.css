@@ -1,0 +1,6 @@
+.modal-footer-section{
+  display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 1em;
+}

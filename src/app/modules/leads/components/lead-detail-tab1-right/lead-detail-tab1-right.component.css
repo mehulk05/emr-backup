@@ -1,0 +1,144 @@
+.panel-blue {
+  margin-bottom: 20px;
+}
+
+.panel-card-content {
+  border: none;
+  padding: 0;
+}
+
+.panel-blue {
+  overflow: unset;
+}
+
+.panel-body {
+  padding: 0;
+  margin: 0;
+}
+
+.panel-blue .panel-header {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+::ng-deep .panel-header,
+.p-dialog .p-dialog-header {
+  background: #d8e2f6 !important;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.74em 1em;
+}
+
+.panel-header .header-btn-wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.panel-header .flex-end {
+  display: flex;
+  gap: 10px;
+}
+
+.sms-chat-container {
+  height: 794px;
+}
+
+.light-txt {
+  color: #fff;
+  font-weight: 400;
+  line-height: normal;
+  font-size: 12px;
+}
+
+.dark-txt {
+  color: #2656c9;
+  font-weight: 400;
+  line-height: normal;
+  font-size: 12px;
+}
+
+.transparent-btn {
+  height: 33px;
+  width: 56px;
+  background-color: #d8e2f6;
+  border-radius: 20px;
+  border: 1px solid #2656c9;
+  font-size: 12px;
+  color: #2656c9;
+  margin-right: 5px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.transparent-btn {
+  height: 30px;
+  width: 74px;
+  background-color: #d8e2f6;
+  border-radius: 20px;
+  border: 1px solid #2656c9;
+  color: #2656c9;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: Work Sans;
+}
+
+.blue-btn {
+  height: 30px;
+  width: auto;
+  padding: 0px 8px;
+  background-color: #2656c9;
+  border-radius: 20px;
+  border: 1px solid #2656c9;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.arrow-btn {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: background-color 100ms ease-in;
+  border: none;
+}
+
+.arrow-btn.OPEN {
+  background-color: #e5fee7;
+  color: #3cbc49;
+}
+
+.arrow-btn.CLOSE {
+  background-color: #fee5e5;
+  color: #ff2000;
+}
+
+.search-btn {
+  color: #495057;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 100%;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 100ms ease-in;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

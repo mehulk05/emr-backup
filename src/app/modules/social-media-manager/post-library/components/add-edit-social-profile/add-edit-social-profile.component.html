@@ -1,0 +1,43 @@
+<div class="blue-card new-ui">
+
+  <div class="add-edit-form">
+    <div class="page-new-form-title">
+      <h3>Edit Channel</h3>
+    </div>
+    <div class="form form-type2">
+      <form #myform [formGroup]="socialProfileForm">
+        <div class="row mx-0">
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group" [ngClass]="f.name.invalid && ((f.name.dirty || f.name.touched))?'has-error':''">
+              <label>Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective>
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <div class="button-flex">
+                <button class="btn-save-new btn-small-new" (click)="submitForm()">
+                  Save
+                </button>
+
+                <button type="button" class="btn-default-new btn-small-new"  (click)="goBack()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

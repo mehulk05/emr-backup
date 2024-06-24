@@ -1,0 +1,61 @@
+.lead-color-btn{
+  border-radius: 100%;
+  min-width: 18px;
+  height: 18px;
+  max-width: 20px;
+  max-height: 20px;
+  padding: 0;
+  background-color: inherit !important;
+}
+
+.green{
+  background-color: #01b700 !important;
+  border-color: #01b700 !important;
+}
+
+.yellow{
+  background-color: #FFD600 !important;
+  border-color:#FFD600  !important;
+}
+
+.orange{
+  background-color: #F6AE3C !important;
+  border-color:#F6AE3C !important;
+}
+
+.red{
+  background-color: #c51900 !important;
+  border-color:#c51900 !important;
+}
+
+.black{
+  background-color: #000 !important;
+  border-color:#000 !important;
+}
+
+.blue{
+  background-color: #109bc7 !important;
+  border-color:#109bc7 !important;
+}
+
+span.leadStatus{
+  display: flex !important;
+  align-items: center;
+}
+
+span.lead-status-text{
+  padding-left: 5px;
+}
+
+.pink{
+  border-color:#FF008A !important;
+}
+
+.dark-blue{
+  border-color:#001AFF !important;
+}
+.leadSource button{
+  background-color: #fff;
+  border-style: solid;
+  border-width: 3px;
+}

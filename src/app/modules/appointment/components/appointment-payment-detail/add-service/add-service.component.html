@@ -1,0 +1,65 @@
+<p-dialog [header]="'Services'" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" (onHide)="hideModal($event)">
+
+  <!-- Modal body -->
+  <div class="modal-body">
+
+
+    <!-- -------------------------- Selected service --------------------------- -->
+    <div class="selected selected1">
+      <h3>
+        Service Selected
+      </h3>
+      <div class="panel-blue">
+
+        <div class="added" *ngFor="let providerService of providerServices"
+          [ngClass]="{ 'hidden': !disableService(providerService.id)}">
+          <p>{{providerService.name}}</p>
+          <!-- <a class="delete_btn" href="javascript:void(0)">
+            <i class="fas fa-trash-alt"></i>
+          </a> -->
+        </div>
+
+        <div class="added" *ngFor="let providerService of selectedTempService">
+          <p>{{providerService.name}}</p>
+          <a href="javascript:void(0)" (click)="selectServices(providerService,providerService.id,'delete')">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ------------------------- Available services -------------------------- -->
+    <div class="not-selected not-selected1">
+      <h3>
+        Available Service
+      </h3>
+      <!-- ----------------------------- List starts ----------------------------- -->
+      <div class="panel-blue">
+        <div class="added" *ngFor="let providerService of tempServices" [ngClass]="{ 'hidden': disableService(providerService.id)}">
+          <p>
+            {{providerService.name}}
+
+          </p>
+          <a href="javascript:void(0)" (click)="selectServices(providerService,providerService.id,'add')">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        
+        <p *ngIf="tempServices.length === 0">
+          No More Service to Add
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="modal-footer-section">
+      <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal" (click)="addService()">Add Service</button>
+      <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+
+    </div>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,85 @@
+<p-dialog [header]="'Services'" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false" (onHide)="hideModal($event)">
+
+  <!-- Modal body -->
+  <div class="modal-body">
+
+
+    <!-- -------------------------- Selected service --------------------------- -->
+   
+
+
+    <!-- ------------------------- Available services -------------------------- -->
+    <div class="not-selected not-selected1">
+      <h3>
+        Edit Service
+      </h3>
+      <form [formGroup]="appointmentServiceForm" (ngSubmit)="editService()">
+
+        <div class="row mx-0">
+            <!-- -------------------------- First Name feild --------------------------- -->
+            <div class="col-lg-6 col-md-12 col-sm-12">
+             <div class="form-group" [ngClass]="f.serviceName.invalid && ((f.serviceName.dirty || f.serviceName.touched))?'has-error':''">
+                 <label>Service Name<span class="error-red">*</span></label>
+                 <input type="text" class="form-control input-type2" formControlName="serviceName" appErrorStylingDirective>
+                 <div class="error error-msg">
+                     <div *ngIf="f.serviceName.errors?.required">
+                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service Name is required.
+                     </div>
+                     
+                 </div>
+             </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group" [ngClass]="f.durationInMinutes.invalid && ((f.durationInMinutes.dirty || f.durationInMinutes.touched))?'has-error':''">
+                  <label>Service Duration In Minutes<span class="error-red">*</span></label>
+                  <input type="number" class="form-control input-type2" formControlName="durationInMinutes" appErrorStylingDirective>
+                  <div class="error error-msg">
+                      <div *ngIf="f.durationInMinutes.errors?.required">
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Service duration is required.
+                      </div>
+                      
+                  </div>
+              </div>
+             </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group" [ngClass]="f.serviceCost.invalid && ((f.serviceCost.dirty || f.serviceCost.touched))?'has-error':''">
+                    <label>Service Cost<span class="error-red">*</span></label>
+                    <input type="number" class="form-control input-type2" formControlName="serviceCost" appErrorStylingDirective>
+                    <div class="error error-msg">
+                        <div *ngIf="f.serviceCost.errors?.required">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Service cost is required.
+                        </div>
+                       
+                    </div>
+                </div>
+               </div>
+         </div>
+      </form>
+      <!-- ----------------------------- List starts ----------------------------- -->
+      <!-- <div class="panel-blue">
+        <div class="added" *ngFor="let providerService of tempServices" [ngClass]="{ 'hidden': disableService(providerService.id)}">
+          <p>
+            {{providerService.name}}
+
+          </p>
+          <a href="javascript:void(0)" (click)="selectServices(providerService,providerService.id,'add')">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+      
+      </div> -->
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="modal-footer-section">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="editService()">Edit Service</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="hideModal()">Cancel</button>
+
+    </div>
+  </ng-template>
+</p-dialog>

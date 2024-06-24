@@ -1,0 +1,64 @@
+.not-selected p, .selected p {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 6px 15px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  margin-right: 15px;
+  color: #000;
+  font-size: 14px;
+  background-color: #e9ecef;
+  max-width: 90%;
+}
+
+.not-selected p {
+  padding-left: 15px;
+  margin-bottom: 1em;
+  background-color: transparent;
+}
+
+
+ul {
+  border: none;
+  padding: 0;
+  list-style: none;
+}
+
+h3{
+  font-size: 16px;
+  color: #000;
+  font-weight: 600;
+}
+
+.panel-blue{
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.added {
+  display: flex;
+}
+
+.fas{
+  border-radius: 50%;
+  background: rgb(5 183 255 / 16%);
+  height: 28px;
+  width: 28px;
+  font-size: 12px;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.fa-plus{
+  color: #009EDE;
+  background: rgb(5 183 255 / 16%);
+}
+
+.fa-trash-alt{
+  background: rgba(208, 2, 27, 0.1);
+  color: #D0021B;
+}
+
+.added a{
+  margin-top: 5px;
+}

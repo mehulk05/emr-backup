@@ -1,0 +1,120 @@
+<div class="question-logic">
+    <form [formGroup]="logicForm" class="form form-type2">
+        <div class="add-edit-form new-ui p-0">
+            <div class="row label-wrapper">
+                <div class="col-md-12 pb-2">
+                    <div class="form-group"
+                        [ngClass]="f.questionId.invalid && ((f.questionId.dirty || f.questionId.touched))?'has-error':''">
+                        <label for="questionId">For Question<span class="error-red">*</span></label>
+
+                        <p-dropdown [options]="logicQuestionList" formControlName="questionId" optionLabel="name"
+                            [filter]="true" filterBy="name" optionValue="id" placeholder="Select Question">
+                        </p-dropdown>
+                        <div class="error error-msg">
+                            <div *ngIf="f.questionId.errors?.required">
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Question is
+                                required.
+                            </div>
+                        </div>
+                        <div class="float-right d-flex btn-mobile">
+                            <ng-container *ngIf="mode === 'Display'">
+                                <button class="edit-btn action-btn" (click)="changeMode('Editing')">
+                                    <i class="fas fa-pencil-alt ms-text-primary" aria-hidden="true"></i>
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="mode === 'Editing'">
+                                <button type="button" class="action-btn savebtn" [disabled]="!logicForm.valid"
+                                    (click)="saveLogic()"><i class="fas fa-save" aria-hidden="true"></i></button>
+                                <button class="action-btn deletebtn" (click)="dicardLogic()"><i class="fas"
+                                        [ngClass]="condition.questionId ? 'fa-times' : 'fa-trash-alt'"
+                                        aria-hidden="true"></i></button>
+                            </ng-container>
+                            <button *ngIf="condition.questionId" class="deletebtn action-btn" (click)="deleteLogic()">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="f.conditionValue.invalid && ((f.conditionValue.dirty || f.conditionValue.touched))?'has-error':''">
+                        <label for="conditionType">If answer is</label>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="w-100">
+                                <p-dropdown [options]="filteredConditionTypes" formControlName="conditionType"
+                                    optionLabel="label" [filter]="false" optionValue="value" placeholder="Select Type">
+                                </p-dropdown>
+                            </div>
+                            <div class="w-100">
+                                <ng-container [ngSwitch]="questionType">
+                                    <ng-container *ngSwitchCase="'Yes_No'">
+                                        <div class="input-radio-wrapper mt-2">
+                                            <div class="input-radio">
+                                                <input type="radio" value="Yes" formControlName="conditionValue"
+                                                    [id]="'Yes-' + index">
+                                                <label [for]="'Yes-' + index">
+                                                    <span>&nbsp;Yes</span>
+                                                </label>
+                                            </div>
+                                            <div class="input-radio">
+                                                <input type="radio" value="No" formControlName="conditionValue"
+                                                    [id]="'No-' + index">
+                                                <label [for]="'No-' + index">
+                                                    <span>&nbsp;No</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'Date'">
+                                        <p-calendar appendTo="body" [showIcon]="true" formControlName="conditionValue"
+                                            [inputId]="'date-' + index"></p-calendar>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'Multiple_Selection_Text'">
+                                        <ng-container *ngIf="isMultipleSelectionAllowed; else dropDownOrRadioButtons">
+                                            <p-multiSelect [resetFilterOnHide]="true" [options]="multipleSelectionArray"
+                                                formControlName="conditionValue" defaultLabel="Select All those apply"
+                                                optionLabel="name" optionValue="name" display="chip">
+                                            </p-multiSelect>
+                                        </ng-container>
+                                        <ng-template #dropDownOrRadioButtons>
+                                            <p-dropdown [options]="multipleSelectionArray"
+                                                formControlName="conditionValue" optionLabel="name" optionValue="name"
+                                                [filter]="true" filterBy="name" placeholder="Please select an option.">
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        <input type="text" formControlName="conditionValue" class="form-control f-14"
+                                            placeholder="Value">
+                                    </ng-container>
+                                </ng-container>
+                                <div class="error error-msg">
+                                    <div *ngIf="f.conditionValue.errors?.required">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Condition Value is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="f.conditionNextQuestionId.invalid && ((f.conditionNextQuestionId.dirty || f.conditionNextQuestionId.touched))?'has-error':''">
+                        <label for="conditionNextQuestionId">Then Jump to<span class="error-red">*</span></label>
+
+                        <p-dropdown [options]="nextQuestionList" formControlName="conditionNextQuestionId"
+                            optionLabel="name" [filter]="true" filterBy="name" optionValue="id"
+                            placeholder="Select Question">
+                        </p-dropdown>
+                        <div class="error error-msg">
+                            <div *ngIf="f.conditionNextQuestionId.errors?.required">
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Question is
+                                required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<ng-container *ngIf="showModal">
+    <app-delete-warning [modalData]="modalData" [showModal]="showModal" [modalMessage]=null
+        (modalClosed)="onCloseDeleteModal($event)"></app-delete-warning>
+</ng-container>

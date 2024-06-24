@@ -1,0 +1,74 @@
+.task-card{
+  border-radius: 10px;
+  /* background-color: #d6d6d6a1; */
+  background-color: #c8d2d46b;
+  padding: 1em 1em 1em;
+  /* box-shadow: 0 0 2rem 0 rgb(41 48 66 / 10%); */
+  max-width: 95%;
+  margin: 1em auto;
+
+}
+.add-edit-form .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
+  height: 32px;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  /* box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(64 68 82 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(64 68 82 / 8%) 0px 2px 5px 0px; */
+}
+.panel-blue {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none!important;
+}
+.actions{
+ padding-left: 1em;
+}
+.actions a{
+  margin-right: 1em;
+}
+
+.task-list-view{
+  margin-top: 1em !important;
+}
+.item-detail{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.item-detail label{
+  font-size: 13px;
+  font-weight: 500;
+}
+.item-detail p{
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 1em;
+}
+
+.task-title{
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+
+.edit-btn i {
+  color: #009EDE;
+}
+btn-small, .save-color-btn, .table-button .dropdown button, .dropdown-color-btn, .table-btn-wrapper .icon, .btn-small, .btn-primary, .save-border-btn, .btn-cancel, .btn-danger, .btn-save {
+  min-width: 50px !important;
+  border: none !important;
+  padding: 8px 10px !important;
+  border-radius: 24px !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+}
+.save-color-btn new{
+  min-width: 50px !important;
+  border: none !important;
+  padding: 8px 10px !important;
+  border-radius: 24px !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+  max-width: 30px!important;
+}

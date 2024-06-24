@@ -1,0 +1,93 @@
+<div class="row mx-0 pl-16">
+  <div class="col-lg-6 col-md-12">
+    <div class="panel-new panel-border no-overflow mt-5">
+      <div class="panel-header">
+        <h3>
+          Review Report
+        </h3>
+      </div>
+
+      <div class="panel-body">
+          <div class="form form-type2">
+
+            <div class="row mx-0">
+              <!-- -------------------------- Clinic Name feild --------------------------- -->
+              <!-- <div class="col-lg-8 col-md-12 col-sm-12">
+
+                <div *ngIf="!showReport && !showAnalytics" class="form-group">
+                  <label>Current Review Report And Analytics not available</label><br />
+                </div>
+
+                <div *ngIf="showReport" class="form-group">
+                  <label>Current Facebook Review Count :- {{currentFacebookReviewsCount}}</label><br />
+                  <label>Current Google Reviews Count :- {{currentGoogleReviewsCount}}</label><br />
+                  <label>Current Yelp Reviews Count :- {{currentYelpReviewsCount}}</label><br />
+                  <label>Current Five Star Review Count :- {{currentFiveStarRatingCount}}</label><br />
+                  <label>Total Review :- {{totalReviewSize}}</label><br />
+                  <label>Current Review Fetched date :-
+                    {{formatTimeService.formatTime(currentReviewFetchedDate)}}</label><br />
+
+                </div>
+
+                <div *ngIf="showAnalytics" class="form-group">
+                  <p class="f-16">Review Analytics</p><br />
+
+                  <label>Total Review :- {{analyticTotalReviewSize}}</label><br />
+
+                  <label>Previous Facebook Review Count :- {{previousFacebookReviewCount}}</label><br />
+                  <label>Previous Google Reviews Count :- {{previousGoogleReviewsCount}}</label><br />
+                  <label>Previous Yelp Reviews Count :- {{previousYelpReviewCount}}</label><br />
+                  <label>Previous Five Star Review Count :- {{previousFiveStarRatingCount}}</label><br />
+                  <label>Previous Review Fetched date :-
+                    {{formatTimeService.formatTime(previousReviewFetchedDate)}}</label><br /><br />
+
+                  <label>Current Facebook Review Count :- {{analyticCurrentFacebookReviewsCount}}</label><br />
+                  <label>Current Google Reviews Count :- {{analyticCurrentGoogleReviewsCount}}</label><br />
+                  <label>Current Yelp Reviews Count :- {{currentYelpReviewsCount}}</label><br />
+                  <label>Current Five Star Review Count :- {{analyticCurrentFiveStarRatingCount}}</label><br />
+                  <label>Current Review Fetched date :-
+                    {{formatTimeService.formatTime(analyticCurrentReviewFetchedDate)}}</label><br />
+
+                </div>
+              </div> -->
+              <div class="month-year-selector form-group">
+                <div> Monthly Report </div>
+                <select [(ngModel)]="selectedMonth"
+                  style="padding: 10px; background:#edf2ff; border:none; width: 200px; margin:0px 10px;">
+                  <option *ngFor="let month of months">{{month}}</option>
+                </select>
+                <select [(ngModel)]="selectedYear"
+                  style="padding: 10px; background:#edf2ff; border:none; width: 200px; margin:0px 10px">
+                  <option *ngFor="let year of years">{{year}}</option>
+                </select>
+
+              </div>
+
+              <div class="form-group mt-2">
+                <div (click)="createReportLink()" class="generate-report-link">Generate
+                  <a class="link">
+                    <i class="fa fa-link" aria-hidden="true"></i> Link
+                  </a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-lg-6 col-md-12">
+    <div class="panel-new panel-border no-overflow mt-5">
+      <div class="panel-header">
+        <h3>
+          Schedule Report
+        </h3>
+      </div>
+
+      <div class="panel-body">
+        <app-g99-review-settings [clinicData]="clinicData" [clinicId]="clinicId"></app-g99-review-settings>
+      </div>
+    </div>
+  </div>
+</div>

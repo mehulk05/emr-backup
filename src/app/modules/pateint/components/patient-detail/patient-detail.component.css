@@ -1,0 +1,42 @@
+@media screen and (max-width: 767px) {
+  .col-md-6 {
+    margin-bottom: 20px;
+  }
+}
+
+.middle-tab-wrapper {
+  height: 852px;
+}
+
+.transparent-btn {
+  height: 32px;
+  width: 85px;
+  background-color: #2656c9;
+  border-radius: 20px;
+  border: 1px solid #2656c9;
+  color: #fff;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.transparent-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+.tab-container {
+  position: relative;
+}
+.prev-next-btn {
+  position: absolute;
+  top: -3em;
+  right: 17px;
+}
+.prev-next-btn-singlepage {
+  position: absolute;
+  top: -4em;
+  right: 17px;
+  z-index: 1;
+}

@@ -1,0 +1,134 @@
+.title-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2em
+}
+
+.title-section p{
+    font-size: 22px;
+}
+
+
+
+.modal-section{
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 0 2rem 0 rgb(41 48 66 / 20%);
+    border-radius: 5.76147px;
+    padding: 1em;
+}
+
+.service-btn-wrapper{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-wrapper{
+    width: 50%;
+    padding: 5px;
+    margin-bottom: 1em;
+}
+
+.modal-card{
+    padding: 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.left-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.modal-card.selected{
+    background-color: #D3DDF4;
+}
+.modal-card img{
+    width: auto;
+    max-width: 100%;
+}
+.modal-title p {
+    font-size: 12px;
+    text-align: center;
+}
+
+.p-15{
+    padding: 15px;
+}
+
+.selected-img-wrapper{
+    display: grid;
+   align-items: center;
+   text-align: center;
+   flex-grow: 1;
+   min-height: 500px;
+}
+
+.selected-img-wrapper img{
+    width: 60%;
+  
+}
+
+
+.code-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.code-header p{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    padding: 1em;
+} 
+
+.right-card-wrapper{
+    margin-bottom: 1em;
+}
+
+.editable-content{
+    font-size: 13px;
+}
+
+.panel-body{
+    padding: 1em;
+}
+.editable-content div{
+    white-space: pre-wrap;
+}
+
+.icon{
+    margin-left: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    background: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1em;
+}
+
+.icon .fa{
+    text-shadow: -1px 0 #828282, 0 1px #828282, 1px 0 #828282, 0 -1px #828282;
+    font-size: 13px;
+}
+
+
+.dark-blue{
+    background-color: #2656C9;
+}
+
+.dark-blue p{color: #fff;}

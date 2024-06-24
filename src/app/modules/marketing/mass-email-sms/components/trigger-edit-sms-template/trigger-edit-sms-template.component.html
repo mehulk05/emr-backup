@@ -1,0 +1,124 @@
+<p-dialog [header]="'Edit SMS'" (onHide)="hideModal()" [(visible)]="showModal" [modal]="true"
+  [breakpoints]="{'1024px': '75vw','960px': '75vw', '640px': '90vw'}" [style]="{width: '70vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+
+
+  <div class="new-ui add-edit-form ml-0">
+    <div class="form form-type2">
+      <form [formGroup]="smsForm">
+        <div class="row mx-0">
+          <!-- ----------------------------- Name Feild ----------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12 pl-0">
+            <div class="form-group" [ngClass]="
+                  f.name.invalid && (f.name.dirty || f.name.touched)
+                    ? 'has-error'
+                    : ''
+                ">
+              <label>Name<span class="error-red">*</span></label>
+              <input type="text" class="form-control input-type2" formControlName="name" appErrorStylingDirective />
+
+              <div class="error error-msg">
+                <div *ngIf="f.name.errors?.required">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is required.
+                </div>
+                <div *ngIf="f.name.errors?.pattern">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Name is invalid.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- -------------------------- Lead Variable --------------------------- -->
+          <div class="px-0" *ngIf="f.templateFor.value === 'Lead'">
+            <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+              *ngFor="let smsVariable of leadSmsVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+           <!-- -------------------------- Appointment Variable --------------------------- -->
+           <div class="px-0" *ngIf="f.templateFor.value === 'Appointment'">
+            <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+              *ngFor="let smsVariable of appointmentSMSVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Patient Variable --------------------------- -->
+          <div class="px-0" *ngIf="f.templateFor.value === 'Patient'">
+            <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+              *ngFor="let smsVariable of patientSmsVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+          <!-- -------------------------- Mass SMS Variable --------------------------- -->
+          <div class="px-0" *ngIf="f.templateFor.value === 'MassSMS'">
+            <button class="btn-save-new btn-long-new f-14 mr-2 my-1"
+              *ngFor="let smsVariable of massSMSVariables; let i = index" (click)="addVariables(smsVariable)">
+              <i class="fas fa-plus ms-text-secondary"></i>
+              {{ smsVariable.label }}
+            </button>
+          </div>
+
+
+
+          <!-- -------------------------- Body--------------------------- -->
+          <div class="col-lg-8 col-md-12 col-sm-12 pl-0 mt-2">
+            <label class="mt-2" for="body">
+              Body <span class="error-red">*</span></label>
+            <!--
+              <textarea
+                rows="3"
+                cols="80"
+                formControlName="body"
+                class="form-control"
+                #smsBody
+              ></textarea> -->
+            <textarea rows="4" cols="80" formControlName="body" (ngModelChange)="valueChange()" class="form-control"
+              #smsBody>
+              </textarea>
+            <div class="flex justify-content-between align-items-center mb-2">
+              <div class="character-length">
+                <span style="color: #b8902d">Total Characters: {{ totalCharacterLength }}</span>
+              </div>
+              <div class="segment-count">
+                <span style="color: #b8902d">Total segments: {{ numberOfSegments }}</span>
+              </div>
+            </div>
+            <div *ngIf="showSmsVariableMessage" class="mb-2">
+              <span style="color: #c51900">
+                Warning: Using variables might cause your messages to span across multiple segments and deliver in
+                parts,
+                using more of your quota (1 SMS per segment).
+              </span>
+            </div>
+            <div *ngIf="showEncodingMessage" class="">
+              <span style="color: #c51900">
+                Warning: You are using UNICODE characters. Using these characters will limit message bodies to 67
+                characters making you use more from your quota.
+              </span>
+            </div>
+          </div>
+
+
+
+          <!-- ------------------------- div class row ends -------------------------- -->
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal footer -->
+  <ng-template pTemplate="footer">
+    <div class="modal-footer-section">
+      <button type="button" class="btn-save-new btn-small-new" data-dismiss="modal" (click)="saveForm()">Save</button>
+      <button type="button" class="btn-small-new btn-default-new" data-dismiss="modal"
+        (click)="hideModal()">Cancel</button>
+
+    </div>
+  </ng-template>
+</p-dialog>
