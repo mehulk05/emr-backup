@@ -21,11 +21,11 @@
                                 <canvas baseChart *ngIf="LeadbySourcePieChart"
                                     [data]="LeadbySourcePieChart.pieChartData"
                                     [labels]="LeadbySourcePieChart.pieChartLabels"
-                                    [chartType]="LeadbySourcePieChart.pieChartType"
+                                    [type]="LeadbySourcePieChart.pieChartType"
                                     [options]="LeadbySourcePieChart.pieChartOptions"
                                     [plugins]="LeadbySourcePieChart.pieChartPlugins"
                                     [legend]="LeadbySourcePieChart.pieChartLegend"
-                                    [colors]="LeadbySourcePieChart.pieChartColors">
+                                   >
                                 </canvas>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -73,8 +73,8 @@
                             <div class="item">
                                 <canvas baseChart [datasets]="lineChart.lineChartData"
                                     [labels]="lineChart.lineChartLabels" [options]="lineChart.lineChartOptions"
-                                    [colors]="lineChart.lineChartColors" [legend]="lineChart.lineChartLegend"
-                                    [chartType]="lineChart.lineChartType"></canvas>
+                                     [legend]="lineChart.lineChartLegend"
+                                    [type]="lineChart.lineChartType"></canvas>
                             </div>
                         </div>
 
@@ -128,9 +128,8 @@
                                 <canvas baseChart [datasets]="lineChartForServicePayment.lineChartData"
                                     [labels]="lineChartForServicePayment.lineChartLabels"
                                     [options]="lineChartForServicePayment.lineChartOptions"
-                                    [colors]="lineChartForServicePayment.lineChartColors"
                                     [legend]="lineChartForServicePayment.lineChartLegend"
-                                    [chartType]="lineChartForServicePayment.lineChartType">
+                                    [type]="lineChartForServicePayment.lineChartType">
                                 </canvas>
                             </div>
                         </div>
@@ -182,9 +181,8 @@
                                 <canvas baseChart [datasets]="ChartForServiceWiseAppointmentStatus.lineChartData"
                                     [labels]="ChartForServiceWiseAppointmentStatus.lineChartLabels"
                                     [options]="ChartForServiceWiseAppointmentStatus.lineChartOptions"
-                                    [colors]="ChartForServiceWiseAppointmentStatus.lineChartColors"
                                     [legend]="ChartForServiceWiseAppointmentStatus.lineChartLegend"
-                                    [chartType]="ChartForServiceWiseAppointmentStatus.lineChartType"></canvas>
+                                    [type]="ChartForServiceWiseAppointmentStatus.lineChartType"></canvas>
                             </div>
                         </div>
 

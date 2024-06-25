@@ -9,8 +9,8 @@
     <div id="print-section">
       <div id="company-div" class="container d-flex flex-row">
         <img id="company-logo" class="company-logo" [src]="logoUrl" height="130" width="130">
-        <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="g99ReviewLandingPage"
-          alt="Review QR Code" cssClass="bshadow"></ngx-qrcode>
+        <qrcode  [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [qrdata]="g99ReviewLandingPage"
+          alt="Review QR Code" cssClass="bshadow"></qrcode>
       </div>
       <div class="container mt-2">
         <a (click)="goToLink()" class="link">{{g99ReviewLandingPage}}</a>

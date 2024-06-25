@@ -33,7 +33,6 @@
               "moment-timezone",
               "chart.js",
               "object-sizeof",
-              "ngx-google-places-autocomplete",
               "grapesjs-preset-newsletter",
               "grapesjs-preset-webpage",
               "jspdf",

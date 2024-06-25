@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class CustomDateFormatter extends CalendarDateFormatter {
   // you can override any of the methods defined in the parent class
 
-  public monthViewColumnHeader({ date, locale }: DateFormatterParams): string {
+  public override monthViewColumnHeader({ date, locale }: DateFormatterParams): string {
     return formatDate(date, 'EEE', locale);
   }
 }

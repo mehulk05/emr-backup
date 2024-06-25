@@ -58,7 +58,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'booking-history'
+    redirectTo: 'booking-history',
+    pathMatch: 'full'
   },
   {
     path: ':appointmentId/meeting',

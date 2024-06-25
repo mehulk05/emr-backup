@@ -26,6 +26,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CalendarTooltipComponent } from './components/calendar/calendar-tooltip/calendar-tooltip.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AddEditAppointmentDialogComponent } from './components/add-edit-appointment-dialog/add-edit-appointment-dialog.component';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     BookingHistoryComponent,
@@ -55,7 +56,8 @@ import { AddEditAppointmentDialogComponent } from './components/add-edit-appoint
     NgPrimeModule,
     NgxPrintModule,
     LayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    NgChartsModule
   ],
   exports: [AppointmentPaymentDetailComponent, BookingHistoryGraphComponent]
 })

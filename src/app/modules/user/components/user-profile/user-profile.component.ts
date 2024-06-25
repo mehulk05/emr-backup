@@ -327,7 +327,7 @@ export class UserProfileComponent implements OnInit {
           this.loggedInUserRoles = response.roles.name;
         }
         this.profileImageUrl =
-          response?.profileImageUrl + '?t=' + new Date() ??
+        response?.profileImageUrl  ? response?.profileImageUrl  + '?t=' + new Date() :
           'https://g99plus.b-cdn.net/AEMR/assets/img/profileDefault.png';
 
         this.profileImageUrl = response.profileImageUrl;

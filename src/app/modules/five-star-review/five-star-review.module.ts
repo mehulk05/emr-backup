@@ -13,8 +13,8 @@ import { G99ReviewItemComponent } from './components/g99-review-item/g99-review-
 import { G99ReviewQrCodeComponent } from './components/g99-review-qrcode/g99-review-qrcode.component';
 import { G99ReviewSettingsComponent } from './components/g99-review-settings/g99-review-settings.component';
 import { FormsModule } from '@angular/forms';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NgPrimeModule,
     FormsModule,
     SharedModule,
-    NgxQRCodeModule
+    QRCodeModule
   ]
 })
 export class FiveStarReviewModule {}

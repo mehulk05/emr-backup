@@ -20,9 +20,8 @@
                 <div class="col-lg-9 col-sm-12">
                     <canvas style="padding-left: 15px;padding-right: 15px;" baseChart width="200" height="100"
                         [datasets]="LeadsDataLineChart.lineChartData" [labels]="LeadsDataLineChart.lineChartLabels"
-                        [options]="SplineDataChart.splineChartOptions" [colors]="SplineDataChart.splineChartColors"
-                        [legend]="SplineDataChart.splineChartLegend"
-                        [chartType]="SplineDataChart.splineChartType"></canvas>
+                        [options]="SplineDataChart.splineChartOptions" [legend]="SplineDataChart.splineChartLegend"
+                        [type]="SplineDataChart.splineChartType"></canvas>
                 </div>
                 <div class="col-lg-3 col-sm-12 d-flex flex-row align-items-start">
 
@@ -72,11 +71,9 @@
                             </div>
                             <canvas style="height: 280px; width: 300px;" #mycanvas baseChart
                                 [data]="LeadBStatusPieChart.pieChartPercentageVal"
-                                [labels]="LeadBStatusPieChart.pieChartLabels"
-                                [type]="LeadBStatusPieChart.pieChartType"
+                                [labels]="LeadBStatusPieChart.pieChartLabels" [type]="LeadBStatusPieChart.pieChartType"
                                 [options]="LeadBStatusPieChart.pieChartOptions"
                                 [plugins]="LeadBStatusPieChart.pieChartPlugins"
-                                [colors]="LeadBStatusPieChart.pieChartColors"
                                 [legend]="LeadBStatusPieChart.pieChartLegend">
                             </canvas>
                         </div>
@@ -149,7 +146,6 @@
                                             [labels]="LeadByTagLineChart.lineChartLabels"
                                             [type]="LeadByTagLineChart.lineChartType"
                                             [options]="LeadByTagLineChart.lineChartOptions"
-                                            [colors]="LeadByTagLineChart.lineChartColors"
                                             [legend]="LeadByTagLineChart.lineChartLegend">
                                         </canvas>
                                     </div>
@@ -201,7 +197,6 @@
                                 [labels]="LeadsBYLandingPageLineChart.lineChartLabels"
                                 [type]="LeadsBYLandingPageLineChart.lineChartType"
                                 [options]="LeadsBYLandingPageLineChart.lineChartOptions"
-                                [colors]="LeadsBYLandingPageLineChart.lineChartColors"
                                 [legend]="LeadsBYLandingPageLineChart.lineChartLegend">
                             </canvas>
                         </div>
@@ -210,7 +205,4 @@
             </div>
         </div>
     </div>
-
-
-
 </div>

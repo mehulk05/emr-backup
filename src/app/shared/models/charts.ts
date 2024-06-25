@@ -35,16 +35,7 @@ export interface ILineChart {
 
 export class LineChart implements ILineChart {
   lineChartColors: any = [
-    {
-      // grey
-      backgroundColor: '#2656C9',
-      borderColor: '#2656C9',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      borderWidth: 3
-    }
+   
   ];
   lineChartOptions: any = {
     layout: {
@@ -81,7 +72,19 @@ export class LineChart implements ILineChart {
     animation: {
       animateScale: true,
       animateRotate: true
-    }
+    },
+    lineChartColors: [
+      {
+        // grey
+        backgroundColor: '#2656C9',
+        borderColor: '#2656C9',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        borderWidth: 3
+      }
+    ]
   };
 
   lineChartLabels: any = [];
@@ -105,7 +108,7 @@ export class DoghnutChat implements IDoghnut {
   pieChartPlugins: [] = [];
   pieChartLegend: boolean = true;
   pieChartType: any = 'doughnut';
-  pieChartData = [0, 0, 0, 0, 0, 0];
+  pieChartData: any = [0, 0, 0, 0, 0, 0];
   pieChartPercentageVal: any = [0, 0, 0, 0, 0, 0];
   pieChartLabels: any = [];
   pieChartOptions: any = {
@@ -113,6 +116,18 @@ export class DoghnutChat implements IDoghnut {
     legend: {
       display: false
     },
+    pieChartColors: [
+      {
+        backgroundColor: [
+          'rgb(144, 238, 144)',
+          '#ADD8E6',
+          '#ffff80',
+          '#e0eafc',
+          '#f0b961',
+          'black'
+        ]
+      }
+    ],
     responsive: true,
     maintainAspectRatio: false,
     tooltips: {
@@ -169,7 +184,17 @@ export class SplineChart {
     legend: {
       display: false
     },
-    responsive: true
+    responsive: true,
+    LineChartColors: [
+      {
+        backgroundColor: '#f0f2fa',
+        borderColor: '#2a52f5',
+        pointBackgroundColor: '#2a52f5',
+        pointBorderColor: 'green',
+        pointHoverBackgroundColor: 'pink',
+        pointHoverBorderColor: 'yellow'
+      }
+    ]
   };
   public splineChartColors: Array<any> = [
     {

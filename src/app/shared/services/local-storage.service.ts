@@ -1,19 +1,24 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import * as localforage from 'localforage';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
-    localforage.config({
-      driver: [
-        localforage.INDEXEDDB,
-        localforage.WEBSQL,
-        localforage.LOCALSTORAGE
-      ],
-      storeName: 'emr',
-      name: 'emr'
-    });
+    if (typeof localforage.config === 'function') {
+      localforage.config({
+        driver: [
+          localforage.INDEXEDDB,
+          localforage.WEBSQL,
+          localforage.LOCALSTORAGE
+        ],
+        storeName: 'emr',
+        name: 'emr'
+      });
+    } else {
+      console.error('localforage.config is not a function');
+    }
   }
 
   storeItem(key: string, value: any) {
@@ -43,19 +48,17 @@ export class LocalStorageService {
     localStorage.clear();
   }
 
-  // store particular key details
   setDataInIndexedDB(key: string, value: any) {
     return localforage
       .setItem(key, JSON.stringify(value))
       .then(() => {
-        //do something
+        // do something
       })
       .catch(() => {
-        //do something
+        // do something
       });
   }
 
-  // fetch particular key details
   async getDataFromIndexedDB(key: string) {
     return new Promise((resolve, reject) => {
       localforage
@@ -69,7 +72,6 @@ export class LocalStorageService {
     });
   }
 
-  // For Remove Particular Field/Key
   removeDataFromIndexedDB(key: string) {
     return new Promise((resolve, reject) => {
       localforage
@@ -84,7 +86,6 @@ export class LocalStorageService {
     });
   }
 
-  // Database has been entirely deleted.
   clearDataFromIndexedDB() {
     return localforage.clear();
   }

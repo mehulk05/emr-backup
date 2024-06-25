@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-// @ts-ignore
-import * as oboe from 'oboe';
 import { environment } from 'src/environments/environment';
 import { ApiService } from './api.service';
 import { HttpHelperService } from './HttpHelperService';
+import oboe from 'oboe';
 
 @Injectable({
   providedIn: 'root'

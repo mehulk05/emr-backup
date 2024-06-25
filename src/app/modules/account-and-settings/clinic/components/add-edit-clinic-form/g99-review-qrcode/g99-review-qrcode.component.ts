@@ -1,13 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  NgxQrcodeElementTypes,
-  NgxQrcodeErrorCorrectionLevels
-} from '@techiediaries/ngx-qrcode';
 import { ClinicService } from '../../../services/clinic.service';
 import { environment } from 'src/environments/environment';
 import { ToasTMessageService } from 'src/app/shared/services/toast-message.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { AuthService } from 'src/app/modules/authentication/services/auth.service';
+import { QRCodeElementType, QRCodeErrorCorrectionLevel } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-g99-review-qrcode',
@@ -18,8 +15,8 @@ export class G99ReviewQrCodeComponent implements OnInit {
   @Input() clinicData: any;
   @Input() clinicId: any;
   name = 'Angular QR';
-  elementType = NgxQrcodeElementTypes.IMG;
-  correctionLevel = NgxQrcodeErrorCorrectionLevels.MEDIUM;
+  elementType: QRCodeElementType = "img";
+  correctionLevel: QRCodeErrorCorrectionLevel = "M";
   clinicReviewData: any;
   g99ReviewLandingPage: any;
   businessData: any;

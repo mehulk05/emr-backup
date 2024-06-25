@@ -10,8 +10,8 @@ import { PublicG99ClinicReviewReportPageComponent } from './components/public-g9
 import { G99ReportReviewItemComponent } from './components/g99-report-review-item/g99-report-review-item.component';
 import { SharedModule } from '../../shared/shared.module';
 import { PublicDynamicFormPageComponent } from './components/public-dynamic-form-page/public-dynamic-form-page.component';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 @NgModule({
   declarations: [
@@ -27,8 +27,8 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     PublicAccessibleRoutingModule,
     NgPrimeModule,
     SharedModule,
-    GooglePlaceModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    MatGoogleMapsAutocompleteModule
   ]
 })
 export class PublicAccessibleModule {}

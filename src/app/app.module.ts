@@ -15,6 +15,7 @@ import { GeneralAppInfoState } from './shared/store-management/store/general-sta
 import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
+import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
 
 export const APP_NGXS_CONFIG: NgxsModuleOptions = {
   developmentMode: !environment.production,
@@ -41,7 +42,8 @@ export const APP_NGXS_CONFIG: NgxsModuleOptions = {
     ToastrModule.forRoot(),
     NgxsModule.forRoot([GeneralAppInfoState], APP_NGXS_CONFIG),
     // DataTablesModule.forRoot()
-    NgChartsModule
+    NgChartsModule,
+    MatGoogleMapsAutocompleteModule.forRoot('AIzaSyB7-oBgNGUxBS4vy4XTwaEFbSIZiLOGUoY')
   ],
   providers: [
     {

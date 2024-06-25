@@ -11,7 +11,7 @@ import { LoginFromOldUIComponent } from './components/login-from-old-ui/login-fr
 import { SelectBusinessComponent } from './components/select-business/select-business.component';
 import { NgPrimeModule } from '../ng-prime/ng-prime.module';
 import { SharedModule } from '../../shared/shared.module';
-// import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 @NgModule({
   declarations: [
@@ -28,9 +28,9 @@ import { SharedModule } from '../../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     AuthenticationRoutingModule,
-    // GooglePlaceModule,
     SharedModule,
-    NgPrimeModule
+    NgPrimeModule,
+    MatGoogleMapsAutocompleteModule
   ]
 })
 export class AuthenticationModule {}

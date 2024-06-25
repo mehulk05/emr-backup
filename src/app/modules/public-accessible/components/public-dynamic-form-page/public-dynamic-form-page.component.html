@@ -91,7 +91,7 @@
             <div class="input-wrapper">
               <input *ngIf="currentQuestion.questionType === 'Address'" type="text" class="user-input-box"
                 placeholder="Type your answer here..." formControlName="formControl" autofocus
-                ngx-google-places-autocomplete #placesRef="ngx-places" [options]="addressOptionCountry"
+                 matGoogleMapsAutocomplete [country]="addressOptionCountry"
                 (onAddressChange)="handleAddressChange($event)" />
               <input *ngIf="currentQuestion.questionType === 'Input'" type="text" class="user-input-box"
                 placeholder="Type your answer here..." formControlName="formControl" autofocus />

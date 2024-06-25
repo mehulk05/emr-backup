@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { NgPrimeModule } from '../../ng-prime/ng-prime.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ClinicDetailComponent } from './components/add-edit-clinic-form/clinic-detail/clinic-detail.component';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { ClinicBusinessHourComponent } from './components/add-edit-clinic-form/clinic-detail/clinic-business-hour/clinic-business-hour.component';
 import { ClinicConfigComponent } from './components/add-edit-clinic-form/clinic-config/clinic-config.component';
 import { ClinicReviewConfigComponent } from './components/add-edit-clinic-form/clinic-review-config/clinic-review-config.component';
@@ -20,7 +19,8 @@ import { G99ClinicReviewsEditComponent } from './components/add-edit-clinic-form
 import { G99ReviewItemComponent } from './components/add-edit-clinic-form/g99-review-item/g99-review-item.component';
 import { G99ClinicReviewsAddComponent } from './components/add-edit-clinic-form/g99-clinic-reviews-add-edit/g99-clinic-reviews-add/g99-clinic-reviews-add.component';
 import { G99ReviewQrCodeComponent } from './components/add-edit-clinic-form/g99-review-qrcode/g99-review-qrcode.component';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { QRCodeModule } from 'angularx-qrcode';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 @NgModule({
   declarations: [
@@ -46,8 +46,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     FormsModule,
     NgPrimeModule,
     SharedModule,
-    GooglePlaceModule,
-    NgxQRCodeModule
-  ]
+    QRCodeModule,
+    MatGoogleMapsAutocompleteModule  ]
 })
 export class ClinicModule {}

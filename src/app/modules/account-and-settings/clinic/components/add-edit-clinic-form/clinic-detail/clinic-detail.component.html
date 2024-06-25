@@ -56,7 +56,7 @@
               [ngClass]="f.address.invalid && ((f.address.dirty || f.address.touched))?'has-error':''">
               <label>Address<span class="error-red">*</span></label>
               <input type="text" class="form-control input-type2" formControlName="address"
-                ngx-google-places-autocomplete [options]='addressOptionCountry' #placesRef="ngx-places"
+              matGoogleMapsAutocomplete [country]='addressOptionCountry'
                 (onAddressChange)="handleAddressChange($event)" appErrorStylingDirective>
               <div class="error error-msg">
                 <div *ngIf="f.address.errors?.required">
